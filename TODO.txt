@@ -1,0 +1,6 @@
+Version de base :
+- Définition basique des classes (château,royaume,troupes) [DOING]
+- Graphisme (faire des formes pour chaque objet du jeu) [TODO]
+- Interractions utilisateur [TODO]
+- Sauvegarde [TODO]
+- Intelligence artificielle [TODO]
