@@ -3,13 +3,11 @@ package royaume;
 import java.util.ArrayList;
 import java.util.Random;
 
-import troupes.*;
-
 public class Chateau {
 	Random rdm = new Random();
 	
-	private String duc = null;
-	private boolean neutre = false;
+	private String duc = "neutre";
+	private boolean neutre = true;
 	private int tresor;
 	private int niveau;
 	/* Si j'ai bien compris c'est une liste pour chaque type de troupe
@@ -28,8 +26,9 @@ public class Chateau {
 	
 	/* Chateau Duc */
 	public Chateau(String duc, int tresor, ArrayList<Piquier> piquiers, ArrayList<Chevalier> chevaliers,
-			ArrayList<Onagre> onagres, String porte) {
+			ArrayList<Onagre> onagres, String porte, int x, int y) {
 		this.duc = duc;
+		this.neutre = false;
 		this.tresor = tresor;
 		this.niveau = 1;
 		this.piquiers = piquiers;
@@ -39,14 +38,13 @@ public class Chateau {
 		this.ordre_deplacement = null;
 		this.porte = porte;
 		
-		pos_x = rdm.nextInt(10);
-		pos_y = rdm.nextInt(10);
+		pos_x = x;
+		pos_y = y;
 	}
 	
 	/* Chateau Neutre (pas de duc) */
 	public Chateau(int tresor, ArrayList<Piquier> piquiers, ArrayList<Chevalier> chevaliers,
-			ArrayList<Onagre> onagres, String porte) {
-		this.neutre = true;
+			ArrayList<Onagre> onagres, String porte, int x, int y) {
 		this.tresor = tresor;
 		this.niveau = 1;
 		this.piquiers = piquiers;
@@ -56,8 +54,8 @@ public class Chateau {
 		this.ordre_deplacement = null;
 		this.porte = porte;
 		
-		pos_x = rdm.nextInt(10);
-		pos_y = rdm.nextInt(10);
+		pos_x = x;
+		pos_y = y;
 	}
 	
 	
@@ -94,13 +92,13 @@ public class Chateau {
 			niveau++;
 			break;
 		case "piquier":
-			piquiers.add(new Piquier());
+			piquiers.add(new Piquier(duc));
 			break;
 		case "chevalier":
-			chevaliers.add(new Chevalier());
+			chevaliers.add(new Chevalier(duc));
 			break;
 		default :
-			onagres.add(new Onagre());
+			onagres.add(new Onagre(duc));
 			break;
 		}
 		production = null;
@@ -115,7 +113,9 @@ public class Chateau {
 		return Math.abs(c.getPos_y() - pos_y) + Math.abs(c.getPos_x() - pos_x);
 	}
 	
-	
+	public int distance(int x, int y) {
+		return Math.abs(y - pos_y) + Math.abs(x - pos_x);
+	}
 	
 	
 	
@@ -129,7 +129,10 @@ public class Chateau {
 	public String getDuc() {
 		return duc;
 	}
-
+	
+	public boolean getNeutr() {
+		return neutre;
+	}
 
 	public int getTresor() {
 		return tresor;
