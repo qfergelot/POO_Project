@@ -1,10 +1,15 @@
 package royaume;
 
 import java.util.ArrayList;
+import java.util.Random;
+
 import troupes.*;
 
 public class Chateau {
-	private String duc;
+	Random rdm = new Random();
+	
+	private String duc = null;
+	private boolean neutre = false;
 	private int tresor;
 	private int niveau;
 	/* Si j'ai bien compris c'est une liste pour chaque type de troupe
@@ -18,6 +23,10 @@ public class Chateau {
 	private Ordre ordre_deplacement;
 	private String porte; //"gauche"/"haut"/"droite"/"bas"
 	
+	private int pos_x;
+	private int pos_y;
+	
+	/* Chateau Duc */
 	public Chateau(String duc, int tresor, ArrayList<Piquier> piquiers, ArrayList<Chevalier> chevaliers,
 			ArrayList<Onagre> onagres, String porte) {
 		this.duc = duc;
@@ -29,8 +38,30 @@ public class Chateau {
 		this.production = null;
 		this.ordre_deplacement = null;
 		this.porte = porte;
+		
+		pos_x = rdm.nextInt(10);
+		pos_y = rdm.nextInt(10);
 	}
 	
+	/* Chateau Neutre (pas de duc) */
+	public Chateau(int tresor, ArrayList<Piquier> piquiers, ArrayList<Chevalier> chevaliers,
+			ArrayList<Onagre> onagres, String porte) {
+		this.neutre = true;
+		this.tresor = tresor;
+		this.niveau = 1;
+		this.piquiers = piquiers;
+		this.chevaliers = chevaliers;
+		this.onagres = onagres;
+		this.production = null;
+		this.ordre_deplacement = null;
+		this.porte = porte;
+		
+		pos_x = rdm.nextInt(10);
+		pos_y = rdm.nextInt(10);
+	}
+	
+	
+	/* * * * * * * * DEBUT : Fonctions Production * * * * * * * */
 	public void lancerProduction(String unite) {
 		int nbTours;
 		switch(unite) {
@@ -54,6 +85,9 @@ public class Chateau {
 		return production != null;
 	}
 
+	/*
+	 * Executer quand production.finProduction() == true
+	 */
 	public void terminerProduction() {
 		switch(production.getUnite()) {
 		case "amelioration":
@@ -71,5 +105,79 @@ public class Chateau {
 		}
 		production = null;
 	}
+	/* * * * * * * * FIN : Fonctions Production * * * * * * * */
 	
+	public int distance(Chateau c) {
+		if (c.getPos_x() == pos_x && c.getPos_y() == pos_y) {
+			System.err.println("Erreur : Deux chateaux ne peuvent être sur la même position.");
+			return 0;
+		}
+		return Math.abs(c.getPos_y() - pos_y) + Math.abs(c.getPos_x() - pos_x);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	/* * * * * * * * DEBUT : Getters/Setters * * * * * * * */
+	public String getDuc() {
+		return duc;
+	}
+
+
+	public int getTresor() {
+		return tresor;
+	}
+
+
+	public int getNiveau() {
+		return niveau;
+	}
+
+
+	public ArrayList<Piquier> getPiquiers() {
+		return piquiers;
+	}
+
+
+	public ArrayList<Chevalier> getChevaliers() {
+		return chevaliers;
+	}
+
+
+	public ArrayList<Onagre> getOnagres() {
+		return onagres;
+	}
+
+
+	public Production getProduction() {
+		return production;
+	}
+
+
+	public Ordre getOrdre_deplacement() {
+		return ordre_deplacement;
+	}
+
+
+	public String getPorte() {
+		return porte;
+	}
+
+
+	public int getPos_x() {
+		return pos_x;
+	}
+
+
+	public int getPos_y() {
+		return pos_y;
+	}
+	/* * * * * * * * FIN : Getters/Setters * * * * * * * */
 }

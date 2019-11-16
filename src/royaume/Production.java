@@ -17,10 +17,16 @@ public class Production {
 		return nbTours;
 	}
 	
+	/*
+	 * Fin de production, il faut produire l'unite
+	 */
 	public boolean finProduction() {
 		return nbTours == 0;
 	}
 	
+	/*
+	 * A executer à chaque fin de tour
+	 */
 	public void finTourProduction() {
 		nbTours--;
 	}
