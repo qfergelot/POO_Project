@@ -105,6 +105,46 @@ public class Chateau {
 	}
 	/* * * * * * * * FIN : Fonctions Production * * * * * * * */
 	
+	/* * * * * * * * DEBUT : Fonctions Ordre * * * * * * * */
+	/* true si l'odre a été lancé
+	 * false si le nombre de troupes est insuffisant
+	 */
+	public boolean creerOrdre(Chateau cible, int []id, int nbPiquiers, int nbChevaliers, int nbOnagres) {
+		if(piquiers.size()<nbPiquiers || chevaliers.size()<nbChevaliers || onagres.size()<nbOnagres) {
+			return false;
+		}
+		ordre_deplacement = new Ordre(cible, id, nbPiquiers, nbChevaliers, nbOnagres);
+		return false;
+	}
+	
+	public void sortirTroupesOrdre(Ost ost) {
+		int stop = (ordre_deplacement.getNbTroupes()>=3? 3 : ordre_deplacement.getNbTroupes());
+		for(int i=0; i<stop; i++) {
+			if(ordre_deplacement.getNbOnagres()>0) {
+				ost.ajouterOnagre(duc);
+				ordre_deplacement.sortirOnagre();
+			}
+			else if(ordre_deplacement.getNbPiquiers()>0) {
+				ost.ajouterPiquier(duc);
+				ordre_deplacement.sortirPiquier();
+			}
+			else {
+				ost.ajouterChevalier(duc);
+				ordre_deplacement.sortirChevalier();
+			}
+		}
+		if(ordre_deplacement.getNbTroupes()==0) {
+			ordre_deplacement = null;
+		}
+		
+	}
+	
+	public boolean ordre() {
+		return ordre_deplacement != null;
+	}
+		
+	/* * * * * * * * FIN : Fonctions Ordre * * * * * * * */
+	
 	public int distance(Chateau c) {
 		if (c.getPos_x() == pos_x && c.getPos_y() == pos_y) {
 			System.err.println("Erreur : Deux chateaux ne peuvent être sur la même position.");
@@ -117,7 +157,16 @@ public class Chateau {
 		return Math.abs(y - pos_y) + Math.abs(x - pos_x);
 	}
 	
-	
+	public void finTourChateau() {
+		if(!neutre) {
+			if(enProduction()) {
+				production.finTourProduction();
+				if(production.finProduction()) {
+					terminerProduction();
+				}
+			}
+		}
+	}
 	
 	
 	

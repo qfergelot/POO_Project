@@ -1,20 +1,20 @@
 package royaume;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 public class Royaume {
 	private Random rdm = new Random();
 	/* A clarifier:
-	 * qu'es-ce qu'une zone ? Les chateaux doivent-ils avoir des coordonnées en paramètres ?
-	 * faut-il rajouter un booléen pour si un chateau est neutre ou pas ?
-	 * un chateau non neutre veut dire que le duc est soit un joueur soit une IA ?
+	 * Comment on attaque un chateau ? On se pose une case devant ? Forcément devant sa porte ?
+	 * Il faut rentrer dans le chateau ?
 	 */
 	private Chateau []chateaux;
 	private int nbChateaux;
 	
 	private String []nomJoueurs;
-	private int nbJoueurs;
+	private int nbJoueurs; //Normalement restera 1 ou 0
 	private int nbIA; //Pour plus tard
 	private int niveauIA; //Pour plus tard
 	
@@ -22,7 +22,7 @@ public class Royaume {
 	private int longueur;
 	private int hauteur;
 	
-	private ArrayList<Troupe> troupes;
+	private HashMap<int[], Ost> ost;
 	
 	public Royaume(int nbJoueurs, int nbIA, int niveauIA, int longueur_plateau, int hauteur_plateau,
 			int dist_min_chateaux, int nbChateauxNeutres, int nbPiquiers_init, int nbChevaliers_init, int nbOnagres_init) {
@@ -37,7 +37,7 @@ public class Royaume {
 		chateaux = new Chateau[nbJoueurs+nbIA+nbChateauxNeutres];
 		nomJoueurs = new String[nbJoueurs+nbIA];
 		
-		troupes = new ArrayList<Troupe>();
+		ost = new HashMap<int[], Ost>();
 
 		/*Définition basique de nom à améliorer*/
 		for(int i=0; i<(nbJoueurs+nbIA); i++) {
@@ -110,6 +110,39 @@ public class Royaume {
 		}
 		return libre;		
 	}
+	
+	public void creerOrdre(Chateau c, Chateau cible, int nbPiquiers, int nbChevaliers, int nbOnagres) {
+		int id[] = new int[1];
+		do{
+			id[0] = rdm.nextInt(1000);
+		} while(ost.containsKey(id));
+		
+		ost.put(id, new Ost(cible));
+		c.creerOrdre(cible, id, nbPiquiers, nbChevaliers, nbOnagres);
+	}
+		
+	private void executerOrdre(Chateau c) {
+		if(c.ordre()) {
+			c.sortirTroupesOrdre(ost.get(c.getOrdre_deplacement().getId()));
+		}
+	}
+	
+	private void executerOst(Ost ost) {
+		//TODO
+	}
+	
+	public void finTour() {
+		for(int i=0; i<nbChateaux; i++) {
+			chateaux[i].finTourChateau();
+			executerOrdre(chateaux[i]);
+		}
+		for(int i=0; i<ost.size(); i++) {
+			//executerOst(ost.get(key));
+			//TODO
+		}
+	}
+	
+	
 	
 	/* * * * * * * * DEBUT : Getters/Setters * * * * * * * */
 	public Chateau getChateau(int i) {

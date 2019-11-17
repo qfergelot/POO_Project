@@ -6,6 +6,5 @@ public class Piquier extends Troupe {
 		super(100, 5, 2, 1, 1, duc);
 	}
 	
-	
 
 }
