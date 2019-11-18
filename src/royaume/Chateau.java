@@ -21,6 +21,7 @@ public class Chateau {
 	 * Peut être définir une classe reserve pour les troupes*/
 	private Production production;
 	private Ordre ordreDeplacement;
+	private Ost ost;
 	private Porte porte; //"gauche"/"haut"/"droite"/"bas"
 	
 	private int pos_x;
@@ -38,6 +39,7 @@ public class Chateau {
 		this.onagres = onagres;
 		this.production = null;
 		this.ordreDeplacement = null;
+		this.ost = null;
 		this.porte = new Porte();
 		
 		pos_x = x;
@@ -115,16 +117,18 @@ public class Chateau {
 	/* true si l'odre a été lancé
 	 * false si le nombre de troupes est insuffisant
 	 */
-	public boolean creerOrdre(Chateau cible, int []id, int nbPiquiers, int nbChevaliers, int nbOnagres) {
+	public boolean creerOrdre(Ost ost, Chateau cible, int nbPiquiers, int nbChevaliers, int nbOnagres) {
 		if(piquiers.size()<nbPiquiers || chevaliers.size()<nbChevaliers || onagres.size()<nbOnagres) {
 			return false;
 		}
-		ordreDeplacement = new Ordre(cible, id, nbPiquiers, nbChevaliers, nbOnagres);
+		this.ost = ost;
+		ordreDeplacement = new Ordre(cible, nbPiquiers, nbChevaliers, nbOnagres);
 		return true;
 	}
 	
-	public void sortirTroupesOrdre(Ost ost) {
+	public void sortirTroupesOrdre() {
 		int stop = (ordreDeplacement.getNbTroupes()>=3? 3 : ordreDeplacement.getNbTroupes());
+		if(ost == null) return;
 		for(int i=0; i<stop; i++) {
 			if(ordreDeplacement.getNbOnagres()>0) {
 				ost.ajouterOnagre();
@@ -142,8 +146,8 @@ public class Chateau {
 		if(ordreDeplacement.getNbTroupes()==0) {
 			ordreDeplacement = null;
 			ost.setAuComplet();
+			ost = null;
 		}
-		
 	}
 	
 	public boolean ordre() {
@@ -171,6 +175,9 @@ public class Chateau {
 				if(production.finProduction()) {
 					terminerProduction();
 				}
+			}
+			if(ordre()) {
+				sortirTroupesOrdre();
 			}
 		}
 	}
@@ -223,7 +230,10 @@ public class Chateau {
 	public Ordre getOrdreDeplacement() {
 		return ordreDeplacement;
 	}
-
+	
+	public Ost getOst() {
+		return ost;
+	}
 
 	public char getPorte() {
 		return porte.getPorte();

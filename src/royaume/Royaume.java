@@ -24,7 +24,7 @@ public class Royaume {
 	private int longueur;
 	private int hauteur;
 	
-	private HashMap<int[], Ost> ost;
+	private ArrayList<Ost> ost;
 	
 	public Royaume(int nbJoueurs, int nbIA, int niveauIA, int longueur_plateau, int hauteur_plateau,
 			int dist_min_chateaux, int nbChateauxNeutres, int nbPiquiers_init, int nbChevaliers_init, int nbOnagres_init) {
@@ -39,7 +39,7 @@ public class Royaume {
 		chateaux = new Chateau[nbJoueurs+nbIA+nbChateauxNeutres];
 		nomJoueurs = new String[nbJoueurs+nbIA];
 		
-		ost = new HashMap<int[], Ost>();
+		ost = new ArrayList<Ost>();
 
 		/*Définition basique de nom à améliorer*/
 		for(int i=0; i<(nbJoueurs+nbIA); i++) {
@@ -103,33 +103,27 @@ public class Royaume {
 	}
 	
 	public void creerOrdre(Chateau c, Chateau cible, int nbPiquiers, int nbChevaliers, int nbOnagres) {
-		int id[] = new int[1];
-		do{
-			id[0] = rdm.nextInt(1000);
-		} while(ost.containsKey(id));
-		
-		ost.put(id, new Ost(c.getDuc(), cible));
-		c.creerOrdre(cible, id, nbPiquiers, nbChevaliers, nbOnagres);
-	}
-		
-	private void executerOrdre(Chateau c) {
 		if(c.ordre()) {
-			c.sortirTroupesOrdre(ost.get(c.getOrdreDeplacement().getId()));
+			//Déjà un ordre en cours
+		}
+		else {
+			c.creerOrdre(new Ost(c.getDuc(), cible),cible, nbPiquiers, nbChevaliers, nbOnagres);
+			ost.add(c.getOst());
 		}
 	}
 	
 	private void executerOst(Ost ost) {
-		//TODO
+		if(ost.auComplet()) {
+			//ost.tourOst();
+		}
 	}
 	
 	public void finTour() {
 		for(int i=0; i<nbChateaux; i++) {
 			chateaux[i].finTourChateau();
-			executerOrdre(chateaux[i]);
 		}
 		for(int i=0; i<ost.size(); i++) {
-			//executerOst(ost.get(key));
-			//TODO
+			executerOst(ost.get(i));
 		}
 	}
 	
