@@ -25,6 +25,10 @@ public class Main extends Application {
 	
 	
 	Group root;
+	
+	public static void main(String[] args) {
+		launch(args);
+	}
 		
 	@Override
 	public void start(Stage primaryStage) {
@@ -41,8 +45,6 @@ public class Main extends Application {
 		pas = (int)SCENE_WIDTH/(royaume.getLongueur());
 
 		initRoyaume();
-
-
 	}
 	
 	private void initRoyaume() {
