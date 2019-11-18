@@ -1,7 +1,6 @@
 package troupes;
 
 public class Troupe {
-	private String duc;
 	
 	private int coutProduction;
 	private int tempsProduction;
@@ -9,13 +8,12 @@ public class Troupe {
 	private int vie;
 	private int degats;
 	
-	public Troupe(int coutProduction, int tempsProduction, int vitesse, int vie, int degats, String duc) {
+	public Troupe(int coutProduction, int tempsProduction, int vitesse, int vie, int degats) {
 		this.coutProduction = coutProduction;
 		this.tempsProduction = tempsProduction;
 		this.vitesse = vitesse;
 		this.vie = vie;
 		this.degats = degats;
-		this.duc = duc;
 	}
 	
 	public int getCoutProduction() {

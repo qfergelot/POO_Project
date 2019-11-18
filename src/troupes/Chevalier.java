@@ -2,8 +2,8 @@ package troupes;
 //nom duc
 public class Chevalier extends Troupe {
 
-	public Chevalier(String duc) {
-		super(500, 20, 6, 3, 5, duc);
+	public Chevalier() {
+		super(500, 20, 6, 3, 5);
 	}
 
 }

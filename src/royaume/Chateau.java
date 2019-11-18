@@ -20,7 +20,7 @@ public class Chateau {
 	/* Pas compris le compteur de dégats à voir plus tard 
 	 * Peut être définir une classe reserve pour les troupes*/
 	private Production production;
-	private Ordre ordre_deplacement;
+	private Ordre ordreDeplacement;
 	private Porte porte; //"gauche"/"haut"/"droite"/"bas"
 	
 	private int pos_x;
@@ -37,7 +37,7 @@ public class Chateau {
 		this.chevaliers = chevaliers;
 		this.onagres = onagres;
 		this.production = null;
-		this.ordre_deplacement = null;
+		this.ordreDeplacement = null;
 		this.porte = new Porte();
 		
 		pos_x = x;
@@ -53,7 +53,7 @@ public class Chateau {
 		this.chevaliers = chevaliers;
 		this.onagres = onagres;
 		this.production = null;
-		this.ordre_deplacement = null;
+		this.ordreDeplacement = null;
 		this.porte = new Porte();
 		
 		pos_x = x;
@@ -100,11 +100,11 @@ public class Chateau {
 		else {
 			Troupe t = production.getUnite();
 			if(t.getClass() == Piquier.class)
-				piquiers.add(new Piquier(duc));
+				piquiers.add(new Piquier());
 			else if(t.getClass() == Chevalier.class)
-				chevaliers.add(new Chevalier(duc));
+				chevaliers.add(new Chevalier());
 			else
-				onagres.add(new Onagre(duc));
+				onagres.add(new Onagre());
 		}
 		production = null;
 			
@@ -119,34 +119,35 @@ public class Chateau {
 		if(piquiers.size()<nbPiquiers || chevaliers.size()<nbChevaliers || onagres.size()<nbOnagres) {
 			return false;
 		}
-		ordre_deplacement = new Ordre(cible, id, nbPiquiers, nbChevaliers, nbOnagres);
-		return false;
+		ordreDeplacement = new Ordre(cible, id, nbPiquiers, nbChevaliers, nbOnagres);
+		return true;
 	}
 	
 	public void sortirTroupesOrdre(Ost ost) {
-		int stop = (ordre_deplacement.getNbTroupes()>=3? 3 : ordre_deplacement.getNbTroupes());
+		int stop = (ordreDeplacement.getNbTroupes()>=3? 3 : ordreDeplacement.getNbTroupes());
 		for(int i=0; i<stop; i++) {
-			if(ordre_deplacement.getNbOnagres()>0) {
-				ost.ajouterOnagre(duc);
-				ordre_deplacement.sortirOnagre();
+			if(ordreDeplacement.getNbOnagres()>0) {
+				ost.ajouterOnagre();
+				ordreDeplacement.sortirOnagre();
 			}
-			else if(ordre_deplacement.getNbPiquiers()>0) {
-				ost.ajouterPiquier(duc);
-				ordre_deplacement.sortirPiquier();
+			else if(ordreDeplacement.getNbPiquiers()>0) {
+				ost.ajouterPiquier();
+				ordreDeplacement.sortirPiquier();
 			}
 			else {
-				ost.ajouterChevalier(duc);
-				ordre_deplacement.sortirChevalier();
+				ost.ajouterChevalier();
+				ordreDeplacement.sortirChevalier();
 			}
 		}
-		if(ordre_deplacement.getNbTroupes()==0) {
-			ordre_deplacement = null;
+		if(ordreDeplacement.getNbTroupes()==0) {
+			ordreDeplacement = null;
+			ost.setAuComplet();
 		}
 		
 	}
 	
 	public boolean ordre() {
-		return ordre_deplacement != null;
+		return ordreDeplacement != null;
 	}
 		
 	/* * * * * * * * FIN : Fonctions Ordre * * * * * * * */
@@ -219,8 +220,8 @@ public class Chateau {
 	}
 
 
-	public Ordre getOrdre_deplacement() {
-		return ordre_deplacement;
+	public Ordre getOrdreDeplacement() {
+		return ordreDeplacement;
 	}
 
 

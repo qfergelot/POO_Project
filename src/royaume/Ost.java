@@ -2,28 +2,25 @@ package royaume;
 
 import java.util.ArrayList;
 
-import troupes.Chevalier;
-import troupes.Onagre;
-import troupes.Piquier;
+import troupes.*;
 
 public class Ost {
+	private String duc;
+	
 	private Chateau cible;
 	private int nbTroupes = 0;
 	
-	private ArrayList<Piquier> piquiers;
-	private ArrayList<Chevalier> chevaliers;
-	private ArrayList<Onagre> onagres;
+	private ArrayList<Troupe> troupes;
 	
 	private boolean auComplet;
 	
 	private int pos_x;
 	private int pos_y;
 	
-	public Ost(Chateau cible) {
+	public Ost(String duc, Chateau cible) {
+		this.duc = duc;
 		this.cible = cible;
-		piquiers = new ArrayList<Piquier>();
-		chevaliers = new ArrayList<Chevalier>();
-		onagres = new ArrayList<Onagre>();
+		troupes = new ArrayList<Troupe>();
 		auComplet = false;
 	}
 	
@@ -52,18 +49,18 @@ public class Ost {
 		auComplet = true;
 	}
 	
-	public void ajouterPiquier(String duc) {
-		piquiers.add(new Piquier(duc));
+	public void ajouterPiquier() {
+		troupes.add(new Piquier());
 		nbTroupes++;
 	}
 	
-	public void ajouterChevalier(String duc) {
-		chevaliers.add(new Chevalier(duc));
+	public void ajouterChevalier() {
+		troupes.add(new Chevalier());
 		nbTroupes++;
 	}
 	
-	public void ajouterOnagre(String duc) {
-		onagres.add(new Onagre(duc));
+	public void ajouterOnagre() {
+		troupes.add(new Onagre());
 		nbTroupes++;
 	}
 }

@@ -54,9 +54,9 @@ public class Royaume {
 				x = rdm.nextInt(longueur);
 				y = rdm.nextInt(hauteur);
 			}
-			chateaux[i] = new Chateau(nomJoueurs[i],0,GenererInitPiquiers(nbPiquiers_init,nomJoueurs[i]),
-					GenererInitChevaliers(nbChevaliers_init,nomJoueurs[i]),
-					GenererInitOnagres(nbOnagres_init,nomJoueurs[i]),x,y);
+			chateaux[i] = new Chateau(nomJoueurs[i],0,GenererInitPiquiers(nbPiquiers_init),
+					GenererInitChevaliers(nbChevaliers_init),
+					GenererInitOnagres(nbOnagres_init),x,y);
 		}
 		//Chateaux Neutres
 		for(int i=temp; i<nbChateaux; i++) {
@@ -66,28 +66,28 @@ public class Royaume {
 				x = rdm.nextInt(longueur);
 				y = rdm.nextInt(hauteur);
 			}
-			chateaux[i] = new Chateau(rdm.nextInt(900)+101,GenererInitPiquiers(rdm.nextInt(3)+2,"neutre"),
-					GenererInitChevaliers(rdm.nextInt(3)+1,"neutre"),
-					GenererInitOnagres(rdm.nextInt(3),"neutre"),x,y);
+			chateaux[i] = new Chateau(rdm.nextInt(900)+101,GenererInitPiquiers(rdm.nextInt(3)+2),
+					GenererInitChevaliers(rdm.nextInt(3)+1),
+					GenererInitOnagres(rdm.nextInt(3)),x,y);
 		}
 	}
 	
-	private ArrayList<Piquier> GenererInitPiquiers(int n, String duc){
+	private ArrayList<Piquier> GenererInitPiquiers(int n){
 		ArrayList<Piquier> piquiers = new ArrayList<Piquier>();
 		for(int i = 0; i < n; i++)
-			piquiers.add(new Piquier(duc));
+			piquiers.add(new Piquier());
 		return piquiers;
 	}
-	private ArrayList<Chevalier> GenererInitChevaliers(int n, String duc){
+	private ArrayList<Chevalier> GenererInitChevaliers(int n){
 		ArrayList<Chevalier> chevaliers = new ArrayList<Chevalier>();
 		for(int i = 0; i < n; i++)
-			chevaliers.add(new Chevalier(duc));
+			chevaliers.add(new Chevalier());
 		return chevaliers;
 	}
-	private ArrayList<Onagre> GenererInitOnagres(int n, String duc){
+	private ArrayList<Onagre> GenererInitOnagres(int n){
 		ArrayList<Onagre> onagres = new ArrayList<Onagre>();
 		for(int i = 0; i < n; i++)
-			onagres.add(new Onagre(duc));
+			onagres.add(new Onagre());
 		return onagres;
 	}
 	
@@ -108,13 +108,13 @@ public class Royaume {
 			id[0] = rdm.nextInt(1000);
 		} while(ost.containsKey(id));
 		
-		ost.put(id, new Ost(cible));
+		ost.put(id, new Ost(c.getDuc(), cible));
 		c.creerOrdre(cible, id, nbPiquiers, nbChevaliers, nbOnagres);
 	}
 		
 	private void executerOrdre(Chateau c) {
 		if(c.ordre()) {
-			c.sortirTroupesOrdre(ost.get(c.getOrdre_deplacement().getId()));
+			c.sortirTroupesOrdre(ost.get(c.getOrdreDeplacement().getId()));
 		}
 	}
 	
