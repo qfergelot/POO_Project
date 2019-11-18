@@ -1,16 +1,27 @@
 package royaume;
 
+import troupes.Troupe;
+
 public class Production {
-	private String unite;
+	private Troupe unite;
 	private int nbTours;
 	
-	public Production(String unite, int nbTours) {
+	public Production(int nbTours) {
+		this.unite = null;
+		this.nbTours = nbTours;
+	}
+	
+	public Production(Troupe unite, int nbTours) {
 		this.unite = unite;
 		this.nbTours = nbTours;
 	}
 	
-	public String getUnite() {
+	public Troupe getUnite() {
 		return unite;
+	}
+	
+	public boolean estAmelioration() {
+		return unite == null;
 	}
 	
 	public int getNbTours() {

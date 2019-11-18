@@ -1,5 +1,6 @@
 import royaume.*;
 import java.util.ArrayList;
+import troupes.*;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -76,3 +77,13 @@ public class Main extends Application {
 	}
 
 }
+
+// ANTISECHE QCM DE MORT
+/* boolean setX(double X)
+ * if X<0 return false
+ * sinon this.X = X return true
+ * on peut pas ! On lance une exception
+ */
+/* setX -> pas bonne coordonnée : boucle pour demander nouvelle coordonnée?
+ * Pas bien car ce n'est pas forcément un humain qui va appeler un setter
+ */

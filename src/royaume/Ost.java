@@ -2,6 +2,10 @@ package royaume;
 
 import java.util.ArrayList;
 
+import troupes.Chevalier;
+import troupes.Onagre;
+import troupes.Piquier;
+
 public class Ost {
 	private Chateau cible;
 	private int nbTroupes = 0;

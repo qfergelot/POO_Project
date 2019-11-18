@@ -3,6 +3,8 @@ package royaume;
 import java.util.ArrayList;
 import java.util.Random;
 
+import troupes.*;
+
 public class Chateau {
 	Random rdm = new Random();
 	
@@ -60,23 +62,29 @@ public class Chateau {
 	
 	
 	/* * * * * * * * DEBUT : Fonctions Production * * * * * * * */
-	public void lancerProduction(String unite) {
-		int nbTours;
-		switch(unite) {
-			case "amelioration":
-				nbTours = 100+50*niveau;
-				break;
-			case "piquier":
-				nbTours = 5;
-				break;
-			case "chevalier":
-				nbTours = 20;
-				break;
-			default :
-				nbTours = 50;
-				break;
+	public boolean lancerProduction() {
+		if(tresor < 1000*niveau) {
+			//Pas assez de florins pour l'amélioration
+			return false;
 		}
-		production = new Production(unite, nbTours);
+		else {
+			tresor = tresor - 1000*niveau;
+			production = new Production(100+50*niveau);
+			return true;
+		}
+	}
+	
+	public boolean lancerProduction(Troupe t) {
+		if(tresor < t.getCoutProduction()) {
+			// pas assez de sousous
+			return false;
+		}
+		else {
+			tresor = tresor - t.getCoutProduction();
+			production = new Production(t, t.getTempsProduction());
+			return true;
+		}
+		
 	}
 	
 	public boolean enProduction() {
@@ -87,21 +95,19 @@ public class Chateau {
 	 * Executer quand production.finProduction() == true
 	 */
 	public void terminerProduction() {
-		switch(production.getUnite()) {
-		case "amelioration":
+		if(production.estAmelioration())
 			niveau++;
-			break;
-		case "piquier":
-			piquiers.add(new Piquier(duc));
-			break;
-		case "chevalier":
-			chevaliers.add(new Chevalier(duc));
-			break;
-		default :
-			onagres.add(new Onagre(duc));
-			break;
+		else {
+			Troupe t = production.getUnite();
+			if(t.getClass() == Piquier.class)
+				piquiers.add(new Piquier(duc));
+			else if(t.getClass() == Chevalier.class)
+				chevaliers.add(new Chevalier(duc));
+			else
+				onagres.add(new Onagre(duc));
 		}
 		production = null;
+			
 	}
 	/* * * * * * * * FIN : Fonctions Production * * * * * * * */
 	

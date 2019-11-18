@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
+import troupes.*;
+
 public class Royaume {
 	private Random rdm = new Random();
 	/* A clarifier:
