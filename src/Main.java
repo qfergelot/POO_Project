@@ -13,14 +13,6 @@ import javafx.stage.Stage;
 import javafx.scene.Group;
 
 public class Main extends Application {
-	
-	final static char GAUCHE = 0;
-	final static char HAUT = 1;
-	final static char DROITE = 2;
-	final static char BAS = 3;
-	
-	private static final double SCENE_WIDTH = 400;
-    private static final double SCENE_HEIGHT = 600;
     
     private int pas;
     private Royaume royaume;
@@ -39,7 +31,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		root = new Group();
-		scene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
+		scene = new Scene(root, Constantes.SCENE_WIDTH, Constantes.SCENE_HEIGHT);
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
 		primaryStage.show();
@@ -48,7 +40,7 @@ public class Main extends Application {
 		root.getChildren().add(gameFieldLayer);
 		
 		royaume = new Royaume(4,0,0,10,10,3,8,3,2,0);
-		pas = (int)SCENE_WIDTH/(royaume.getLongueur());
+		pas = (int)Constantes.SCENE_WIDTH/(royaume.getLongueur());
 
 		initRoyaume();
 	}
@@ -68,13 +60,13 @@ public class Main extends Application {
 			ImageView img = new ImageView(new Image(getClass().getResource("/images/chateau.jpg").toExternalForm(), pas-1, pas-1, true, true));
 			img.relocate(royaume.getChateau(i).getPos_x()*pas, royaume.getChateau(i).getPos_y()*pas);
 			switch(royaume.getChateau(i).getPorte()) {
-				case GAUCHE:
+				case Constantes.GAUCHE:
 					img.setRotate(90);
 					break;
-				case HAUT:
+				case Constantes.HAUT:
 					img.setRotate(180);
 					break;
-				case DROITE:
+				case Constantes.DROITE:
 					img.setRotate(270);
 					break;
 				default:
