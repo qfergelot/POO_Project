@@ -21,14 +21,14 @@ public class Chateau {
 	 * Peut être définir une classe reserve pour les troupes*/
 	private Production production;
 	private Ordre ordre_deplacement;
-	private String porte; //"gauche"/"haut"/"droite"/"bas"
+	private Porte porte; //"gauche"/"haut"/"droite"/"bas"
 	
 	private int pos_x;
 	private int pos_y;
 	
 	/* Chateau Duc */
 	public Chateau(String duc, int tresor, ArrayList<Piquier> piquiers, ArrayList<Chevalier> chevaliers,
-			ArrayList<Onagre> onagres, String porte, int x, int y) {
+			ArrayList<Onagre> onagres, int x, int y) {
 		this.duc = duc;
 		this.neutre = false;
 		this.tresor = tresor;
@@ -38,7 +38,7 @@ public class Chateau {
 		this.onagres = onagres;
 		this.production = null;
 		this.ordre_deplacement = null;
-		this.porte = porte;
+		this.porte = new Porte();
 		
 		pos_x = x;
 		pos_y = y;
@@ -46,7 +46,7 @@ public class Chateau {
 	
 	/* Chateau Neutre (pas de duc) */
 	public Chateau(int tresor, ArrayList<Piquier> piquiers, ArrayList<Chevalier> chevaliers,
-			ArrayList<Onagre> onagres, String porte, int x, int y) {
+			ArrayList<Onagre> onagres, int x, int y) {
 		this.tresor = tresor;
 		this.niveau = 1;
 		this.piquiers = piquiers;
@@ -54,7 +54,7 @@ public class Chateau {
 		this.onagres = onagres;
 		this.production = null;
 		this.ordre_deplacement = null;
-		this.porte = porte;
+		this.porte = new Porte();
 		
 		pos_x = x;
 		pos_y = y;
@@ -224,8 +224,8 @@ public class Chateau {
 	}
 
 
-	public String getPorte() {
-		return porte;
+	public char getPorte() {
+		return porte.getPorte();
 	}
 
 

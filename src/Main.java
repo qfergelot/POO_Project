@@ -13,6 +13,12 @@ import javafx.stage.Stage;
 import javafx.scene.Group;
 
 public class Main extends Application {
+	
+	final static char GAUCHE = 0;
+	final static char HAUT = 1;
+	final static char DROITE = 2;
+	final static char BAS = 3;
+	
 	private static final double SCENE_WIDTH = 400;
     private static final double SCENE_HEIGHT = 600;
     
@@ -62,13 +68,13 @@ public class Main extends Application {
 			ImageView img = new ImageView(new Image(getClass().getResource("/images/chateau.jpg").toExternalForm(), pas-1, pas-1, true, true));
 			img.relocate(royaume.getChateau(i).getPos_x()*pas, royaume.getChateau(i).getPos_y()*pas);
 			switch(royaume.getChateau(i).getPorte()) {
-				case "gauche":
+				case GAUCHE:
 					img.setRotate(90);
 					break;
-				case "haut":
+				case HAUT:
 					img.setRotate(180);
 					break;
-				case "droite":
+				case DROITE:
 					img.setRotate(270);
 					break;
 				default:

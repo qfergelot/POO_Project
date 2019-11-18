@@ -56,7 +56,7 @@ public class Royaume {
 			}
 			chateaux[i] = new Chateau(nomJoueurs[i],0,GenererInitPiquiers(nbPiquiers_init,nomJoueurs[i]),
 					GenererInitChevaliers(nbChevaliers_init,nomJoueurs[i]),
-					GenererInitOnagres(nbOnagres_init,nomJoueurs[i]),porteAleatoire(),x,y);
+					GenererInitOnagres(nbOnagres_init,nomJoueurs[i]),x,y);
 		}
 		//Chateaux Neutres
 		for(int i=temp; i<nbChateaux; i++) {
@@ -68,7 +68,7 @@ public class Royaume {
 			}
 			chateaux[i] = new Chateau(rdm.nextInt(900)+101,GenererInitPiquiers(rdm.nextInt(3)+2,"neutre"),
 					GenererInitChevaliers(rdm.nextInt(3)+1,"neutre"),
-					GenererInitOnagres(rdm.nextInt(3),"neutre"),porteAleatoire(),x,y);
+					GenererInitOnagres(rdm.nextInt(3),"neutre"),x,y);
 		}
 	}
 	
@@ -89,17 +89,6 @@ public class Royaume {
 		for(int i = 0; i < n; i++)
 			onagres.add(new Onagre(duc));
 		return onagres;
-	}
-	private String porteAleatoire() {
-		int p = rdm.nextInt(4);
-		if(p==0)
-			return "gauche";
-		else if(p==1)
-			return "haut";
-		else if(p==2)
-			return "droite";
-		else
-			return "bas";
 	}
 	
 	private boolean positionChateauLibre(int x, int y, int nbChateaux) {
