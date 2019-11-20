@@ -12,17 +12,15 @@ public class Chateau {
 	private boolean neutre = true;
 	private int tresor;
 	private int niveau;
-	/* Si j'ai bien compris c'est une liste pour chaque type de troupe
-	 * j'ai choisi ArrayList car très variable */
+
 	private ArrayList<Piquier> piquiers;
 	private ArrayList<Chevalier> chevaliers;
 	private ArrayList<Onagre> onagres;
-	/* Pas compris le compteur de dégats à voir plus tard 
-	 * Peut être définir une classe reserve pour les troupes*/
+	
 	private Production production;
 	private Ordre ordreDeplacement;
 	private Ost ost;
-	private Porte porte; //"gauche"/"haut"/"droite"/"bas"
+	private Porte porte;
 	
 	private int pos_x;
 	private int pos_y;
@@ -50,7 +48,7 @@ public class Chateau {
 	public Chateau(int tresor, ArrayList<Piquier> piquiers, ArrayList<Chevalier> chevaliers,
 			ArrayList<Onagre> onagres, int x, int y) {
 		this.tresor = tresor;
-		this.niveau = 1;
+		this.niveau = rdm.nextInt(10)+1;
 		this.piquiers = piquiers;
 		this.chevaliers = chevaliers;
 		this.onagres = onagres;
@@ -70,8 +68,8 @@ public class Chateau {
 			return false;
 		}
 		else {
-			tresor = tresor - 1000*niveau;
-			production = new Production(100+50*niveau);
+			tresor -= 1000*niveau;
+			production = new Production(niveau);
 			return true;
 		}
 	}
@@ -82,11 +80,21 @@ public class Chateau {
 			return false;
 		}
 		else {
-			tresor = tresor - t.getCoutProduction();
-			production = new Production(t, t.getTempsProduction());
+			tresor -= t.getCoutProduction();
+			production = new Production(t);
 			return true;
 		}
 		
+	}
+	
+	public void annulerProduction() {
+		if(production.estAmelioration()) {
+			tresor += 1000*niveau;
+		} else {
+			tresor += production.getUnite().getCoutProduction();
+		}
+		
+		production = null;
 	}
 	
 	public boolean enProduction() {
@@ -102,11 +110,11 @@ public class Chateau {
 		else {
 			Troupe t = production.getUnite();
 			if(t.getClass() == Piquier.class)
-				piquiers.add(new Piquier());
+				piquiers.add((Piquier)t);
 			else if(t.getClass() == Chevalier.class)
-				chevaliers.add(new Chevalier());
+				chevaliers.add((Chevalier)t);
 			else
-				onagres.add(new Onagre());
+				onagres.add((Onagre)t);
 		}
 		production = null;
 			
@@ -131,15 +139,18 @@ public class Chateau {
 		if(ost == null) return;
 		for(int i=0; i<stop; i++) {
 			if(ordreDeplacement.getNbOnagres()>0) {
-				ost.ajouterOnagre();
+				ost.ajouterOnagre(onagres.get(0));
+				onagres.remove(0);
 				ordreDeplacement.sortirOnagre();
 			}
 			else if(ordreDeplacement.getNbPiquiers()>0) {
-				ost.ajouterPiquier();
+				ost.ajouterPiquier(piquiers.get(0));
+				piquiers.remove(0);
 				ordreDeplacement.sortirPiquier();
 			}
 			else {
-				ost.ajouterChevalier();
+				ost.ajouterChevalier(chevaliers.get(0));
+				chevaliers.remove(0);
 				ordreDeplacement.sortirChevalier();
 			}
 		}
@@ -182,15 +193,33 @@ public class Chateau {
 		}
 	}
 	
+	public boolean aucuneTroupe() {
+		return piquiers.size() == 0 && chevaliers.size() == 0 && onagres.size() == 0;
+	}
 	
+	public boolean restePiquiers() {
+		return piquiers.size() > 0;
+	}
 	
+	public boolean resteChevaliers() {
+		return chevaliers.size() > 0;
+	}
 	
-	
-	
+	public boolean resteOnagres() {
+		return onagres.size() > 0;
+	}
 
+	
+	
+	
+	
 	/* * * * * * * * DEBUT : Getters/Setters * * * * * * * */
 	public String getDuc() {
 		return duc;
+	}
+	
+	public void setDuc(String duc) {
+		this.duc = duc;
 	}
 	
 	public boolean getNeutr() {
@@ -235,7 +264,7 @@ public class Chateau {
 		return ost;
 	}
 
-	public char getPorte() {
+	public int getPorte() {
 		return porte.getPorte();
 	}
 

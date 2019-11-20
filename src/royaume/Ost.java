@@ -1,10 +1,12 @@
 package royaume;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import troupes.*;
 
 public class Ost {
+	
 	private String duc;
 	
 	private Chateau cible;
@@ -41,6 +43,34 @@ public class Ost {
 		}
 	}
 	
+	public void attaquer(Chateau c) {
+		for(int i = 0; i < troupes.size(); i++) {
+			troupes.get(i).attaquer(c);
+			if(troupes.get(i).estMort()){
+				troupes.remove(i);
+			}
+		}
+		if(c.aucuneTroupe() && nbTroupes > 0) {
+			c.setDuc(duc);
+			transfererTroupes(c);
+		}
+	}
+	
+	private void transfererTroupes(Chateau c) {
+		while(!troupes.isEmpty()) {
+			if(troupes.get(0).getClass() == Piquier.class) {
+				c.getPiquiers().add((Piquier)troupes.get(0));
+			}
+			else if(troupes.get(0).getClass() == Chevalier.class) {
+				c.getChevaliers().add((Chevalier)troupes.get(0));
+			}
+			else {
+				c.getOnagres().add((Onagre)troupes.get(0));
+			}
+			troupes.remove(0);
+		}
+	}
+	
 	public boolean auComplet() {
 		return auComplet;
 	}
@@ -49,18 +79,15 @@ public class Ost {
 		auComplet = true;
 	}
 	
-	public void ajouterPiquier() {
-		troupes.add(new Piquier());
-		nbTroupes++;
+	public void ajouterPiquier(Piquier p) {
+		troupes.add(p);
 	}
 	
-	public void ajouterChevalier() {
-		troupes.add(new Chevalier());
-		nbTroupes++;
+	public void ajouterChevalier(Chevalier c) {
+		troupes.add(c);
 	}
 	
-	public void ajouterOnagre() {
-		troupes.add(new Onagre());
-		nbTroupes++;
+	public void ajouterOnagre(Onagre o) {
+		troupes.add(o);
 	}
 }

@@ -6,14 +6,14 @@ public class Production {
 	private Troupe unite;
 	private int nbTours;
 	
-	public Production(int nbTours) {
+	public Production(int niveauChateau) {
 		this.unite = null;
-		this.nbTours = nbTours;
+		this.nbTours = 100+50*niveauChateau;
 	}
 	
-	public Production(Troupe unite, int nbTours) {
+	public Production(Troupe unite) {
 		this.unite = unite;
-		this.nbTours = nbTours;
+		this.nbTours = unite.getTempsProduction();
 	}
 	
 	public Troupe getUnite() {

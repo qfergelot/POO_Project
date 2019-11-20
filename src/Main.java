@@ -3,12 +3,14 @@ import java.util.ArrayList;
 import troupes.*;
 
 import javafx.application.Application;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.*;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.scene.Group;
 
@@ -30,8 +32,17 @@ public class Main extends Application {
 		
 	@Override
 	public void start(Stage primaryStage) {
+		Screen screen = Screen.getPrimary();
+		Rectangle2D bounds = screen.getVisualBounds();
+		
 		root = new Group();
-		scene = new Scene(root, Constantes.SCENE_WIDTH, Constantes.SCENE_HEIGHT);
+		scene = new Scene(root);
+		
+		primaryStage.setX(bounds.getMinX()-2);
+		primaryStage.setY(bounds.getMinY());
+		primaryStage.setWidth(bounds.getWidth()+3);
+		primaryStage.setHeight(bounds.getHeight());
+		
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
 		primaryStage.show();
