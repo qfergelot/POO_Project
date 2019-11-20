@@ -26,21 +26,29 @@ public class Ost {
 		auComplet = false;
 	}
 	
-	public void move(String dir) {
+	public void move(int dir) {
 		switch(dir) {
-			case "gauche":
+			case Constantes.GAUCHE:
 				pos_x--;
 				break;
-			case "haut":
+			case Constantes.HAUT:
 				pos_y--;
 				break;
-			case "droite":
+			case Constantes.DROITE:
 				pos_x++;
 				break;
 			default:
 				pos_y++;
 				break;
 		}
+	}
+	
+	public int distance(int x, int y) {
+		return Math.abs(y - pos_y) + Math.abs(x - pos_x);
+	}
+	
+	public int distanceCible() {
+		return Math.abs(cible.getPos_y() - pos_y) + Math.abs(cible.getPos_x() - pos_x);
 	}
 	
 	public void attaquer(Chateau c) {
@@ -50,7 +58,7 @@ public class Ost {
 				troupes.remove(i);
 			}
 		}
-		if(c.aucuneTroupe() && nbTroupes > 0) {
+		if(c.aucuneTroupe() && (nbTroupes > 0)) {
 			c.setDuc(duc);
 			transfererTroupes(c);
 		}

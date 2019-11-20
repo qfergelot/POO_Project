@@ -21,8 +21,8 @@ public class Royaume {
 	private int niveauIA; //Pour plus tard
 	
 	private int distMinChateaux;
-	private int longueur;
 	private int hauteur;
+	private int longueur;
 	
 	private ArrayList<Ost> ost;
 	
@@ -31,8 +31,8 @@ public class Royaume {
 		this.nbJoueurs = nbJoueurs;
 		this.nbIA = nbIA;
 		this.niveauIA = niveauIA;
-		longueur = longueur_plateau;
 		hauteur = hauteur_plateau;
+		longueur = longueur_plateau;
 		this.distMinChateaux = dist_min_chateaux;
 		nbChateaux = nbJoueurs + nbIA + nbChateauxNeutres;
 		
@@ -154,12 +154,13 @@ public class Royaume {
 		return distMinChateaux;
 	}
 	
+	public int getHauteur() {
+		return hauteur;
+	}
+	
 	public int getLongueur() {
 		return longueur;
 	}
 	
-	public int getHauteur() {
-		return hauteur;
-	}
 	/* * * * * * * * FIN : Getters/Setters * * * * * * * */
 }
