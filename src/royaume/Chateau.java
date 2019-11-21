@@ -118,7 +118,6 @@ public class Chateau {
 				onagres.add((Onagre)t);
 		}
 		production = null;
-			
 	}
 	/* * * * * * * * FIN : Fonctions Production * * * * * * * */
 	

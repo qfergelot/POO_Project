@@ -26,6 +26,9 @@ public class Main extends Application {
 	private Scene scene;
 	private AnimationTimer gameLoop;
 	
+	private int compteur_temps = 0;
+	private double dernier_temps = 0;
+	
 	
 	Group root;
 	
@@ -62,8 +65,14 @@ public class Main extends Application {
 		gameLoop = new AnimationTimer() {
 			@Override
 			public void handle(long now) {
-
-				royaume.finTour();
+				if((now - dernier_temps) >= Constantes.GAME_FREQUENCY) {
+					dernier_temps = now;
+					compteur_temps++;
+				}
+				if(compteur_temps == Constantes.DUREE_TOUR) {
+					royaume.finTour();
+					compteur_temps = 0;
+				}
 			}
 
 		};
