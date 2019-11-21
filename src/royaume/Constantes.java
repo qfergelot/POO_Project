@@ -8,5 +8,4 @@ public class Constantes {
 	public final static int HAUT = 1;
 	public final static int DROITE = 2;
 	public final static int BAS = 3;
-	
 }

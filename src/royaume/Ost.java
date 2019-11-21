@@ -7,10 +7,11 @@ import troupes.*;
 
 public class Ost {
 	
-	private String duc;
+	private Duc duc;
 	
 	private Chateau cible;
 	private int nbTroupes = 0;
+	private int vitesse=10;
 	
 	private ArrayList<Troupe> troupes;
 	
@@ -19,11 +20,14 @@ public class Ost {
 	private int pos_x;
 	private int pos_y;
 	
-	public Ost(String duc, Chateau cible) {
+	public Ost(Duc duc, Chateau cible, int x, int y) {
 		this.duc = duc;
 		this.cible = cible;
 		troupes = new ArrayList<Troupe>();
 		auComplet = false;
+		
+		pos_x = x;
+		pos_y = y;
 	}
 	
 	public void move(int dir) {
@@ -51,29 +55,30 @@ public class Ost {
 		return Math.abs(cible.getPos_y() - pos_y) + Math.abs(cible.getPos_x() - pos_x);
 	}
 	
-	public void attaquer(Chateau c) {
+	public void attaquerCible() {
 		for(int i = 0; i < troupes.size(); i++) {
-			troupes.get(i).attaquer(c);
+			troupes.get(i).attaquer(cible);
 			if(troupes.get(i).estMort()){
 				troupes.remove(i);
 			}
 		}
-		if(c.aucuneTroupe() && (nbTroupes > 0)) {
-			c.setDuc(duc);
-			transfererTroupes(c);
+		if(cible.aucuneTroupe() && (nbTroupes > 0)) {
+			cible.getDuc().retirerChateau();
+			cible.setDuc(duc);
+			transfererTroupes();
 		}
 	}
 	
-	private void transfererTroupes(Chateau c) {
+	public void transfererTroupes() {
 		while(!troupes.isEmpty()) {
 			if(troupes.get(0).getClass() == Piquier.class) {
-				c.getPiquiers().add((Piquier)troupes.get(0));
+				cible.getPiquiers().add((Piquier)troupes.get(0));
 			}
 			else if(troupes.get(0).getClass() == Chevalier.class) {
-				c.getChevaliers().add((Chevalier)troupes.get(0));
+				cible.getChevaliers().add((Chevalier)troupes.get(0));
 			}
 			else {
-				c.getOnagres().add((Onagre)troupes.get(0));
+				cible.getOnagres().add((Onagre)troupes.get(0));
 			}
 			troupes.remove(0);
 		}
@@ -89,13 +94,42 @@ public class Ost {
 	
 	public void ajouterPiquier(Piquier p) {
 		troupes.add(p);
+		if(vitesse > p.getVitesse()) {
+			vitesse = p.getVitesse();
+		}
 	}
 	
 	public void ajouterChevalier(Chevalier c) {
 		troupes.add(c);
+		if(vitesse > c.getVitesse()) {
+			vitesse = c.getVitesse();
+		}
 	}
 	
 	public void ajouterOnagre(Onagre o) {
 		troupes.add(o);
+		if(vitesse > o.getVitesse()) {
+			vitesse = o.getVitesse();
+		}
+	}
+	
+	public Duc getDuc() {
+		return duc;
+	}
+	
+	public Chateau getCible() {
+		return cible;
+	}
+	
+	public int getVitesse() {
+		return vitesse;
+	}
+	
+	public int getPos_x() {
+		return pos_x;
+	}
+	
+	public int getPos_y() {
+		return pos_y;
 	}
 }

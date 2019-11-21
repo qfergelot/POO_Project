@@ -1,7 +1,8 @@
 import royaume.*;
 import java.util.ArrayList;
-import troupes.*;
 
+import troupes.*;
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -23,6 +24,7 @@ public class Main extends Application {
 	private Pane gameFieldLayer;
 	
 	private Scene scene;
+	private AnimationTimer gameLoop;
 	
 	
 	Group root;
@@ -56,6 +58,16 @@ public class Main extends Application {
 		pas = Math.min((int)(primaryStage.getHeight()-200)/(royaume.getHauteur()), (int)primaryStage.getWidth()/(royaume.getLongueur()));
 		bordures = (int)(primaryStage.getWidth() - royaume.getLongueur()*pas)/2;
 		initRoyaume();
+		
+		gameLoop = new AnimationTimer() {
+			@Override
+			public void handle(long now) {
+
+				royaume.finTour();
+			}
+
+		};
+		gameLoop.start();
 	}
 	
 	private void initRoyaume() {

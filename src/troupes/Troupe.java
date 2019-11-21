@@ -107,6 +107,10 @@ public class Troupe {
 		return tempsProduction;
 	}
 	
+	public int getVitesse() {
+		return vitesse;
+	}
+	
 	private void recevoirAttaque() {
 		vie--;
 	}

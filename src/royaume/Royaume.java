@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import troupes.*;
 
 public class Royaume {
@@ -12,10 +14,10 @@ public class Royaume {
 	 * Comment on attaque un chateau ? On se pose une case devant ? Forcément devant sa porte ?
 	 * Il faut rentrer dans le chateau ?
 	 */
+	private Duc []ducs;
 	private Chateau []chateaux;
 	private int nbChateaux;
 	
-	private String []nomJoueurs;
 	private int nbJoueurs; //Normalement restera 1 ou 0
 	private int nbIA; //Pour plus tard
 	private int niveauIA; //Pour plus tard
@@ -23,7 +25,7 @@ public class Royaume {
 	private int distMinChateaux;
 	private int hauteur;
 	private int longueur;
-	
+
 	private ArrayList<Ost> ost;
 	
 	public Royaume(int nbJoueurs, int nbIA, int niveauIA, int longueur_plateau, int hauteur_plateau,
@@ -37,13 +39,14 @@ public class Royaume {
 		nbChateaux = nbJoueurs + nbIA + nbChateauxNeutres;
 		
 		chateaux = new Chateau[nbJoueurs+nbIA+nbChateauxNeutres];
-		nomJoueurs = new String[nbJoueurs+nbIA];
+		ducs = new Duc[nbJoueurs+nbIA];
 		
 		ost = new ArrayList<Ost>();
 
 		/*Définition basique de nom à améliorer*/
+		
 		for(int i=0; i<(nbJoueurs+nbIA); i++) {
-			nomJoueurs[i] = "joueur" + i;
+			ducs[i] = new Duc("joueur" + i);
 		}
 		//Chateaux Joeurs+IA
 		int temp = nbJoueurs+nbIA;
@@ -54,7 +57,7 @@ public class Royaume {
 				x = rdm.nextInt(longueur);
 				y = rdm.nextInt(hauteur);
 			}
-			chateaux[i] = new Chateau(nomJoueurs[i],0,GenererInitPiquiers(nbPiquiers_init),
+			chateaux[i] = new Chateau(ducs[i],0,GenererInitPiquiers(nbPiquiers_init),
 					GenererInitChevaliers(nbChevaliers_init),
 					GenererInitOnagres(nbOnagres_init),x,y);
 		}
@@ -70,6 +73,8 @@ public class Royaume {
 					GenererInitChevaliers(rdm.nextInt(3)+1),
 					GenererInitOnagres(rdm.nextInt(3)),x,y);
 		}
+		Ost o = new Ost(chateaux[0].getDuc(),chateaux[1],chateaux[0].getPos_x()+1,chateaux[0].getPos_y());
+		o.ajouterOnagre(new Onagre());		
 	}
 	
 	private ArrayList<Piquier> GenererInitPiquiers(int n){
@@ -107,14 +112,33 @@ public class Royaume {
 			//Déjà un ordre en cours
 		}
 		else {
-			c.creerOrdre(new Ost(c.getDuc(), cible),cible, nbPiquiers, nbChevaliers, nbOnagres);
+			int x = c.getPos_x(),y = c.getPos_y();
+			if(c.getPorte()==Constantes.DROITE)
+				x++;
+			else if(c.getPorte()==Constantes.GAUCHE)
+				x--;
+			else if(c.getPorte()==Constantes.HAUT)
+				y--;
+			else
+				y++;
+			c.creerOrdre(new Ost(c.getDuc(), cible, x, y),cible, nbPiquiers, nbChevaliers, nbOnagres);
 			ost.add(c.getOst());
 		}
 	}
 	
-	private void executerOst(Ost ost) {
+	private void tourOst(Ost ost) {
 		if(ost.auComplet()) {
-			//ost.tourOst();
+			if(ost.distanceCible() == 1) {
+				if(ost.getCible().getDuc() == ost.getDuc()) {
+					ost.transfererTroupes();
+				}
+				else {
+					ost.attaquerCible();
+				}
+			}
+			else {
+				deplacementOst(ost);
+			}
 		}
 	}
 	
@@ -123,11 +147,77 @@ public class Royaume {
 			chateaux[i].finTourChateau();
 		}
 		for(int i=0; i<ost.size(); i++) {
-			executerOst(ost.get(i));
+			tourOst(ost.get(i));
 		}
 	}
 	
+	public boolean partieTerminee() {
+		int nbRestants = 0;
+		for(int i=0; i<nbJoueurs+nbIA; i++) {
+			if(ducs[i].getNbChateaux() > 0) {
+				nbRestants++;
+				if(nbRestants > 1)
+					return false;
+			}
+		}
+		return false;
+	}
 	
+	private void deplacementOst(Ost ost) {
+		int v = ost.getVitesse();
+		while(v > 0 && ost.distanceCible() > 1) {
+			int dx = ost.getPos_x() - ost.getCible().getPos_x();
+			int dy = ost.getPos_y() - ost.getCible().getPos_y();
+			if(Math.abs(dx) > Math.abs(dy)) {
+				if (dx > 0) {
+					if(deplacementPossible(ost.getPos_x()+1,ost.getPos_y()))
+						ost.move(Constantes.DROITE);
+					else if(deplacementPossible(ost.getPos_x(),ost.getPos_y()+1))
+						ost.move(Constantes.BAS);
+					else
+						ost.move(Constantes.HAUT);
+				}
+				else {
+					if(deplacementPossible(ost.getPos_x()-1,ost.getPos_y()))
+						ost.move(Constantes.GAUCHE);
+					else if(deplacementPossible(ost.getPos_x(),ost.getPos_y()+1))
+						ost.move(Constantes.HAUT);
+					else
+						ost.move(Constantes.BAS);
+				}
+			}
+			else {
+				if (dy > 0) {
+					if(deplacementPossible(ost.getPos_x(),ost.getPos_y()+1))
+						ost.move(Constantes.BAS);
+					else if(deplacementPossible(ost.getPos_x()+1,ost.getPos_y()))
+						ost.move(Constantes.DROITE);
+					else
+						ost.move(Constantes.GAUCHE);
+				}
+				else {
+					if(deplacementPossible(ost.getPos_x(),ost.getPos_y()-1))
+						ost.move(Constantes.HAUT);
+					else if(deplacementPossible(ost.getPos_x()+1,ost.getPos_y()))
+						ost.move(Constantes.GAUCHE);
+					else
+						ost.move(Constantes.DROITE);
+				}
+			}
+			v--;
+		}
+	}
+	
+	private boolean deplacementPossible(int x, int y) {
+		if(x<0 || y<0 || x >= longueur || y >= hauteur)
+			return false;
+		for(int i=0; i<nbChateaux; i++) {
+			if(chateaux[i].getPos_x() == x && chateaux[i].getPos_y() == y) {
+				return false;
+			}
+		}
+		return true;
+	}
 	
 	/* * * * * * * * DEBUT : Getters/Setters * * * * * * * */
 	public Chateau getChateau(int i) {

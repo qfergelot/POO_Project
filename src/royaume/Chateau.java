@@ -8,7 +8,7 @@ import troupes.*;
 public class Chateau {
 	Random rdm = new Random();
 	
-	private String duc = "neutre";
+	private Duc duc = null;
 	private boolean neutre = true;
 	private int tresor;
 	private int niveau;
@@ -26,9 +26,10 @@ public class Chateau {
 	private int pos_y;
 	
 	/* Chateau Duc */
-	public Chateau(String duc, int tresor, ArrayList<Piquier> piquiers, ArrayList<Chevalier> chevaliers,
+	public Chateau(Duc duc, int tresor, ArrayList<Piquier> piquiers, ArrayList<Chevalier> chevaliers,
 			ArrayList<Onagre> onagres, int x, int y) {
 		this.duc = duc;
+		duc.ajouterChateau();
 		this.neutre = false;
 		this.tresor = tresor;
 		this.niveau = 1;
@@ -39,7 +40,7 @@ public class Chateau {
 		this.ordreDeplacement = null;
 		this.ost = null;
 		this.porte = new Porte();
-		
+
 		pos_x = x;
 		pos_y = y;
 	}
@@ -181,6 +182,7 @@ public class Chateau {
 	
 	public void finTourChateau() {
 		if(!neutre) {
+			tresor += niveau*10;
 			if(enProduction()) {
 				production.finTourProduction();
 				if(production.finProduction()) {
@@ -214,11 +216,11 @@ public class Chateau {
 	
 	
 	/* * * * * * * * DEBUT : Getters/Setters * * * * * * * */
-	public String getDuc() {
+	public Duc getDuc() {
 		return duc;
 	}
 	
-	public void setDuc(String duc) {
+	public void setDuc(Duc duc) {
 		this.duc = duc;
 	}
 	
