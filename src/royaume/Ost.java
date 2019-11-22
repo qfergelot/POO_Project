@@ -13,10 +13,30 @@ public class Ost {
 	
 	private ArrayList<Troupe> troupes;
 	
-	public Ost(Duc duc, Chateau cible, int x, int y) {
+	public Ost(Duc duc, Chateau cible, double x, double y) {
 		this.duc = duc;
 		this.cible = cible;
 		troupes = new ArrayList<Troupe>();
+	}
+	
+	public int distanceCible() {
+		int cmp = 1;
+		for(int i = 0; i<troupes.size(); i++) {
+			Troupe t = troupes.get(i);
+			if (t.distance(cible) != 1) {
+				cmp ++;
+			}
+		}
+		return cmp;
+		
+	}
+	
+	public void deplacement() {
+		for(int i = 0; i<troupes.size(); i++) {
+			Troupe t = troupes.get(i);
+			
+		}
+		
 	}
 	
 	public void attaquerCible() {

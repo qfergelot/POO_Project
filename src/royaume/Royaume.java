@@ -110,7 +110,7 @@ public class Royaume {
 			//Déjà un ordre en cours
 		}
 		else {
-			int x = c.getPos_x(),y = c.getPos_y();
+			double x = c.getPos_x(),y = c.getPos_y();
 			if(c.getPorte()==Constantes.DROITE)
 				x++;
 			else if(c.getPorte()==Constantes.GAUCHE)
@@ -134,7 +134,7 @@ public class Royaume {
 			}
 		}
 		else {
-			deplacementOst(ost);
+			ost.deplacement();;
 		}
 		
 	}
@@ -160,7 +160,7 @@ public class Royaume {
 		return false;
 	}
 	
-	private void deplacementOst(Ost ost) {
+	/*private void deplacementOst(Ost ost) {
 		int v = ost.getVitesse();
 		while(v > 0 && ost.distanceCible() > 1) {
 			int dx = ost.getPos_x() - ost.getCible().getPos_x();
@@ -203,7 +203,7 @@ public class Royaume {
 			}
 			v--;
 		}
-	}
+	}*/
 	
 	private boolean deplacementPossible(int x, int y) {
 		if(x<0 || y<0 || x >= longueur || y >= hauteur)

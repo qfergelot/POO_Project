@@ -25,6 +25,10 @@ public class Troupe extends Sprite{
 		this.degats = degats;
 	}
 	
+	public int distance(Chateau cible) {
+		return 1;
+	}
+	
 	public void move(int dir) {
 		switch(dir) {
 			case Constantes.GAUCHE:
