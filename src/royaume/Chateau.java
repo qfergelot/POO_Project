@@ -192,6 +192,7 @@ public class Chateau {
 				sortirTroupesOrdre();
 			}
 		}
+		else tresor += niveau;
 	}
 	
 	public boolean aucuneTroupe() {

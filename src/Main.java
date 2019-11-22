@@ -78,6 +78,7 @@ public class Main extends Application {
 				if(compteur_temps == Constantes.DUREE_TOUR) {
 					royaume.finTour();
 					compteur_temps = 0;
+					
 				}
 				
 			}
@@ -96,6 +97,7 @@ public class Main extends Application {
 			@Override
 			public void handle(long now) {
 				processInput(input, now);
+				
 				
 			}
 			
