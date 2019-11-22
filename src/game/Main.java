@@ -1,3 +1,4 @@
+package game;
 import royaume.*;
 
 import javafx.animation.AnimationTimer;

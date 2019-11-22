@@ -28,6 +28,7 @@ public class Chateau {
 	/* Chateau Duc */
 	public Chateau(Duc duc, int tresor, ArrayList<Piquier> piquiers, ArrayList<Chevalier> chevaliers,
 			ArrayList<Onagre> onagres, int x, int y) {
+		super();
 		this.duc = duc;
 		duc.ajouterChateau();
 		this.neutre = false;
@@ -40,9 +41,6 @@ public class Chateau {
 		this.ordreDeplacement = null;
 		this.ost = null;
 		this.porte = new Porte();
-
-		pos_x = x;
-		pos_y = y;
 	}
 	
 	/* Chateau Neutre (pas de duc) */
