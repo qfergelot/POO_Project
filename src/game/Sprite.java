@@ -4,7 +4,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 public abstract class Sprite {
-    private ImageView imageView;
+    protected ImageView imageView;
     private Pane layer;
     private int bordures;
 

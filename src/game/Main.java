@@ -54,7 +54,7 @@ public class Main extends Application {
 		gameFieldLayer = new Pane();
 		root.getChildren().add(gameFieldLayer);
 		
-		royaume = new Royaume(1,0,0,800,600,3,8,3,2,0);
+		royaume = new Royaume(gameFieldLayer,1,0,0,800,600,3,8,3,2,0);
 		
 		bordures = (int)((primaryStage.getWidth()) - royaume.getLongueur())/2;
 		
@@ -135,26 +135,7 @@ public class Main extends Application {
 	private void initRoyaume() {
 		Rectangle fond = new Rectangle(royaume.getLongueur(),royaume.getHauteur());
 		fond.setFill(Color.GREY);
-		fond.relocate(bordures, 0);
 		gameFieldLayer.getChildren().add(fond);
-		for(int i=0; i<royaume.getNbChateaux(); i++) {
-			ImageView img = new ImageView(new Image(getClass().getResource("/images/chateau.jpg").toExternalForm(), 20, 20, true, true));
-			img.relocate(bordures + royaume.getChateau(i).getPos_x(), 2 + royaume.getChateau(i).getPos_y());
-			switch(royaume.getChateau(i).getPorte()) {
-				case Constantes.GAUCHE:
-					img.setRotate(90);
-					break;
-				case Constantes.HAUT:
-					img.setRotate(180);
-					break;
-				case Constantes.DROITE:
-					img.setRotate(270);
-					break;
-				default:
-					break;
-			}	
-			gameFieldLayer.getChildren().add(img);
-		}
 	}
 
 }

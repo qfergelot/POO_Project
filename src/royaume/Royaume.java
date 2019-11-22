@@ -4,12 +4,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import troupes.*;
 
 public class Royaume {
 	private Random rdm = new Random();
+	
+	private Pane layer;
+	
+	private Image imageChateau = new Image(getClass().getResource("/images/chateau.jpg").toExternalForm(), 40, 40, true, true);
+//	private Image imagePiquier = new Image(getClass().getResource("/images/militar.png").toExternalForm(), 20, 20, true, true);
+//	private Image imageChevalier = new Image(getClass().getResource("/images/chevalier.png").toExternalForm(), 20, 20, true, true);
+//	private Image imageOnagre = new Image(getClass().getResource("/images/oangre.png").toExternalForm(), 20, 20, true, true);
+	
 	/* A clarifier:
 	 * Comment on attaque un chateau ? On se pose une case devant ? Forcément devant sa porte ?
 	 * Il faut rentrer dans le chateau ?
@@ -28,8 +37,9 @@ public class Royaume {
 
 	private ArrayList<Ost> ost;
 	
-	public Royaume(int nbJoueurs, int nbIA, int niveauIA, int longueur_plateau, int hauteur_plateau,
+	public Royaume(Pane layer, int nbJoueurs, int nbIA, int niveauIA, int longueur_plateau, int hauteur_plateau,
 			int dist_min_chateaux, int nbChateauxNeutres, int nbPiquiers_init, int nbChevaliers_init, int nbOnagres_init) {
+		this.layer = layer;
 		this.nbJoueurs = nbJoueurs;
 		this.nbIA = nbIA;
 		this.niveauIA = niveauIA;
@@ -57,7 +67,7 @@ public class Royaume {
 				x = rdm.nextInt(longueur);
 				y = rdm.nextInt(hauteur);
 			}
-			chateaux[i] = new Chateau(ducs[i],0,GenererInitPiquiers(nbPiquiers_init),
+			chateaux[i] = new Chateau(layer,imageChateau,ducs[i],0,GenererInitPiquiers(nbPiquiers_init),
 					GenererInitChevaliers(nbChevaliers_init),
 					GenererInitOnagres(nbOnagres_init),x,y);
 		}
@@ -69,7 +79,7 @@ public class Royaume {
 				x = rdm.nextInt(longueur);
 				y = rdm.nextInt(hauteur);
 			}
-			chateaux[i] = new Chateau(rdm.nextInt(900)+101,GenererInitPiquiers(rdm.nextInt(3)+2),
+			chateaux[i] = new Chateau(layer,imageChateau,rdm.nextInt(900)+101,GenererInitPiquiers(rdm.nextInt(3)+2),
 					GenererInitChevaliers(rdm.nextInt(3)+1),
 					GenererInitOnagres(rdm.nextInt(3)),x,y);
 		}	

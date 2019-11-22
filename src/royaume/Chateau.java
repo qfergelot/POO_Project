@@ -3,8 +3,9 @@ package royaume;
 import java.util.ArrayList;
 import java.util.Random;
 
-import game.ImageVar;
 import game.Sprite;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
 import troupes.*;
 
 public class Chateau extends Sprite{
@@ -28,9 +29,9 @@ public class Chateau extends Sprite{
 	private int pos_y;
 	
 	/* Chateau Duc */
-	public Chateau(ImageVar img, Duc duc, int tresor, ArrayList<Piquier> piquiers, ArrayList<Chevalier> chevaliers,
+	public Chateau(Pane layer, Image image, Duc duc, int tresor, ArrayList<Piquier> piquiers, ArrayList<Chevalier> chevaliers,
 			ArrayList<Onagre> onagres, double x, double y) {
-		super(img, x, y);
+		super(layer, image, x, y);
 		this.duc = duc;
 		duc.ajouterChateau();
 		this.neutre = false;
@@ -43,12 +44,25 @@ public class Chateau extends Sprite{
 		this.ordreDeplacement = null;
 		this.ost = null;
 		this.porte = new Porte();
+		switch(getPorte()) {
+			case Constantes.GAUCHE:
+				imageView.setRotate(90);
+				break;
+			case Constantes.HAUT:
+				imageView.setRotate(180);
+				break;
+			case Constantes.DROITE:
+				imageView.setRotate(270);
+				break;
+			default:
+				break;
+		}	
 	}
 	
 	/* Chateau Neutre (pas de duc) */
-	public Chateau(ImageVar img, int tresor, ArrayList<Piquier> piquiers, ArrayList<Chevalier> chevaliers,
+	public Chateau(Pane layer, Image image, int tresor, ArrayList<Piquier> piquiers, ArrayList<Chevalier> chevaliers,
 			ArrayList<Onagre> onagres, double x, double y) {
-		super(img, x, y);
+		super(layer, image, x, y);
 		this.tresor = tresor;
 		this.niveau = rdm.nextInt(10)+1;
 		this.piquiers = piquiers;
@@ -57,6 +71,19 @@ public class Chateau extends Sprite{
 		this.production = null;
 		this.ordreDeplacement = null;
 		this.porte = new Porte();
+		switch(getPorte()) {
+		case Constantes.GAUCHE:
+			imageView.setRotate(90);
+			break;
+		case Constantes.HAUT:
+			imageView.setRotate(180);
+			break;
+		case Constantes.DROITE:
+			imageView.setRotate(270);
+			break;
+		default:
+			break;
+		}
 	}
 	
 	
