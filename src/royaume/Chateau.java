@@ -137,24 +137,23 @@ public class Chateau extends Sprite{
 		if(ost == null) return;
 		for(int i=0; i<stop; i++) {
 			if(ordreDeplacement.getNbOnagres()>0) {
-				ost.ajouterOnagre(onagres.get(0));
+				ost.ajouterTroupe(onagres.get(0));
 				onagres.remove(0);
 				ordreDeplacement.sortirOnagre();
 			}
 			else if(ordreDeplacement.getNbPiquiers()>0) {
-				ost.ajouterPiquier(piquiers.get(0));
+				ost.ajouterTroupe(piquiers.get(0));
 				piquiers.remove(0);
 				ordreDeplacement.sortirPiquier();
 			}
 			else {
-				ost.ajouterChevalier(chevaliers.get(0));
+				ost.ajouterTroupe(chevaliers.get(0));
 				chevaliers.remove(0);
 				ordreDeplacement.sortirChevalier();
 			}
 		}
 		if(ordreDeplacement.getNbTroupes()==0) {
 			ordreDeplacement = null;
-			ost.setAuComplet();
 			ost = null;
 		}
 	}
