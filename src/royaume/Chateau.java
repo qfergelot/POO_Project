@@ -3,9 +3,11 @@ package royaume;
 import java.util.ArrayList;
 import java.util.Random;
 
+import game.ImageVar;
+import game.Sprite;
 import troupes.*;
 
-public class Chateau {
+public class Chateau extends Sprite{
 	Random rdm = new Random();
 	
 	private Duc duc = null;
@@ -26,9 +28,9 @@ public class Chateau {
 	private int pos_y;
 	
 	/* Chateau Duc */
-	public Chateau(Duc duc, int tresor, ArrayList<Piquier> piquiers, ArrayList<Chevalier> chevaliers,
-			ArrayList<Onagre> onagres, int x, int y) {
-		super();
+	public Chateau(ImageVar img, Duc duc, int tresor, ArrayList<Piquier> piquiers, ArrayList<Chevalier> chevaliers,
+			ArrayList<Onagre> onagres, double x, double y) {
+		super(img, x, y);
 		this.duc = duc;
 		duc.ajouterChateau();
 		this.neutre = false;
@@ -44,8 +46,9 @@ public class Chateau {
 	}
 	
 	/* Chateau Neutre (pas de duc) */
-	public Chateau(int tresor, ArrayList<Piquier> piquiers, ArrayList<Chevalier> chevaliers,
-			ArrayList<Onagre> onagres, int x, int y) {
+	public Chateau(ImageVar img, int tresor, ArrayList<Piquier> piquiers, ArrayList<Chevalier> chevaliers,
+			ArrayList<Onagre> onagres, double x, double y) {
+		super(img, x, y);
 		this.tresor = tresor;
 		this.niveau = rdm.nextInt(10)+1;
 		this.piquiers = piquiers;
@@ -54,9 +57,6 @@ public class Chateau {
 		this.production = null;
 		this.ordreDeplacement = null;
 		this.porte = new Porte();
-		
-		pos_x = x;
-		pos_y = y;
 	}
 	
 	
@@ -165,12 +165,12 @@ public class Chateau {
 		
 	/* * * * * * * * FIN : Fonctions Ordre * * * * * * * */
 	
-	public int distance(Chateau c) {
+	public double distance(Chateau c) {
 		if (c.getPos_x() == pos_x && c.getPos_y() == pos_y) {
 			System.err.println("Erreur : Deux chateaux ne peuvent être sur la même position.");
 			return 0;
 		}
-		return Math.abs(c.getPos_y() - pos_y) + Math.abs(c.getPos_x() - pos_x);
+		return Math.sqrt((c.getPos_y() - pos_y)*(c.getPos_y() - pos_y) + (c.getPos_x() - pos_x)*(c.getPos_x() - pos_x));
 	}
 	
 	public int distance(int x, int y) {
@@ -268,14 +268,5 @@ public class Chateau {
 		return porte.getPorte();
 	}
 
-
-	public int getPos_x() {
-		return pos_x;
-	}
-
-
-	public int getPos_y() {
-		return pos_y;
-	}
 	/* * * * * * * * FIN : Getters/Setters * * * * * * * */
 }
