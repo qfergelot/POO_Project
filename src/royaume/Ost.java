@@ -10,49 +10,13 @@ public class Ost {
 	private Duc duc;
 	
 	private Chateau cible;
-	private int nbTroupes = 0;
-	private int vitesse=10;
 	
 	private ArrayList<Troupe> troupes;
-	
-	private boolean auComplet;
-	
-	private int pos_x;
-	private int pos_y;
 	
 	public Ost(Duc duc, Chateau cible, int x, int y) {
 		this.duc = duc;
 		this.cible = cible;
 		troupes = new ArrayList<Troupe>();
-		auComplet = false;
-		
-		pos_x = x;
-		pos_y = y;
-	}
-	
-	public void move(int dir) {
-		switch(dir) {
-			case Constantes.GAUCHE:
-				pos_x--;
-				break;
-			case Constantes.HAUT:
-				pos_y--;
-				break;
-			case Constantes.DROITE:
-				pos_x++;
-				break;
-			default:
-				pos_y++;
-				break;
-		}
-	}
-	
-	public int distance(int x, int y) {
-		return Math.abs(y - pos_y) + Math.abs(x - pos_x);
-	}
-	
-	public int distanceCible() {
-		return Math.abs(cible.getPos_y() - pos_y) + Math.abs(cible.getPos_x() - pos_x);
 	}
 	
 	public void attaquerCible() {
@@ -62,7 +26,7 @@ public class Ost {
 				troupes.remove(i);
 			}
 		}
-		if(cible.aucuneTroupe() && (nbTroupes > 0)) {
+		if(cible.aucuneTroupe() && (troupes.size() > 0)) {
 			cible.getDuc().retirerChateau();
 			cible.setDuc(duc);
 			transfererTroupes();
@@ -84,33 +48,9 @@ public class Ost {
 		}
 	}
 	
-	public boolean auComplet() {
-		return auComplet;
-	}
 	
-	public void setAuComplet() {
-		auComplet = true;
-	}
-	
-	public void ajouterPiquier(Piquier p) {
-		troupes.add(p);
-		if(vitesse > p.getVitesse()) {
-			vitesse = p.getVitesse();
-		}
-	}
-	
-	public void ajouterChevalier(Chevalier c) {
-		troupes.add(c);
-		if(vitesse > c.getVitesse()) {
-			vitesse = c.getVitesse();
-		}
-	}
-	
-	public void ajouterOnagre(Onagre o) {
-		troupes.add(o);
-		if(vitesse > o.getVitesse()) {
-			vitesse = o.getVitesse();
-		}
+	public void ajouterTroupe(Troupe t) {
+		troupes.add(t);
 	}
 	
 	public Duc getDuc() {
@@ -121,15 +61,4 @@ public class Ost {
 		return cible;
 	}
 	
-	public int getVitesse() {
-		return vitesse;
-	}
-	
-	public int getPos_x() {
-		return pos_x;
-	}
-	
-	public int getPos_y() {
-		return pos_y;
-	}
 }

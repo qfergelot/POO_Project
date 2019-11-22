@@ -1,11 +1,14 @@
 package troupes;
+import game.Sprite;
+import game.ImageVar;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 import royaume.Chateau;
+import royaume.Constantes;
 
-public class Troupe {
+public class Troupe extends Sprite{
 	
 	private int coutProduction;
 	private int tempsProduction;
@@ -13,12 +16,30 @@ public class Troupe {
 	private int vie;
 	private int degats;
 	
-	public Troupe(int coutProduction, int tempsProduction, int vitesse, int vie, int degats) {
+	public Troupe(ImageVar img, int coutProduction, int tempsProduction, int vitesse, int vie, int degats, int pos_x, int pos_y) {
+		super(img, pos_x, pos_y);
 		this.coutProduction = coutProduction;
 		this.tempsProduction = tempsProduction;
 		this.vitesse = vitesse;
 		this.vie = vie;
 		this.degats = degats;
+	}
+	
+	public void move(int dir) {
+		switch(dir) {
+			case Constantes.GAUCHE:
+				pos_x--;
+				break;
+			case Constantes.HAUT:
+				pos_y--;
+				break;
+			case Constantes.DROITE:
+				pos_x++;
+				break;
+			default:
+				pos_y++;
+				break;
+		}
 	}
 	
 	public void attaquer(Chateau c) {
@@ -122,6 +143,10 @@ public class Troupe {
 	
 	public boolean estMort() {
 		return vie == 0 || degats == 0;
+	}
+	
+	public void checkRemovability() {
+		
 	}
 	
 }

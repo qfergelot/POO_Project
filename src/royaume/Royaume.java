@@ -72,9 +72,7 @@ public class Royaume {
 			chateaux[i] = new Chateau(rdm.nextInt(900)+101,GenererInitPiquiers(rdm.nextInt(3)+2),
 					GenererInitChevaliers(rdm.nextInt(3)+1),
 					GenererInitOnagres(rdm.nextInt(3)),x,y);
-		}
-		Ost o = new Ost(chateaux[0].getDuc(),chateaux[1],chateaux[0].getPos_x()+1,chateaux[0].getPos_y());
-		o.ajouterOnagre(new Onagre());		
+		}	
 	}
 	
 	private ArrayList<Piquier> GenererInitPiquiers(int n){
@@ -127,19 +125,18 @@ public class Royaume {
 	}
 	
 	private void tourOst(Ost ost) {
-		if(ost.auComplet()) {
-			if(ost.distanceCible() == 1) {
-				if(ost.getCible().getDuc() == ost.getDuc()) {
-					ost.transfererTroupes();
-				}
-				else {
-					ost.attaquerCible();
-				}
+		if(ost.distanceCible() == 1) {
+			if(ost.getCible().getDuc() == ost.getDuc()) {
+				ost.transfererTroupes();
 			}
 			else {
-				deplacementOst(ost);
+				ost.attaquerCible();
 			}
 		}
+		else {
+			deplacementOst(ost);
+		}
+		
 	}
 	
 	public void finTour() {
