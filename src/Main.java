@@ -1,9 +1,9 @@
 import royaume.*;
-import java.util.ArrayList;
-
 import troupes.*;
+
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -25,6 +25,8 @@ public class Main extends Application {
 	
 	private Scene scene;
 	private AnimationTimer gameLoop;
+	
+	private Input input;
 	
 	private int compteur_temps = 0;
 	private double dernier_temps = 0;
@@ -58,13 +60,17 @@ public class Main extends Application {
 		root.getChildren().add(gameFieldLayer);
 		
 		royaume = new Royaume(4,0,0,20,10,3,8,3,2,0);
+		
 		pas = Math.min((int)(primaryStage.getHeight()-200)/(royaume.getHauteur()), (int)primaryStage.getWidth()/(royaume.getLongueur()));
 		bordures = (int)(primaryStage.getWidth() - royaume.getLongueur()*pas)/2;
-		initRoyaume();
 		
+		loadGame();
+				
 		gameLoop = new AnimationTimer() {
 			@Override
 			public void handle(long now) {
+				processInput(input, now);
+				
 				if((now - dernier_temps) >= Constantes.GAME_FREQUENCY) {
 					dernier_temps = now;
 					compteur_temps++;
@@ -73,10 +79,30 @@ public class Main extends Application {
 					royaume.finTour();
 					compteur_temps = 0;
 				}
+				
+			}
+			
+			private void processInput(Input input, long now) {
+				if (input.isExit()) {
+					Platform.exit();
+					System.exit(0);
+				} else if (input.isPause()) { //TODO
+					//pause(now);
+				}
+
 			}
 
 		};
 		gameLoop.start();
+	}
+	
+	private void loadGame() {
+		
+		initRoyaume();
+		
+		input = new Input(scene);
+		input.addListeners();
+		
 	}
 	
 	private void initRoyaume() {
