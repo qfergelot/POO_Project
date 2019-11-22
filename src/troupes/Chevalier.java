@@ -1,13 +1,13 @@
 package troupes;
 
 import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
 
 public class Chevalier extends Troupe {
-
-	public Chevalier(Pane layer) {
-		Image image = new Image(getClass().getResource("/images/chevalier.png").toExternalForm(), 20, 20, true, true);
-		
-		super(layer, image, 500, 20, 6, 3, 5);
+	
+	public Chevalier(Pane layer, Image image, double pos_x, double pos_y) {
+		super(layer, image, 1000, 50, 1, 5, 10, pos_x, pos_y);
 	}
+
 
 }
