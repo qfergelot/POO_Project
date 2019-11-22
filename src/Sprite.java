@@ -1,41 +1,32 @@
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 public abstract class Sprite {
-
     private ImageView imageView;
-
     private Pane layer;
+    private int bordures;
 
-    protected double x;
-    protected double y;
-
-    protected double dx;
-    protected double dy;
-
-    private int health;
-    private double damage;
-
-    private boolean removable = false;
-
+    protected double pos_x;
+    protected double pos_y;
+    
     private double w;
     private double h;
 
-    public Sprite(Pane layer, Image image, double x, double y, int health, double damage) {
+    private boolean removable = false;
 
-        this.layer = layer;
-        this.x = x;
-        this.y = y;
 
-        this.health = health;
-        this.damage = damage;
+    public Sprite(ImageVar img, double x, double y) {
 
-        this.imageView = new ImageView(image);
+        this.layer = img.getLayer();
+        this.pos_x = x;
+        this.pos_y = y;
+        bordures = img.getBordures();
+        
+        this.imageView = new ImageView(img.getImage());
         this.imageView.relocate(x, y);
-
-        this.w = image.getWidth(); 
-        this.h = image.getHeight(); 
+        
+        w = img.getImage().getWidth();
+        h = img.getImage().getHeight();
 
         addToLayer();
 
@@ -49,61 +40,24 @@ public abstract class Sprite {
         this.layer.getChildren().remove(this.imageView);
     }
 
-    public double getX() {
-        return x;
+    public double getPos_x() {
+        return pos_x;
     }
 
-    public void setX(double x) {
-        this.x = x;
+    public double getPos_y() {
+        return pos_y;
     }
-
-    public double getY() {
-        return y;
+    
+    public double getWidth() {
+    	return w;
     }
-
-    public void setY(double y) {
-        this.y = y;
-    }
-
-    public double getDx() {
-        return dx;
-    }
-
-    public void setDx(double dx) {
-        this.dx = dx;
-    }
-
-    public double getDy() {
-        return dy;
-    }
-
-    public void setDy(double dy) {
-        this.dy = dy;
-    }
-
-    public int getHealth() {
-        return health;
-    }
-
-    public double getDamage() {
-        return damage;
-    }
-
-    public void setDamage(double damage) {
-        this.damage = damage;
+    
+    public double getHeight() {
+    	return h;
     }
 
     public boolean isRemovable() {
         return removable;
-    }
-
-    public void move() {
-        x += dx;
-        y += dy;
-    }
-
-    public boolean isAlive() {
-        return health > 0;
     }
 
     protected ImageView getView() {
@@ -111,32 +65,7 @@ public abstract class Sprite {
     }
 
     public void updateUI() {
-        imageView.relocate(x, y);
-    }
-
-    public double getWidth() {
-        return w;
-    }
-
-    public double getHeight() {
-        return h;
-    }
-
-    public double getCenterX() {
-        return x + w * 0.5;
-    }
-
-    public double getCenterY() {
-        return y + h * 0.5;
-    }
-
-    // TODO: per-pixel-collision
-    public boolean collidesWith(Sprite sprite) {
-    	return getView().getBoundsInParent().intersects(sprite.getView().getBoundsInParent());
-    }
-
-    public void damagedBy( Sprite sprite) {
-        health -= sprite.getDamage();
+        imageView.relocate(bordures + pos_x, pos_y);
     }
 
     public void remove() {
