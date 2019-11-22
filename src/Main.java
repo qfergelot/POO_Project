@@ -1,5 +1,5 @@
 import royaume.*;
-import troupes.*;
+
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -89,12 +89,10 @@ public class Main extends Application {
 				if (input.isExit()) {
 					Platform.exit();
 					System.exit(0);
-				} else if (input.isPause()) { //TODO
+				} else if (input.isPause()) { //TOTEST
 					pause(now);
 				}
-
 			}
-
 		};
 		
 		pauseLoop = new AnimationTimer() {
