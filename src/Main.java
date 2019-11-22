@@ -86,7 +86,7 @@ public class Main extends Application {
 				if (input.isExit()) {
 					Platform.exit();
 					System.exit(0);
-				} else if (input.isPause()) { //TOTEST
+				} else if (input.isPause()) { 
 					pause(now);
 				}
 			}
@@ -103,7 +103,7 @@ public class Main extends Application {
 				if (input.isExit()) {
 					Platform.exit();
 					System.exit(0);
-				} else if (input.isPause()) { //TODO
+				} else if (input.isPause()) { 
 					pause(now);
 				}
 
