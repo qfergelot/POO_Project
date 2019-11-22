@@ -1,6 +1,7 @@
 package troupes;
 import game.Sprite;
-import game.ImageVar;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -16,8 +17,8 @@ public class Troupe extends Sprite{
 	private int vie;
 	private int degats;
 	
-	public Troupe(ImageVar img, int coutProduction, int tempsProduction, int vitesse, int vie, int degats, int pos_x, int pos_y) {
-		super(img, pos_x, pos_y);
+	public Troupe(Pane layer, Image img, int coutProduction, int tempsProduction, int vitesse, int vie, int degats, double pos_x, double pos_y) {
+		super(layer, img, pos_x, pos_y);
 		this.coutProduction = coutProduction;
 		this.tempsProduction = tempsProduction;
 		this.vitesse = vitesse;
