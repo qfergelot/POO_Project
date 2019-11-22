@@ -49,6 +49,7 @@ public class Ost {
 						
 					}
 				}
+				
 				else {
 					if (dy > 0) {
 						t.move(Constantes.BAS);
