@@ -1,9 +1,13 @@
 package troupes;
-//nom duc
+
+import javafx.scene.image.Image;
+
 public class Chevalier extends Troupe {
 
-	public Chevalier() {
-		super(500, 20, 6, 3, 5);
+	public Chevalier(Pane layer) {
+		Image image = new Image(getClass().getResource("/images/chevalier.png").toExternalForm(), 20, 20, true, true);
+		
+		super(layer, image, 500, 20, 6, 3, 5);
 	}
 
 }

@@ -1,4 +1,5 @@
 package game;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
@@ -16,18 +17,17 @@ public abstract class Sprite {
     private boolean removable = false;
 
 
-    public Sprite(ImageVar img, double x, double y) {
+    public Sprite(Pane layer, Image img, double x, double y) {
 
-        this.layer = img.getLayer();
+        this.layer = layer;
         this.pos_x = x;
         this.pos_y = y;
-        bordures = img.getBordures();
         
-        this.imageView = new ImageView(img.getImage());
+        this.imageView = new ImageView(img);
         this.imageView.relocate(x, y);
         
-        w = img.getImage().getWidth();
-        h = img.getImage().getHeight();
+        w = img.getWidth();
+        h = img.getHeight();
 
         addToLayer();
 
@@ -72,5 +72,13 @@ public abstract class Sprite {
     public void remove() {
         this.removable = true;
     }
+    
+	public ImageView getImageView() {
+		return imageView;
+	}
+	
+	public Pane getLayer() {
+		return layer;
+	}
 
 }
