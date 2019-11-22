@@ -16,8 +16,6 @@ import javafx.stage.Stage;
 import javafx.scene.Group;
 
 public class Main extends Application {
-    
-    private int pas;
     private int bordures;
     private Royaume royaume;
 	
@@ -64,8 +62,7 @@ public class Main extends Application {
 		
 		royaume = new Royaume(4,0,0,20,10,3,8,3,2,0);
 		
-		pas = Math.min((int)(primaryStage.getHeight()-200)/(royaume.getHauteur()), (int)primaryStage.getWidth()/(royaume.getLongueur()));
-		bordures = (int)(primaryStage.getWidth() - royaume.getLongueur()*pas)/2;
+		bordures = (int)(primaryStage.getWidth() - royaume.getLongueur())/2;
 		
 		loadGame();
 				
@@ -140,20 +137,13 @@ public class Main extends Application {
 	}
 	
 	private void initRoyaume() {
-		Rectangle fond = new Rectangle(2 + pas*royaume.getLongueur(),2 + pas*royaume.getHauteur());
+		Rectangle fond = new Rectangle(2 + royaume.getLongueur(),2 + royaume.getHauteur());
 		fond.setFill(Color.GREY);
 		fond.relocate(bordures-2, 0);
 		gameFieldLayer.getChildren().add(fond);
-		for(int j=0; j<royaume.getHauteur(); j++) {
-			for(int i=0; i<royaume.getLongueur(); i++) {
-				ImageView img = new ImageView(new Image(getClass().getResource("/images/herbe.jpg").toExternalForm(), pas-2, pas-2, true, true));
-				img.relocate(bordures + i*pas, 2 + j*pas);
-				gameFieldLayer.getChildren().add(img);
-			}
-		}
 		for(int i=0; i<royaume.getNbChateaux(); i++) {
-			ImageView img = new ImageView(new Image(getClass().getResource("/images/chateau.jpg").toExternalForm(), pas-2, pas-2, true, true));
-			img.relocate(bordures + royaume.getChateau(i).getPos_x()*pas, 2 + royaume.getChateau(i).getPos_y()*pas);
+			ImageView img = new ImageView(new Image(getClass().getResource("/images/chateau.jpg").toExternalForm(), 20, 20, true, true));
+			img.relocate(bordures + royaume.getChateau(i).getPos_x(), 2 + royaume.getChateau(i).getPos_y());
 			switch(royaume.getChateau(i).getPorte()) {
 				case Constantes.GAUCHE:
 					img.setRotate(90);
