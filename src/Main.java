@@ -25,11 +25,14 @@ public class Main extends Application {
 	
 	private Scene scene;
 	private AnimationTimer gameLoop;
+	private AnimationTimer pauseLoop;
 	
 	private Input input;
 	
 	private int compteur_temps = 0;
 	private double dernier_temps = 0;
+	
+	private boolean pauseTrigger = false;
 	
 	
 	Group root;
@@ -87,13 +90,46 @@ public class Main extends Application {
 					Platform.exit();
 					System.exit(0);
 				} else if (input.isPause()) { //TODO
-					//pause(now);
+					pause(now);
 				}
 
 			}
 
 		};
+		
+		pauseLoop = new AnimationTimer() {
+			@Override
+			public void handle(long now) {
+				processInput(input, now);
+				
+			}
+			
+			private void processInput(Input input, long now) {
+				if (input.isExit()) {
+					Platform.exit();
+					System.exit(0);
+				} else if (input.isPause()) { //TODO
+					pause(now);
+				}
+
+			}
+
+		};
+		
 		gameLoop.start();
+	}
+	
+	private void pause(long now) {
+		if (pauseTrigger) {
+			pauseTrigger = false;
+			pauseLoop.stop();
+			gameLoop.start();			
+		}
+		else {
+			pauseTrigger = true;
+			gameLoop.stop();
+			pauseLoop.start();
+		}
 	}
 	
 	private void loadGame() {
