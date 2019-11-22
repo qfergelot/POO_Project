@@ -54,7 +54,7 @@ public class Main extends Application {
 		gameFieldLayer = new Pane();
 		root.getChildren().add(gameFieldLayer);
 		
-		royaume = new Royaume(4,0,0,800,600,3,8,3,2,0);
+		royaume = new Royaume(1,0,0,800,600,3,8,3,2,0);
 		
 		bordures = (int)((primaryStage.getWidth()) - royaume.getLongueur())/2;
 		
