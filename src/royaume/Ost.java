@@ -34,7 +34,33 @@ public class Ost {
 	public void deplacement() {
 		for(int i = 0; i<troupes.size(); i++) {
 			Troupe t = troupes.get(i);
-			
+			int v = t.getVitesse();
+			while(v > 0) {
+				double dx = t.getPos_x() - cible.getPos_x();
+				double dy = t.getPos_y() - cible.getPos_y();
+				
+				if(Math.abs(dx) > Math.abs(dy)) {
+					if (dx > 0) {
+						t.move(Constantes.DROITE);
+						
+					}
+					else {
+						t.move(Constantes.GAUCHE);
+						
+					}
+				}
+				else {
+					if (dy > 0) {
+						t.move(Constantes.BAS);
+
+					}
+					else {
+						t.move(Constantes.HAUT);
+
+					}
+				}
+			}
+			v--;
 		}
 		
 	}
