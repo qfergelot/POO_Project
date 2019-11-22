@@ -1,6 +1,5 @@
 import royaume.*;
 
-
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -42,16 +41,10 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		Screen screen = Screen.getPrimary();
-		Rectangle2D bounds = screen.getVisualBounds();
 		
 		root = new Group();
-		scene = new Scene(root);
-		
-		primaryStage.setX(bounds.getMinX()-2);
-		primaryStage.setY(bounds.getMinY()-2);
-		primaryStage.setWidth(bounds.getWidth()+4);
-		primaryStage.setHeight(bounds.getHeight()+4);
-		primaryStage.setFullScreen(true);
+		scene = new Scene(root, Constantes.SCENE_WIDTH, Constantes.SCENE_HEIGHT);
+
 		
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
@@ -60,9 +53,9 @@ public class Main extends Application {
 		gameFieldLayer = new Pane();
 		root.getChildren().add(gameFieldLayer);
 		
-		royaume = new Royaume(4,0,0,20,10,3,8,3,2,0);
+		royaume = new Royaume(4,0,0,800,600,3,8,3,2,0);
 		
-		bordures = (int)(primaryStage.getWidth() - royaume.getLongueur())/2;
+		bordures = (int)((primaryStage.getWidth()) - royaume.getLongueur())/2;
 		
 		loadGame();
 				
@@ -137,9 +130,9 @@ public class Main extends Application {
 	}
 	
 	private void initRoyaume() {
-		Rectangle fond = new Rectangle(2 + royaume.getLongueur(),2 + royaume.getHauteur());
+		Rectangle fond = new Rectangle(royaume.getLongueur(),royaume.getHauteur());
 		fond.setFill(Color.GREY);
-		fond.relocate(bordures-2, 0);
+		fond.relocate(bordures, 0);
 		gameFieldLayer.getChildren().add(fond);
 		for(int i=0; i<royaume.getNbChateaux(); i++) {
 			ImageView img = new ImageView(new Image(getClass().getResource("/images/chateau.jpg").toExternalForm(), 20, 20, true, true));
