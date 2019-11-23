@@ -1,6 +1,7 @@
 package royaume;
 
-import java.util.ArrayList;
+import javafx.scene.image.Image;
+import troupes.*;
 
 public class Ordre {
 	private Chateau cible;
@@ -10,12 +11,22 @@ public class Ordre {
 	private int nbChevaliers;
 	private int nbOnagres;
 	
-	public Ordre(Chateau cible, int nbPiquiers, int nbChevaliers, int nbOnagres) {
+	private int sortie_x;
+	private int sortie_y;
+	
+	private Image image_piquier = new Image(getClass().getResource("/images/militar.png").toExternalForm(), 20, 20, true, true);
+	private Image image_chevalier = new Image(getClass().getResource("/images/chevalier.png").toExternalForm(), 20, 20, true, true);
+	private Image image_onagre = new Image(getClass().getResource("/images/onagre.png").toExternalForm(), 20, 20, true, true);
+
+	
+	public Ordre(Chateau cible, int nbPiquiers, int nbChevaliers, int nbOnagres, int sortie_x, int sortie_y) {
 		this.cible = cible;
 		this.nbTroupes = nbPiquiers + nbChevaliers + nbOnagres;
 		this.nbPiquiers = nbPiquiers;
 		this.nbChevaliers = nbChevaliers;
 		this.nbOnagres = nbOnagres;
+		this.sortie_x = sortie_x;
+		this.sortie_y = sortie_y;
 	}
 	
 	public int getNbTroupes() {
@@ -34,18 +45,21 @@ public class Ordre {
 		return nbOnagres;
 	}
 	
-	public void sortirPiquier() {
+	public void sortirPiquier(Ost ost) {
 		nbPiquiers--;
 		nbTroupes--;
+		ost.ajouterTroupe(new Piquier(cible.getLayer(),image_piquier,sortie_x,sortie_y));
 	}
 	
-	public void sortirChevalier() {
+	public void sortirChevalier(Ost ost) {
 		nbChevaliers--;
 		nbTroupes--;
+		ost.ajouterTroupe(new Chevalier(cible.getLayer(),image_chevalier,sortie_x,sortie_y));
 	}
 	
-	public void sortirOnagre() {
+	public void sortirOnagre(Ost ost) {
 		nbOnagres--;
 		nbTroupes--;
+		ost.ajouterTroupe(new Onagre(cible.getLayer(),image_onagre,sortie_x,sortie_y));
 	}
 }

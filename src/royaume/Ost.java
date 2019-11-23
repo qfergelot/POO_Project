@@ -1,7 +1,6 @@
 package royaume;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import troupes.*;
 
@@ -12,6 +11,7 @@ public class Ost {
 	private Chateau cible;
 	
 	private ArrayList<Troupe> troupes;
+	private boolean attaqueFinie = false;
 	
 	public Ost(Duc duc, Chateau cible, double x, double y) {
 		this.duc = duc;
@@ -40,25 +40,17 @@ public class Ost {
 				double dy = t.getPos_y() - cible.getPos_y();
 				
 				if(Math.abs(dx) > Math.abs(dy)) {
-					if (dx > 0) {
+					if (dx > 0)
 						t.move(Constantes.DROITE);
-						
-					}
-					else {
+					else
 						t.move(Constantes.GAUCHE);
-						
-					}
 				}
 				
 				else {
-					if (dy > 0) {
+					if (dy > 0)
 						t.move(Constantes.BAS);
-
-					}
-					else {
+					else
 						t.move(Constantes.HAUT);
-
-					}
 				}
 			}
 			v--;
@@ -76,25 +68,28 @@ public class Ost {
 		if(cible.aucuneTroupe() && (troupes.size() > 0)) {
 			cible.getDuc().retirerChateau();
 			cible.setDuc(duc);
-			transfererTroupes();
+			attaqueFinie = true;
 		}
+	}
+	
+	public boolean attaqueFinie() {
+		return attaqueFinie;
 	}
 	
 	public void transfererTroupes() {
 		while(!troupes.isEmpty()) {
 			if(troupes.get(0).getClass() == Piquier.class) {
-				cible.getPiquiers().add((Piquier)troupes.get(0));
+				cible.ajouterPiquier();
 			}
 			else if(troupes.get(0).getClass() == Chevalier.class) {
-				cible.getChevaliers().add((Chevalier)troupes.get(0));
+				cible.ajouterChevalier();
 			}
 			else {
-				cible.getOnagres().add((Onagre)troupes.get(0));
+				cible.ajouterOnagre();
 			}
 			troupes.remove(0);
 		}
 	}
-	
 	
 	public void ajouterTroupe(Troupe t) {
 		troupes.add(t);
@@ -108,4 +103,7 @@ public class Ost {
 		return cible;
 	}
 	
+	public ArrayList<Troupe> getTroupe(){
+		return troupes;
+	}
 }

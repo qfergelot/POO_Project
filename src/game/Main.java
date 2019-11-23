@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 import javafx.scene.Group;
 
 public class Main extends Application {
-    private int bordures;
     private Royaume royaume;
 	
 	private Pane gameFieldLayer;
@@ -54,12 +53,12 @@ public class Main extends Application {
 		gameFieldLayer = new Pane();
 		root.getChildren().add(gameFieldLayer);
 		
+		initRoyaume(800,600);
 		royaume = new Royaume(gameFieldLayer,1,0,0,800,600,3,8,3,2,0);
 		
-		bordures = (int)((primaryStage.getWidth()) - royaume.getLongueur())/2;
-		
 		loadGame();
-				
+		
+		
 		gameLoop = new AnimationTimer() {
 			@Override
 			public void handle(long now) {
@@ -125,15 +124,13 @@ public class Main extends Application {
 	
 	private void loadGame() {
 		
-		initRoyaume();
-		
 		input = new Input(scene);
 		input.addListeners();
 		
 	}
 	
-	private void initRoyaume() {
-		Rectangle fond = new Rectangle(royaume.getLongueur(),royaume.getHauteur());
+	private void initRoyaume(int longueur, int hauteur) {
+		Rectangle fond = new Rectangle(longueur,hauteur);
 		fond.setFill(Color.GREY);
 		gameFieldLayer.getChildren().add(fond);
 	}

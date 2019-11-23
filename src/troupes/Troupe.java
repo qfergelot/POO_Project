@@ -53,76 +53,70 @@ public class Troupe extends Sprite{
 		if(c.restePiquiers() && c.resteChevaliers() && c.resteOnagres()) {
 			rand = rdm.nextInt(3);
 			if(rand == 0) {
-				attaquerPiquier(c.getPiquiers());
+				attaquerPiquier(c);
 			}
 			else if(rand == 1){
-				attaquerChevalier(c.getChevaliers());
+				attaquerChevalier(c);
 			}
 			else {
-				attaquerOnagre(c.getOnagres());
+				attaquerOnagre(c);
 			}
 		}
 		else if (c.restePiquiers()) {
 			if(c.resteChevaliers()) {
 				rand = rdm.nextInt(2);
 				if(rand == 0) {
-					attaquerPiquier(c.getPiquiers());
+					attaquerPiquier(c);
 				}
 				else if(rand == 1){
-					attaquerChevalier(c.getChevaliers());
+					attaquerChevalier(c);
 				}
 			}
 			else if(c.resteOnagres()) {
 				rand = rdm.nextInt(2);
 				if(rand == 0) {
-					attaquerPiquier(c.getPiquiers());
+					attaquerPiquier(c);
 				}
 				else if(rand == 1){
-					attaquerOnagre(c.getOnagres());
+					attaquerOnagre(c);
 				}
 			}
 			else {
-				attaquerPiquier(c.getPiquiers());
+				attaquerPiquier(c);
 			}
 		}
 		else if(c.resteChevaliers()) {
 			if(c.resteOnagres()) {
 				rand = rdm.nextInt(2);
 				if(rand == 0) {
-					attaquerChevalier(c.getChevaliers());
+					attaquerChevalier(c);
 				}
 				else if(rand == 1){
-					attaquerOnagre(c.getOnagres());
+					attaquerOnagre(c);
 				}
 			}
 			else {
-				attaquerChevalier(c.getChevaliers());
+				attaquerChevalier(c);
 			}
 		}
 		else {
-			attaquerOnagre(c.getOnagres());
+			attaquerOnagre(c);
 		}
 	}
 	
-	private void attaquerPiquier(ArrayList<Piquier> lt) {
-		Troupe t = lt.get(0);
-		envoyerAttaque(t);
-		if(t.estMort())
-			lt.remove(0);
+	private void attaquerPiquier(Chateau c) {
+		c.recoisAttaquePiquier();
+		degats--;
 	}
 	
-	private void attaquerChevalier(ArrayList<Chevalier> lt) {
-		Troupe t = lt.get(0);
-		envoyerAttaque(t);
-		if(t.estMort())
-			lt.remove(0);
+	private void attaquerChevalier(Chateau c) {
+		c.recoisAttaqueChevalier();
+		degats--;
 	}
 	
-	private void attaquerOnagre(ArrayList<Onagre> lt) {
-		Troupe t = lt.get(0);
-		envoyerAttaque(t);
-		if(t.estMort())
-			lt.remove(0);
+	private void attaquerOnagre(Chateau c) {
+		c.recoisAttaqueOnagre();
+		degats--;
 	}
 	
 	public int getCoutProduction() {
@@ -143,7 +137,6 @@ public class Troupe extends Sprite{
 	
 	public void envoyerAttaque(Troupe t) {
 		degats--;
-		t.recevoirAttaque();
 	}
 	
 	public boolean estMort() {

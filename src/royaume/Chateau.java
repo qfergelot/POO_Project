@@ -16,9 +16,13 @@ public class Chateau extends Sprite{
 	private int tresor;
 	private int niveau;
 
-	private ArrayList<Piquier> piquiers;
-	private ArrayList<Chevalier> chevaliers;
-	private ArrayList<Onagre> onagres;
+	private int nbPiquiers;
+	private int nbChevaliers;
+	private int nbOnagres;
+	
+	private int viePiquier = Constantes.VIE_PIQUIER;
+	private int vieChevalier = Constantes.VIE_CHEVALIER;
+	private int vieOnagre = Constantes.VIE_ONAGRE;
 	
 	private Production production;
 	private Ordre ordreDeplacement;
@@ -29,17 +33,17 @@ public class Chateau extends Sprite{
 	private int pos_y;
 	
 	/* Chateau Duc */
-	public Chateau(Pane layer, Image image, Duc duc, int tresor, ArrayList<Piquier> piquiers, ArrayList<Chevalier> chevaliers,
-			ArrayList<Onagre> onagres, double x, double y) {
+	public Chateau(Pane layer, Image image, Duc duc, int tresor, int nbPiquiers, int nbChevaliers,
+			int nbOnagres, double x, double y) {
 		super(layer, image, x, y);
 		this.duc = duc;
 		duc.ajouterChateau();
 		this.neutre = false;
 		this.tresor = tresor;
 		this.niveau = 1;
-		this.piquiers = piquiers;
-		this.chevaliers = chevaliers;
-		this.onagres = onagres;
+		this.nbPiquiers = nbPiquiers;
+		this.nbChevaliers = nbChevaliers;
+		this.nbOnagres = nbOnagres;
 		this.production = null;
 		this.ordreDeplacement = null;
 		this.ost = null;
@@ -60,14 +64,14 @@ public class Chateau extends Sprite{
 	}
 	
 	/* Chateau Neutre (pas de duc) */
-	public Chateau(Pane layer, Image image, int tresor, ArrayList<Piquier> piquiers, ArrayList<Chevalier> chevaliers,
-			ArrayList<Onagre> onagres, double x, double y) {
+	public Chateau(Pane layer, Image image, int tresor, int nbPiquiers, int nbChevaliers,
+			int nbOnagres, double x, double y) {
 		super(layer, image, x, y);
 		this.tresor = tresor;
 		this.niveau = rdm.nextInt(10)+1;
-		this.piquiers = piquiers;
-		this.chevaliers = chevaliers;
-		this.onagres = onagres;
+		this.nbPiquiers = nbPiquiers;
+		this.nbChevaliers = nbChevaliers;
+		this.nbOnagres = nbOnagres;
 		this.production = null;
 		this.ordreDeplacement = null;
 		this.porte = new Porte();
@@ -136,11 +140,11 @@ public class Chateau extends Sprite{
 		else {
 			Troupe t = production.getUnite();
 			if(t.getClass() == Piquier.class)
-				piquiers.add((Piquier)t);
+				nbPiquiers++;
 			else if(t.getClass() == Chevalier.class)
-				chevaliers.add((Chevalier)t);
+				nbChevaliers++;
 			else
-				onagres.add((Onagre)t);
+				nbOnagres++;
 		}
 		production = null;
 	}
@@ -151,11 +155,20 @@ public class Chateau extends Sprite{
 	 * false si le nombre de troupes est insuffisant
 	 */
 	public boolean creerOrdre(Ost ost, Chateau cible, int nbPiquiers, int nbChevaliers, int nbOnagres) {
-		if(piquiers.size()<nbPiquiers || chevaliers.size()<nbChevaliers || onagres.size()<nbOnagres) {
+		if(this.nbPiquiers<nbPiquiers || this.nbChevaliers<nbChevaliers || this.nbOnagres<nbOnagres) {
 			return false;
 		}
 		this.ost = ost;
-		ordreDeplacement = new Ordre(cible, nbPiquiers, nbChevaliers, nbOnagres);
+		int sortie_x = pos_x, sortie_y = pos_y;
+		if(getPorte() == Constantes.GAUCHE)
+			sortie_x--;
+		else if(getPorte() == Constantes.HAUT)
+			sortie_y--;
+		else if(getPorte() == Constantes.DROITE)
+			sortie_x++;
+		else
+			sortie_y++;
+		ordreDeplacement = new Ordre(cible, nbPiquiers, nbChevaliers, nbOnagres, sortie_x, sortie_y);
 		return true;
 	}
 	
@@ -164,19 +177,16 @@ public class Chateau extends Sprite{
 		if(ost == null) return;
 		for(int i=0; i<stop; i++) {
 			if(ordreDeplacement.getNbOnagres()>0) {
-				ost.ajouterTroupe(onagres.get(0));
-				onagres.remove(0);
-				ordreDeplacement.sortirOnagre();
+				ordreDeplacement.sortirOnagre(ost);
+				nbOnagres--;
 			}
 			else if(ordreDeplacement.getNbPiquiers()>0) {
-				ost.ajouterTroupe(piquiers.get(0));
-				piquiers.remove(0);
-				ordreDeplacement.sortirPiquier();
+				ordreDeplacement.sortirPiquier(ost);
+				nbPiquiers--;
 			}
 			else {
-				ost.ajouterTroupe(chevaliers.get(0));
-				chevaliers.remove(0);
-				ordreDeplacement.sortirChevalier();
+				ordreDeplacement.sortirChevalier(ost);
+				nbChevaliers--;
 			}
 		}
 		if(ordreDeplacement.getNbTroupes()==0) {
@@ -220,24 +230,56 @@ public class Chateau extends Sprite{
 	}
 	
 	public boolean aucuneTroupe() {
-		return piquiers.size() == 0 && chevaliers.size() == 0 && onagres.size() == 0;
+		return nbPiquiers == 0 && nbChevaliers == 0 && nbOnagres == 0;
 	}
 	
 	public boolean restePiquiers() {
-		return piquiers.size() > 0;
+		return nbPiquiers > 0;
 	}
 	
 	public boolean resteChevaliers() {
-		return chevaliers.size() > 0;
+		return nbChevaliers > 0;
 	}
 	
 	public boolean resteOnagres() {
-		return onagres.size() > 0;
+		return nbOnagres > 0;
 	}
 
+	public void ajouterPiquier() {
+		nbPiquiers++;
+	}
 	
+	public void ajouterChevalier() {
+		nbChevaliers++;
+	}
 	
+	public void ajouterOnagre() {
+		nbOnagres++;
+	}
 	
+	public void recoisAttaquePiquier() {
+		viePiquier--;
+		if(viePiquier==0) {
+			nbPiquiers--;
+			viePiquier = Constantes.VIE_PIQUIER;
+		}
+	}
+	
+	public void recoisAttaqueChevalier() {
+		vieChevalier--;
+		if(vieChevalier==0) {
+			nbChevaliers--;
+			vieChevalier = Constantes.VIE_CHEVALIER;
+		}
+	}
+	
+	public void recoisAttaqueOnagre() {
+		vieOnagre--;
+		if(vieOnagre==0) {
+			nbOnagres--;
+			vieOnagre = Constantes.VIE_ONAGRE;
+		}
+	}
 	
 	/* * * * * * * * DEBUT : Getters/Setters * * * * * * * */
 	public Duc getDuc() {
@@ -262,20 +304,19 @@ public class Chateau extends Sprite{
 	}
 
 
-	public ArrayList<Piquier> getPiquiers() {
-		return piquiers;
+	public int getNbPiquiers() {
+		return nbPiquiers;
 	}
 
 
-	public ArrayList<Chevalier> getChevaliers() {
-		return chevaliers;
+	public int getNbChevaliers() {
+		return nbChevaliers;
 	}
 
 
-	public ArrayList<Onagre> getOnagres() {
-		return onagres;
+	public int getNbOnagres() {
+		return nbOnagres;
 	}
-
 
 	public Production getProduction() {
 		return production;

@@ -67,9 +67,7 @@ public class Royaume {
 				x = rdm.nextInt(longueur);
 				y = rdm.nextInt(hauteur);
 			}
-			chateaux[i] = new Chateau(layer,imageChateau,ducs[i],0,GenererInitPiquiers(nbPiquiers_init),
-					GenererInitChevaliers(nbChevaliers_init),
-					GenererInitOnagres(nbOnagres_init),x,y);
+			chateaux[i] = new Chateau(layer,imageChateau,ducs[i],0,nbPiquiers_init,nbChevaliers_init,nbOnagres_init,x,y);
 		}
 		//Chateaux Neutres
 		for(int i=temp; i<nbChateaux; i++) {
@@ -79,29 +77,9 @@ public class Royaume {
 				x = rdm.nextInt(longueur);
 				y = rdm.nextInt(hauteur);
 			}
-			chateaux[i] = new Chateau(layer,imageChateau,rdm.nextInt(900)+101,GenererInitPiquiers(rdm.nextInt(3)+2),
-					GenererInitChevaliers(rdm.nextInt(3)+1),
-					GenererInitOnagres(rdm.nextInt(3)),x,y);
+			chateaux[i] = new Chateau(layer,imageChateau,rdm.nextInt(900)+101,rdm.nextInt(3)+2,
+					rdm.nextInt(3)+1,rdm.nextInt(3),x,y);
 		}	
-	}
-	
-	private ArrayList<Piquier> GenererInitPiquiers(int n){
-		ArrayList<Piquier> piquiers = new ArrayList<Piquier>();
-		for(int i = 0; i < n; i++)
-			piquiers.add(new Piquier());
-		return piquiers;
-	}
-	private ArrayList<Chevalier> GenererInitChevaliers(int n){
-		ArrayList<Chevalier> chevaliers = new ArrayList<Chevalier>();
-		for(int i = 0; i < n; i++)
-			chevaliers.add(new Chevalier());
-		return chevaliers;
-	}
-	private ArrayList<Onagre> GenererInitOnagres(int n){
-		ArrayList<Onagre> onagres = new ArrayList<Onagre>();
-		for(int i = 0; i < n; i++)
-			onagres.add(new Onagre());
-		return onagres;
 	}
 	
 	private boolean positionChateauLibre(int x, int y, int nbChateaux) {
@@ -138,9 +116,12 @@ public class Royaume {
 		if(ost.distanceCible() == 1) {
 			if(ost.getCible().getDuc() == ost.getDuc()) {
 				ost.transfererTroupes();
+				this.ost.remove(ost);
 			}
 			else {
 				ost.attaquerCible();
+				if(ost.attaqueFinie())
+					this.ost.remove(ost);
 			}
 		}
 		else {
