@@ -1,6 +1,5 @@
 package royaume;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import game.Sprite;
@@ -29,12 +28,9 @@ public class Chateau extends Sprite{
 	private Ost ost;
 	private Porte porte;
 	
-	private int pos_x;
-	private int pos_y;
-	
 	/* Chateau Duc */
 	public Chateau(Pane layer, Image image, Duc duc, int tresor, int nbPiquiers, int nbChevaliers,
-			int nbOnagres, double x, double y) {
+			int nbOnagres, long x, long y) {
 		super(layer, image, x, y);
 		this.duc = duc;
 		duc.ajouterChateau();
@@ -60,12 +56,12 @@ public class Chateau extends Sprite{
 				break;
 			default:
 				break;
-		}	
+		}
 	}
 	
 	/* Chateau Neutre (pas de duc) */
 	public Chateau(Pane layer, Image image, int tresor, int nbPiquiers, int nbChevaliers,
-			int nbOnagres, double x, double y) {
+			int nbOnagres, long x, long y) {
 		super(layer, image, x, y);
 		this.tresor = tresor;
 		this.niveau = rdm.nextInt(10)+1;
@@ -159,7 +155,7 @@ public class Chateau extends Sprite{
 			return false;
 		}
 		this.ost = ost;
-		int sortie_x = pos_x, sortie_y = pos_y;
+		long sortie_x = pos_x, sortie_y = pos_y;
 		if(getPorte() == Constantes.GAUCHE)
 			sortie_x--;
 		else if(getPorte() == Constantes.HAUT)
@@ -201,16 +197,16 @@ public class Chateau extends Sprite{
 		
 	/* * * * * * * * FIN : Fonctions Ordre * * * * * * * */
 	
-	public double distance(Chateau c) {
+	public long distance(Chateau c) {
 		if (c.getPos_x() == pos_x && c.getPos_y() == pos_y) {
 			System.err.println("Erreur : Deux chateaux ne peuvent être sur la même position.");
 			return 0;
 		}
-		return Math.sqrt((c.getPos_y() - pos_y)*(c.getPos_y() - pos_y) + (c.getPos_x() - pos_x)*(c.getPos_x() - pos_x));
+		return (long) (Math.abs(c.getPos_y() - pos_y) + Math.abs(c.getPos_x() - pos_x));
 	}
 	
-	public int distance(int x, int y) {
-		return Math.abs(y - pos_y) + Math.abs(x - pos_x);
+	public long distance(long x, long y) {
+		return (long) (Math.abs(y - pos_y) + Math.abs(x - pos_x));
 	}
 	
 	public void finTourChateau() {

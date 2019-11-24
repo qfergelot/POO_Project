@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -44,17 +45,17 @@ public class Main extends Application {
 		
 		root = new Group();
 		scene = new Scene(root, Constantes.SCENE_WIDTH, Constantes.SCENE_HEIGHT);
-
 		
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
+		primaryStage.setFullScreen(true);
 		primaryStage.show();
 		// create layers
 		gameFieldLayer = new Pane();
 		root.getChildren().add(gameFieldLayer);
 		
-		initRoyaume(800,600);
-		royaume = new Royaume(gameFieldLayer,1,0,0,800,600,3,8,3,2,0);
+		initRoyaume(800,400);
+		royaume = new Royaume(gameFieldLayer,1,0,0,800,400,200,8,3,2,0);
 		
 		loadGame();
 		

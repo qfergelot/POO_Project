@@ -58,39 +58,35 @@ public class Royaume {
 		for(int i=0; i<(nbJoueurs+nbIA); i++) {
 			ducs[i] = new Duc("joueur" + i);
 		}
-		//Chateaux Joeurs+IA
+		//Chateaux Joueurs+IA
 		int temp = nbJoueurs+nbIA;
+		long x, y;
 		for(int i=0; i<temp; i++) {
-			int x = rdm.nextInt(longueur);
-			int y = rdm.nextInt(hauteur);
-			while(!positionChateauLibre(x,y,i)) {
-				x = rdm.nextInt(longueur);
-				y = rdm.nextInt(hauteur);
-			}
+			do {
+				x = rdm.nextInt(longueur-(int)imageChateau.getWidth());
+				y = rdm.nextInt(hauteur-(int)imageChateau.getHeight());
+			} while(positionChateauLibre(x,y,i) == false);
 			chateaux[i] = new Chateau(layer,imageChateau,ducs[i],0,nbPiquiers_init,nbChevaliers_init,nbOnagres_init,x,y);
 		}
 		//Chateaux Neutres
 		for(int i=temp; i<nbChateaux; i++) {
-			int x = rdm.nextInt(longueur);
-			int y = rdm.nextInt(hauteur);
-			while(!positionChateauLibre(x,y,i)) {
-				x = rdm.nextInt(longueur);
-				y = rdm.nextInt(hauteur);
-			}
+			boolean cond;
+			do {
+				x = rdm.nextInt(longueur-(int)imageChateau.getWidth());
+				y = rdm.nextInt(hauteur-(int)imageChateau.getHeight());
+			} while (positionChateauLibre(x,y,i) == false);
 			chateaux[i] = new Chateau(layer,imageChateau,rdm.nextInt(900)+101,rdm.nextInt(3)+2,
 					rdm.nextInt(3)+1,rdm.nextInt(3),x,y);
 		}	
 	}
 	
-	private boolean positionChateauLibre(int x, int y, int nbChateaux) {
-		boolean libre = true;
-		for(int i=0; i<nbChateaux; i++) {
-			if (chateaux[i].distance(x, y) < distMinChateaux) {
-				libre = false;
-				break;
+	private boolean positionChateauLibre(long x, long y, int nbChateaux) {
+		for(int cpt=0; cpt<nbChateaux; cpt++) {
+			if (chateaux[cpt].distance(x, y) < distMinChateaux) {
+				return false;
 			}
 		}
-		return libre;		
+		return true;		
 	}
 	
 	public void creerOrdre(Chateau c, Chateau cible, int nbPiquiers, int nbChevaliers, int nbOnagres) {

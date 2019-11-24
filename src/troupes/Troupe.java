@@ -17,7 +17,7 @@ public class Troupe extends Sprite{
 	private int vie;
 	private int degats;
 	
-	public Troupe(Pane layer, Image img, int coutProduction, int tempsProduction, int vitesse, int vie, int degats, double pos_x, double pos_y) {
+	public Troupe(Pane layer, Image img, int coutProduction, int tempsProduction, int vitesse, int vie, int degats, long pos_x, long pos_y) {
 		super(layer, img, pos_x, pos_y);
 		this.coutProduction = coutProduction;
 		this.tempsProduction = tempsProduction;
@@ -30,7 +30,7 @@ public class Troupe extends Sprite{
 		return 1;
 	}
 	
-	public void move(int dir) {
+    public void move(int dir) {
 		switch(dir) {
 			case Constantes.GAUCHE:
 				pos_x--;

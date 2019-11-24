@@ -2,22 +2,22 @@ package game;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import royaume.Constantes;
 
 public abstract class Sprite {
     protected ImageView imageView;
     private Pane layer;
-    private int bordures;
 
-    protected double pos_x;
-    protected double pos_y;
+    protected long pos_x;
+    protected long pos_y;
     
-    private double w;
-    private double h;
+    private long w;
+    private long h;
 
     private boolean removable = false;
 
 
-    public Sprite(Pane layer, Image img, double x, double y) {
+    public Sprite(Pane layer, Image img, long x, long y) {
 
         this.layer = layer;
         this.pos_x = x;
@@ -26,8 +26,8 @@ public abstract class Sprite {
         this.imageView = new ImageView(img);
         this.imageView.relocate(x, y);
         
-        w = img.getWidth();
-        h = img.getHeight();
+        w = (long)img.getWidth();
+        h = (long)img.getHeight();
 
         addToLayer();
 
@@ -41,19 +41,19 @@ public abstract class Sprite {
         this.layer.getChildren().remove(this.imageView);
     }
 
-    public double getPos_x() {
+    public long getPos_x() {
         return pos_x;
     }
 
-    public double getPos_y() {
+    public long getPos_y() {
         return pos_y;
     }
     
-    public double getWidth() {
+    public long getWidth() {
     	return w;
     }
     
-    public double getHeight() {
+    public long getHeight() {
     	return h;
     }
 
@@ -66,7 +66,7 @@ public abstract class Sprite {
     }
 
     public void updateUI() {
-        imageView.relocate(bordures + pos_x, pos_y);
+        imageView.relocate(pos_x, pos_y);
     }
 
     public void remove() {
