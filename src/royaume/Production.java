@@ -1,31 +1,45 @@
 package royaume;
 
-import troupes.Troupe;
+import troupes.Chevalier;
+import troupes.Onagre;
+import troupes.Piquier;
 
 public class Production {
-	private Troupe unite;
+	private int unite;
 	private int nbTours;
+	private int nbToursInit;
 	
-	public Production(int niveauChateau) {
-		this.unite = null;
-		this.nbTours = 100+50*niveauChateau;
-	}
-	
-	public Production(Troupe unite) {
+	public Production(int unite, int niveauChateau) {
 		this.unite = unite;
-		this.nbTours = unite.getTempsProduction();
+		if(unite==Constantes.PIQUIER)
+			nbTours = Piquier.TEMPS_PRODUCTION;
+		else if(unite==Constantes.CHEVALIER)
+			nbTours = Chevalier.TEMPS_PRODUCTION;
+		else if(unite==Constantes.ONAGRE)
+			nbTours = Onagre.TEMPS_PRODUCTION;
+		else
+			nbTours = 100+50*niveauChateau;
+		nbToursInit = nbTours;
 	}
 	
-	public Troupe getUnite() {
+	public int getUnite() {
 		return unite;
 	}
 	
 	public boolean estAmelioration() {
-		return unite == null;
+		return unite == Constantes.AMELIORATION;
 	}
 	
 	public int getNbTours() {
 		return nbTours;
+	}
+	
+	public int getNbToursInit() {
+		return nbToursInit;
+	}
+	
+	public double pourcentage() {
+		return 1.0-((double)nbTours/(double)nbToursInit);
 	}
 	
 	/*

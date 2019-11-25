@@ -7,6 +7,7 @@ import java.util.Random;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import troupes.*;
 
 public class Royaume {
@@ -56,7 +57,7 @@ public class Royaume {
 		/*Définition basique de nom à améliorer*/
 		
 		for(int i=0; i<(nbJoueurs+nbIA); i++) {
-			ducs[i] = new Duc("joueur" + i);
+			ducs[i] = new Duc("joueur" + i, Color.BLUE);
 		}
 		//Chateaux Joueurs+IA
 		int temp = nbJoueurs+nbIA;

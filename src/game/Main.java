@@ -4,13 +4,16 @@ import royaume.*;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.scene.paint.*;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -32,6 +35,18 @@ public class Main extends Application {
 	
 	private boolean pauseTrigger = false;
 	
+	private Chateau dernierChateauSelection = null;
+	private Chateau chateauSelection = null;
+	private Text texteFlorins = new Text("--");
+	private Text textePiquiers = new Text("--");
+	private Text texteChevaliers = new Text("--");
+	private Text texteOnagres = new Text("--");
+	private Text texteJoueur = new Text ("--");
+	private Button boutonProduirePiquier = new Button();
+	private Button boutonProduireChevalier = new Button();
+	private Button boutonProduireOnagre = new Button();
+	private Button boutonProduireAmelioration = new Button();
+	private Rectangle barreProgression;
 	
 	Group root;
 	
@@ -42,20 +57,27 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		Screen screen = Screen.getPrimary();
+		Rectangle2D bounds = screen.getVisualBounds();
+
+		primaryStage.setX(bounds.getMinX()-2);
+		primaryStage.setY(bounds.getMinY()-2);
+		primaryStage.setWidth(bounds.getWidth()+4);
+		primaryStage.setHeight(bounds.getHeight()+4);
+		primaryStage.setTitle("Le projet qui vaut 23/20");
 		
 		root = new Group();
-		scene = new Scene(root, Constantes.SCENE_WIDTH, Constantes.SCENE_HEIGHT);
+		scene = new Scene(root);
+		scene.getStylesheets().add(getClass().getResource("/css/application.css").toExternalForm());
 		
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
-		primaryStage.setFullScreen(true);
 		primaryStage.show();
 		// create layers
 		gameFieldLayer = new Pane();
 		root.getChildren().add(gameFieldLayer);
 		
-		initRoyaume(800,400);
-		royaume = new Royaume(gameFieldLayer,1,0,0,800,400,200,8,3,2,0);
+		initRoyaume(1100,630,bounds.getWidth()+4,bounds.getHeight()+4);
+		royaume = new Royaume(gameFieldLayer,1,0,0,1100,630,200,12,3,2,0);
 		
 		loadGame();
 		
@@ -64,16 +86,22 @@ public class Main extends Application {
 			@Override
 			public void handle(long now) {
 				processInput(input, now);
-				
+				//********COMPTEUR TEMPS********/
 				if((now - dernier_temps) >= Constantes.GAME_FREQUENCY) {
 					dernier_temps = now;
 					compteur_temps++;
-				}
-				if(compteur_temps == Constantes.DUREE_TOUR) {
-					royaume.finTour();
-					compteur_temps = 0;
 					
 				}
+				/*if(compteur_temps == Constantes.DUREE_TOUR) {
+					compteur_temps = 0;
+				}*/
+				//******************************/
+				//if(!pauseTrigger)
+				royaume.finTour();
+				
+				if(UIsingleton.getUIsingleton().getChateauSelection()!=chateauSelection)
+					updateClick();
+				update();
 				
 			}
 			
@@ -82,6 +110,7 @@ public class Main extends Application {
 					Platform.exit();
 					System.exit(0);
 				} else if (input.isPause()) { 
+					//pauseTrigger = (pauseTrigger ? false : true);
 					pause(now);
 				}
 			}
@@ -130,10 +159,192 @@ public class Main extends Application {
 		
 	}
 	
-	private void initRoyaume(int longueur, int hauteur) {
-		Rectangle fond = new Rectangle(longueur,hauteur);
+	private void updateClick() {
+		chateauSelection = UIsingleton.getUIsingleton().getChateauSelection();
+		
+		//dernierChateauSelection = chateauSelection;
+		/*if(chateauSelection == null) {
+			texteFlorins.setText("--");
+			textePiquiers.setText("--");
+    		texteChevaliers.setText("--");
+    		texteOnagres.setText("--");
+    		texteJoueur.setText("--");
+		}
+		else {
+			texteFlorins.setText(""+chateauSelection.getTresor());
+    		textePiquiers.setText(""+chateauSelection.getNbPiquiers());
+    		texteChevaliers.setText(""+chateauSelection.getNbChevaliers());
+    		texteOnagres.setText(""+chateauSelection.getNbOnagres());*/
+    		if(!chateauSelection.getNeutre()) {
+        		texteJoueur.setText(chateauSelection.getDuc().getNom()+" - Niveau "+chateauSelection.getNiveau());
+        		texteJoueur.setFill(chateauSelection.getDuc().getCouleur());
+        		boutonProduirePiquier.setStyle("");
+        		boutonProduireChevalier.setStyle("");
+        		boutonProduireOnagre.setStyle("");
+        		boutonProduireAmelioration.setStyle("-fx-padding: 12 67 12 67;");
+        		if(chateauSelection.enProduction()) {
+    				barreProgression.setWidth(chateauSelection.getProduction().pourcentage()*160+1);
+        		} else {
+        			barreProgression.setWidth(1);
+        		}
+    		}
+    		else {
+    			texteJoueur.setText("Neutre - Niveau "+chateauSelection.getNiveau());
+        		texteJoueur.setFill(Color.GREY);
+        		boutonProduirePiquier.setStyle("-fx-background-color: #E9E9E9");
+        		boutonProduireChevalier.setStyle("-fx-background-color: #E9E9E9");
+        		boutonProduireOnagre.setStyle("-fx-background-color: #E9E9E9");
+        		boutonProduireAmelioration.setStyle("-fx-background-color: #E9E9E9;-fx-padding: 12 67 12 67;");
+    		}
+		//}
+	}
+	
+	private void update() {
+		chateauSelection = UIsingleton.getUIsingleton().getChateauSelection();
+	
+		//dernierChateauSelection = chateauSelection;
+		if(chateauSelection == null) {
+			texteFlorins.setText("--");
+			textePiquiers.setText("--");
+    		texteChevaliers.setText("--");
+    		texteOnagres.setText("--");
+    		texteJoueur.setText("--");
+		}
+		else {
+			texteFlorins.setText(""+chateauSelection.getTresor());
+    		textePiquiers.setText(""+chateauSelection.getNbPiquiers());
+    		texteChevaliers.setText(""+chateauSelection.getNbChevaliers());
+    		texteOnagres.setText(""+chateauSelection.getNbOnagres());
+    		if(chateauSelection.enProduction()) {
+				barreProgression.setWidth(chateauSelection.getProduction().pourcentage()*160+1);
+    		} else {
+    			barreProgression.setWidth(1);
+    		}
+    		if(!chateauSelection.getNeutre()) {
+        		texteJoueur.setText(chateauSelection.getDuc().getNom()+" - Niveau "+chateauSelection.getNiveau());
+        		texteJoueur.setFill(chateauSelection.getDuc().getCouleur());
+    		}
+    		else {
+    			texteJoueur.setText("Neutre - Niveau "+chateauSelection.getNiveau());
+        		texteJoueur.setFill(Color.GREY);
+    		}
+		}
+	}
+	
+	private void initRoyaume(double longueur, double hauteur, double l_ecran, double h_ecran) {
+		Rectangle fond = new Rectangle(longueur,h_ecran);
+		Rectangle barre_ressources = new Rectangle(longueur,28);
+		Rectangle barre_actions = new Rectangle(l_ecran-longueur,h_ecran);
+		Rectangle barre_amelioration = new Rectangle(162, 15);
+		barreProgression = new Rectangle(1,13);
+		ImageView img_florins = new ImageView(new Image(getClass().getResource("/images/coins.png").toExternalForm(),28,28,true,true));
+		ImageView img_piquier = new ImageView(new Image(getClass().getResource("/images/militar.png").toExternalForm(), 28, 28, false, true));
+		ImageView img_chevalier = new ImageView(new Image(getClass().getResource("/images/chevalier.png").toExternalForm(), 28, 28, false, true));
+		ImageView img_onagre = new ImageView(new Image(getClass().getResource("/images/onagre.png").toExternalForm(), 28, 28, false, true));
+		Text produire = new Text("Produire");
+		
+		boutonProduirePiquier.setGraphic(new ImageView(new Image(getClass().getResource("/images/militar.png").toExternalForm(), 28, 28, false, true)));
+		boutonProduireChevalier.setGraphic(new ImageView(new Image(getClass().getResource("/images/chevalier.png").toExternalForm(), 28, 28, false, true)));
+		boutonProduireOnagre.setGraphic(new ImageView(new Image(getClass().getResource("/images/onagre.png").toExternalForm(), 28, 28, false, true)));
+		boutonProduireAmelioration.setGraphic(new ImageView(new Image(getClass().getResource("/images/up.png").toExternalForm(), 28, 28, true, false)));
+		
 		fond.setFill(Color.GREY);
+		barre_ressources.setArcWidth(5);
+		barre_ressources.setArcHeight(5);
+		barre_ressources.relocate(0, hauteur);
+		barre_ressources.setFill(Color.DARKSLATEGREY);
+		barre_actions.relocate(longueur, 0);
+		barre_actions.setFill(Color.ANTIQUEWHITE);
+		barre_actions.setStroke(Color.BLACK);
+		barre_amelioration.relocate(longueur+5, 180);
+		barre_amelioration.setFill(Color.ANTIQUEWHITE);
+		barre_amelioration.setStroke(Color.BLACK);
+		barreProgression.relocate(longueur+6, 181);
+		barreProgression.setFill(Color.AQUA);
+		
+		texteFlorins.relocate(70, hauteur+4);
+		texteFlorins.getStyleClass().add("texte");
+		textePiquiers.relocate(220, hauteur+4);
+		textePiquiers.getStyleClass().add("texte");
+		texteChevaliers.relocate(320, hauteur+4);
+		texteChevaliers.getStyleClass().add("texte");
+		texteOnagres.relocate(420, hauteur+4);
+		texteOnagres.getStyleClass().add("texte");
+		texteJoueur.relocate(600, hauteur+4);
+		texteJoueur.getStyleClass().add("texte");
+		produire.relocate(longueur+5, 30);
+		produire.setStyle("-fx-fill: #545454;-fx-font-size: 30;");
+		
+		img_florins.relocate(20, hauteur);
+		img_piquier.relocate(180, hauteur);
+		img_chevalier.relocate(280, hauteur);
+		img_onagre.relocate(380, hauteur);
+		
+		boutonProduirePiquier.relocate(longueur+5, 50);
+		boutonProduirePiquier.getStyleClass().add("bouton");
+		boutonProduireChevalier.relocate(longueur+60, 50);
+		boutonProduireChevalier.getStyleClass().add("bouton");
+		boutonProduireOnagre.relocate(longueur+115, 50);
+		boutonProduireOnagre.getStyleClass().add("bouton");
+		boutonProduireAmelioration.relocate(longueur+5, 120);
+		boutonProduireAmelioration.getStyleClass().add("bouton");
+		boutonProduireAmelioration.setStyle("-fx-padding: 12 67 12 67;");
+		
 		gameFieldLayer.getChildren().add(fond);
+		gameFieldLayer.getChildren().add(barre_ressources);
+		gameFieldLayer.getChildren().add(barre_actions);
+		gameFieldLayer.getChildren().add(barre_amelioration);
+		gameFieldLayer.getChildren().add(barreProgression);
+		gameFieldLayer.getChildren().add(img_florins);
+		gameFieldLayer.getChildren().add(texteFlorins);
+		gameFieldLayer.getChildren().add(img_piquier);
+		gameFieldLayer.getChildren().add(textePiquiers);
+		gameFieldLayer.getChildren().add(img_chevalier);
+		gameFieldLayer.getChildren().add(texteChevaliers);
+		gameFieldLayer.getChildren().add(img_onagre);
+		gameFieldLayer.getChildren().add(texteOnagres);
+		gameFieldLayer.getChildren().add(texteJoueur);
+		gameFieldLayer.getChildren().add(produire);
+		gameFieldLayer.getChildren().add(boutonProduirePiquier);
+		gameFieldLayer.getChildren().add(boutonProduireChevalier);
+		gameFieldLayer.getChildren().add(boutonProduireOnagre);
+		gameFieldLayer.getChildren().add(boutonProduireAmelioration);
+		
+		boutonProduirePiquier.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
+        	@Override
+        	public void handle(MouseEvent e) {
+        		if(!chateauSelection.getNeutre()) {
+        			boolean prod = chateauSelection.lancerProduction(Constantes.PIQUIER);
+        		}
+        	}
+        });
+		boutonProduireChevalier.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
+        	@Override
+        	public void handle(MouseEvent e) {
+        		if(!chateauSelection.getNeutre()) {
+        			boolean prod = chateauSelection.lancerProduction(Constantes.CHEVALIER);
+        		}
+        	}
+        });
+		boutonProduireOnagre.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
+        	@Override
+        	public void handle(MouseEvent e) {
+        		if(!chateauSelection.getNeutre()) {
+        			boolean prod = chateauSelection.lancerProduction(Constantes.ONAGRE);
+        		}
+        	}
+        });
+		boutonProduireAmelioration.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
+        	@Override
+        	public void handle(MouseEvent e) {
+        		if(!chateauSelection.getNeutre()) {
+        			boolean prod = chateauSelection.lancerProduction(Constantes.AMELIORATION);
+        		}
+        	}
+        });
+		
+		
+		
 	}
 
 }

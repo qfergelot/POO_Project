@@ -11,15 +11,15 @@ public class Ordre {
 	private int nbChevaliers;
 	private int nbOnagres;
 	
-	private long sortie_x;
-	private long sortie_y;
+	private double sortie_x;
+	private double sortie_y;
 	
 	private Image image_piquier = new Image(getClass().getResource("/images/militar.png").toExternalForm(), 20, 20, true, true);
 	private Image image_chevalier = new Image(getClass().getResource("/images/chevalier.png").toExternalForm(), 20, 20, true, true);
 	private Image image_onagre = new Image(getClass().getResource("/images/onagre.png").toExternalForm(), 20, 20, true, true);
 
 	
-	public Ordre(Chateau cible, int nbPiquiers, int nbChevaliers, int nbOnagres, long sortie_x, long sortie_y) {
+	public Ordre(Chateau cible, int nbPiquiers, int nbChevaliers, int nbOnagres, double sortie_x, double sortie_y) {
 		this.cible = cible;
 		this.nbTroupes = nbPiquiers + nbChevaliers + nbOnagres;
 		this.nbPiquiers = nbPiquiers;

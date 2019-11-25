@@ -1,6 +1,9 @@
 package game;
+
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import royaume.Constantes;
 
@@ -8,16 +11,15 @@ public abstract class Sprite {
     protected ImageView imageView;
     private Pane layer;
 
-    protected long pos_x;
-    protected long pos_y;
+    protected double pos_x;
+    protected double pos_y;
     
     private long w;
     private long h;
 
     private boolean removable = false;
 
-
-    public Sprite(Pane layer, Image img, long x, long y) {
+    public Sprite(Pane layer, Image img, double x, double y) {
 
         this.layer = layer;
         this.pos_x = x;
@@ -28,11 +30,10 @@ public abstract class Sprite {
         
         w = (long)img.getWidth();
         h = (long)img.getHeight();
-
+        
         addToLayer();
-
     }
-
+    
     public void addToLayer() {
         this.layer.getChildren().add(this.imageView);
     }
@@ -41,11 +42,11 @@ public abstract class Sprite {
         this.layer.getChildren().remove(this.imageView);
     }
 
-    public long getPos_x() {
+    public double getPos_x() {
         return pos_x;
     }
 
-    public long getPos_y() {
+    public double getPos_y() {
         return pos_y;
     }
     

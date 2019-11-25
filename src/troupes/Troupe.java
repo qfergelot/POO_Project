@@ -10,17 +10,14 @@ import royaume.Chateau;
 import royaume.Constantes;
 
 public class Troupe extends Sprite{
-	
-	private int coutProduction;
-	private int tempsProduction;
+
 	private int vitesse;
 	private int vie;
 	private int degats;
 	
-	public Troupe(Pane layer, Image img, int coutProduction, int tempsProduction, int vitesse, int vie, int degats, long pos_x, long pos_y) {
+	public Troupe(Pane layer, Image img, int vitesse, int vie, int degats, double pos_x, double pos_y) {
 		super(layer, img, pos_x, pos_y);
-		this.coutProduction = coutProduction;
-		this.tempsProduction = tempsProduction;
+
 		this.vitesse = vitesse;
 		this.vie = vie;
 		this.degats = degats;
@@ -119,14 +116,6 @@ public class Troupe extends Sprite{
 		degats--;
 	}
 	
-	public int getCoutProduction() {
-		return coutProduction;
-	}
-	
-	public int getTempsProduction() {
-		return tempsProduction;
-	}
-	
 	public int getVitesse() {
 		return vitesse;
 	}
@@ -141,10 +130,6 @@ public class Troupe extends Sprite{
 	
 	public boolean estMort() {
 		return vie == 0 || degats == 0;
-	}
-	
-	public void checkRemovability() {
-		
 	}
 	
 }

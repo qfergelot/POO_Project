@@ -3,7 +3,10 @@ package royaume;
 import java.util.Random;
 
 import game.Sprite;
+import game.UIsingleton;
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import troupes.*;
 
@@ -57,6 +60,12 @@ public class Chateau extends Sprite{
 			default:
 				break;
 		}
+        imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
+        	@Override
+        	public void handle(MouseEvent e) {
+        		UIsingleton.getUIsingleton().setChateauSelection(getChateau());
+        	}
+        });
 	}
 	
 	/* Chateau Neutre (pas de duc) */
@@ -84,31 +93,39 @@ public class Chateau extends Sprite{
 		default:
 			break;
 		}
+        imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
+        	@Override
+        	public void handle(MouseEvent e) {
+        		UIsingleton.getUIsingleton().setChateauSelection(getChateau());
+        	}
+        });
 	}
 	
 	
 	/* * * * * * * * DEBUT : Fonctions Production * * * * * * * */
-	public boolean lancerProduction() {
-		if(tresor < 1000*niveau) {
-			//Pas assez de florins pour l'amélioration
+	public boolean lancerProduction(int unite) {
+		if(enProduction()) {
 			return false;
-		}
-		else {
-			tresor -= 1000*niveau;
-			production = new Production(niveau);
-			return true;
-		}
-	}
-	
-	public boolean lancerProduction(Troupe t) {
-		if(tresor < t.getCoutProduction()) {
-			// pas assez de sousous
-			return false;
-		}
-		else {
-			tresor -= t.getCoutProduction();
-			production = new Production(t);
-			return true;
+		} else {
+			
+			int cout;
+			if(unite==Constantes.PIQUIER)
+				cout = Piquier.COUT_PRODUCTION;
+			else if(unite==Constantes.CHEVALIER)
+				cout = Chevalier.COUT_PRODUCTION;
+			else if(unite==Constantes.ONAGRE)
+				cout = Onagre.COUT_PRODUCTION;
+			else
+				cout = 1000*niveau;
+			if(tresor < cout) {
+				// pas assez de sousous
+				return false;
+			}
+			else {
+				production = new Production(unite,niveau);
+				tresor -= cout;
+				return true;
+			}
 		}
 		
 	}
@@ -117,7 +134,12 @@ public class Chateau extends Sprite{
 		if(production.estAmelioration()) {
 			tresor += 1000*niveau;
 		} else {
-			tresor += production.getUnite().getCoutProduction();
+			if(production.getUnite()==Constantes.PIQUIER)
+				tresor += Piquier.COUT_PRODUCTION;
+			else if(production.getUnite()==Constantes.CHEVALIER)
+				tresor += Chevalier.COUT_PRODUCTION;
+			else
+				tresor += Onagre.COUT_PRODUCTION;
 		}
 		
 		production = null;
@@ -134,10 +156,10 @@ public class Chateau extends Sprite{
 		if(production.estAmelioration())
 			niveau++;
 		else {
-			Troupe t = production.getUnite();
-			if(t.getClass() == Piquier.class)
+			int t = production.getUnite();
+			if(t == Constantes.PIQUIER)
 				nbPiquiers++;
-			else if(t.getClass() == Chevalier.class)
+			else if(t == Constantes.CHEVALIER)
 				nbChevaliers++;
 			else
 				nbOnagres++;
@@ -155,7 +177,7 @@ public class Chateau extends Sprite{
 			return false;
 		}
 		this.ost = ost;
-		long sortie_x = pos_x, sortie_y = pos_y;
+		double sortie_x = pos_x, sortie_y = pos_y;
 		if(getPorte() == Constantes.GAUCHE)
 			sortie_x--;
 		else if(getPorte() == Constantes.HAUT)
@@ -286,7 +308,7 @@ public class Chateau extends Sprite{
 		this.duc = duc;
 	}
 	
-	public boolean getNeutr() {
+	public boolean getNeutre() {
 		return neutre;
 	}
 
@@ -329,6 +351,10 @@ public class Chateau extends Sprite{
 
 	public int getPorte() {
 		return porte.getPorte();
+	}
+	
+	private Chateau getChateau() {
+		return this;
 	}
 
 	/* * * * * * * * FIN : Getters/Setters * * * * * * * */

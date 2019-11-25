@@ -1,0 +1,27 @@
+.texte {
+    -fx-fill: blanchedalmond;
+    -fx-scale-x: 2;
+    -fx-scale-y: 2;
+}
+
+.bouton {
+    -fx-background-insets: 0,1,2,3;
+    -fx-background-radius: 5;
+    -fx-padding: 12 12 12 12;
+    -fx-background-color: grey;
+    -fx-font-size: 16;
+    -fx-text-fill: blanchedalmond;
+}
+
+.bouton:hover {
+    -fx-background-color: #525252;
+}
+
+.bouton_neutre {
+    -fx-background-insets: 0,1,2,3;
+    -fx-background-radius: 5;
+    -fx-padding: 12 12 12 12;
+    -fx-background-color: #E9E9E9;
+    -fx-font-size: 16;
+    -fx-text-fill: blanchedalmond;
+}
