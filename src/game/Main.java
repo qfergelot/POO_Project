@@ -90,7 +90,7 @@ public class Main extends Application {
 				if((now - dernier_temps) >= Constantes.GAME_FREQUENCY) {
 					dernier_temps = now;
 					compteur_temps++;
-					
+					updateTresor();
 				}
 				/*if(compteur_temps == Constantes.DUREE_TOUR) {
 					compteur_temps = 0;
@@ -101,7 +101,16 @@ public class Main extends Application {
 				
 				if(UIsingleton.getUIsingleton().getChateauSelection()!=chateauSelection)
 					updateClick();
+				if (UIsingleton.getUIsingleton().toUpdateTroupes()) {
+					updateTroupe();
+					UIsingleton.getUIsingleton().setToUpdateTroupes(false);
+				}
 				update();
+				
+				
+				/************IDEE DE DINGUE
+				 * Creer une variable dans UIsingleton qui dit si un update a besoin d'être fait
+				 */
 				
 			}
 			
@@ -159,11 +168,31 @@ public class Main extends Application {
 		
 	}
 	
+	private void updateTresor() {
+		if(chateauSelection == null)
+			texteFlorins.setText("--");
+		else
+			texteFlorins.setText(""+chateauSelection.getTresor());
+	}
+	
+	private void updateTroupe() {
+		textePiquiers.setText(""+chateauSelection.getNbPiquiers());
+		texteChevaliers.setText(""+chateauSelection.getNbChevaliers());
+		texteOnagres.setText(""+chateauSelection.getNbOnagres());
+		if(!chateauSelection.getNeutre()) {
+    		texteJoueur.setText(chateauSelection.getDuc().getNom()+" - Niveau "+chateauSelection.getNiveau());
+    		texteJoueur.setFill(chateauSelection.getDuc().getCouleur());
+		} else {
+			texteJoueur.setText("Neutre - Niveau "+chateauSelection.getNiveau());
+    		texteJoueur.setFill(Color.GREY);
+		}
+	}
+	
 	private void updateClick() {
 		chateauSelection = UIsingleton.getUIsingleton().getChateauSelection();
 		
 		//dernierChateauSelection = chateauSelection;
-		/*if(chateauSelection == null) {
+		if(chateauSelection == null) {
 			texteFlorins.setText("--");
 			textePiquiers.setText("--");
     		texteChevaliers.setText("--");
@@ -174,7 +203,7 @@ public class Main extends Application {
 			texteFlorins.setText(""+chateauSelection.getTresor());
     		textePiquiers.setText(""+chateauSelection.getNbPiquiers());
     		texteChevaliers.setText(""+chateauSelection.getNbChevaliers());
-    		texteOnagres.setText(""+chateauSelection.getNbOnagres());*/
+    		texteOnagres.setText(""+chateauSelection.getNbOnagres());
     		if(!chateauSelection.getNeutre()) {
         		texteJoueur.setText(chateauSelection.getDuc().getNom()+" - Niveau "+chateauSelection.getNiveau());
         		texteJoueur.setFill(chateauSelection.getDuc().getCouleur());
@@ -196,7 +225,7 @@ public class Main extends Application {
         		boutonProduireOnagre.setStyle("-fx-background-color: #E9E9E9");
         		boutonProduireAmelioration.setStyle("-fx-background-color: #E9E9E9;-fx-padding: 12 67 12 67;");
     		}
-		//}
+		}
 	}
 	
 	private void update() {
@@ -204,30 +233,28 @@ public class Main extends Application {
 	
 		//dernierChateauSelection = chateauSelection;
 		if(chateauSelection == null) {
-			texteFlorins.setText("--");
-			textePiquiers.setText("--");
+/*			textePiquiers.setText("--");
     		texteChevaliers.setText("--");
     		texteOnagres.setText("--");
-    		texteJoueur.setText("--");
+    		texteJoueur.setText("--");*/
 		}
 		else {
-			texteFlorins.setText(""+chateauSelection.getTresor());
-    		textePiquiers.setText(""+chateauSelection.getNbPiquiers());
+    		/*textePiquiers.setText(""+chateauSelection.getNbPiquiers());
     		texteChevaliers.setText(""+chateauSelection.getNbChevaliers());
-    		texteOnagres.setText(""+chateauSelection.getNbOnagres());
+    		texteOnagres.setText(""+chateauSelection.getNbOnagres());*/
     		if(chateauSelection.enProduction()) {
 				barreProgression.setWidth(chateauSelection.getProduction().pourcentage()*160+1);
     		} else {
     			barreProgression.setWidth(1);
     		}
-    		if(!chateauSelection.getNeutre()) {
+    		/*if(!chateauSelection.getNeutre()) {
         		texteJoueur.setText(chateauSelection.getDuc().getNom()+" - Niveau "+chateauSelection.getNiveau());
         		texteJoueur.setFill(chateauSelection.getDuc().getCouleur());
     		}
     		else {
     			texteJoueur.setText("Neutre - Niveau "+chateauSelection.getNiveau());
         		texteJoueur.setFill(Color.GREY);
-    		}
+    		}*/
 		}
 	}
 	
@@ -315,6 +342,8 @@ public class Main extends Application {
         	public void handle(MouseEvent e) {
         		if(!chateauSelection.getNeutre()) {
         			boolean prod = chateauSelection.lancerProduction(Constantes.PIQUIER);
+        			if(prod)
+        				updateTresor();
         		}
         	}
         });
@@ -323,6 +352,8 @@ public class Main extends Application {
         	public void handle(MouseEvent e) {
         		if(!chateauSelection.getNeutre()) {
         			boolean prod = chateauSelection.lancerProduction(Constantes.CHEVALIER);
+        			if(prod)
+        				updateTresor();
         		}
         	}
         });
@@ -331,6 +362,8 @@ public class Main extends Application {
         	public void handle(MouseEvent e) {
         		if(!chateauSelection.getNeutre()) {
         			boolean prod = chateauSelection.lancerProduction(Constantes.ONAGRE);
+        			if(prod)
+        				updateTresor();
         		}
         	}
         });
@@ -339,6 +372,8 @@ public class Main extends Application {
         	public void handle(MouseEvent e) {
         		if(!chateauSelection.getNeutre()) {
         			boolean prod = chateauSelection.lancerProduction(Constantes.AMELIORATION);
+        			if(prod)
+        				updateTresor();
         		}
         	}
         });

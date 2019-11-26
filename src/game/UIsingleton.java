@@ -7,9 +7,8 @@ import javafx.scene.text.Text;
 public final class UIsingleton {
 	private static final UIsingleton instance = new UIsingleton();
 	
-
-	
 	private Chateau chateauSelection = null;
+	private boolean toUpdateTroupes = false;
 	
 	private UIsingleton() {
 		//
@@ -25,6 +24,14 @@ public final class UIsingleton {
 	
 	public void setChateauSelection(Chateau c) {
 		chateauSelection = c;
+	}
+	
+	public boolean toUpdateTroupes() {
+		return toUpdateTroupes;
+	}
+	
+	public void setToUpdateTroupes(boolean toUpdateTroupes) {
+		this.toUpdateTroupes = toUpdateTroupes;
 	}
 	
 }

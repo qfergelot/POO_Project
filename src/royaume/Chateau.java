@@ -15,7 +15,7 @@ public class Chateau extends Sprite{
 	
 	private Duc duc = null;
 	private boolean neutre = true;
-	private int tresor;
+	private double tresor;
 	private int niveau;
 
 	private int nbPiquiers;
@@ -164,6 +164,8 @@ public class Chateau extends Sprite{
 			else
 				nbOnagres++;
 		}
+		if (this == UIsingleton.getUIsingleton().getChateauSelection())
+			UIsingleton.getUIsingleton().setToUpdateTroupes(true);
 		production = null;
 	}
 	/* * * * * * * * FIN : Fonctions Production * * * * * * * */
@@ -233,7 +235,7 @@ public class Chateau extends Sprite{
 	
 	public void finTourChateau() {
 		if(!neutre) {
-			tresor += niveau*10;
+			tresor += niveau;
 			if(enProduction()) {
 				production.finTourProduction();
 				if(production.finProduction()) {
@@ -244,7 +246,7 @@ public class Chateau extends Sprite{
 				sortirTroupesOrdre();
 			}
 		}
-		else tresor += niveau;
+		else tresor += niveau/10;
 	}
 	
 	public boolean aucuneTroupe() {
@@ -313,7 +315,7 @@ public class Chateau extends Sprite{
 	}
 
 	public int getTresor() {
-		return tresor;
+		return (int)tresor;
 	}
 
 
