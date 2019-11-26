@@ -23,8 +23,13 @@ public class Main extends Application {
     private Royaume royaume;
 	
 	private Pane gameFieldLayer;
+	private Pane menuFieldLayer;
 	
-	private Scene scene;
+	private Scene scene;	
+	
+	private Scene menu_scene;
+	private AnimationTimer menuLoop;
+	
 	private AnimationTimer gameLoop;
 	private AnimationTimer pauseLoop;
 	
@@ -42,12 +47,16 @@ public class Main extends Application {
 	private Text texteChevaliers = new Text("--");
 	private Text texteOnagres = new Text("--");
 	private Text texteJoueur = new Text ("--");
+	private Text messageErreurProduction = new Text("");
 	private Button boutonProduirePiquier = new Button();
 	private Button boutonProduireChevalier = new Button();
 	private Button boutonProduireOnagre = new Button();
 	private Button boutonProduireAmelioration = new Button();
 	private Rectangle barreProgression;
 	
+	private Button boutonJouer = new Button("Jouer");
+	
+	Group menu;
 	Group root;
 	
 	public static void main(String[] args) {
@@ -64,23 +73,35 @@ public class Main extends Application {
 		primaryStage.setWidth(bounds.getWidth()+4);
 		primaryStage.setHeight(bounds.getHeight()+4);
 		primaryStage.setTitle("Le projet qui vaut 23/20");
+		primaryStage.setResizable(false);
 		
+		menu = new Group();
+		menu_scene = new Scene(menu);
+		menu_scene.getStylesheets().add(getClass().getResource("/css/application.css").toExternalForm());
 		root = new Group();
 		scene = new Scene(root);
 		scene.getStylesheets().add(getClass().getResource("/css/application.css").toExternalForm());
 		
-		primaryStage.setScene(scene);
-		primaryStage.setResizable(false);
+		primaryStage.setScene(menu_scene);
 		primaryStage.show();
 		// create layers
+		menuFieldLayer = new Pane();
+		menu.getChildren().add(menuFieldLayer);
 		gameFieldLayer = new Pane();
 		root.getChildren().add(gameFieldLayer);
 		
 		initRoyaume(1100,630,bounds.getWidth()+4,bounds.getHeight()+4);
 		royaume = new Royaume(gameFieldLayer,1,0,0,1100,630,200,12,3,2,0);
+		initMenu(bounds.getWidth()+4,bounds.getHeight()+4,primaryStage);
 		
 		loadGame();
 		
+		menuLoop = new AnimationTimer() {
+			@Override
+			public void handle(long now) {
+				updateMenu();
+			}
+		};
 		
 		gameLoop = new AnimationTimer() {
 			@Override
@@ -145,7 +166,7 @@ public class Main extends Application {
 
 		};
 		
-		gameLoop.start();
+		menuLoop.start();
 	}
 	
 	private void pause(long now) {
@@ -192,6 +213,7 @@ public class Main extends Application {
 		chateauSelection = UIsingleton.getUIsingleton().getChateauSelection();
 		
 		//dernierChateauSelection = chateauSelection;
+		messageErreurProduction.setText("");
 		if(chateauSelection == null) {
 			texteFlorins.setText("--");
 			textePiquiers.setText("--");
@@ -258,6 +280,28 @@ public class Main extends Application {
 		}
 	}
 	
+	private void updateMenu() {
+		
+	}
+	
+	private void initMenu(double l_ecran, double h_ecran, Stage stage) {
+		Rectangle fond = new Rectangle(l_ecran,h_ecran);
+		
+		fond.setFill(Color.GREY);
+		
+		boutonJouer.relocate(l_ecran/2-110, h_ecran/2-80);
+		boutonJouer.getStyleClass().add("bouton_menu");
+
+		menuFieldLayer.getChildren().add(fond);
+		menuFieldLayer.getChildren().add(boutonJouer);
+		
+		boutonJouer.setOnAction(e -> {
+			stage.setScene(scene);
+			menuLoop.stop();
+			gameLoop.start();
+		});
+	}
+	
 	private void initRoyaume(double longueur, double hauteur, double l_ecran, double h_ecran) {
 		Rectangle fond = new Rectangle(longueur,h_ecran);
 		Rectangle barre_ressources = new Rectangle(longueur,28);
@@ -301,6 +345,8 @@ public class Main extends Application {
 		texteJoueur.getStyleClass().add("texte");
 		produire.relocate(longueur+5, 30);
 		produire.setStyle("-fx-fill: #545454;-fx-font-size: 30;");
+		messageErreurProduction.relocate(longueur+6,  200);
+		messageErreurProduction.setStyle("-fx-fill: red; fx-font-size: 14");
 		
 		img_florins.relocate(20, hauteur);
 		img_piquier.relocate(180, hauteur);
@@ -332,51 +378,57 @@ public class Main extends Application {
 		gameFieldLayer.getChildren().add(texteOnagres);
 		gameFieldLayer.getChildren().add(texteJoueur);
 		gameFieldLayer.getChildren().add(produire);
+		gameFieldLayer.getChildren().add(messageErreurProduction);
 		gameFieldLayer.getChildren().add(boutonProduirePiquier);
 		gameFieldLayer.getChildren().add(boutonProduireChevalier);
 		gameFieldLayer.getChildren().add(boutonProduireOnagre);
 		gameFieldLayer.getChildren().add(boutonProduireAmelioration);
 		
-		boutonProduirePiquier.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
-        	@Override
-        	public void handle(MouseEvent e) {
-        		if(!chateauSelection.getNeutre()) {
-        			boolean prod = chateauSelection.lancerProduction(Constantes.PIQUIER);
-        			if(prod)
-        				updateTresor();
-        		}
-        	}
-        });
-		boutonProduireChevalier.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
-        	@Override
-        	public void handle(MouseEvent e) {
-        		if(!chateauSelection.getNeutre()) {
-        			boolean prod = chateauSelection.lancerProduction(Constantes.CHEVALIER);
-        			if(prod)
-        				updateTresor();
-        		}
-        	}
-        });
-		boutonProduireOnagre.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
-        	@Override
-        	public void handle(MouseEvent e) {
-        		if(!chateauSelection.getNeutre()) {
-        			boolean prod = chateauSelection.lancerProduction(Constantes.ONAGRE);
-        			if(prod)
-        				updateTresor();
-        		}
-        	}
-        });
-		boutonProduireAmelioration.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
-        	@Override
-        	public void handle(MouseEvent e) {
-        		if(!chateauSelection.getNeutre()) {
-        			boolean prod = chateauSelection.lancerProduction(Constantes.AMELIORATION);
-        			if(prod)
-        				updateTresor();
-        		}
-        	}
-        });
+		boutonProduirePiquier.setOnAction(e -> {
+			if(!chateauSelection.getNeutre()) {
+    			boolean prod = chateauSelection.lancerProduction(Constantes.PIQUIER);
+    			if(prod) {
+    				updateTresor();
+    				messageErreurProduction.setText("");
+    			} else {
+    				messageErreurProduction.setText("Pas assez de florins");
+    			}
+    		}
+		});
+		boutonProduireChevalier.setOnAction(e -> {
+			if(!chateauSelection.getNeutre()) {
+    			boolean prod = chateauSelection.lancerProduction(Constantes.CHEVALIER);
+    			if(prod) {
+    				updateTresor();
+    				messageErreurProduction.setText("");
+    			} else {
+    				messageErreurProduction.setText("Pas assez de florins");
+    			}
+    		}
+		});
+		boutonProduireOnagre.setOnAction(e -> {
+			if(!chateauSelection.getNeutre()) {
+    			boolean prod = chateauSelection.lancerProduction(Constantes.ONAGRE);
+    			if(prod) {
+    				updateTresor();
+    				messageErreurProduction.setText("");
+    			} else {
+    				messageErreurProduction.setText("Pas assez de florins");
+    			}
+    		}
+		});
+		boutonProduireAmelioration.setOnAction(e -> {
+			if(!chateauSelection.getNeutre()) {
+    			boolean prod = chateauSelection.lancerProduction(Constantes.AMELIORATION);
+    			if(prod) {
+    				updateTresor();
+    				messageErreurProduction.setText("");
+    			}
+    			else {
+    				messageErreurProduction.setText("Pas assez de florins");
+    			}
+    		}
+		});
 		
 		
 		

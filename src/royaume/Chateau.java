@@ -246,7 +246,7 @@ public class Chateau extends Sprite{
 				sortirTroupesOrdre();
 			}
 		}
-		else tresor += niveau/10;
+		else tresor += (double)niveau/10;
 	}
 	
 	public boolean aucuneTroupe() {
