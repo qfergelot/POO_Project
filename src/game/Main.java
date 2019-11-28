@@ -1,4 +1,4 @@
-package game;
+ package game;
 import royaume.*;
 
 import javafx.animation.AnimationTimer;
@@ -32,6 +32,11 @@ public class Main extends Application {
 	
 	private AnimationTimer gameLoop;
 	private AnimationTimer pauseLoop;
+	
+	private boolean isPauseAllowed = true;
+	private long pauseReferenceCooldown = 1000 * 1000 * 1000; //1s
+	private long  pauseCountdown = 1000 * 1000 * 1000;
+	private long pauseTmp = 0;
 	
 	private Input input;
 	
@@ -108,9 +113,10 @@ public class Main extends Application {
 			public void handle(long now) {
 				processInput(input, now);
 				//********COMPTEUR TEMPS********/
-				if((now - dernier_temps) >= Constantes.GAME_FREQUENCY) {
+				if((now - dernier_temps) >= Constantes.GAME_FREQUENCY/2) {
 					dernier_temps = now;
 					compteur_temps++;
+					pauseTrigger = false;
 					updateTresor();
 				}
 				/*if(compteur_temps == Constantes.DUREE_TOUR) {
@@ -140,7 +146,7 @@ public class Main extends Application {
 					Platform.exit();
 					System.exit(0);
 				} else if (input.isPause()) { 
-					//pauseTrigger = (pauseTrigger ? false : true);
+					//pauseTrigger = !pauseTrigger;
 					pause(now);
 				}
 			}
@@ -151,7 +157,13 @@ public class Main extends Application {
 			public void handle(long now) {
 				processInput(input, now);
 				
+				if(UIsingleton.getUIsingleton().getChateauSelection()!=chateauSelection)
+					updateClick();
 				
+				if((now - dernier_temps) >= Constantes.GAME_FREQUENCY/2) {
+					dernier_temps = now;
+					pauseTrigger = true;
+				}				
 			}
 			
 			private void processInput(Input input, long now) {
@@ -159,7 +171,9 @@ public class Main extends Application {
 					Platform.exit();
 					System.exit(0);
 				} else if (input.isPause()) { 
+					System.out.println(pauseCountdown + " | " + now);
 					pause(now);
+					
 				}
 
 			}
@@ -171,12 +185,10 @@ public class Main extends Application {
 	
 	private void pause(long now) {
 		if (pauseTrigger) {
-			pauseTrigger = false;
 			pauseLoop.stop();
-			gameLoop.start();			
+			gameLoop.start();	
 		}
 		else {
-			pauseTrigger = true;
 			gameLoop.stop();
 			pauseLoop.start();
 		}
