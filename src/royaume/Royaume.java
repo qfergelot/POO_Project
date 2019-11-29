@@ -146,7 +146,7 @@ public class Royaume {
 					return false;
 			}
 		}
-		return false;
+		return true;
 	}
 	
 	/*private void deplacementOst(Ost ost) {
