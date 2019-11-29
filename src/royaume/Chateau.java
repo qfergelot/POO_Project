@@ -112,7 +112,7 @@ public class Chateau extends Sprite{
     			
     			attack.setOnAction(evt -> {
     				if (!ordre())
-    					getChateau().creerOrdre(new Ost( getChateau().getKingdom().getPlayer(), getChateau(), x, y), getChateau(), nbPiquiers, nbChevaliers, nbOnagres);
+    					getChateau().creerOrdre(new Ost( kingdom.getPlayer(), getChateau(), x, y), getChateau(), nbPiquiers, nbChevaliers, nbOnagres);
     			});
     			contextMenu.getItems().addAll(attack);
     			contextMenu.show(getChateau().getView(), e.getScreenX(), e.getScreenY());
