@@ -55,7 +55,6 @@ public class Ost {
 			}
 			v--;
 		}
-		
 	}
 	
 	public void attaquerCible() {

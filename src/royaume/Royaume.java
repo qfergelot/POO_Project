@@ -238,5 +238,13 @@ public class Royaume {
 		return longueur;
 	}
 	
+	public Duc getPlayer() {
+		for(int i = 0; i < chateaux.length; i++) {
+			if (chateaux[i].isPlayer())
+				return chateaux[i].getDuc();
+		}
+		return null;
+	}
+	
 	/* * * * * * * * FIN : Getters/Setters * * * * * * * */
 }

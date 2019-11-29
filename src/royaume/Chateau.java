@@ -67,7 +67,6 @@ public class Chateau extends Sprite{
         	@Override
         	public void handle(MouseEvent e) {
         		UIsingleton.getUIsingleton().setChateauSelection(getChateau());
-        		System.out.println("Click on player castle");
         		
         	}
         });
@@ -103,12 +102,13 @@ public class Chateau extends Sprite{
         	@Override
         	public void handle(MouseEvent e) {
         		UIsingleton.getUIsingleton().setChateauSelection(getChateau());
-        		System.out.println("Click on neutral castle");
         		
         		ContextMenu contextMenu = new ContextMenu();
     			MenuItem attack = new MenuItem("Attack");
     			
     			attack.setOnAction(evt -> {
+    				if (!ordre())
+    					getChateau().creerOrdre(new Ost( null, getChateau(), x, y), getChateau(), nbPiquiers, nbChevaliers, nbOnagres);
     			});
 
     			contextMenu.getItems().addAll(attack);
@@ -214,12 +214,12 @@ public class Chateau extends Sprite{
 		for(int i=0; i<stop; i++) {
 			if(ordreDeplacement.getNbOnagres()>0) {
 				ordreDeplacement.sortirOnagre(ost);
+				
 				nbOnagres--;
 			}
 			else if(ordreDeplacement.getNbPiquiers()>0) {
 				ordreDeplacement.sortirPiquier(ost);
-				nbPiquiers--;
-			}
+				nbPiquiers--;			}
 			else {
 				ordreDeplacement.sortirChevalier(ost);
 				nbChevaliers--;
@@ -322,6 +322,11 @@ public class Chateau extends Sprite{
 		return duc;
 	}
 	
+	public boolean isPlayer()
+	{
+		return this.duc.getNom() == "player";
+	}
+	
 	public void setDuc(Duc duc) {
 		this.duc = duc;
 	}
@@ -374,6 +379,7 @@ public class Chateau extends Sprite{
 	private Chateau getChateau() {
 		return this;
 	}
+	
 
 	/* * * * * * * * FIN : Getters/Setters * * * * * * * */
 }
