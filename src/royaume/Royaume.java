@@ -15,8 +15,8 @@ public class Royaume {
 	
 	private Pane layer;
 	
-	private Image imagePlayerChateau = new Image(getClass().getResource("/images/chateauJoueur.jpg").toExternalForm(), 40, 40, true, true);
-	private Image imageNeutralChateau = new Image(getClass().getResource("/images/chateauNeutre.png").toExternalForm(), 40, 40, true, true);
+	private Image imagePlayerChateau = new Image(getClass().getResource("/images/Chateau joueur.png").toExternalForm(), 40, 40, true, false);
+	private Image imageNeutralChateau = new Image(getClass().getResource("/images/Chateau neutre.png").toExternalForm(), 40, 40, true, false);
 //	private Image imagePiquier = new Image(getClass().getResource("/images/militar.png").toExternalForm(), 20, 20, true, true);
 //	private Image imageChevalier = new Image(getClass().getResource("/images/chevalier.png").toExternalForm(), 20, 20, true, true);
 //	private Image imageOnagre = new Image(getClass().getResource("/images/oangre.png").toExternalForm(), 20, 20, true, true);

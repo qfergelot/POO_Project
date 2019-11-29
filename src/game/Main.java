@@ -56,6 +56,8 @@ public class Main extends Application {
 	private Button boutonProduireAmelioration = new Button();
 	private Rectangle barreProgression;
 	
+	private Rectangle bordureChateau = new Rectangle();
+	
 	private Button boutonJouer = new Button("Jouer");
 	
 	Group menu;
@@ -91,6 +93,11 @@ public class Main extends Application {
 		initRoyaume(1100,630,bounds.getWidth()+4,bounds.getHeight()+4);
 		royaume = new Royaume(gameFieldLayer,1,0,0,1100,630,200,12,3,2,0);
 		initMenu(bounds.getWidth()+4,bounds.getHeight()+4,primaryStage);
+		bordureChateau.setWidth(royaume.getChateau(0).getWidth());
+		bordureChateau.setHeight(royaume.getChateau(0).getHeight());
+		bordureChateau.setFill(null);
+		bordureChateau.setStroke(Color.BLUE);
+		bordureChateau.setStrokeWidth(4);
 		
 		loadGame();
 		
@@ -219,6 +226,7 @@ public class Main extends Application {
 		//dernierChateauSelection = chateauSelection;
 		messageErreurProduction.setText("");
 		if(chateauSelection == null) {
+			bordureChateau.relocate(-100, -100);
 			texteFlorins.setText("--");
 			textePiquiers.setText("--");
     		texteChevaliers.setText("--");
@@ -226,7 +234,7 @@ public class Main extends Application {
     		texteJoueur.setText("--");
 		}
 		else {
-			
+			bordureChateau.relocate(chateauSelection.getPos_x()-2, chateauSelection.getPos_y()-2);
 			texteFlorins.setText(""+chateauSelection.getTresor());
     		textePiquiers.setText(""+chateauSelection.getNbPiquiers());
     		texteChevaliers.setText(""+chateauSelection.getNbChevaliers());
@@ -337,6 +345,7 @@ public class Main extends Application {
 		barre_amelioration.setStroke(Color.BLACK);
 		barreProgression.relocate(longueur+6, 181);
 		barreProgression.setFill(Color.AQUA);
+		bordureChateau.relocate(-100, -100);
 		
 		texteFlorins.relocate(70, hauteur+4);
 		texteFlorins.getStyleClass().add("texte");
@@ -373,6 +382,7 @@ public class Main extends Application {
 		gameFieldLayer.getChildren().add(barre_actions);
 		gameFieldLayer.getChildren().add(barre_amelioration);
 		gameFieldLayer.getChildren().add(barreProgression);
+		gameFieldLayer.getChildren().add(bordureChateau);
 		gameFieldLayer.getChildren().add(img_florins);
 		gameFieldLayer.getChildren().add(texteFlorins);
 		gameFieldLayer.getChildren().add(img_piquier);

@@ -42,3 +42,9 @@
     -fx-background-color: lightgrey;
 
 }
+
+.chateau:border{
+    -fx-border-color: blue;
+    -fx-border-style: solid;
+    -fx-border-width: 10;
+}
