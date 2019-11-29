@@ -15,6 +15,8 @@ import troupes.*;
 public class Chateau extends Sprite{
 	Random rdm = new Random();
 	
+	private Royaume kingdom;
+	
 	private Duc duc = null;
 	private boolean neutre = true;
 	private double tresor;
@@ -35,8 +37,9 @@ public class Chateau extends Sprite{
 	
 	/* Chateau Duc */
 	public Chateau(Pane layer, Image image, Duc duc, int tresor, int nbPiquiers, int nbChevaliers,
-			int nbOnagres, long x, long y) {
+			int nbOnagres, long x, long y, Royaume kingdom) {
 		super(layer, image, x, y);
+		this.kingdom = kingdom;
 		this.duc = duc;
 		duc.ajouterChateau();
 		this.neutre = false;
@@ -74,8 +77,9 @@ public class Chateau extends Sprite{
 	
 	/* Chateau Neutre (pas de duc) */
 	public Chateau(Pane layer, Image image, int tresor, int nbPiquiers, int nbChevaliers,
-			int nbOnagres, long x, long y) {
+			int nbOnagres, long x, long y, Royaume kingdom) {
 		super(layer, image, x, y);
+		this.kingdom = kingdom;
 		this.tresor = tresor;
 		this.niveau = rdm.nextInt(10)+1;
 		this.nbPiquiers = nbPiquiers;
@@ -108,9 +112,8 @@ public class Chateau extends Sprite{
     			
     			attack.setOnAction(evt -> {
     				if (!ordre())
-    					getChateau().creerOrdre(new Ost( null, getChateau(), x, y), getChateau(), nbPiquiers, nbChevaliers, nbOnagres);
+    					getChateau().creerOrdre(new Ost( getChateau().getKingdom().getPlayer(), getChateau(), x, y), getChateau(), nbPiquiers, nbChevaliers, nbOnagres);
     			});
-
     			contextMenu.getItems().addAll(attack);
     			contextMenu.show(getChateau().getView(), e.getScreenX(), e.getScreenY());
         	}
@@ -322,11 +325,6 @@ public class Chateau extends Sprite{
 		return duc;
 	}
 	
-	public boolean isPlayer()
-	{
-		return this.duc.getNom() == "player";
-	}
-	
 	public void setDuc(Duc duc) {
 		this.duc = duc;
 	}
@@ -378,6 +376,10 @@ public class Chateau extends Sprite{
 	
 	private Chateau getChateau() {
 		return this;
+	}
+	
+	public Royaume getKingdom() {
+		return this.kingdom;
 	}
 	
 

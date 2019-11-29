@@ -68,7 +68,8 @@ public class Royaume {
 				x = rdm.nextInt(longueur-(int)imagePlayerChateau.getWidth());
 				y = rdm.nextInt(hauteur-(int)imagePlayerChateau.getHeight());
 			} while(positionChateauLibre(x,y,i) == false);
-			chateaux[i] = new Chateau(layer,imagePlayerChateau,ducs[i],0,nbPiquiers_init,nbChevaliers_init,nbOnagres_init,x,y);
+			
+			chateaux[i] = new Chateau(layer,imagePlayerChateau,ducs[i],0,nbPiquiers_init,nbChevaliers_init,nbOnagres_init,x,y, this);
 		}
 		//Chateaux Neutres
 		for(int i=temp; i<nbChateaux; i++) {
@@ -78,7 +79,7 @@ public class Royaume {
 				y = rdm.nextInt(hauteur-(int)imageNeutralChateau.getHeight());
 			} while (positionChateauLibre(x,y,i) == false);
 			chateaux[i] = new Chateau(layer,imageNeutralChateau,rdm.nextInt(900)+101,rdm.nextInt(3)+2,
-					rdm.nextInt(3)+1,rdm.nextInt(3),x,y);
+					rdm.nextInt(3)+1,rdm.nextInt(3),x,y, this);
 		}	
 	}
 	
@@ -239,10 +240,11 @@ public class Royaume {
 	}
 	
 	public Duc getPlayer() {
-		for(int i = 0; i < chateaux.length; i++) {
-			if (chateaux[i].isPlayer())
-				return chateaux[i].getDuc();
+		for(int i = 0; i < ducs.length; i++) {
+			if (ducs[i] != null)
+				return ducs[i];
 		}
+		System.out.println("Exception to throw");
 		return null;
 	}
 	
