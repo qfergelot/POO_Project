@@ -5,6 +5,8 @@ import java.util.Random;
 import game.Sprite;
 import game.UIsingleton;
 import javafx.event.EventHandler;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -60,10 +62,13 @@ public class Chateau extends Sprite{
 			default:
 				break;
 		}
+		
         imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
         	@Override
         	public void handle(MouseEvent e) {
         		UIsingleton.getUIsingleton().setChateauSelection(getChateau());
+        		System.out.println("Click on player castle");
+        		
         	}
         });
 	}
@@ -93,10 +98,21 @@ public class Chateau extends Sprite{
 		default:
 			break;
 		}
+				
         imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
         	@Override
         	public void handle(MouseEvent e) {
         		UIsingleton.getUIsingleton().setChateauSelection(getChateau());
+        		System.out.println("Click on neutral castle");
+        		
+        		ContextMenu contextMenu = new ContextMenu();
+    			MenuItem attack = new MenuItem("Attack");
+    			
+    			attack.setOnAction(evt -> {
+    			});
+
+    			contextMenu.getItems().addAll(attack);
+    			contextMenu.show(getChateau().getView(), e.getScreenX(), e.getScreenY());
         	}
         });
 	}

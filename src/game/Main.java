@@ -8,6 +8,8 @@ import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -33,17 +35,12 @@ public class Main extends Application {
 	private AnimationTimer gameLoop;
 	private AnimationTimer pauseLoop;
 	
-	private boolean isPauseAllowed = true;
-	private long pauseReferenceCooldown = 1000 * 1000 * 1000; //1s
-	private long  pauseCountdown = 1000 * 1000 * 1000;
-	private long pauseTmp = 0;
-	
 	private Input input;
 	
 	private int compteur_temps = 0;
 	private double dernier_temps = 0;
 	
-	private boolean pauseTrigger = false;
+	public boolean pauseTrigger = false;
 	
 	private Chateau dernierChateauSelection = null;
 	private Chateau chateauSelection = null;
@@ -63,10 +60,6 @@ public class Main extends Application {
 	
 	Group menu;
 	Group root;
-	
-	public static void main(String[] args) {
-		launch(args);
-	}
 		
 	@Override
 	public void start(Stage primaryStage) {
@@ -171,7 +164,6 @@ public class Main extends Application {
 					Platform.exit();
 					System.exit(0);
 				} else if (input.isPause()) { 
-					System.out.println(pauseCountdown + " | " + now);
 					pause(now);
 					
 				}
@@ -183,7 +175,7 @@ public class Main extends Application {
 		menuLoop.start();
 	}
 	
-	private void pause(long now) {
+	public void pause(long now) {
 		if (pauseTrigger) {
 			pauseLoop.stop();
 			gameLoop.start();	
@@ -234,6 +226,7 @@ public class Main extends Application {
     		texteJoueur.setText("--");
 		}
 		else {
+			
 			texteFlorins.setText(""+chateauSelection.getTresor());
     		textePiquiers.setText(""+chateauSelection.getNbPiquiers());
     		texteChevaliers.setText(""+chateauSelection.getNbChevaliers());
@@ -444,6 +437,10 @@ public class Main extends Application {
 		
 		
 		
+	}
+	
+	public static void main(String[] args) {
+		launch(args);
 	}
 
 }

@@ -23,8 +23,10 @@ public class Troupe extends Sprite{
 		this.degats = degats;
 	}
 	
-	public int distance(Chateau cible) {
-		return 1;
+	public double distance(Chateau cible) {
+		double x = Math.pow(2, cible.getPos_x() - this.pos_x);
+		double y = Math.pow(2, cible.getPos_y() - this.pos_y);
+		return Math.sqrt(x + y);
 	}
 	
     public void move(int dir) {

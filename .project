@@ -16,11 +16,6 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>resources/images/chateau.jpg</name>
-			<type>1</type>
-			<locationURI>$%7BPARENT-1-PROJECT_LOC%7D/POO_Project/resources/images/chateau.jpg</locationURI>
-		</link>
-		<link>
 			<name>resources/images/herbe.jpg</name>
 			<type>1</type>
 			<locationURI>$%7BPARENT-1-PROJECT_LOC%7D/POO_Project/resources/images/herbe.jpg</locationURI>

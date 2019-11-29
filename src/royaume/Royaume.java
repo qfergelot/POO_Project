@@ -15,7 +15,8 @@ public class Royaume {
 	
 	private Pane layer;
 	
-	private Image imageChateau = new Image(getClass().getResource("/images/chateau.jpg").toExternalForm(), 40, 40, true, true);
+	private Image imagePlayerChateau = new Image(getClass().getResource("/images/chateauJoueur.jpg").toExternalForm(), 40, 40, true, true);
+	private Image imageNeutralChateau = new Image(getClass().getResource("/images/chateauNeutre.png").toExternalForm(), 40, 40, true, true);
 //	private Image imagePiquier = new Image(getClass().getResource("/images/militar.png").toExternalForm(), 20, 20, true, true);
 //	private Image imageChevalier = new Image(getClass().getResource("/images/chevalier.png").toExternalForm(), 20, 20, true, true);
 //	private Image imageOnagre = new Image(getClass().getResource("/images/oangre.png").toExternalForm(), 20, 20, true, true);
@@ -64,19 +65,19 @@ public class Royaume {
 		long x, y;
 		for(int i=0; i<temp; i++) {
 			do {
-				x = rdm.nextInt(longueur-(int)imageChateau.getWidth());
-				y = rdm.nextInt(hauteur-(int)imageChateau.getHeight());
+				x = rdm.nextInt(longueur-(int)imagePlayerChateau.getWidth());
+				y = rdm.nextInt(hauteur-(int)imagePlayerChateau.getHeight());
 			} while(positionChateauLibre(x,y,i) == false);
-			chateaux[i] = new Chateau(layer,imageChateau,ducs[i],0,nbPiquiers_init,nbChevaliers_init,nbOnagres_init,x,y);
+			chateaux[i] = new Chateau(layer,imagePlayerChateau,ducs[i],0,nbPiquiers_init,nbChevaliers_init,nbOnagres_init,x,y);
 		}
 		//Chateaux Neutres
 		for(int i=temp; i<nbChateaux; i++) {
 			boolean cond;
 			do {
-				x = rdm.nextInt(longueur-(int)imageChateau.getWidth());
-				y = rdm.nextInt(hauteur-(int)imageChateau.getHeight());
+				x = rdm.nextInt(longueur-(int)imageNeutralChateau.getWidth());
+				y = rdm.nextInt(hauteur-(int)imageNeutralChateau.getHeight());
 			} while (positionChateauLibre(x,y,i) == false);
-			chateaux[i] = new Chateau(layer,imageChateau,rdm.nextInt(900)+101,rdm.nextInt(3)+2,
+			chateaux[i] = new Chateau(layer,imageNeutralChateau,rdm.nextInt(900)+101,rdm.nextInt(3)+2,
 					rdm.nextInt(3)+1,rdm.nextInt(3),x,y);
 		}	
 	}
