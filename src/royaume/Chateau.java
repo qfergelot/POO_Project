@@ -208,6 +208,7 @@ public class Chateau extends Sprite{
 		else
 			sortie_y++;
 		ordreDeplacement = new Ordre(cible, nbPiquiers, nbChevaliers, nbOnagres, sortie_x, sortie_y);
+		kingdom.getOst().add(ost);
 		return true;
 	}
 	

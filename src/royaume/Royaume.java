@@ -239,6 +239,10 @@ public class Royaume {
 		return longueur;
 	}
 	
+	public ArrayList<Ost> getOst() {
+		return ost;
+	}
+	
 	public Duc getPlayer() {
 		for(int i = 0; i < ducs.length; i++) {
 			if (ducs[i] != null)
