@@ -13,47 +13,22 @@ public class Ost {
 	private ArrayList<Troupe> troupes;
 	private boolean attaqueFinie = false;
 	
-	public Ost(Duc duc, Chateau cible, double x, double y) {
+	public Ost(Duc duc, Chateau cible) {
 		this.duc = duc;
 		this.cible = cible;
 		troupes = new ArrayList<Troupe>();
-	}
-	
-	public int distanceCible() {
-		int cmp = 1;
-		for(int i = 0; i<troupes.size(); i++) {
-			Troupe t = troupes.get(i);
-			if (t.distance(cible) != 1) {
-				cmp ++;
-			}
-		}
-		return cmp;
-		
 	}
 	
 	public void deplacement() {
 		for(int i = 0; i<troupes.size(); i++) {
 			Troupe t = troupes.get(i);
 			int v = t.getVitesse();
-			while(v > 0) {
-				double dx = t.getPos_x() - cible.getPos_x();
-				double dy = t.getPos_y() - cible.getPos_y();
-				
-				if(Math.abs(dx) > Math.abs(dy)) {
-					if (dx > 0)
-						t.move(Constantes.DROITE);
-					else
-						t.move(Constantes.GAUCHE);
-				}
-				
-				else {
-					if (dy > 0)
-						t.move(Constantes.BAS);
-					else
-						t.move(Constantes.HAUT);
-				}
+			while(v > 0 && t.distance(cible)>(cible.getHeight()/2+t.getHeight()/2)) {
+				double angle = Math.atan2(cible.getPos_y()-t.getPos_y(),cible.getPos_x()-t.getPos_x())/Math.PI;
+				t.move(angle);
+				v--;
 			}
-			v--;
+			t.getImageView().relocate(t.getPos_x(), t.getPos_y());
 		}
 	}
 	

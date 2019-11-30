@@ -14,8 +14,8 @@ public abstract class Sprite {
     protected double pos_x;
     protected double pos_y;
     
-    private long w;
-    private long h;
+    private double w;
+    private double h;
 
     private boolean removable = false;
 
@@ -28,8 +28,8 @@ public abstract class Sprite {
         this.imageView = new ImageView(img);
         this.imageView.relocate(x, y);
         
-        w = (long)img.getWidth();
-        h = (long)img.getHeight();
+        w = img.getWidth();
+        h = img.getHeight();
         
         addToLayer();
     }
@@ -50,11 +50,11 @@ public abstract class Sprite {
         return pos_y;
     }
     
-    public long getWidth() {
+    public double getWidth() {
     	return w;
     }
     
-    public long getHeight() {
+    public double getHeight() {
     	return h;
     }
 

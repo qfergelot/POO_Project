@@ -65,15 +65,14 @@ public class Royaume {
 		long x, y;
 		for(int i=0; i<temp; i++) {
 			do {
-				x = rdm.nextInt(longueur-(int)imagePlayerChateau.getWidth());
-				y = rdm.nextInt(hauteur-(int)imagePlayerChateau.getHeight());
+				x = rdm.nextInt(longueur-160-(int)imagePlayerChateau.getWidth()) + 80;
+				y = rdm.nextInt(hauteur-160-(int)imagePlayerChateau.getHeight()) + 80;
 			} while(positionChateauLibre(x,y,i) == false);
 			
 			chateaux[i] = new Chateau(layer,imagePlayerChateau,ducs[i],0,nbPiquiers_init,nbChevaliers_init,nbOnagres_init,x,y, this);
 		}
 		//Chateaux Neutres
 		for(int i=temp; i<nbChateaux; i++) {
-			boolean cond;
 			do {
 				x = rdm.nextInt(longueur-(int)imageNeutralChateau.getWidth());
 				y = rdm.nextInt(hauteur-(int)imageNeutralChateau.getHeight());
@@ -97,22 +96,15 @@ public class Royaume {
 			//Déjà un ordre en cours
 		}
 		else {
-			double x = c.getPos_x(),y = c.getPos_y();
-			if(c.getPorte()==Constantes.DROITE)
-				x++;
-			else if(c.getPorte()==Constantes.GAUCHE)
-				x--;
-			else if(c.getPorte()==Constantes.HAUT)
-				y--;
-			else
-				y++;
-			c.creerOrdre(new Ost(c.getDuc(), cible, x, y),cible, nbPiquiers, nbChevaliers, nbOnagres);
-			ost.add(c.getOst());
+			Ost o = new Ost(c.getDuc(), cible);
+			c.creerOrdre(o,cible, nbPiquiers, nbChevaliers, nbOnagres);
+			ost.add(o);
 		}
 	}
 	
 	private void tourOst(Ost ost) {
-		if(ost.distanceCible() == 1) {
+		ost.deplacement();
+		/*if(ost.distanceCible() == 1) {
 			if(ost.getCible().getDuc() == ost.getDuc()) {
 				ost.transfererTroupes();
 				this.ost.remove(ost);
@@ -125,7 +117,7 @@ public class Royaume {
 		}
 		else {
 			ost.deplacement();;
-		}
+		}*/
 		
 	}
 	
@@ -195,7 +187,7 @@ public class Royaume {
 		}
 	}*/
 	
-	private boolean deplacementPossible(int x, int y) {
+	private boolean deplacementPossible(double x, double y) {
 		if(x<0 || y<0 || x >= longueur || y >= hauteur)
 			return false;
 		for(int i=0; i<nbChateaux; i++) {

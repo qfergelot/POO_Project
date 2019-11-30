@@ -16,7 +16,7 @@ public class Ordre {
 	
 	private Image image_piquier = new Image(getClass().getResource("/images/militar.png").toExternalForm(), 20, 20, true, true);
 	private Image image_chevalier = new Image(getClass().getResource("/images/chevalier.png").toExternalForm(), 20, 20, true, true);
-	private Image image_onagre = new Image(getClass().getResource("/images/onagre.png").toExternalForm(), 20, 20, true, true);
+	private Image image_onagre = new Image(getClass().getResource("/images/onagre.png").toExternalForm(), 20, 20, false, true);
 
 	
 	public Ordre(Chateau cible, int nbPiquiers, int nbChevaliers, int nbOnagres, double sortie_x, double sortie_y) {

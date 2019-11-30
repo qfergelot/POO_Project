@@ -107,7 +107,7 @@ public class Chateau extends Sprite{
         	public void handle(MouseEvent e) {
         		UIsingleton.getUIsingleton().setChateauSelection(getChateau());
         		
-        		ContextMenu contextMenu = new ContextMenu();
+        		/*ContextMenu contextMenu = new ContextMenu();
     			MenuItem attack = new MenuItem("Attack");
     			
     			attack.setOnAction(evt -> {
@@ -115,7 +115,7 @@ public class Chateau extends Sprite{
     					getChateau().creerOrdre(new Ost( kingdom.getPlayer(), getChateau(), x, y), getChateau(), nbPiquiers, nbChevaliers, nbOnagres);
     			});
     			contextMenu.getItems().addAll(attack);
-    			contextMenu.show(getChateau().getView(), e.getScreenX(), e.getScreenY());
+    			contextMenu.show(getChateau().getView(), e.getScreenX(), e.getScreenY());*/
         	}
         });
 	}
@@ -198,17 +198,16 @@ public class Chateau extends Sprite{
 			return false;
 		}
 		this.ost = ost;
-		double sortie_x = pos_x, sortie_y = pos_y;
-		if(getPorte() == Constantes.GAUCHE)
-			sortie_x--;
-		else if(getPorte() == Constantes.HAUT)
-			sortie_y--;
-		else if(getPorte() == Constantes.DROITE)
-			sortie_x++;
+		double x = pos_x + getWidth()/2, y = pos_y + getHeight()/2;
+		if(getPorte()==Constantes.DROITE)
+			x += getWidth()/2;
+		else if(getPorte()==Constantes.GAUCHE)
+			x -= getWidth();
+		else if(getPorte()==Constantes.HAUT)
+			y -= getHeight();
 		else
-			sortie_y++;
-		ordreDeplacement = new Ordre(cible, nbPiquiers, nbChevaliers, nbOnagres, sortie_x, sortie_y);
-		kingdom.getOst().add(ost);
+			y += getHeight()/2;
+		ordreDeplacement = new Ordre(cible, nbPiquiers, nbChevaliers, nbOnagres, x, y);
 		return true;
 	}
 	
@@ -218,7 +217,6 @@ public class Chateau extends Sprite{
 		for(int i=0; i<stop; i++) {
 			if(ordreDeplacement.getNbOnagres()>0) {
 				ordreDeplacement.sortirOnagre(ost);
-				
 				nbOnagres--;
 			}
 			else if(ordreDeplacement.getNbPiquiers()>0) {
@@ -241,16 +239,16 @@ public class Chateau extends Sprite{
 		
 	/* * * * * * * * FIN : Fonctions Ordre * * * * * * * */
 	
-	public long distance(Chateau c) {
+	public double distance(Chateau c) {
 		if (c.getPos_x() == pos_x && c.getPos_y() == pos_y) {
 			System.err.println("Erreur : Deux chateaux ne peuvent être sur la même position.");
 			return 0;
 		}
-		return (long) (Math.abs(c.getPos_y() - pos_y) + Math.abs(c.getPos_x() - pos_x));
+		return Math.sqrt((c.getPos_y() - pos_y)*(c.getPos_y() - pos_y) + Math.abs(c.getPos_x() - pos_x)*Math.abs(c.getPos_x() - pos_x));
 	}
 	
-	public long distance(long x, long y) {
-		return (long) (Math.abs(y - pos_y) + Math.abs(x - pos_x));
+	public double distance(double x, double y) {
+		return Math.sqrt((y - pos_y)*(y - pos_y) + (x - pos_x)*(x - pos_x));
 	}
 	
 	public void finTourChateau() {

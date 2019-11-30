@@ -31,5 +31,16 @@ public class Duc {
 	public void retirerChateau() {
 		nbChateaux--;
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if(o == null)
+			return false;
+		if(o.getClass()!=getClass()) {
+			return false;
+		}
+		Duc d = (Duc)o;
+		return this.nom == d.nom;
+	}
 
 }

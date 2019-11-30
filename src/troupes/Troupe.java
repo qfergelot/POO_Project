@@ -24,25 +24,34 @@ public class Troupe extends Sprite{
 	}
 	
 	public double distance(Chateau cible) {
-		double x = Math.pow(2, cible.getPos_x() - this.pos_x);
-		double y = Math.pow(2, cible.getPos_y() - this.pos_y);
-		return Math.sqrt(x + y);
+		double x = pos_x + getWidth()/2;
+		double y = pos_y + getHeight()/2;
+		double cx = cible.getPos_x() + cible.getWidth()/2;
+		double cy = cible.getPos_y() + cible.getHeight()/2;
+		return Math.sqrt((cx-x)*(cx-x)+(cy-y)*(cy-y));
 	}
 	
-    public void move(int dir) {
-		switch(dir) {
-			case Constantes.GAUCHE:
-				pos_x--;
-				break;
-			case Constantes.HAUT:
-				pos_y--;
-				break;
-			case Constantes.DROITE:
-				pos_x++;
-				break;
-			default:
-				pos_y++;
-				break;
+    public void move(double angle) {
+		if((angle > 0.875) || (angle <= -0.875)) {
+			pos_x--;
+		}else if(angle > 0.625) {
+			pos_x-=0.7;
+			pos_y+=0.7;
+		}else if(angle > 0.375) {
+			pos_y++;
+		}else if(angle > 0.125) {
+			pos_x+=0.7;
+			pos_y+=0.7;
+		}else if(angle > -0.125) {
+			pos_x++;
+		}else if(angle > -0.375) {
+			pos_x+=0.7;
+			pos_y-=0.7;
+		}else if(angle > -0.625) {
+			pos_y--;
+		}else if(angle > -0.875) {
+			pos_x-=0.7;
+			pos_y-=0.7;
 		}
 	}
 	
