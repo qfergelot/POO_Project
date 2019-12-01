@@ -1,12 +1,12 @@
 package game;
 
 import royaume.Chateau;
-
-import javafx.scene.text.Text;
+import royaume.Duc;
 
 public final class UIsingleton {
 	private static final UIsingleton instance = new UIsingleton();
 	
+	private Duc ducJoueur = null;
 	private Chateau chateauSelection = null;
 	private boolean toUpdateTroupes = false;
 	
@@ -32,6 +32,14 @@ public final class UIsingleton {
 	
 	public void setToUpdateTroupes(boolean toUpdateTroupes) {
 		this.toUpdateTroupes = toUpdateTroupes;
+	}
+	
+	public Duc getDucJoueur() {
+		return ducJoueur;
+	}
+	
+	public void setDucJoueur(Duc ducJoueur) {
+		this.ducJoueur = ducJoueur;
 	}
 	
 }

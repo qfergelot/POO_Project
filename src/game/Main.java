@@ -61,6 +61,8 @@ public class Main extends Application {
 	
 	private Button boutonJouer = new Button("Jouer");
 	
+	//private Popup popupOst = new Popup();
+	
 	Group menu;
 	Group root;
 		
@@ -94,6 +96,7 @@ public class Main extends Application {
 		initRoyaume(1100,630,bounds.getWidth()+4,bounds.getHeight()+4);
 		royaume = new Royaume(gameFieldLayer,1,0,0,1100,630,200,8,3,2,0);
 		ducJoueur = royaume.getChateau(0).getDuc();
+		UIsingleton.getUIsingleton().setDucJoueur(ducJoueur);
 		initMenu(bounds.getWidth()+4,bounds.getHeight()+4,primaryStage);
 		bordureChateau.setWidth(royaume.getChateau(0).getWidth());
 		bordureChateau.setHeight(royaume.getChateau(0).getHeight());
@@ -238,14 +241,6 @@ public class Main extends Application {
     		dernierChateau = null;
 		}
 		else {
-			if(dernierChateau != null) {
-				if(!dernierChateau.getNeutre()) {
-					if(!ducJoueur.equals(chateauSelection.getDuc()) && dernierChateau.getDuc().equals(ducJoueur)) {
-						royaume.creerOrdre(dernierChateau, chateauSelection, 1, 0, 0);
-						//System.out.println("A L'ATTAQUE !");
-					}
-				}
-			}
 			dernierChateau = chateauSelection;
 			bordureChateau.relocate(chateauSelection.getPos_x()-2, chateauSelection.getPos_y()-2);
 			texteFlorins.setText(""+chateauSelection.getTresor());
@@ -460,8 +455,6 @@ public class Main extends Application {
     			}
     		}
 		});
-		
-		
 		
 	}
 	

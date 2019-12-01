@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
+import game.Popup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -60,6 +61,7 @@ public class Royaume {
 		for(int i=0; i<(nbJoueurs+nbIA); i++) {
 			ducs[i] = new Duc("joueur" + i, Color.BLUE);
 		}
+		Popup popupOst = new Popup(this);
 		//Chateaux Joueurs+IA
 		int temp = nbJoueurs+nbIA;
 		long x, y;
@@ -69,7 +71,7 @@ public class Royaume {
 				y = rdm.nextInt(hauteur-160-(int)imagePlayerChateau.getHeight()) + 80;
 			} while(positionChateauLibre(x,y,i) == false);
 			
-			chateaux[i] = new Chateau(layer,imagePlayerChateau,ducs[i],0,nbPiquiers_init,nbChevaliers_init,nbOnagres_init,x,y, this);
+			chateaux[i] = new Chateau(layer,imagePlayerChateau,ducs[i],0,nbPiquiers_init,nbChevaliers_init,nbOnagres_init,x,y, popupOst);
 		}
 		//Chateaux Neutres
 		for(int i=temp; i<nbChateaux; i++) {
@@ -78,7 +80,7 @@ public class Royaume {
 				y = rdm.nextInt(hauteur-(int)imageNeutralChateau.getHeight());
 			} while (positionChateauLibre(x,y,i) == false);
 			chateaux[i] = new Chateau(layer,imageNeutralChateau,rdm.nextInt(900)+101,rdm.nextInt(3)+2,
-					rdm.nextInt(3)+1,rdm.nextInt(3),x,y, this);
+					rdm.nextInt(3)+1,rdm.nextInt(3),x,y, popupOst);
 		}	
 	}
 	

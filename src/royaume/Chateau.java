@@ -2,6 +2,7 @@ package royaume;
 
 import java.util.Random;
 
+import game.Popup;
 import game.Sprite;
 import game.UIsingleton;
 import javafx.event.EventHandler;
@@ -35,11 +36,12 @@ public class Chateau extends Sprite{
 	private Ost ost;
 	private Porte porte;
 	
+	private Popup popupOst;
+	
 	/* Chateau Duc */
 	public Chateau(Pane layer, Image image, Duc duc, int tresor, int nbPiquiers, int nbChevaliers,
-			int nbOnagres, long x, long y, Royaume kingdom) {
+			int nbOnagres, long x, long y, Popup popupOst) {
 		super(layer, image, x, y);
-		this.kingdom = kingdom;
 		this.duc = duc;
 		duc.ajouterChateau();
 		this.neutre = false;
@@ -65,21 +67,29 @@ public class Chateau extends Sprite{
 			default:
 				break;
 		}
+		this.popupOst = popupOst;
 		
         imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
         	@Override
         	public void handle(MouseEvent e) {
+        		Chateau dernierChateau = UIsingleton.getUIsingleton().getChateauSelection();
         		UIsingleton.getUIsingleton().setChateauSelection(getChateau());
         		
+        		if(dernierChateau != null) {
+    				if(!dernierChateau.getNeutre()) {
+    					if(!UIsingleton.getUIsingleton().getDucJoueur().equals(duc) && dernierChateau.getDuc().equals(UIsingleton.getUIsingleton().getDucJoueur())) {
+    						popupOst.display(dernierChateau,UIsingleton.getUIsingleton().getChateauSelection());
+    					}
+    				}
+    			}
         	}
         });
 	}
 	
 	/* Chateau Neutre (pas de duc) */
 	public Chateau(Pane layer, Image image, int tresor, int nbPiquiers, int nbChevaliers,
-			int nbOnagres, long x, long y, Royaume kingdom) {
+			int nbOnagres, long x, long y, Popup popupOst) {
 		super(layer, image, x, y);
-		this.kingdom = kingdom;
 		this.tresor = tresor;
 		this.niveau = rdm.nextInt(10)+1;
 		this.nbPiquiers = nbPiquiers;
@@ -101,12 +111,21 @@ public class Chateau extends Sprite{
 		default:
 			break;
 		}
+		this.popupOst = popupOst;
 				
         imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
         	@Override
         	public void handle(MouseEvent e) {
+        		Chateau dernierChateau = UIsingleton.getUIsingleton().getChateauSelection();
         		UIsingleton.getUIsingleton().setChateauSelection(getChateau());
         		
+        		if(dernierChateau != null) {
+    				if(!dernierChateau.getNeutre()) {
+    					if(!UIsingleton.getUIsingleton().getDucJoueur().equals(duc) && dernierChateau.getDuc().equals(UIsingleton.getUIsingleton().getDucJoueur())) {
+    						popupOst.display(dernierChateau,UIsingleton.getUIsingleton().getChateauSelection());
+    					}
+    				}
+    			}
         		/*ContextMenu contextMenu = new ContextMenu();
     			MenuItem attack = new MenuItem("Attack");
     			
@@ -199,14 +218,22 @@ public class Chateau extends Sprite{
 		}
 		this.ost = ost;
 		double x = pos_x + getWidth()/2, y = pos_y + getHeight()/2;
-		if(getPorte()==Constantes.DROITE)
+		if(getPorte()==Constantes.DROITE) {
 			x += getWidth()/2;
-		else if(getPorte()==Constantes.GAUCHE)
+			y -= 10;
+		}
+		else if(getPorte()==Constantes.GAUCHE) {
 			x -= getWidth();
-		else if(getPorte()==Constantes.HAUT)
+			y -= 10;
+		}
+		else if(getPorte()==Constantes.HAUT) {
+			x -= 10;
 			y -= getHeight();
-		else
+		}
+		else {
+			x -= 10;
 			y += getHeight()/2;
+		}
 		ordreDeplacement = new Ordre(cible, nbPiquiers, nbChevaliers, nbOnagres, x, y);
 		return true;
 	}
@@ -375,10 +402,6 @@ public class Chateau extends Sprite{
 	
 	private Chateau getChateau() {
 		return this;
-	}
-	
-	public Royaume getKingdom() {
-		return this.kingdom;
 	}
 	
 
