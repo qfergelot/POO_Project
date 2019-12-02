@@ -1,0 +1,18 @@
+Patterne IA (version -15):
+	Alternance de phase économie et attaque
+
+		Phase économie: durée aléatoire, création de richesses -> amélioration chateau si possible suivie d'une autre phase économie
+		Phase attaque: durée fixe, ajout de troupes aléatoires selon le budget 
+			- envoie d'un tiers des troupes sur le chateau le plus proche (expansion)
+
+
+Patterne IA(version +15):
+	
+	Alternance de phase économie et attaque
+
+		Phase économie: durée aléatoire, création de richesses -> amélioration chateau si possible suivie d'une autre phase économie 
+		Phase attaque: durée fixe, ajout de troupes aléatoires selon le budget 
+			- envoie d'un tiers des troupes sur le chateau le plus faible (stratege)
+			- envoie d'un tiers des troupes sur le joueur (focusPlayer)
+			- envoie d'un tiers des troupes sur un duc au pif mais tout le temps le meme(focus)
+			- si l'ia ne s'est pas fait attaquer ne fait rien sinon envoie deux tiers à l'attaquant (revanche)
