@@ -6,8 +6,6 @@ import game.Popup;
 import game.Sprite;
 import game.UIsingleton;
 import javafx.event.EventHandler;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -16,7 +14,7 @@ import troupes.*;
 public class Chateau extends Sprite{
 	Random rdm = new Random();
 	
-	private Royaume kingdom;
+	private Popup popupOst;
 	
 	private Duc duc = null;
 	private boolean neutre = true;
@@ -36,12 +34,11 @@ public class Chateau extends Sprite{
 	private Ost ost;
 	private Porte porte;
 	
-	private Popup popupOst;
-	
 	/* Chateau Duc */
 	public Chateau(Pane layer, Image image, Duc duc, int tresor, int nbPiquiers, int nbChevaliers,
-			int nbOnagres, long x, long y, Popup popupOst) {
+			int nbOnagres, double x, double y, Popup popupOst) {
 		super(layer, image, x, y);
+		this.popupOst = popupOst;
 		this.duc = duc;
 		duc.ajouterChateau();
 		this.neutre = false;
@@ -67,7 +64,6 @@ public class Chateau extends Sprite{
 			default:
 				break;
 		}
-		this.popupOst = popupOst;
 		
         imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
         	@Override
@@ -77,7 +73,7 @@ public class Chateau extends Sprite{
         		
         		if(dernierChateau != null) {
     				if(!dernierChateau.getNeutre()) {
-    					if(!UIsingleton.getUIsingleton().getDucJoueur().equals(duc) && dernierChateau.getDuc().equals(UIsingleton.getUIsingleton().getDucJoueur())) {
+    					if(!(UIsingleton.getUIsingleton().getChateauSelection() == dernierChateau) && dernierChateau.getDuc().equals(UIsingleton.getUIsingleton().getDucJoueur())) {
     						popupOst.display(dernierChateau,UIsingleton.getUIsingleton().getChateauSelection());
     					}
     				}
@@ -88,8 +84,9 @@ public class Chateau extends Sprite{
 	
 	/* Chateau Neutre (pas de duc) */
 	public Chateau(Pane layer, Image image, int tresor, int nbPiquiers, int nbChevaliers,
-			int nbOnagres, long x, long y, Popup popupOst) {
+			int nbOnagres, double x, double y, Popup popupOst) {
 		super(layer, image, x, y);
+		this.popupOst = popupOst;
 		this.tresor = tresor;
 		this.niveau = rdm.nextInt(10)+1;
 		this.nbPiquiers = nbPiquiers;
@@ -111,7 +108,6 @@ public class Chateau extends Sprite{
 		default:
 			break;
 		}
-		this.popupOst = popupOst;
 				
         imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
         	@Override
@@ -358,6 +354,10 @@ public class Chateau extends Sprite{
 	public boolean getNeutre() {
 		return neutre;
 	}
+	
+	public void setNeutre(boolean neutre) {
+		this.neutre = neutre;
+	}
 
 	public int getTresor() {
 		return (int)tresor;
@@ -402,6 +402,10 @@ public class Chateau extends Sprite{
 	
 	private Chateau getChateau() {
 		return this;
+	}
+	
+	public Popup getPopupOst() {
+		return popupOst;
 	}
 	
 

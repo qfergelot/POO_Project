@@ -2,7 +2,9 @@ package troupes;
 
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import royaume.Chateau;
 import royaume.Constantes;
+import royaume.Ost;
 
 public class Onagre extends Troupe {
 
@@ -13,4 +15,9 @@ public class Onagre extends Troupe {
 		super(layer, image, 1, Constantes.VIE_ONAGRE, 10, pos_x, pos_y);
 	}
 
+	public void transferer(Chateau cible, Ost hote) {
+		cible.ajouterOnagre();
+		hote.getTroupe().remove(this);
+		this.getImageView().setImage(null);
+	}
 }

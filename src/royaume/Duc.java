@@ -1,15 +1,18 @@
 package royaume;
 
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 public class Duc {
 	private String nom;
 	private int nbChateaux = 0;
 	private Color couleur;
+	private Image imgChateau;
 	
-	public Duc(String nom, Color couleur) {
+	public Duc(String nom, Color couleur, Image imgChateau) {
 		this.nom = nom;
 		this.couleur = couleur;
+		this.imgChateau = imgChateau;
 	}
 
 	public String getNom() {
@@ -22,6 +25,10 @@ public class Duc {
 	
 	public Color getCouleur() {
 		return couleur;
+	}
+	
+	public Image getImgChateau() {
+		return imgChateau;
 	}
 	
 	public void ajouterChateau() {

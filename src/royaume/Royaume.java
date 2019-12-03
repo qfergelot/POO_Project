@@ -15,7 +15,7 @@ public class Royaume {
 	private Random rdm = new Random();
 	
 	private Pane layer;
-	
+
 	private Image imagePlayerChateau = new Image(getClass().getResource("/images/Chateau joueur.png").toExternalForm(), 40, 40, true, false);
 	private Image imageNeutralChateau = new Image(getClass().getResource("/images/Chateau neutre.png").toExternalForm(), 40, 40, true, false);
 //	private Image imagePiquier = new Image(getClass().getResource("/images/militar.png").toExternalForm(), 20, 20, true, true);
@@ -37,6 +37,8 @@ public class Royaume {
 	private int distMinChateaux;
 	private int hauteur;
 	private int longueur;
+	
+	private Popup popupOst;
 
 	private ArrayList<Ost> ost;
 	
@@ -59,9 +61,9 @@ public class Royaume {
 		/*Définition basique de nom à améliorer*/
 		
 		for(int i=0; i<(nbJoueurs+nbIA); i++) {
-			ducs[i] = new Duc("joueur" + i, Color.BLUE);
+			ducs[i] = new Duc("joueur" + i, Color.BLUE, imagePlayerChateau);
 		}
-		Popup popupOst = new Popup(this);
+		popupOst = new Popup(this);
 		//Chateaux Joueurs+IA
 		int temp = nbJoueurs+nbIA;
 		long x, y;
@@ -105,22 +107,21 @@ public class Royaume {
 	}
 	
 	private void tourOst(Ost ost) {
-		ost.deplacement();
-		/*if(ost.distanceCible() == 1) {
-			if(ost.getCible().getDuc() == ost.getDuc()) {
-				ost.transfererTroupes();
-				this.ost.remove(ost);
-			}
-			else {
-				ost.attaquerCible();
-				if(ost.attaqueFinie())
-					this.ost.remove(ost);
+		Chateau c = ost.tourOst();
+		if(c != null) {
+			for(int i=0; i<nbChateaux; i++) {
+				if(chateaux[i] == ost.getCible()) {
+					chateaux[i] = c;
+				}
 			}
 		}
-		else {
-			ost.deplacement();;
-		}*/
+		if(ost.attaqueFinie() || ost.getTroupe().size() == 0) {
+			for(int i=0; i<ost.getTroupe().size(); i++) 
+				ost.getTroupe().get(i).getImageView().setImage(null);
+			this.ost.remove(ost);
+		}
 		
+			
 	}
 	
 	public void finTour() {

@@ -1,11 +1,8 @@
 package game;
 
-import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import royaume.Constantes;
 
 public abstract class Sprite {
     protected ImageView imageView;

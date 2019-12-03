@@ -3,17 +3,17 @@ import game.Sprite;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import royaume.Chateau;
-import royaume.Constantes;
+import royaume.Ost;
 
-public class Troupe extends Sprite{
+public abstract class Troupe extends Sprite{
 
 	private int vitesse;
 	private int vie;
 	private int degats;
+	private boolean surCible = false;
 	
 	public Troupe(Pane layer, Image img, int vitesse, int vie, int degats, double pos_x, double pos_y) {
 		super(layer, img, pos_x, pos_y);
@@ -29,6 +29,18 @@ public class Troupe extends Sprite{
 		double cx = cible.getPos_x() + cible.getWidth()/2;
 		double cy = cible.getPos_y() + cible.getHeight()/2;
 		return Math.sqrt((cx-x)*(cx-x)+(cy-y)*(cy-y));
+	}
+	
+	public void deplacement(Chateau cible) {
+		int v = getVitesse();
+		while(v > 0 && distance(cible)>(cible.getHeight()/2+getHeight()/2)) {
+			double angle = Math.atan2(cible.getPos_y()-getPos_y(),cible.getPos_x()-getPos_x())/Math.PI;
+			move(angle);
+			v--;
+		}
+		getImageView().relocate(getPos_x(), getPos_y());
+		if(distance(cible)<=(cible.getHeight()/2+getHeight()/2))
+			setSurCible();
 	}
 	
     public void move(double angle) {
@@ -54,8 +66,21 @@ public class Troupe extends Sprite{
 			pos_y-=0.7;
 		}
 	}
+    
+    public void setSurCible() {
+    	surCible = true;
+    }
+    
+    public boolean surCible() {
+    	return surCible;
+    }
+    
+	public abstract void transferer(Chateau cible, Ost hote);
 	
-	public void attaquer(Chateau c) {
+	/*
+	 * return: attaque finie
+	 */
+	public boolean attaquer(Chateau c) {
 		Random rdm = new Random();
 		int rand;
 		if(c.restePiquiers() && c.resteChevaliers() && c.resteOnagres()) {
@@ -110,6 +135,7 @@ public class Troupe extends Sprite{
 		else {
 			attaquerOnagre(c);
 		}
+		return c.aucuneTroupe();
 	}
 	
 	private void attaquerPiquier(Chateau c) {
@@ -129,10 +155,6 @@ public class Troupe extends Sprite{
 	
 	public int getVitesse() {
 		return vitesse;
-	}
-	
-	private void recevoirAttaque() {
-		vie--;
 	}
 	
 	public void envoyerAttaque(Troupe t) {

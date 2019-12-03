@@ -19,50 +19,33 @@ public class Ost {
 		troupes = new ArrayList<Troupe>();
 	}
 	
-	public void deplacement() {
-		for(int i = 0; i<troupes.size(); i++) {
-			Troupe t = troupes.get(i);
-			int v = t.getVitesse();
-			while(v > 0 && t.distance(cible)>(cible.getHeight()/2+t.getHeight()/2)) {
-				double angle = Math.atan2(cible.getPos_y()-t.getPos_y(),cible.getPos_x()-t.getPos_x())/Math.PI;
-				t.move(angle);
-				v--;
-			}
-			t.getImageView().relocate(t.getPos_x(), t.getPos_y());
-		}
-	}
-	
-	public void attaquerCible() {
-		for(int i = 0; i < troupes.size(); i++) {
-			troupes.get(i).attaquer(cible);
-			if(troupes.get(i).estMort()){
-				troupes.remove(i);
-			}
-		}
-		if(cible.aucuneTroupe() && (troupes.size() > 0)) {
-			cible.getDuc().retirerChateau();
-			cible.setDuc(duc);
-			attaqueFinie = true;
-		}
-	}
-	
 	public boolean attaqueFinie() {
 		return attaqueFinie;
 	}
 	
-	public void transfererTroupes() {
-		while(!troupes.isEmpty()) {
-			if(troupes.get(0).getClass() == Piquier.class) {
-				cible.ajouterPiquier();
-			}
-			else if(troupes.get(0).getClass() == Chevalier.class) {
-				cible.ajouterChevalier();
+	public Chateau tourOst() {
+		for(int i=0; i<troupes.size(); i++) {
+			if(troupes.get(i).surCible()) {
+				if(duc.equals(cible.getDuc()))
+					troupes.get(i).transferer(cible, this);
+				else {
+					attaqueFinie = troupes.get(i).attaquer(cible);
+					if(troupes.get(i).estMort()) {
+						troupes.get(i).getImageView().setImage(null);
+						troupes.remove(i);
+					}
+					if(attaqueFinie == true) {
+						if(!cible.getNeutre())
+							cible.getDuc().retirerChateau();
+						return new Chateau(cible.getLayer(),duc.getImgChateau(),duc,cible.getTresor(),0,0,0,cible.getPos_x(),cible.getPos_y(),cible.getPopupOst());
+					}
+				}
 			}
 			else {
-				cible.ajouterOnagre();
+				troupes.get(i).deplacement(cible);
 			}
-			troupes.remove(0);
 		}
+		return null;
 	}
 	
 	public void ajouterTroupe(Troupe t) {
@@ -80,4 +63,5 @@ public class Ost {
 	public ArrayList<Troupe> getTroupe(){
 		return troupes;
 	}
+	
 }
