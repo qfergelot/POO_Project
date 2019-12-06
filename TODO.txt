@@ -6,8 +6,6 @@ affichage du popup doit metre le jeu en pause
 
 actualiser le visuel du transfert de troupes directement
 
-envoi d'exceptions si on clique sur une production alors qu'on est sur une case vide
-
 si on commande une production alors qu'il y en a une en cours, il faut soit afficher un message "deja en cours attente" 
 ou alors ne rien afficher mais ajouter à la production dans une file
 
