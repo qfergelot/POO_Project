@@ -2,6 +2,7 @@ package royaume;
 
 import java.util.ArrayList;
 
+import game.UIsingleton;
 import javafx.scene.image.Image;
 import troupes.*;
 
@@ -42,11 +43,9 @@ public class Ost {
 						}
 						cible.setDuc(this.duc);
 						cible.setNeutre(false);
-						cible.changeImage(new Image(getClass().getResource("/images/Chateau joueur.png").toExternalForm(), 40, 40, true, false));
-						this.duc.ajouterChateau();
+						cible.setImageView(this.duc.getImgChateau());
 						
-						//return new Chateau(cible.getLayer(),duc.getImgChateau(),duc,cible.getTresor(),0,0,0,cible.getPos_x(),cible.getPos_y(),cible.getPopupOst());
-						
+						this.duc.ajouterChateau();						
 					}
 				}
 			}
@@ -54,7 +53,6 @@ public class Ost {
 				troupes.get(i).deplacement(cible);
 			}
 		}
-		//return null;
 	}
 	
 	public void ajouterTroupe(Troupe t) {

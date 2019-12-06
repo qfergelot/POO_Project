@@ -88,6 +88,7 @@ public class Chateau extends Sprite{
 		super(layer, image, x, y);
 		this.popupOst = popupOst;
 		this.tresor = tresor;
+		this.neutre = true;
 		this.niveau = rdm.nextInt(10)+1;
 		this.nbPiquiers = nbPiquiers;
 		this.nbChevaliers = nbChevaliers;
@@ -115,10 +116,15 @@ public class Chateau extends Sprite{
         	public void handle(MouseEvent e) {
         		Chateau dernierChateau = UIsingleton.getUIsingleton().getChateauSelection();
         		UIsingleton.getUIsingleton().setChateauSelection(getChateau());
-        		
+        		        		
         		if(dernierChateau != null) {
     				if(!dernierChateau.getNeutre()) {
-    					if(!UIsingleton.getUIsingleton().getDucJoueur().equals(duc) && dernierChateau.getDuc().equals(UIsingleton.getUIsingleton().getDucJoueur())) {
+    					if (UIsingleton.getUIsingleton().getDucJoueur().equals(duc)) {
+    						if(!(UIsingleton.getUIsingleton().getChateauSelection() == dernierChateau) && dernierChateau.getDuc().equals(UIsingleton.getUIsingleton().getDucJoueur())) {
+        						popupOst.display(dernierChateau,UIsingleton.getUIsingleton().getChateauSelection());
+        					}
+    					}
+    					else if(dernierChateau.getDuc().equals(UIsingleton.getUIsingleton().getDucJoueur())) {
     						popupOst.display(dernierChateau,UIsingleton.getUIsingleton().getChateauSelection());
     					}
     				}

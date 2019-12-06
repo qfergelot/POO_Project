@@ -31,16 +31,8 @@ public abstract class Sprite {
         addToLayer();
     }
     
-    public void changeImage(Image img) {
+    public void setImageView(Image img) {
     	this.imageView.setImage(img);
-    	
-    	/*this.imageView = new ImageView(img);
-    	this.imageView.relocate(this.pos_x, this.pos_y);
-    	
-    	this.w = img.getWidth();
-        this.h = img.getHeight();
-        
-        addToLayer();*/
     }
     
     public void addToLayer() {
