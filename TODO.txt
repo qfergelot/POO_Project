@@ -2,6 +2,8 @@ Version de base :
 - Sauvegarde [TODO]
 - Intelligence artificielle [TODO]
 
+Contournement des chateaux lors des assauts
+
 affichage du popup doit metre le jeu en pause
 
 actualiser le visuel du transfert de troupes directement
