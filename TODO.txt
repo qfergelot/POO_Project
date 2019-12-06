@@ -10,3 +10,5 @@ si on commande une production alors qu'il y en a une en cours, il faut soit affi
 ou alors ne rien afficher mais ajouter la production dans une file
 
 Lors de la conquète d'un chateau toute production en cours doit être annulée
+
+affiner l'affichage de la map pour qu'elle soit correcte sur tous les écrans
