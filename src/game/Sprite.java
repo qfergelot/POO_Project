@@ -25,10 +25,22 @@ public abstract class Sprite {
         this.imageView = new ImageView(img);
         this.imageView.relocate(x, y);
         
-        w = img.getWidth();
-        h = img.getHeight();
+        this.w = img.getWidth();
+        this.h = img.getHeight();
         
         addToLayer();
+    }
+    
+    public void changeImage(Image img) {
+    	this.imageView.setImage(img);
+    	
+    	/*this.imageView = new ImageView(img);
+    	this.imageView.relocate(this.pos_x, this.pos_y);
+    	
+    	this.w = img.getWidth();
+        this.h = img.getHeight();
+        
+        addToLayer();*/
     }
     
     public void addToLayer() {

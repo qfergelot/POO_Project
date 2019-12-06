@@ -94,7 +94,7 @@ public class Main extends Application {
 		root.getChildren().add(gameFieldLayer);
 		
 		initRoyaume(1100,630,bounds.getWidth()+4,bounds.getHeight()+4);
-		royaume = new Royaume(gameFieldLayer,1,0,0,1100,630,200,8,3,2,0);
+		royaume = new Royaume(gameFieldLayer,1,0,0,1100,630,200,8,3,2,5);
 		ducJoueur = royaume.getChateau(0).getDuc();
 		UIsingleton.getUIsingleton().setDucJoueur(ducJoueur);
 		initMenu(bounds.getWidth()+4,bounds.getHeight()+4,primaryStage);
@@ -177,7 +177,6 @@ public class Main extends Application {
 					System.exit(0);
 				} else if (input.isPause()) { 
 					pause(now);
-					
 				}
 
 			}

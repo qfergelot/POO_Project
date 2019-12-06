@@ -107,14 +107,17 @@ public class Royaume {
 	}
 	
 	private void tourOst(Ost ost) {
-		Chateau c = ost.tourOst();
+		ost.tourOst();
+		
+		/*Chateau c = ost.tourOst();
 		if(c != null) {
 			for(int i=0; i<nbChateaux; i++) {
 				if(chateaux[i] == ost.getCible()) {
 					chateaux[i] = c;
 				}
 			}
-		}
+		}*/
+		
 		if(ost.attaqueFinie() || ost.getTroupe().size() == 0) {
 			for(int i=0; i<ost.getTroupe().size(); i++) 
 				ost.getTroupe().get(i).getImageView().setImage(null);

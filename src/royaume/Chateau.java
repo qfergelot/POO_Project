@@ -94,6 +94,7 @@ public class Chateau extends Sprite{
 		this.nbOnagres = nbOnagres;
 		this.production = null;
 		this.ordreDeplacement = null;
+		this.ost = null;
 		this.porte = new Porte();
 		switch(getPorte()) {
 		case Constantes.GAUCHE:

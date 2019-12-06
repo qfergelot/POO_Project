@@ -2,6 +2,7 @@ package royaume;
 
 import java.util.ArrayList;
 
+import javafx.scene.image.Image;
 import troupes.*;
 
 public class Ost {
@@ -23,11 +24,12 @@ public class Ost {
 		return attaqueFinie;
 	}
 	
-	public Chateau tourOst() {
+	public void tourOst() {
 		for(int i=0; i<troupes.size(); i++) {
 			if(troupes.get(i).surCible()) {
-				if(duc.equals(cible.getDuc()))
+				if(duc.equals(cible.getDuc())) {
 					troupes.get(i).transferer(cible, this);
+				}
 				else {
 					attaqueFinie = troupes.get(i).attaquer(cible);
 					if(troupes.get(i).estMort()) {
@@ -35,9 +37,16 @@ public class Ost {
 						troupes.remove(i);
 					}
 					if(attaqueFinie == true) {
-						if(!cible.getNeutre())
+						if(!cible.getNeutre()) {
 							cible.getDuc().retirerChateau();
-						return new Chateau(cible.getLayer(),duc.getImgChateau(),duc,cible.getTresor(),0,0,0,cible.getPos_x(),cible.getPos_y(),cible.getPopupOst());
+						}
+						cible.setDuc(this.duc);
+						cible.setNeutre(false);
+						cible.changeImage(new Image(getClass().getResource("/images/Chateau joueur.png").toExternalForm(), 40, 40, true, false));
+						this.duc.ajouterChateau();
+						
+						//return new Chateau(cible.getLayer(),duc.getImgChateau(),duc,cible.getTresor(),0,0,0,cible.getPos_x(),cible.getPos_y(),cible.getPopupOst());
+						
 					}
 				}
 			}
@@ -45,7 +54,7 @@ public class Ost {
 				troupes.get(i).deplacement(cible);
 			}
 		}
-		return null;
+		//return null;
 	}
 	
 	public void ajouterTroupe(Troupe t) {
