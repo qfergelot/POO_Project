@@ -78,8 +78,8 @@ public class Royaume {
 		//Chateaux Neutres
 		for(int i=temp; i<nbChateaux; i++) {
 			do {
-				x = rdm.nextInt(longueur-(int)imageNeutralChateau.getWidth());
-				y = rdm.nextInt(hauteur-(int)imageNeutralChateau.getHeight());
+				x = rdm.nextInt(longueur-160-(int)imageNeutralChateau.getWidth()) + 80;
+				y = rdm.nextInt(hauteur-160-(int)imageNeutralChateau.getHeight()) + 80;
 			} while (positionChateauLibre(x,y,i) == false);
 			chateaux[i] = new Chateau(layer,imageNeutralChateau,rdm.nextInt(900)+101,rdm.nextInt(3)+2,
 					rdm.nextInt(3)+1,rdm.nextInt(3),x,y, popupOst);
