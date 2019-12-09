@@ -1,6 +1,8 @@
 package game;
 
 import javafx.scene.Scene;
+
+
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -117,7 +119,7 @@ public class Popup {
 	}
 	
 	public void display(Chateau c, Chateau cible) {
-		
+				
 		tNbPiquiers.setText("0");
 		tNbChevaliers.setText("0");
 		tNbOnagres.setText("0");

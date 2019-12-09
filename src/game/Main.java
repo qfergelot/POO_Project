@@ -151,8 +151,7 @@ public class Main extends Application {
 					Platform.exit();
 					System.exit(0);
 				} else if (input.isPause()) { 
-					//pauseTrigger = !pauseTrigger;
-					pause(now);
+					pause();
 				}
 			}
 		};
@@ -176,7 +175,7 @@ public class Main extends Application {
 					Platform.exit();
 					System.exit(0);
 				} else if (input.isPause()) { 
-					pause(now);
+					pause();
 				}
 
 			}
@@ -186,7 +185,7 @@ public class Main extends Application {
 		menuLoop.start();
 	}
 	
-	public void pause(long now) {
+	public void pause() {
 		if (pauseTrigger) {
 			pauseLoop.stop();
 			gameLoop.start();	
