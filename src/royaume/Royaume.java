@@ -16,11 +16,14 @@ public class Royaume {
 	
 	private Pane layer;
 
-	private Image imagePlayerChateau = new Image(getClass().getResource("/images/Chateau joueur.png").toExternalForm(), 40, 40, true, false);
+	private Color couleurDuc[] = {Color.BLUE, Color.RED, Color.GREEN, Color.YELLOW};
+	private Image imagePlayerChateau[] = {
+			new Image(getClass().getResource("/images/Chateau joueur.png").toExternalForm(), 40, 40, true, false),
+			new Image(getClass().getResource("/images/Chateau joueur2.png").toExternalForm(), 40, 40, true, false),
+			new Image(getClass().getResource("/images/Chateau joueur3.png").toExternalForm(), 40, 40, true, false),
+			new Image(getClass().getResource("/images/Chateau joueur4.png").toExternalForm(), 40, 40, true, false)
+	};
 	private Image imageNeutralChateau = new Image(getClass().getResource("/images/Chateau neutre.png").toExternalForm(), 40, 40, true, false);
-//	private Image imagePiquier = new Image(getClass().getResource("/images/militar.png").toExternalForm(), 20, 20, true, true);
-//	private Image imageChevalier = new Image(getClass().getResource("/images/chevalier.png").toExternalForm(), 20, 20, true, true);
-//	private Image imageOnagre = new Image(getClass().getResource("/images/oangre.png").toExternalForm(), 20, 20, true, true);
 	
 	/* A clarifier:
 	 * Comment on attaque un chateau ? On se pose une case devant ? Forcément devant sa porte ?
@@ -59,9 +62,11 @@ public class Royaume {
 		ost = new ArrayList<Ost>();
 
 		/*Définition basique de nom à améliorer*/
-		
-		for(int i=0; i<(nbJoueurs+nbIA); i++) {
-			ducs[i] = new Duc("joueur" + i, Color.BLUE, imagePlayerChateau);
+		for(int i=0; i<nbJoueurs; i++) {
+			ducs[i] = new Duc("Joueur" + i, couleurDuc[i], imagePlayerChateau[i]);
+		}
+		for(int i=nbJoueurs; i<(nbJoueurs+nbIA); i++) {
+			ducs[i] = new IAbasique("joueur" + i, couleurDuc[i], imagePlayerChateau[i],this);
 		}
 		popupOst = new Popup(this);
 		//Chateaux Joueurs+IA
@@ -69,11 +74,11 @@ public class Royaume {
 		long x, y;
 		for(int i=0; i<temp; i++) {
 			do {
-				x = rdm.nextInt(longueur-160-(int)imagePlayerChateau.getWidth()) + 80;
-				y = rdm.nextInt(hauteur-160-(int)imagePlayerChateau.getHeight()) + 80;
+				x = rdm.nextInt(longueur-160-(int)imagePlayerChateau[i].getWidth()) + 80;
+				y = rdm.nextInt(hauteur-160-(int)imagePlayerChateau[i].getHeight()) + 80;
 			} while(positionChateauLibre(x,y,i) == false);
 			
-			chateaux[i] = new Chateau(layer,imagePlayerChateau,ducs[i],0,nbPiquiers_init,nbChevaliers_init,nbOnagres_init,x,y, popupOst);
+			chateaux[i] = new Chateau(layer,imagePlayerChateau[i],ducs[i],0,nbPiquiers_init,nbChevaliers_init,nbOnagres_init,x,y, popupOst);
 		}
 		//Chateaux Neutres
 		for(int i=temp; i<nbChateaux; i++) {

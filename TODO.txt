@@ -1,6 +1,6 @@
 Version de base :
 - Sauvegarde [TODO]
-- Intelligence artificielle [TODO]
+- Intelligence artificielle Basique [DONE]
 
 Contournement des chateaux lors des assauts
 

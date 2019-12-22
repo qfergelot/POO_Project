@@ -283,6 +283,11 @@ public class Chateau extends Sprite{
 	
 	public void finTourChateau() {
 		if(!neutre) {
+			if(duc.getClass()==IAbasique.class) {
+				IAbasique ia = (IAbasique)duc;
+				ia.tourChateauIA(this);
+			}
+				
 			tresor += niveau;
 			if(enProduction()) {
 				production.finTourProduction();
