@@ -6,7 +6,9 @@ import javafx.scene.layout.Pane;
 import java.util.Random;
 
 import royaume.Chateau;
+import royaume.Constantes;
 import royaume.Ost;
+import royaume.Royaume;
 
 public abstract class Troupe extends Sprite{
 
@@ -14,6 +16,9 @@ public abstract class Troupe extends Sprite{
 	private int vie;
 	private int degats;
 	private boolean surCible = false;
+	
+	private boolean contourne = false;
+	private int dirContournement;
 	
 	public Troupe(Pane layer, Image img, int vitesse, int vie, int degats, double pos_x, double pos_y) {
 		super(layer, img, pos_x, pos_y);
@@ -31,41 +36,112 @@ public abstract class Troupe extends Sprite{
 		return Math.sqrt((cx-x)*(cx-x)+(cy-y)*(cy-y));
 	}
 	
-	public void deplacement(Chateau cible) {
+	public double distance(double x, double y, Chateau cible) {
+		double dx = x + getWidth()/2;
+		double dy = y + getHeight()/2;
+		double cx = cible.getPos_x() + cible.getWidth()/2;
+		double cy = cible.getPos_y() + cible.getHeight()/2;
+		return Math.sqrt((cx-dx)*(cx-dx)+(cy-dy)*(cy-dy));
+	}
+	
+	public void deplacement(Chateau cible, Royaume royaume) {
 		int v = getVitesse();
-		while(v > 0 && distance(cible)>(cible.getHeight()/2+getHeight()/2)) {
+		while(v > 0) {
 			double angle = Math.atan2(cible.getPos_y()-getPos_y(),cible.getPos_x()-getPos_x())/Math.PI;
-			move(angle);
+			move(angle, royaume, cible);
+			if(surCible)
+				break;
 			v--;
 		}
 		getImageView().relocate(getPos_x(), getPos_y());
-		if(distance(cible)<=(cible.getHeight()/2+getHeight()/2))
-			setSurCible();
 	}
 	
-    public void move(double angle) {
-		if((angle > 0.875) || (angle <= -0.875)) {
-			pos_x--;
-		}else if(angle > 0.625) {
-			pos_x-=0.7;
-			pos_y+=0.7;
-		}else if(angle > 0.375) {
-			pos_y++;
-		}else if(angle > 0.125) {
-			pos_x+=0.7;
-			pos_y+=0.7;
-		}else if(angle > -0.125) {
-			pos_x++;
-		}else if(angle > -0.375) {
-			pos_x+=0.7;
-			pos_y-=0.7;
-		}else if(angle > -0.625) {
-			pos_y--;
-		}else if(angle > -0.875) {
-			pos_x-=0.7;
-			pos_y-=0.7;
-		}
+    public void move(double angle, Royaume royaume, Chateau cible) {
+    	if(contourne) {
+    		alternativeMove(angle, royaume, cible);
+    	}
+    	else {
+	    	double new_x = pos_x, new_y = pos_y;
+			if((angle > 0.875) || (angle <= -0.875)) {
+				new_x--;
+			}else if(angle > 0.625) {
+				new_x-=0.7;
+				new_y+=0.7;
+			}else if(angle > 0.375) {
+				new_y++;
+			}else if(angle > 0.125) {
+				new_x+=0.7;
+				new_y+=0.7;
+			}else if(angle > -0.125) {
+				new_x++;
+			}else if(angle > -0.375) {
+				new_x+=0.7;
+				new_y-=0.7;
+			}else if(angle > -0.625) {
+				new_y--;
+			}else if(angle > -0.875) {
+				new_x-=0.7;
+				new_y-=0.7;
+			}
+			if(!collision(new_x, new_y, royaume, cible)) {
+				pos_x = new_x;
+				pos_y = new_y;
+				contourne = false;
+			}
+			else {
+				alternativeMove(angle, royaume, cible);
+			}
+    	}
 	}
+    
+    public void alternativeMove(double angle, Royaume royaume, Chateau cible) {
+    	double new_x = pos_x, new_y = pos_y;
+    	if(angle > 0.75 || angle <= -0.75)
+    		new_x--;
+    	else if(angle > 0.25)
+    		new_y++;
+    	else if(angle > -0.25)
+    		new_x++;
+    	else
+    		new_y--;
+    	if(!collision(new_x, new_y, royaume, cible)) {
+			pos_x = new_x;
+			pos_y = new_y;
+			contourne = false;
+		}
+    	else {
+    		if(contourne) {
+    			contourner();
+    		}
+    		else {
+	    		if(new_x != pos_x) {
+	    			if(distance(pos_x, pos_y-1, cible) < distance(pos_x, pos_y+1, cible))
+	    				dirContournement = Constantes.HAUT;
+	    			else
+	    				dirContournement = Constantes.BAS;
+	    		}
+	    		else {
+	    			if(distance(pos_x-1, pos_y, cible) < distance(pos_x+1, pos_y, cible))
+	    				dirContournement = Constantes.GAUCHE;
+	    			else
+	    				dirContournement = Constantes.DROITE;
+    			}
+	    		contourne = true;
+	    		contourner();
+    		}
+    	}
+    }
+    
+    public void contourner() {
+    	if(dirContournement == Constantes.HAUT)
+    		pos_y--;
+    	else if(dirContournement == Constantes.BAS)
+    		pos_y++;
+    	else if(dirContournement == Constantes.GAUCHE)
+    		pos_x--;
+    	else
+    		pos_x++;
+    }
     
     public void setSurCible() {
     	surCible = true;
@@ -163,6 +239,22 @@ public abstract class Troupe extends Sprite{
 	
 	public boolean estMort() {
 		return vie == 0 || degats == 0;
+	}
+	
+	public boolean estDans(double x, double y, Chateau c) {
+		return ((x + getWidth()) > c.getPos_x()) && (x < (c.getPos_x() + c.getWidth()))
+				&& ((y + getHeight()) > c.getPos_y()) && (y < (c.getPos_y() + c.getHeight()));
+	}
+	
+	public boolean collision(double x, double y, Royaume royaume, Chateau cible) {
+		for(int i=0; i<royaume.getNbChateaux(); i++) {
+			if(estDans(x, y, royaume.getChateau(i))) {
+				if(royaume.getChateau(i) == cible)
+					surCible = true;
+				return true;
+			}
+		}
+		return false;
 	}
 	
 }

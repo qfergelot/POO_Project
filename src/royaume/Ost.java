@@ -2,8 +2,6 @@ package royaume;
 
 import java.util.ArrayList;
 
-import game.UIsingleton;
-import javafx.scene.image.Image;
 import troupes.*;
 
 public class Ost {
@@ -25,7 +23,7 @@ public class Ost {
 		return attaqueFinie;
 	}
 	
-	public void tourOst() {
+	public void tourOst(Royaume royaume) {
 		for(int i=0; i<troupes.size(); i++) {
 			if(troupes.get(i).surCible()) {
 				if(duc.equals(cible.getDuc())) {
@@ -50,7 +48,7 @@ public class Ost {
 				}
 			}
 			else {
-				troupes.get(i).deplacement(cible);
+				troupes.get(i).deplacement(cible, royaume);
 			}
 		}
 	}

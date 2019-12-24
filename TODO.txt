@@ -2,7 +2,7 @@ Version de base :
 - Sauvegarde [TODO]
 - Intelligence artificielle Basique [DONE]
 
-Contournement des chateaux lors des assauts
+Contournement des chateaux lors des assauts [DONE]
 
 affichage du popup doit metre le jeu en pause
 

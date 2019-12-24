@@ -74,8 +74,8 @@ public class Royaume {
 		long x, y;
 		for(int i=0; i<temp; i++) {
 			do {
-				x = rdm.nextInt(longueur-160-(int)imagePlayerChateau[i].getWidth()) + 80;
-				y = rdm.nextInt(hauteur-160-(int)imagePlayerChateau[i].getHeight()) + 80;
+				x = rdm.nextInt(longueur-80-(int)imagePlayerChateau[i].getWidth()) + 40;
+				y = rdm.nextInt(hauteur-80-(int)imagePlayerChateau[i].getHeight()) + 40;
 			} while(positionChateauLibre(x,y,i) == false);
 			
 			chateaux[i] = new Chateau(layer,imagePlayerChateau[i],ducs[i],0,nbPiquiers_init,nbChevaliers_init,nbOnagres_init,x,y, popupOst);
@@ -83,8 +83,8 @@ public class Royaume {
 		//Chateaux Neutres
 		for(int i=temp; i<nbChateaux; i++) {
 			do {
-				x = rdm.nextInt(longueur-160-(int)imageNeutralChateau.getWidth()) + 80;
-				y = rdm.nextInt(hauteur-160-(int)imageNeutralChateau.getHeight()) + 80;
+				x = rdm.nextInt(longueur-80-(int)imageNeutralChateau.getWidth()) + 40;
+				y = rdm.nextInt(hauteur-80-(int)imageNeutralChateau.getHeight()) + 40;
 			} while (positionChateauLibre(x,y,i) == false);
 			chateaux[i] = new Chateau(layer,imageNeutralChateau,rdm.nextInt(900)+101,rdm.nextInt(3)+2,
 					rdm.nextInt(3)+1,rdm.nextInt(3),x,y, popupOst);
@@ -112,7 +112,7 @@ public class Royaume {
 	}
 	
 	private void tourOst(Ost ost) {
-		ost.tourOst();
+		ost.tourOst(this);
 		
 		if(ost.attaqueFinie() || ost.getTroupe().size() == 0) {
 			for(int i=0; i<ost.getTroupe().size(); i++) 
@@ -188,17 +188,6 @@ public class Royaume {
 			v--;
 		}
 	}*/
-	
-	private boolean deplacementPossible(double x, double y) {
-		if(x<0 || y<0 || x >= longueur || y >= hauteur)
-			return false;
-		for(int i=0; i<nbChateaux; i++) {
-			if(chateaux[i].getPos_x() == x && chateaux[i].getPos_y() == y) {
-				return false;
-			}
-		}
-		return true;
-	}
 	
 	/* * * * * * * * DEBUT : Getters/Setters * * * * * * * */
 	public Chateau getChateau(int i) {

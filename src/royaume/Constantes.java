@@ -18,4 +18,6 @@ public class Constantes {
 	public final static int VIE_PIQUIER = 1;
 	public final static int VIE_CHEVALIER = 3;
 	public final static int VIE_ONAGRE = 5;
+	
+	public final static int NIVEAU_MAX = 5;
 }

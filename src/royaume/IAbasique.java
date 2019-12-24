@@ -67,4 +67,15 @@ public class IAbasique extends Duc {
 			}
 		}
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if(o == null)
+			return false;
+		if(o.getClass()!=getClass()) {
+			return false;
+		}
+		IAbasique d = (IAbasique)o;
+		return getNom() == d.getNom();
+	}
 }

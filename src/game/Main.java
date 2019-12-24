@@ -1,4 +1,5 @@
- package game;
+package game;
+
 import royaume.*;
 
 import javafx.animation.AnimationTimer;
@@ -27,7 +28,7 @@ public class Main extends Application {
 	private Pane gameFieldLayer;
 	private Pane menuFieldLayer;
 	
-	private Scene scene;	
+	private Scene scene;
 	
 	private Scene menu_scene;
 	private AnimationTimer menuLoop;
@@ -331,6 +332,9 @@ public class Main extends Application {
 	}
 	
 	private void initRoyaume(double longueur, double hauteur, double l_ecran, double h_ecran) {
+		Pane layoutProduction = new Pane();
+		layoutProduction.relocate(longueur+5, 0);
+		
 		Rectangle fond = new Rectangle(longueur,h_ecran);
 		Rectangle barre_ressources = new Rectangle(longueur,28);
 		Rectangle barre_actions = new Rectangle(l_ecran-longueur,h_ecran);
@@ -358,10 +362,10 @@ public class Main extends Application {
 		barre_actions.relocate(longueur, 0);
 		barre_actions.setFill(Color.ANTIQUEWHITE);
 		barre_actions.setStroke(Color.BLACK);
-		barre_amelioration.relocate(longueur+5, 180);
+		barre_amelioration.relocate(0, 180);
 		barre_amelioration.setFill(Color.ANTIQUEWHITE);
 		barre_amelioration.setStroke(Color.BLACK);
-		barreProgression.relocate(longueur+6, 181);
+		barreProgression.relocate(1, 181);
 		barreProgression.setFill(Color.AQUA);
 		bordureChateau.relocate(-100, -100);
 		
@@ -375,7 +379,7 @@ public class Main extends Application {
 		texteOnagres.getStyleClass().add("texte");
 		texteJoueur.relocate(600, hauteur+4);
 		texteJoueur.getStyleClass().add("texte");
-		produire.relocate(longueur+5, 30);
+		produire.relocate(0, 30);
 		produire.setStyle("-fx-fill: #545454;-fx-font-size: 30;");
 		messageErreurProduction.relocate(longueur+6,  200);
 		messageErreurProduction.setStyle("-fx-fill: red; fx-font-size: 14");
@@ -385,21 +389,21 @@ public class Main extends Application {
 		img_chevalier.relocate(280, hauteur);
 		img_onagre.relocate(380, hauteur);
 		
-		boutonProduirePiquier.relocate(longueur+5, 50);
+		boutonProduirePiquier.relocate(0, 50);
 		boutonProduirePiquier.getStyleClass().add("bouton");
-		boutonProduireChevalier.relocate(longueur+60, 50);
+		boutonProduireChevalier.relocate(55, 50);
 		boutonProduireChevalier.getStyleClass().add("bouton");
-		boutonProduireOnagre.relocate(longueur+115, 50);
+		boutonProduireOnagre.relocate(110, 50);
 		boutonProduireOnagre.getStyleClass().add("bouton");
-		boutonProduireAmelioration.relocate(longueur+5, 120);
+		boutonProduireAmelioration.relocate(0, 120);
 		boutonProduireAmelioration.getStyleClass().add("bouton");
 		boutonProduireAmelioration.setStyle("-fx-padding: 12 67 12 67;");
 		
 		gameFieldLayer.getChildren().add(fond);
 		gameFieldLayer.getChildren().add(barre_ressources);
 		gameFieldLayer.getChildren().add(barre_actions);
-		gameFieldLayer.getChildren().add(barre_amelioration);
-		gameFieldLayer.getChildren().add(barreProgression);
+		//gameFieldLayer.getChildren().add(barre_amelioration);
+		//gameFieldLayer.getChildren().add(barreProgression);
 		gameFieldLayer.getChildren().add(bordureChateau);
 		gameFieldLayer.getChildren().add(img_florins);
 		gameFieldLayer.getChildren().add(texteFlorins);
@@ -410,12 +414,16 @@ public class Main extends Application {
 		gameFieldLayer.getChildren().add(img_onagre);
 		gameFieldLayer.getChildren().add(texteOnagres);
 		gameFieldLayer.getChildren().add(texteJoueur);
-		gameFieldLayer.getChildren().add(produire);
+		/*gameFieldLayer.getChildren().add(produire);
 		gameFieldLayer.getChildren().add(messageErreurProduction);
 		gameFieldLayer.getChildren().add(boutonProduirePiquier);
 		gameFieldLayer.getChildren().add(boutonProduireChevalier);
 		gameFieldLayer.getChildren().add(boutonProduireOnagre);
-		gameFieldLayer.getChildren().add(boutonProduireAmelioration);
+		gameFieldLayer.getChildren().add(boutonProduireAmelioration);*/
+		layoutProduction.getChildren().addAll(barre_amelioration,barreProgression,produire,messageErreurProduction);
+		layoutProduction.getChildren().addAll(boutonProduirePiquier,boutonProduireChevalier,boutonProduireOnagre,boutonProduireAmelioration);
+		gameFieldLayer.getChildren().add(layoutProduction);
+		
 		
 		boutonProduirePiquier.setOnAction(e -> {
 			if (chateauSelection!=null) {

@@ -89,7 +89,7 @@ public class Chateau extends Sprite{
 		this.popupOst = popupOst;
 		this.tresor = tresor;
 		this.neutre = true;
-		this.niveau = rdm.nextInt(10)+1;
+		this.niveau = rdm.nextInt(4)+1;
 		this.nbPiquiers = nbPiquiers;
 		this.nbChevaliers = nbChevaliers;
 		this.nbOnagres = nbOnagres;
@@ -156,8 +156,11 @@ public class Chateau extends Sprite{
 				cout = Chevalier.COUT_PRODUCTION;
 			else if(unite==Constantes.ONAGRE)
 				cout = Onagre.COUT_PRODUCTION;
-			else
+			else {
 				cout = 1000*niveau;
+				if(niveau == Constantes.NIVEAU_MAX)
+					return false;
+			}
 			if(tresor < cout) {
 				// pas assez de sousous
 				return false;
