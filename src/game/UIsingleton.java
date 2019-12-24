@@ -10,6 +10,8 @@ public final class UIsingleton {
 	private Chateau chateauSelection = null;
 	private boolean toUpdateTroupes = false;
 	
+	private boolean pause = false;
+	
 	private UIsingleton() {
 		//
 	}
@@ -40,6 +42,14 @@ public final class UIsingleton {
 	
 	public void setDucJoueur(Duc ducJoueur) {
 		this.ducJoueur = ducJoueur;
+	}
+	
+	public void setPause() {
+		pause = !pause;
+	}
+	
+	public boolean getPause() {
+		return pause;
 	}
 	
 }

@@ -41,7 +41,7 @@ public class Main extends Application {
 	private int compteur_temps = 0;
 	private double dernier_temps = 0;
 	
-	public boolean pauseTrigger = false;
+	private static boolean pauseTrigger = false;
 	
 	private Duc ducJoueur = null;
 	private Chateau dernierChateau = null;
@@ -118,6 +118,12 @@ public class Main extends Application {
 			@Override
 			public void handle(long now) {
 				processInput(input, now);
+				
+				if(UIsingleton.getUIsingleton().getPause()){
+					UIsingleton.getUIsingleton().setPause();
+					pause();
+				}
+				
 				//********COMPTEUR TEMPS********/
 				if((now - dernier_temps) >= Constantes.GAME_FREQUENCY/2) {
 					dernier_temps = now;
@@ -125,13 +131,14 @@ public class Main extends Application {
 					pauseTrigger = false;
 					updateTresor();
 				}
+				
 				/*if(compteur_temps == Constantes.DUREE_TOUR) {
 					compteur_temps = 0;
 				}*/
 				//******************************/
 				//if(!pauseTrigger)
 				royaume.finTour();
-				
+
 				if(UIsingleton.getUIsingleton().getChateauSelection()!=chateauSelection)
 					updateClick();
 				if (UIsingleton.getUIsingleton().toUpdateTroupes()) {
@@ -162,6 +169,11 @@ public class Main extends Application {
 			public void handle(long now) {
 				processInput(input, now);
 				
+				if(UIsingleton.getUIsingleton().getPause()) {
+					UIsingleton.getUIsingleton().setPause();
+					pause();
+				}
+				
 				if(UIsingleton.getUIsingleton().getChateauSelection()!=chateauSelection)
 					updateClick();
 				
@@ -186,7 +198,7 @@ public class Main extends Application {
 		menuLoop.start();
 	}
 	
-	public void pause() {
+	private void pause() {
 		if (pauseTrigger) {
 			pauseLoop.stop();
 			gameLoop.start();	

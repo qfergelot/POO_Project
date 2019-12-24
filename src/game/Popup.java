@@ -14,6 +14,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import royaume.Chateau;
 import royaume.Royaume;
+import game.UIsingleton;
 
 public class Popup {
 	private Stage popupOst;
@@ -119,7 +120,9 @@ public class Popup {
 	}
 	
 	public void display(Chateau c, Chateau cible) {
-				
+		
+		UIsingleton.getUIsingleton().setPause();
+		
 		tNbPiquiers.setText("0");
 		tNbChevaliers.setText("0");
 		tNbOnagres.setText("0");
@@ -165,12 +168,17 @@ public class Popup {
 		});
 		
 		envoyer.setOnAction(e -> {
+			UIsingleton.getUIsingleton().setPause();
 			if(nbPiquiers == 0 && nbChevaliers == 0 && nbOnagres == 0) {
 				popupOst.close();
 			} else {
 				royaume.creerOrdre(c, cible, nbPiquiers, nbChevaliers, nbOnagres);
 				popupOst.close();
 			}
+		});
+		
+		popupOst.setOnCloseRequest(e -> {
+			UIsingleton.getUIsingleton().setPause();
 		});
 		
 		popupOst.showAndWait();
