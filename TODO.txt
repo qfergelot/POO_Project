@@ -11,6 +11,4 @@ ou alors ne rien afficher mais ajouter la production dans une file
 
 -affiner l'affichage de la map pour qu'elle soit correcte sur tous les Ã©crans
 
--Lors d'une sauvegarde, si la rotation de la porte est 3 -> fait de la merde ?
-
 -Aprés le chargement d'une sauvegarde, il arrive qu'une ost reste bloqués au niveau des murs d'un chateau

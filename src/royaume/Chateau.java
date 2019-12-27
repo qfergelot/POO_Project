@@ -450,6 +450,9 @@ public class Chateau extends Sprite{
 		case Constantes.DROITE:
 			imageView.setRotate(270);
 			break;
+		case Constantes.BAS:
+			imageView.setRotate(0);
+			break;
 		default:
 			break;
 		}
