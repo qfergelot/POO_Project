@@ -1,16 +1,16 @@
 Version de base :
-- Sauvegarde [TODO]
-- Intelligence artificielle Basique [DONE]
+- Sauvegarde [DONE]
 
-Contournement des chateaux lors des assauts [DONE]
 
-affichage du popup doit metre le jeu en pause
+-actualiser le visuel du transfert de troupes directement
 
-actualiser le visuel du transfert de troupes directement
-
-si on commande une production alors qu'il y en a une en cours, il faut soit afficher un message "deja en cours attente" 
+-si on commande une production alors qu'il y en a une en cours, il faut soit afficher un message "deja en cours attente" 
 ou alors ne rien afficher mais ajouter la production dans une file
 
-Lors de la conquète d'un chateau toute production en cours doit être annulée
+-Lors de la conquète d'un chateau toute production en cours doit être annulée
 
-affiner l'affichage de la map pour qu'elle soit correcte sur tous les écrans
+-affiner l'affichage de la map pour qu'elle soit correcte sur tous les écrans
+
+-Lors d'une sauvegarde, si la rotation de la porte est 3 -> fait de la merde ?
+
+-Apr�s le chargement d'une sauvegarde, il arrive qu'une ost reste bloqu�s au niveau des murs d'un chateau
