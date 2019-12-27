@@ -257,4 +257,8 @@ public abstract class Troupe extends Sprite{
 		return false;
 	}
 	
+	public void delete() {
+		this.removeFromLayer();
+	}
+	
 }

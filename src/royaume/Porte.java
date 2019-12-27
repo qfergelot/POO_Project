@@ -11,6 +11,10 @@ public class Porte {
 		porte = (char)rdm.nextInt(4);
 	}
 	
+	public Porte(int rot) {
+		porte = (char) rot;
+	}
+	
 	public char getPorte() {
 		return porte;
 	}

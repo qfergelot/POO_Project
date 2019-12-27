@@ -35,7 +35,7 @@ public class Chateau extends Sprite{
 	private Porte porte;
 	
 	/* Chateau Duc */
-	public Chateau(Pane layer, Image image, Duc duc, int tresor, int nbPiquiers, int nbChevaliers,
+	public Chateau(Pane layer, Image image, Duc duc, double tresor, int nbPiquiers, int nbChevaliers,
 			int nbOnagres, double x, double y, Popup popupOst) {
 		super(layer, image, x, y);
 		this.popupOst = popupOst;
@@ -83,7 +83,7 @@ public class Chateau extends Sprite{
 	}
 	
 	/* Chateau Neutre (pas de duc) */
-	public Chateau(Pane layer, Image image, int tresor, int nbPiquiers, int nbChevaliers,
+	public Chateau(Pane layer, Image image, double tresor, int nbPiquiers, int nbChevaliers,
 			int nbOnagres, double x, double y, Popup popupOst) {
 		super(layer, image, x, y);
 		this.popupOst = popupOst;
@@ -364,8 +364,14 @@ public class Chateau extends Sprite{
 		if (this.duc != null) {
 			d = this.duc.getNom();
 		}
-		s += "Castle " + this.pos_x + " " + this.pos_y + " " + d + " " + this.niveau + " " + this.tresor + " " + this.nbPiquiers + " " + this.nbChevaliers + " " + this.nbOnagres ; 
+		s += "Castle " + this.pos_x + " " + this.pos_y + " " + d + " " + this.niveau + " " + this.tresor + " " +
+				this.nbPiquiers + " " + this.nbChevaliers + " " + this.nbOnagres + " " + this.getPorte(); 
 		return s;
+	}
+	
+	public void delete() {
+		this.removeFromLayer();
+		
 	}
 	
 	/* * * * * * * * FIN : SAVE * * * * * * * */
@@ -394,6 +400,10 @@ public class Chateau extends Sprite{
 
 	public int getNiveau() {
 		return niveau;
+	}
+	
+	public void setLevel(int level) {
+		this.niveau = level;
 	}
 
 
@@ -428,6 +438,23 @@ public class Chateau extends Sprite{
 		return porte.getPorte();
 	}
 	
+	public void setPorte(int porte) {	
+		this.porte = new Porte(porte);
+		switch(getPorte()) {
+		case Constantes.GAUCHE:
+			imageView.setRotate(90);
+			break;
+		case Constantes.HAUT:
+			imageView.setRotate(180);
+			break;
+		case Constantes.DROITE:
+			imageView.setRotate(270);
+			break;
+		default:
+			break;
+		}
+	}
+	
 	private Chateau getChateau() {
 		return this;
 	}
@@ -435,6 +462,7 @@ public class Chateau extends Sprite{
 	public Popup getPopupOst() {
 		return popupOst;
 	}
+
 	
 
 	/* * * * * * * * FIN : Getters/Setters * * * * * * * */

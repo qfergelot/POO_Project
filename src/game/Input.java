@@ -69,6 +69,10 @@ public class Input {
 		return is(ESCAPE);
 	}
 	
+	public boolean isLoad() {
+		return is(KeyCode.L);
+	}
+	
 	
 	
 	

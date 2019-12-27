@@ -158,10 +158,13 @@ public class Main extends Application {
 			
 			private void processInput(Input input, long now) {
 				if (input.isExit()) {
+					saveGame();
 					Platform.exit();
 					System.exit(0);
 				} else if (input.isPause()) { 
 					pause();
+				} else if (input.isLoad()) { 
+					loadGame();
 				}
 			}
 		};
@@ -187,7 +190,6 @@ public class Main extends Application {
 			
 			private void processInput(Input input, long now) {
 				if (input.isExit()) {
-					saveGame();
 					Platform.exit();
 					System.exit(0);
 				} else if (input.isPause()) { 
@@ -229,7 +231,30 @@ public class Main extends Application {
 	}
 	
 	private void loadGame() {
-
+		try {
+			File f = new File("Save.sav");
+			BufferedReader br = new BufferedReader(new FileReader(f));
+			
+			try {
+				String line = br.readLine();
+				royaume.clean();
+				String args[] = line.split(" ");
+				royaume.setNbChateaux(Integer.parseInt(args[0]));
+				
+				for (int i = 0; i < Integer.parseInt(args[0]); i++) {
+					line = br.readLine();
+					royaume.addCastle(line);
+				}
+				
+				br.close();
+				
+			}catch(IOException e) {
+				System.out.println("Erreur lecture : " + e.getMessage());
+			}
+			
+		} catch (FileNotFoundException e) {
+			System.out.println("Le fichier de sauvegarde n'a pas été trouvé !");
+		}
 	}
 	
 	private void updateTresor() {

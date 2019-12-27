@@ -125,6 +125,7 @@ public class Royaume {
 	
 	public void finTour() {
 		for(int i=0; i<nbChateaux; i++) {
+			
 			chateaux[i].finTourChateau();
 		}
 		for(int i=0; i<ost.size(); i++) {
@@ -144,11 +145,26 @@ public class Royaume {
 		return true;
 	}
 	
+	public void clean() {
+		for (int i = 0; i<ost.size(); i++) {
+			ost.get(i).delete();
+		}
+		for (int i = 0; i<nbChateaux; i++) {
+			chateaux[i].delete();
+		}
+		this.chateaux = null;
+		for (int i = 0; i < ducs.length; i++) {
+			while(ducs[i].getNbChateaux()!=0) {
+				ducs[i].retirerChateau();
+			}
+		}
+	}
+	
 	public String saveGame() {
 		String s = "";
-		s += this.nbChateaux + "\n";
+		s += this.nbChateaux + " \n";
 		for (int i = 0; i < this.nbChateaux; i++) {
-			s += chateaux[i].saveGame() + "\n";
+			s += chateaux[i].saveGame() + " \n";
 		}
 		return s;
 	}
@@ -203,8 +219,39 @@ public class Royaume {
 		return chateaux[i];
 	}
 	
+	public void addCastle(String line) {
+		String[] args = line.split(" ");
+		int i = 0;
+		while (chateaux[i] != null) {
+			i ++; 
+		}
+		if (args[3].contentEquals("baron")) {
+			chateaux[i] = new Chateau(layer,imageNeutralChateau, Double.parseDouble(args[5]), Integer.parseInt(args[6]),
+					Integer.parseInt(args[7]), Integer.parseInt(args[8]), Double.parseDouble(args[1]), Double.parseDouble(args[2]), popupOst);
+		}
+		else {
+			Duc d = null;
+			for (int x = 0; x < ducs.length; x++) {
+				if (ducs[x].getNom().contentEquals(args[3])) {
+					d = ducs[x];
+				}
+			}
+			chateaux[i] = new Chateau(layer, d.getImgChateau(), d, Double.parseDouble(args[5]), Integer.parseInt(args[6]),
+					Integer.parseInt(args[7]), Integer.parseInt(args[8]), Double.parseDouble(args[1]), Double.parseDouble(args[2]), popupOst);
+			d.ajouterChateau();
+			
+		}
+		chateaux[i].setPorte(Integer.parseInt(args[9]));
+		chateaux[i].setLevel(Integer.parseInt(args[4]));
+	}
+	
 	public int getNbChateaux() {
 		return nbChateaux;
+	}
+	
+	public void setNbChateaux(int nbChateaux) {
+		this.nbChateaux =  nbChateaux;
+		this.chateaux = new Chateau[nbChateaux];
 	}
 	
 	public int getNbJoueurs() {

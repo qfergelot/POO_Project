@@ -69,4 +69,9 @@ public class Ost {
 		return troupes;
 	}
 	
+	public void delete() {
+		for (int i = 0; i<troupes.size(); i++)
+			troupes.get(i).delete();
+	}
+	
 }
