@@ -144,6 +144,15 @@ public class Royaume {
 		return true;
 	}
 	
+	public String saveGame() {
+		String s = "";
+		s += this.nbChateaux + "\n";
+		for (int i = 0; i < this.nbChateaux; i++) {
+			s += chateaux[i].saveGame() + "\n";
+		}
+		return s;
+	}
+	
 	/*private void deplacementOst(Ost ost) {
 		int v = ost.getVitesse();
 		while(v > 0 && ost.distanceCible() > 1) {

@@ -1,6 +1,7 @@
 package game;
 
 import royaume.*;
+import java.io.*;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -105,7 +106,8 @@ public class Main extends Application {
 		bordureChateau.setStroke(Color.BLUE);
 		bordureChateau.setStrokeWidth(4);
 		
-		loadGame();
+		input = new Input(scene);
+		input.addListeners();
 		
 		menuLoop = new AnimationTimer() {
 			@Override
@@ -185,14 +187,13 @@ public class Main extends Application {
 			
 			private void processInput(Input input, long now) {
 				if (input.isExit()) {
+					saveGame();
 					Platform.exit();
 					System.exit(0);
 				} else if (input.isPause()) { 
 					pause();
 				}
-
 			}
-
 		};
 		
 		menuLoop.start();
@@ -209,11 +210,26 @@ public class Main extends Application {
 		}
 	}
 	
+	private void saveGame() {
+		File f = new File("Save.sav");
+		
+		try {
+			FileWriter fw = new FileWriter(f);
+			fw.write(royaume.saveGame());
+			
+			fw.flush();
+			
+			fw.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
 	private void loadGame() {
-		
-		input = new Input(scene);
-		input.addListeners();
-		
+
 	}
 	
 	private void updateTresor() {

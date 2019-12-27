@@ -356,6 +356,19 @@ public class Chateau extends Sprite{
 			vieOnagre = Constantes.VIE_ONAGRE;
 		}
 	}
+	/* * * * * * * * DEBUT : SAVE * * * * * * * */
+	
+	public String saveGame() {
+		String s = "";
+		String d = "baron";
+		if (this.duc != null) {
+			d = this.duc.getNom();
+		}
+		s += "Castle " + this.pos_x + " " + this.pos_y + " " + d + " " + this.niveau + " " + this.tresor + " " + this.nbPiquiers + " " + this.nbChevaliers + " " + this.nbOnagres ; 
+		return s;
+	}
+	
+	/* * * * * * * * FIN : SAVE * * * * * * * */
 	
 	/* * * * * * * * DEBUT : Getters/Setters * * * * * * * */
 	public Duc getDuc() {
