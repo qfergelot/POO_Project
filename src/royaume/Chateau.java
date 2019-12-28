@@ -144,9 +144,10 @@ public class Chateau extends Sprite{
 	
 	
 	/* * * * * * * * DEBUT : Fonctions Production * * * * * * * */
-	public boolean lancerProduction(int unite) {
+	public void lancerProduction(int unite) throws ProdException {
 		if(enProduction()) {
-			return false;
+			throw new ProdException("En cours de production");
+			//return false;
 		} else {
 			
 			int cout;
@@ -159,16 +160,15 @@ public class Chateau extends Sprite{
 			else {
 				cout = 1000*niveau;
 				if(niveau == Constantes.NIVEAU_MAX)
-					return false;
+					throw new ProdException("Niveau du Chateau Maximal");
 			}
 			if(tresor < cout) {
-				// pas assez de sousous
-				return false;
+				throw new ProdException("Pas assez de Florins");
 			}
 			else {
 				production = new Production(unite,niveau);
 				tresor -= cout;
-				return true;
+				//return true;
 			}
 		}
 		

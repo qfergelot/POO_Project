@@ -1,5 +1,6 @@
 package game;
 
+import javafx.scene.text.Text;
 import royaume.Chateau;
 import royaume.Duc;
 
@@ -11,6 +12,8 @@ public final class UIsingleton {
 	private boolean toUpdateTroupes = false;
 	
 	private boolean pause = false;
+	
+	private Text labelErreurProduction;
 	
 	private UIsingleton() {
 		//
@@ -50,6 +53,14 @@ public final class UIsingleton {
 	
 	public boolean getPause() {
 		return pause;
+	}
+	
+	public void setLabelErreurProduction(Text labelErreurProduction) {
+		this.labelErreurProduction = labelErreurProduction;
+	}
+	
+	public void setMessageErreurProduction(String message) {
+		labelErreurProduction.setText(message);
 	}
 	
 }

@@ -1,14 +1,15 @@
 Version de base :
 - Sauvegarde [DONE]
-
+- si on commande une production alors qu'il y en a une en cours, il faut afficher un message "deja en cours attente"[DONE]
 
 -actualiser le visuel du transfert de troupes directement (ne pas avoir à clicker autre part puis revenir sur le chateau pour voir l'avancement des troupes)
-
--si on commande une production alors qu'il y en a une en cours, il faut soit afficher un message "deja en cours attente" 
-ou alors ne rien afficher mais ajouter la production dans une file
 
 -Lors de la conquÃ¨te d'un chateau toute production en cours doit Ãªtre annulÃ©e
 
 -affiner l'affichage de la map pour qu'elle soit correcte sur tous les Ã©crans
 
 -Aprés le chargement d'une sauvegarde, il arrive qu'une ost reste bloqués au niveau des murs d'un chateau
+
+Version Avancée (A FAIRE QUE QUAND ON AURA RENDU LA BASIQUE) :
+
+-si on commande une production alors qu'il y en a une en cours, ajouter la production dans une file 

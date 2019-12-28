@@ -21,10 +21,27 @@ public class IAbasique extends Duc {
 	public void tourChateauIA(Chateau chateau) {
 		if(chateau.getDuc().equals(this)) {
 			if(phaseEconomie) {
-				if(chateau.lancerProduction(Constantes.AMELIORATION));
-				else if(chateau.lancerProduction(Constantes.ONAGRE));
-				else if(chateau.lancerProduction(Constantes.CHEVALIER));
-				else if(chateau.lancerProduction(Constantes.PIQUIER));
+				try{
+					chateau.lancerProduction(Constantes.AMELIORATION);
+				}
+				catch (ProdException e){
+					try{
+						chateau.lancerProduction(Constantes.ONAGRE);
+					}
+					catch (ProdException f){
+						try{
+							chateau.lancerProduction(Constantes.CHEVALIER);
+						}
+						catch (ProdException g){
+							try{
+								chateau.lancerProduction(Constantes.PIQUIER);
+							}
+							catch (ProdException h) {
+								//
+							}
+						}
+					}
+				}
 			}
 			else {
 				if(cible != null) {

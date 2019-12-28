@@ -62,6 +62,8 @@ public class Main extends Application {
 	private Rectangle bordureChateau = new Rectangle();
 	
 	private Button boutonJouer = new Button("Jouer");
+	private Button boutonCharger = new Button("Charger Partie");
+	private Button boutonSauvegarder = new Button("Sauvegarder Partie");
 	
 	//private Popup popupOst = new Popup();
 	
@@ -96,15 +98,17 @@ public class Main extends Application {
 		root.getChildren().add(gameFieldLayer);
 		
 		initRoyaume(1100,630,bounds.getWidth()+4,bounds.getHeight()+4);
+		
 		royaume = new Royaume(gameFieldLayer,1,2,0,1100,630,200,6,3,2,5);
 		ducJoueur = royaume.getChateau(0).getDuc();
 		UIsingleton.getUIsingleton().setDucJoueur(ducJoueur);
-		initMenu(bounds.getWidth()+4,bounds.getHeight()+4,primaryStage);
 		bordureChateau.setWidth(royaume.getChateau(0).getWidth());
 		bordureChateau.setHeight(royaume.getChateau(0).getHeight());
 		bordureChateau.setFill(null);
 		bordureChateau.setStroke(Color.BLUE);
 		bordureChateau.setStrokeWidth(4);
+		
+		initMenu(bounds.getWidth()+4,bounds.getHeight()+4,primaryStage);
 		
 		input = new Input(scene);
 		input.addListeners();
@@ -253,7 +257,7 @@ public class Main extends Application {
 			}
 			
 		} catch (FileNotFoundException e) {
-			System.out.println("Le fichier de sauvegarde n'a pas été trouvé !");
+			System.out.println("Le fichier de sauvegarde n'a pas ï¿½tï¿½ trouvï¿½ !");
 		}
 	}
 	
@@ -371,15 +375,27 @@ public class Main extends Application {
 		
 		fond.setFill(Color.GREY);
 		
-		boutonJouer.relocate(l_ecran/2-110, h_ecran/2-80);
+		boutonJouer.relocate(l_ecran/2-140, h_ecran/2-80);
 		boutonJouer.getStyleClass().add("bouton_menu");
+		boutonCharger.relocate(l_ecran/2-140, h_ecran/2);
+		boutonCharger.getStyleClass().add("bouton_menu");
+		boutonCharger.setStyle("-fx-padding: 10 69 10 69;");
 
 		menuFieldLayer.getChildren().add(fond);
-		menuFieldLayer.getChildren().add(boutonJouer);
+		menuFieldLayer.getChildren().addAll(boutonJouer,boutonCharger);
 		
 		boutonJouer.setOnAction(e -> {
 			stage.setScene(scene);
 			menuLoop.stop();
+			gameLoop.start();
+		});
+		
+		boutonCharger.setOnAction(e -> {
+			stage.setScene(scene);
+			menuLoop.stop();
+			loadGame();
+			ducJoueur = royaume.getChateau(0).getDuc();
+			UIsingleton.getUIsingleton().setDucJoueur(ducJoueur);
 			gameLoop.start();
 		});
 	}
@@ -434,7 +450,7 @@ public class Main extends Application {
 		texteJoueur.getStyleClass().add("texte");
 		produire.relocate(0, 30);
 		produire.setStyle("-fx-fill: #545454;-fx-font-size: 30;");
-		messageErreurProduction.relocate(longueur+6,  200);
+		messageErreurProduction.relocate(1,  200);
 		messageErreurProduction.setStyle("-fx-fill: red; fx-font-size: 14");
 		
 		img_florins.relocate(20, hauteur);
@@ -451,6 +467,10 @@ public class Main extends Application {
 		boutonProduireAmelioration.relocate(0, 120);
 		boutonProduireAmelioration.getStyleClass().add("bouton");
 		boutonProduireAmelioration.setStyle("-fx-padding: 12 67 12 67;");
+		
+		boutonSauvegarder.relocate(0, 300);
+		boutonSauvegarder.getStyleClass().add("bouton_menu");
+		boutonSauvegarder.setStyle("-fx-padding: 10 14 10 14;");
 		
 		gameFieldLayer.getChildren().add(fond);
 		gameFieldLayer.getChildren().add(barre_ressources);
@@ -474,20 +494,21 @@ public class Main extends Application {
 		gameFieldLayer.getChildren().add(boutonProduireOnagre);
 		gameFieldLayer.getChildren().add(boutonProduireAmelioration);*/
 		layoutProduction.getChildren().addAll(barre_amelioration,barreProgression,produire,messageErreurProduction);
-		layoutProduction.getChildren().addAll(boutonProduirePiquier,boutonProduireChevalier,boutonProduireOnagre,boutonProduireAmelioration);
+		layoutProduction.getChildren().addAll(boutonProduirePiquier,boutonProduireChevalier,boutonProduireOnagre,boutonProduireAmelioration,boutonSauvegarder);
 		gameFieldLayer.getChildren().add(layoutProduction);
 		
+		UIsingleton.getUIsingleton().setLabelErreurProduction(messageErreurProduction);
 		
 		boutonProduirePiquier.setOnAction(e -> {
 			if (chateauSelection!=null) {
 				if(!chateauSelection.getNeutre()){
 					if(chateauSelection.getDuc().equals(ducJoueur)) {
-		    			boolean prod = chateauSelection.lancerProduction(Constantes.PIQUIER);
-		    			if(prod) {
+		    			try {
+		    				chateauSelection.lancerProduction(Constantes.PIQUIER);
 		    				updateTresor();
 		    				messageErreurProduction.setText("");
-		    			} else {
-		    				messageErreurProduction.setText("Pas assez de florins");
+		    			} catch (ProdException err) {
+		    				err.printError();
 		    			}
 		    		}
 				}
@@ -498,12 +519,12 @@ public class Main extends Application {
 			if (chateauSelection!=null) {
 				if(!chateauSelection.getNeutre()){
 					if(chateauSelection.getDuc().equals(ducJoueur)) {
-		    			boolean prod = chateauSelection.lancerProduction(Constantes.CHEVALIER);
-		    			if(prod) {
+						try {
+		    				chateauSelection.lancerProduction(Constantes.CHEVALIER);
 		    				updateTresor();
 		    				messageErreurProduction.setText("");
-		    			} else {
-		    				messageErreurProduction.setText("Pas assez de florins");
+		    			} catch (ProdException err) {
+		    				err.printError();
 		    			}
 		    		}
 				}
@@ -514,12 +535,12 @@ public class Main extends Application {
 			if (chateauSelection!=null) {
 				if(!chateauSelection.getNeutre()){
 					if(chateauSelection.getDuc().equals(ducJoueur)) {
-		    			boolean prod = chateauSelection.lancerProduction(Constantes.ONAGRE);
-		    			if(prod) {
+						try {
+		    				chateauSelection.lancerProduction(Constantes.ONAGRE);
 		    				updateTresor();
 		    				messageErreurProduction.setText("");
-		    			} else {
-		    				messageErreurProduction.setText("Pas assez de florins");
+		    			} catch (ProdException err) {
+		    				err.printError();
 		    			}
 		    		}
 				}
@@ -530,17 +551,20 @@ public class Main extends Application {
 			if (chateauSelection!=null) {
 				if(!chateauSelection.getNeutre()){
 					if(chateauSelection.getDuc().equals(ducJoueur)) {
-		    			boolean prod = chateauSelection.lancerProduction(Constantes.AMELIORATION);
-		    			if(prod) {
+						try {
+		    				chateauSelection.lancerProduction(Constantes.AMELIORATION);
 		    				updateTresor();
 		    				messageErreurProduction.setText("");
-		    			}
-		    			else {
-		    				messageErreurProduction.setText("Pas assez de florins");
+		    			} catch (ProdException err) {
+		    				err.printError();
 		    			}
 		    		}
 				}
 			}
+		});
+		
+		boutonSauvegarder.setOnAction(e -> {
+			saveGame();
 		});
 		
 	}
