@@ -15,7 +15,12 @@ import javafx.stage.Stage;
 import royaume.Chateau;
 import royaume.Royaume;
 import game.UIsingleton;
-
+/**
+ * Class of the popup that will be used in the game for attacks and transfers
+ * 
+ * @author Moi
+ *
+ */
 public class Popup {
 	private Stage popupOst;
 	
@@ -37,6 +42,11 @@ public class Popup {
 	private int nbChevaliers = 0;
 	private int nbOnagres = 0;
 	
+	/**
+	 * Construct the popup
+	 * 
+	 * @param royaume Royaume in which the popup must be created
+	 */
 	public Popup(Royaume royaume) {
 		popupOst = new Stage();
 		popupOst.initModality(Modality.APPLICATION_MODAL);
@@ -119,6 +129,11 @@ public class Popup {
 		layout.getChildren().add(envoyer);
 	}
 	
+	/**
+	 * Displays the popup
+	 * @param c Chateau source
+	 * @param cible Chateau destination
+	 */
 	public void display(Chateau c, Chateau cible) {
 		
 		UIsingleton.getUIsingleton().setPause();

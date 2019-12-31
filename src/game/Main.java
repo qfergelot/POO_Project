@@ -69,7 +69,9 @@ public class Main extends Application {
 	
 	Group menu;
 	Group root;
-		
+	 /**
+	  * Initialize all needed componants of the game
+	  */
 	@Override
 	public void start(Stage primaryStage) {
 		Screen screen = Screen.getPrimary();
