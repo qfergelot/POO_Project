@@ -1,5 +1,4 @@
 Version de base :
-- Sauvegarde [DONE]
 - si on commande une production alors qu'il y en a une en cours, il faut afficher un message "deja en cours attente"[DONE]
 
 -actualiser le visuel du transfert de troupes directement (ne pas avoir à clicker autre part puis revenir sur le chateau pour voir l'avancement des troupes)
@@ -10,6 +9,32 @@ Version de base :
 
 -Aprés le chargement d'une sauvegarde, il arrive qu'une ost reste bloqués au niveau des murs d'un chateau
 
+-javadoc :
+	game:
+		UISingleton
+	royaume:
+		Chateau
+		Constantes
+		Duc
+		IABasique
+		Ordre
+		Ost
+		Porte
+		ProdException
+		Production
+		Royaume
+	troupes:
+		Chevalier
+		Onagre
+		Piquier
+		Troupe
+		
+-unifier le langage: tout en anglais ou tout en français
+
 Version Avancée (A FAIRE QUE QUAND ON AURA RENDU LA BASIQUE) :
 
 -si on commande une production alors qu'il y en a une en cours, ajouter la production dans une file 
+
+-peut-être une sauvegarde plus élaborée ?
+
+-javadoc de tous ce qui est nouveau ;)
