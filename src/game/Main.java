@@ -70,7 +70,7 @@ public class Main extends Application {
 	Group menu;
 	Group root;
 	 /**
-	  * Initialize all needed componants of the game
+	  * Initialize all needed components of the game and run the game
 	  */
 	@Override
 	public void start(Stage primaryStage) {

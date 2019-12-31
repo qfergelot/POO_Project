@@ -131,8 +131,8 @@ public class Popup {
 	
 	/**
 	 * Displays the popup
-	 * @param c Chateau source
-	 * @param cible Chateau destination
+	 * @param c Source Castle (@see Chateau)
+	 * @param cible Destination Castle (@see Chateau)
 	 */
 	public void display(Chateau c, Chateau cible) {
 		

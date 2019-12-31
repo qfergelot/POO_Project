@@ -11,7 +11,7 @@ import javafx.scene.input.KeyEvent;
 
 /**
  * 
- * Classe gérant les inputs
+ * Class managing inputs
  *
  */
 public class Input {
@@ -27,7 +27,7 @@ public class Input {
 	
 	/**
 	 * 
-	 * @param scene  Current scene
+	 * @param scene Current scene
 	 *
 	 */
 	public Input(Scene scene) {
