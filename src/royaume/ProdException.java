@@ -2,6 +2,12 @@ package royaume;
 
 import game.UIsingleton;
 
+/**
+ * Class that represents a ProdException exception
+ * it is throwed when a production is launched although another production is processed
+ * @author Moi
+ *
+ */
 public class ProdException extends Exception {
 	private String messageErreur;
 	

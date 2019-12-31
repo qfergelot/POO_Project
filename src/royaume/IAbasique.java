@@ -4,6 +4,11 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import java.util.Random;
 
+/**
+ * Class managing the AI 
+ * @author Moi
+ *
+ */
 public class IAbasique extends Duc {
 	private Royaume royaume;
 	private int dureePhase = 600;

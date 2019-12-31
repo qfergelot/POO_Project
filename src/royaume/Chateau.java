@@ -479,7 +479,7 @@ public class Chateau extends Sprite{
 	}
 	
 	/**
-	 * Remove the sprite of this castle from the current layer
+	 * Remove the this castle from the game
 	 */
 	public void delete() {
 		this.removeFromLayer();

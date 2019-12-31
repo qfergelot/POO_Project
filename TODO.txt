@@ -11,22 +11,27 @@ Version de base :
 
 -javadoc :
 	game:
-		UISingleton
+		Input (to test)
+		Main (to test)
+		Popup (to test)
+		Sprite (to test)
+		UISingleton (todo)
 	royaume:
-		Constantes
-		Duc
-		IABasique
-		Ordre
-		Ost
-		Porte
-		ProdException
-		Production
-		Royaume
+		Chateau (to test)
+		Constantes (to test)
+		Duc (to test)
+		IABasique (to test)
+		Ordre (to test)
+		Ost (to test)
+		Porte (to test)
+		ProdException (to test)
+		Production (todo)
+		Royaume (todo)
 	troupes:
-		Chevalier
-		Onagre
-		Piquier
-		Troupe
+		Chevalier (todo)
+		Onagre (todo)
+		Piquier (todo)
+		Troupe (todo)
 		
 -unifier le langage: tout en anglais ou tout en français et relire la doc pour corriger
 
