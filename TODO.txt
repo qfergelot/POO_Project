@@ -13,7 +13,6 @@ Version de base :
 	game:
 		UISingleton
 	royaume:
-		Chateau
 		Constantes
 		Duc
 		IABasique
@@ -29,7 +28,7 @@ Version de base :
 		Piquier
 		Troupe
 		
--unifier le langage: tout en anglais ou tout en français
+-unifier le langage: tout en anglais ou tout en français et relire la doc pour corriger
 
 Version Avancée (A FAIRE QUE QUAND ON AURA RENDU LA BASIQUE) :
 
