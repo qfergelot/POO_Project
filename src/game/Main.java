@@ -364,9 +364,9 @@ public class Main extends Application {
 		fond.setFill(Color.GREY);
 		
 		buttonPlay.relocate(l_ecran/2-140, h_ecran/2-80);
-		buttonPlay.getStyleClass().add("button_menu");
+		buttonPlay.getStyleClass().add("gbutton_menu");
 		buttonLoad.relocate(l_ecran/2-140, h_ecran/2);
-		buttonLoad.getStyleClass().add("button_menu");
+		buttonLoad.getStyleClass().add("gbutton_menu");
 		buttonLoad.setStyle("-fx-padding: 10 69 10 69;");
 
 		menuFieldLayer.getChildren().add(fond);
@@ -427,15 +427,15 @@ public class Main extends Application {
 		borderCastle.relocate(-100, -100);
 		
 		textFlorins.relocate(70, hauteur+4);
-		textFlorins.getStyleClass().add("text");
+		textFlorins.getStyleClass().add("gtext");
 		textPikemen.relocate(220, hauteur+4);
-		textPikemen.getStyleClass().add("text");
+		textPikemen.getStyleClass().add("gtext");
 		textKnight.relocate(320, hauteur+4);
-		textKnight.getStyleClass().add("text");
+		textKnight.getStyleClass().add("gtext");
 		textOnager.relocate(420, hauteur+4);
-		textOnager.getStyleClass().add("text");
+		textOnager.getStyleClass().add("gtext");
 		textPlayer.relocate(600, hauteur+4);
-		textPlayer.getStyleClass().add("text");
+		textPlayer.getStyleClass().add("gtext");
 		produce.relocate(0, 30);
 		produce.setStyle("-fx-fill: #545454;-fx-font-size: 30;");
 		errorMessageProduction.relocate(1,  200);
@@ -447,17 +447,17 @@ public class Main extends Application {
 		img_onager.relocate(380, hauteur);
 		
 		buttonProducePikemen.relocate(0, 50);
-		buttonProducePikemen.getStyleClass().add("button");
+		buttonProducePikemen.getStyleClass().add("gbutton");
 		buttonProduceKnight.relocate(55, 50);
-		buttonProduceKnight.getStyleClass().add("button");
+		buttonProduceKnight.getStyleClass().add("gbutton");
 		buttonProduceOnager.relocate(110, 50);
-		buttonProduceOnager.getStyleClass().add("button");
+		buttonProduceOnager.getStyleClass().add("gbutton");
 		buttonProduceAmelioration.relocate(0, 120);
-		buttonProduceAmelioration.getStyleClass().add("button");
+		buttonProduceAmelioration.getStyleClass().add("gbutton");
 		buttonProduceAmelioration.setStyle("-fx-padding: 12 67 12 67;");
 		
 		buttonSave.relocate(0, 300);
-		buttonSave.getStyleClass().add("button_menu");
+		buttonSave.getStyleClass().add("gbutton_menu");
 		buttonSave.setStyle("-fx-padding: 10 14 10 14;");
 		
 		

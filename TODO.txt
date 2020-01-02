@@ -2,6 +2,8 @@ Version de base :
 - si on commande une production alors qu'il y en a une en cours, il faut afficher un message "deja en cours attente"[DONE]
 -Lors de la conquète d'un chateau toute production en cours doit être annulée[DONE]
 
+- ne pas superposer les troupes en sortie de chateau
+
 -actualiser le visuel du transfert de troupes directement (ne pas avoir � clicker autre part puis revenir sur le chateau pour voir l'avancement des troupes)
 
 -affiner l'affichage de la map pour qu'elle soit correcte sur tous les écrans

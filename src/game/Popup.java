@@ -50,7 +50,7 @@ public class Popup {
 	public Popup(Kingdom kingdom) {
 		popupOst = new Stage();
 		popupOst.initModality(Modality.APPLICATION_MODAL);
-		popupOst.setTitle("Troupes à send");
+		popupOst.setTitle("Troupes à envoyer");
 		popupOst.setResizable(false);
 		
 		Pane layout = new Pane();
@@ -83,7 +83,7 @@ public class Popup {
 		bMPikemen.relocate(65, 100);
 		bMPikemen.setStyle("-fx-border-width: 1; -fx-border-color: BLACK;");
 		tNbPikemen.relocate(40, 130);
-		tNbPikemen.getStyleClass().add("text");
+		tNbPikemen.getStyleClass().add("gtext");
 		layout.getChildren().addAll(rPikemen,iPikemen,bPPikemen,bMPikemen,tNbPikemen);
 		
 
@@ -101,7 +101,7 @@ public class Popup {
 		bMKnight.relocate(165, 100);
 		bMKnight.setStyle("-fx-border-width: 1; -fx-border-color: BLACK;");
 		tNbKnight.relocate(140, 130);
-		tNbKnight.getStyleClass().add("text");
+		tNbKnight.getStyleClass().add("gtext");
 		layout.getChildren().addAll(rKnight,iKnight,bPKnight,bMKnight,tNbKnight);
 		
 		
@@ -119,11 +119,11 @@ public class Popup {
 		bMOnager.relocate(265, 100);
 		bMOnager.setStyle("-fx-border-width: 1; -fx-border-color: BLACK;");
 		tNbOnager.relocate(240, 130);
-		tNbOnager.getStyleClass().add("text");
+		tNbOnager.getStyleClass().add("gtext");
 		layout.getChildren().addAll(rOnager,iOnager,bPOnager,bMOnager,tNbOnager);
 		
 		send = new Button("Envoyer");
-		send.getStyleClass().add("button");
+		send.getStyleClass().add("gbutton");
 		send.setStyle("-fx-padding: 6 6 6 6;");
 		send.relocate(230, 170);
 		layout.getChildren().add(send);
