@@ -1,6 +1,12 @@
 package royaume;
 
+/**
+ * Class of constants
+ * @author Moi
+ *
+ */
 public class Constantes {
+	
 	public static final double SCENE_WIDTH = 1200;
     public static final double SCENE_HEIGHT = 600;
    

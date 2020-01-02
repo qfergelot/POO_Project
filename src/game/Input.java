@@ -9,6 +9,11 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
+/**
+ * 
+ * Class managing inputs
+ *
+ */
 public class Input {
 	
 	/**
@@ -19,15 +24,27 @@ public class Input {
 
 	private Scene scene = null;
 
+	
+	/**
+	 * 
+	 * @param scene Current scene
+	 *
+	 */
 	public Input(Scene scene) {
 		this.scene = scene;
 	}
 
+	/**
+	 * Add listeners for pressing keys to the current scene
+	 */
 	public void addListeners() {
 		scene.addEventFilter(KeyEvent.KEY_PRESSED, keyPressedEventHandler);
 		scene.addEventFilter(KeyEvent.KEY_RELEASED, keyReleasedEventHandler);
 	}
 
+	/**
+	 * Remove listeners for pressing keys to the current scenes
+	 */
 	public void removeListeners() {
 		scene.removeEventFilter(KeyEvent.KEY_PRESSED, keyPressedEventHandler);
 		scene.removeEventFilter(KeyEvent.KEY_RELEASED, keyReleasedEventHandler);
@@ -60,15 +77,26 @@ public class Input {
 		return keyboardBitSet.get(key.ordinal());
 	}
 	
-	
+	/**
+	 * 
+	 * @return true if Space key is inputed, else false 
+	 */
 	public boolean isPause() {
 		return is(SPACE);
 	}
 
+	/**
+	 * 
+	 * @return true if Escape key is inputed, else false
+	 */
 	public boolean isExit() {
 		return is(ESCAPE);
 	}
 	
+	/**
+	 * 
+	 * @return true if P key is inputed, else false
+	 */
 	public boolean isLoad() {
 		return is(KeyCode.L);
 	}

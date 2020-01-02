@@ -11,6 +11,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import troupes.*;
 
+/**
+ * Class that represents a castle
+ * @author Moi
+ *
+ */
 public class Chateau extends Sprite{
 	Random rdm = new Random();
 	
@@ -34,7 +39,19 @@ public class Chateau extends Sprite{
 	private Ost ost;
 	private Porte porte;
 	
-	/* Chateau Duc */
+	/**
+	 * Construct a player castle
+	 * @param layer Pane in which the castle must appear
+	 * @param image Image of the castle
+	 * @param duc Owner (@see Duc)
+	 * @param tresor Tresory
+	 * @param nbPiquiers Number of spearmen
+	 * @param nbChevaliers Number of knight
+	 * @param nbOnagres Number of onager
+	 * @param x Position x
+	 * @param y Position y
+	 * @param popupOst Popup to display for attacks or transfer
+	 */
 	public Chateau(Pane layer, Image image, Duc duc, double tresor, int nbPiquiers, int nbChevaliers,
 			int nbOnagres, double x, double y, Popup popupOst) {
 		super(layer, image, x, y);
@@ -82,7 +99,18 @@ public class Chateau extends Sprite{
         });
 	}
 	
-	/* Chateau Neutre (pas de duc) */
+	/**
+	 * Construct a neutral castle
+	 * @param layer Pane in which the castle must appear
+	 * @param image Image of the castle
+	 * @param tresor Tresory
+	 * @param nbPiquiers Number of spearmen
+	 * @param nbChevaliers Number of knight
+	 * @param nbOnagres Number of onager
+	 * @param x Position x
+	 * @param y Position y
+	 * @param popupOst Popup to display for attacks or transfer
+	 */
 	public Chateau(Pane layer, Image image, double tresor, int nbPiquiers, int nbChevaliers,
 			int nbOnagres, double x, double y, Popup popupOst) {
 		super(layer, image, x, y);
@@ -144,6 +172,12 @@ public class Chateau extends Sprite{
 	
 	
 	/* * * * * * * * DEBUT : Fonctions Production * * * * * * * */
+	
+	/**
+	 * Launch a production
+	 * @param unite Unit to produce
+	 * @throws ProdException Exception throws when a production is already launched
+	 */
 	public void lancerProduction(int unite) throws ProdException {
 		if(enProduction()) {
 			throw new ProdException("En cours de production");
@@ -174,6 +208,9 @@ public class Chateau extends Sprite{
 		
 	}
 	
+	/**
+	 * Cancel a production
+	 */
 	public void annulerProduction() {
 		if(production != null) {
 			if(production.estAmelioration()) {
@@ -190,12 +227,16 @@ public class Chateau extends Sprite{
 		production = null;
 	}
 	
+	/**
+	 * Getter of the state of the production
+	 * @return true if a production is launched , else false
+	 */
 	public boolean enProduction() {
 		return production != null;
 	}
-
-	/*
-	 * Executer quand production.finProduction() == true
+	
+	/**
+	 * Normal ending for a production 
 	 */
 	public void terminerProduction() {
 		if(production.estAmelioration())
@@ -218,6 +259,15 @@ public class Chateau extends Sprite{
 	/* * * * * * * * DEBUT : Fonctions Ordre * * * * * * * */
 	/* true si l'odre a été lancé
 	 * false si le nombre de troupes est insuffisant
+	 */
+	/**
+	 * Initialize an order for this castle
+	 * @param ost Ost that is to be link to this order
+	 * @param cible Target castle 
+	 * @param nbPiquiers Number of pikemen 
+	 * @param nbChevaliers Number of knights
+	 * @param nbOnagres Number of onagers
+	 * @return true if order launched, else false
 	 */
 	public boolean creerOrdre(Ost ost, Chateau cible, int nbPiquiers, int nbChevaliers, int nbOnagres) {
 		if(this.nbPiquiers<nbPiquiers || this.nbChevaliers<nbChevaliers || this.nbOnagres<nbOnagres) {
@@ -245,6 +295,9 @@ public class Chateau extends Sprite{
 		return true;
 	}
 	
+	/**
+	 * Manage the "exiting the castle" phase of an ost
+	 */
 	public void sortirTroupesOrdre() {
 		int stop = (ordreDeplacement.getNbTroupes()>=3? 3 : ordreDeplacement.getNbTroupes());
 		if(ost == null) return;
@@ -267,12 +320,21 @@ public class Chateau extends Sprite{
 		}
 	}
 	
+	/**
+	 * Getter of the state of an order
+	 * @return true if an order is launched, else false
+	 */
 	public boolean ordre() {
 		return ordreDeplacement != null;
 	}
 		
 	/* * * * * * * * FIN : Fonctions Ordre * * * * * * * */
 	
+	/**
+	 * Compute the distance between this castle and another castle
+	 * @param c Other castle
+	 * @return distance between this castle and the other
+	 */
 	public double distance(Chateau c) {
 		if (c.getPos_x() == pos_x && c.getPos_y() == pos_y) {
 			System.err.println("Erreur : Deux chateaux ne peuvent être sur la même position.");
@@ -281,10 +343,20 @@ public class Chateau extends Sprite{
 		return Math.sqrt((c.getPos_y() - pos_y)*(c.getPos_y() - pos_y) + Math.abs(c.getPos_x() - pos_x)*Math.abs(c.getPos_x() - pos_x));
 	}
 	
+	/**
+	 * Compute the distance between two points
+	 * @param x one point
+	 * @param y the other one
+	 * @return distance between x and y
+	 */
 	public double distance(double x, double y) {
 		return Math.sqrt((y - pos_y)*(y - pos_y) + (x - pos_x)*(x - pos_x));
 	}
 	
+	/**
+	 * Function called for each turn
+	 * Process the advance of production, exit units and tresory
+	 */
 	public void finTourChateau() {
 		if(!neutre) {
 			if(duc.getClass()==IAbasique.class) {
@@ -306,34 +378,62 @@ public class Chateau extends Sprite{
 		else tresor += (double)niveau/10;
 	}
 	
+	/**
+	 * Getter of the state of this castle's army
+	 * @return true if there are no units, else false
+	 */
 	public boolean aucuneTroupe() {
 		return nbPiquiers == 0 && nbChevaliers == 0 && nbOnagres == 0;
 	}
 	
+	/**
+	 * Getter of the remaining number of pikemen
+	 * @return Number of remaining pikemen
+	 */
 	public boolean restePiquiers() {
 		return nbPiquiers > 0;
 	}
 	
+	/**
+	 * Getter of the remaining number of knight
+	 * @return Number of remaining knight
+	 */
 	public boolean resteChevaliers() {
 		return nbChevaliers > 0;
 	}
 	
+	/**
+	 * Getter of the remaining number of onager
+	 * @return Number of remaining onager
+	 */
 	public boolean resteOnagres() {
 		return nbOnagres > 0;
 	}
-
+	
+	/**
+	 * Add a pikemen to this castle's army
+	 */
 	public void ajouterPiquier() {
 		nbPiquiers++;
 	}
 	
+	/**
+	 * Add a knight to this castle's army
+	 */
 	public void ajouterChevalier() {
 		nbChevaliers++;
 	}
 	
+	/**
+	 * Add an onager to this castle's army
+	 */
 	public void ajouterOnagre() {
 		nbOnagres++;
 	}
 	
+	/**
+	 * Remove health equivalent to the attack of one pikemen
+	 */
 	public void recoisAttaquePiquier() {
 		viePiquier--;
 		if(viePiquier==0) {
@@ -342,6 +442,9 @@ public class Chateau extends Sprite{
 		}
 	}
 	
+	/**
+	 * Remove health equivalent to the attack of one knight
+	 */
 	public void recoisAttaqueChevalier() {
 		vieChevalier--;
 		if(vieChevalier==0) {
@@ -350,6 +453,9 @@ public class Chateau extends Sprite{
 		}
 	}
 	
+	/**
+	 * Remove health equivalent to the attack of one onager
+	 */
 	public void recoisAttaqueOnagre() {
 		vieOnagre--;
 		if(vieOnagre==0) {
@@ -358,7 +464,10 @@ public class Chateau extends Sprite{
 		}
 	}
 	/* * * * * * * * DEBUT : SAVE * * * * * * * */
-	
+	/**
+	 * Transform this castle to a String to save this castle's information 
+	 * @return This castle's information as a string
+	 */
 	public String saveGame() {
 		String s = "";
 		String d = "baron";
@@ -370,6 +479,9 @@ public class Chateau extends Sprite{
 		return s;
 	}
 	
+	/**
+	 * Remove the this castle from the game
+	 */
 	public void delete() {
 		this.removeFromLayer();
 		
@@ -378,67 +490,123 @@ public class Chateau extends Sprite{
 	/* * * * * * * * FIN : SAVE * * * * * * * */
 	
 	/* * * * * * * * DEBUT : Getters/Setters * * * * * * * */
+	
+	/**
+	 * Getter of this castle's duc owner
+	 * @return Castle's duc owner
+	 */
 	public Duc getDuc() {
 		return duc;
 	}
 	
+	/**
+	 * Setter of the owner
+	 * @param duc New owner
+	 */
 	public void setDuc(Duc duc) {
 		this.duc = duc;
 	}
 	
+	/**
+	 * Getter of the state of this castle
+	 * @return true if this is a neutral castle, else false
+	 */
 	public boolean getNeutre() {
 		return neutre;
 	}
 	
+	/**
+	 * Setter of the state
+	 * @param neutre Boolean to set the neutral state of the castle (true: neutral, false: player)
+	 */
 	public void setNeutre(boolean neutre) {
 		this.neutre = neutre;
 	}
 
+	/**
+	 * Getter of the tresory
+	 * @return Tresory
+	 */
 	public int getTresor() {
 		return (int)tresor;
 	}
 
-
+	/**
+	 * Getter of the level
+	 * @return Level
+	 */
 	public int getNiveau() {
 		return niveau;
 	}
 	
+	/**
+	 * Setter of the level
+	 * @param level Level to be set
+	 */
 	public void setLevel(int level) {
 		this.niveau = level;
 	}
 
-
+	/**
+	 * Getter of the number of pikemen of the army
+	 * @return Number of pikemen
+	 */
 	public int getNbPiquiers() {
 		return nbPiquiers;
 	}
 
-
+	/**
+	 * Getter of the number of knight of the army
+	 * @return Number of knight
+	 */
 	public int getNbChevaliers() {
 		return nbChevaliers;
 	}
 
-
+	/**
+	 * Getter of the number of onager of the army
+	 * @return Number of onager
+	 */
 	public int getNbOnagres() {
 		return nbOnagres;
 	}
 
+	/**
+	 * Getter of the production state 
+	 * @return true if a production is launched, else false
+	 */
 	public Production getProduction() {
 		return production;
 	}
 
-
+	/**
+	 * Getter of the order state 
+	 * @return true if an order is launched, else false
+	 */
 	public Ordre getOrdreDeplacement() {
 		return ordreDeplacement;
 	}
 	
+	/**
+	 * Getter of the ost
+	 * @return Ost
+	 */
 	public Ost getOst() {
 		return ost;
 	}
 
+	/**
+	 * Getter of door position
+	 * @return door
+	 */
 	public int getPorte() {
 		return porte.getPorte();
 	}
 	
+	/**
+	 * Setter of door position
+	 * @param porte New door
+	 */
 	public void setPorte(int porte) {	
 		this.porte = new Porte(porte);
 		switch(getPorte()) {
@@ -459,10 +627,18 @@ public class Chateau extends Sprite{
 		}
 	}
 	
+	/**
+	 * Getter of this Castle
+	 * @return this castle
+	 */
 	private Chateau getChateau() {
 		return this;
 	}
 	
+	/**
+	 * Getter of popup
+	 * @return popup
+	 */
 	public Popup getPopupOst() {
 		return popupOst;
 	}

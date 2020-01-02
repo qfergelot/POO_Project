@@ -1,5 +1,4 @@
 Version de base :
-- Sauvegarde [DONE]
 - si on commande une production alors qu'il y en a une en cours, il faut afficher un message "deja en cours attente"[DONE]
 -Lors de la conquète d'un chateau toute production en cours doit être annulée[DONE]
 
@@ -9,6 +8,36 @@ Version de base :
 
 -Apr_s le chargement d'une sauvegarde, il arrive qu'une ost reste bloqu�s au niveau des murs d'un chateau
 
-Version Avancée (A FAIRE QUE QUAND ON AURA RENDU LA BASIQUE) :
+-javadoc :
+	game:
+		Input (to test)
+		Main (to test)
+		Popup (to test)
+		Sprite (to test)
+		UISingleton (todo)
+	royaume:
+		Chateau (to test)
+		Constantes (to test)
+		Duc (to test)
+		IABasique (to test)
+		Ordre (to test)
+		Ost (to test)
+		Porte (to test)
+		ProdException (to test)
+		Production (todo)
+		Royaume (todo)
+	troupes:
+		Chevalier (todo)
+		Onagre (todo)
+		Piquier (todo)
+		Troupe (todo)
+		
+-unifier le langage: tout en anglais ou tout en fran�ais et relire la doc pour corriger
+
+Version Avanc�e (A FAIRE QUE QUAND ON AURA RENDU LA BASIQUE) :
 
 -si on commande une production alors qu'il y en a une en cours, ajouter la production dans une file 
+
+-peut-�tre une sauvegarde plus �labor�e ?
+
+-javadoc de tous ce qui est nouveau ;)
