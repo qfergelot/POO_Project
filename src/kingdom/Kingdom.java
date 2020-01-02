@@ -127,16 +127,18 @@ public class Kingdom {
 		}
 	}
 	
-	public boolean finishedGame() {
+	public String finishedGame() {
 		int nbRestants = 0;
+		String winnerName = null;
 		for(int i=0; i<nbPlayers+nbIA; i++) {
 			if(dukes[i].getNbCastle() > 0) {
 				nbRestants++;
+				winnerName = dukes[i].getName();
 				if(nbRestants > 1)
-					return false;
+					return null;
 			}
 		}
-		return true;
+		return winnerName;
 	}
 	
 	public void clean() {

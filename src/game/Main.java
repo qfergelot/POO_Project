@@ -26,10 +26,12 @@ public class Main extends Application {
 	
 	private Pane gameFieldLayer;
 	private Pane menuFieldLayer;
+	private Pane endFieldLayer;
 	
 	private Scene scene;
 	
 	private Scene menu_scene;
+	private Scene end_scene;
 	private AnimationTimer menuLoop;
 	
 	private AnimationTimer gameLoop;
@@ -61,9 +63,14 @@ public class Main extends Application {
 	private Button buttonLoad = new Button("Charger Partie");
 	private Button buttonSave = new Button("Sauvegarder Partie");
 	
+	private String winnerName;
+	private Text textWinner = new Text("");
+	private Button buttonToMenu = new Button("Menu Principal");
+	
 	//private Popup popupOst = new Popup();
 	
 	Group menu;
+	Group end;
 	Group root;
 	 /**
 	  * Initialize all needed components of the game and run the game
@@ -83,6 +90,9 @@ public class Main extends Application {
 		menu = new Group();
 		menu_scene = new Scene(menu);
 		menu_scene.getStylesheets().add(getClass().getResource("/css/application.css").toExternalForm());
+		end = new Group();
+		end_scene = new Scene(end);
+		end_scene.getStylesheets().add(getClass().getResource("/css/application.css").toExternalForm());
 		root = new Group();
 		scene = new Scene(root);
 		scene.getStylesheets().add(getClass().getResource("/css/application.css").toExternalForm());
@@ -92,21 +102,19 @@ public class Main extends Application {
 		// create layers
 		menuFieldLayer = new Pane();
 		menu.getChildren().add(menuFieldLayer);
+		endFieldLayer = new Pane();
+		end.getChildren().add(endFieldLayer);
 		gameFieldLayer = new Pane();
 		root.getChildren().add(gameFieldLayer);
 		
 		initKingdom(1100,630,bounds.getWidth()+4,bounds.getHeight()+4);
 		
-		kingdom = new Kingdom(gameFieldLayer,1,2,0,1100,630,200,6,3,2,5);
-		dukePlayer = kingdom.getCastle(0).getDuke();
-		UIsingleton.getUIsingleton().setDukePlayer(dukePlayer);
-		borderCastle.setWidth(kingdom.getCastle(0).getWidth());
-		borderCastle.setHeight(kingdom.getCastle(0).getHeight());
 		borderCastle.setFill(null);
 		borderCastle.setStroke(Color.BLUE);
 		borderCastle.setStrokeWidth(4);
 		
 		initMenu(bounds.getWidth()+4,bounds.getHeight()+4,primaryStage);
+		initEnd(bounds.getWidth()+4,bounds.getHeight()+4,primaryStage);
 		
 		input = new Input(scene);
 		input.addListeners();
@@ -138,8 +146,7 @@ public class Main extends Application {
 				/*if(compteur_temps == Constants.DUREE_TOUR) {
 					compteur_temps = 0;
 				}*/
-				//******************************/
-				//if(!pauseTrigger)
+				
 				kingdom.finishRound();
 
 				if(UIsingleton.getUIsingleton().getCastleSelection()!=castleSelection)
@@ -149,6 +156,14 @@ public class Main extends Application {
 					UIsingleton.getUIsingleton().setToUpdateTroops(false);
 				}
 				update();
+				
+				if((winnerName = kingdom.finishedGame()) != null) {
+					gameLoop.stop();
+					kingdom.clean();
+					textWinner.setText("Victoire de " + winnerName);
+					menuLoop.start();
+					primaryStage.setScene(end_scene);
+				}
 				
 			}
 			
@@ -268,7 +283,7 @@ public class Main extends Application {
     		textPlayer.setText(castleSelection.getDuke().getName()+" - Niveau "+castleSelection.getLevel());
     		textPlayer.setFill(castleSelection.getDuke().getColor());
 		} else {
-			textPlayer.setText("Neutral - Niveau "+castleSelection.getLevel());
+			textPlayer.setText("Neutre - Niveau "+castleSelection.getLevel());
     		textPlayer.setFill(Color.GREY);
 		}
 	}
@@ -373,6 +388,11 @@ public class Main extends Application {
 		menuFieldLayer.getChildren().addAll(buttonPlay,buttonLoad);
 		
 		buttonPlay.setOnAction(e -> {
+			kingdom = new Kingdom(gameFieldLayer,1,2,0,1100,630,200,6,3,2,5);
+			dukePlayer = kingdom.getCastle(0).getDuke();
+			UIsingleton.getUIsingleton().setDukePlayer(dukePlayer);
+			borderCastle.setWidth(kingdom.getCastle(0).getWidth());
+			borderCastle.setHeight(kingdom.getCastle(0).getHeight());
 			stage.setScene(scene);
 			menuLoop.stop();
 			gameLoop.start();
@@ -381,10 +401,32 @@ public class Main extends Application {
 		buttonLoad.setOnAction(e -> {
 			stage.setScene(scene);
 			menuLoop.stop();
+			kingdom = new Kingdom(gameFieldLayer,1,2,0,1100,630,200,6,3,2,5);
+			dukePlayer = kingdom.getCastle(0).getDuke();
+			UIsingleton.getUIsingleton().setDukePlayer(dukePlayer);
+			borderCastle.setWidth(kingdom.getCastle(0).getWidth());
+			borderCastle.setHeight(kingdom.getCastle(0).getHeight());
 			loadGame();
 			dukePlayer = kingdom.getCastle(0).getDuke();
 			UIsingleton.getUIsingleton().setDukePlayer(dukePlayer);
 			gameLoop.start();
+		});
+	}
+	
+	private void initEnd(double l_ecran, double h_ecran, Stage stage) {
+		Rectangle fond = new Rectangle(l_ecran,h_ecran);
+		
+		fond.setFill(Color.GREY);
+		
+		textWinner.relocate(l_ecran/2-140, h_ecran/2-80);
+		textWinner.getStyleClass().add("gtext");
+		buttonToMenu.relocate(l_ecran/2-140, h_ecran/2);
+		buttonToMenu.getStyleClass().add("gbutton_menu");
+		
+		endFieldLayer.getChildren().addAll(fond,textWinner,buttonToMenu);
+		
+		buttonToMenu.setOnAction(e -> {
+			stage.setScene(menu_scene);
 		});
 	}
 	
