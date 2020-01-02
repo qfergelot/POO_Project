@@ -18,7 +18,7 @@ public final class UIsingleton {
 	
 	private boolean pause = false;
 	
-	private Text labelErrorProduketion;
+	private Text errorLabelProduction;
 	
 	private UIsingleton() {
 		//
@@ -97,18 +97,18 @@ public final class UIsingleton {
 	
 	/**
 	 * 
-	 * @param labelErrorProduketion
+	 * @param labelErrorProduction
 	 */
-	public void setLabelErrorProduketion(Text labelErrorProduketion) {
-		this.labelErrorProduketion = labelErrorProduketion;
+	public void setErrorLabelProduction(Text errorLabelProduction) {
+		this.errorLabelProduction = errorLabelProduction;
 	}
 	
 	/**
 	 * 
 	 * @param message
 	 */
-	public void setMessageErrorProduketion(String message) {
-		labelErrorProduketion.setText(message);
+	public void setErrorMessageProduction(String message) {
+		errorLabelProduction.setText(message);
 	}
 	
 }

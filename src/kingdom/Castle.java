@@ -12,7 +12,7 @@ import javafx.scene.layout.Pane;
 import kingdom.Ost;
 import kingdom.ProdException;
 import kingdom.Production;
-import troupes.*;
+import troops.*;
 
 /**
  * Class that represents a castle
@@ -25,53 +25,53 @@ public class Castle extends Sprite{
 	private Popup popupOst;
 	
 	private Duke duke = null;
-	private boolean neutre = true;
-	private double tresor;
-	private int niveau;
+	private boolean neutral = true;
+	private double treasure;
+	private int level;
 
-	private int nbPikemens;
-	private int nbKnights;
-	private int nbOnagers;
+	private int nbPikemen;
+	private int nbKnight;
+	private int nbOnager;
 	
 	private int lifePikemen = Constants.LIFE_PIKEMEN;
 	private int lifeKnight = Constants.LIFE_KNIGHT;
 	private int lifeOnager = Constants.LIFE_ONAGER;
 	
 	private Production production;
-	private Ordre ordreDeplacement;
+	private Order displacementOrder;
 	private Ost ost;
-	private Porte porte;
+	private Door door;
 	
 	/**
 	 * Construct a player castle
 	 * @param layer Pane in which the castle must appear
 	 * @param image Image of the castle
 	 * @param duke Owner (@see Duke)
-	 * @param tresor Tresory
-	 * @param nbPikemens Number of spearmen
-	 * @param nbKnights Number of knight
-	 * @param nbOnagers Number of onager
+	 * @param treasure Treasurey
+	 * @param nbPikemen Number of spearmen
+	 * @param nbKnight Number of knight
+	 * @param nbOnager Number of onager
 	 * @param x Position x
 	 * @param y Position y
 	 * @param popupOst Popup to display for attacks or transfer
 	 */
-	public Castle(Pane layer, Image image, Duke duke, double tresor, int nbPikemens, int nbKnights,
-			int nbOnagers, double x, double y, Popup popupOst) {
+	public Castle(Pane layer, Image image, Duke duke, double treasure, int nbPikemen, int nbKnight,
+			int nbOnager, double x, double y, Popup popupOst) {
 		super(layer, image, x, y);
 		this.popupOst = popupOst;
 		this.duke = duke;
-		duke.ajouterCastle();
-		this.neutre = false;
-		this.tresor = tresor;
-		this.niveau = 1;
-		this.nbPikemens = nbPikemens;
-		this.nbKnights = nbKnights;
-		this.nbOnagers = nbOnagers;
+		duke.addCastle();
+		this.neutral = false;
+		this.treasure = treasure;
+		this.level = 1;
+		this.nbPikemen = nbPikemen;
+		this.nbKnight = nbKnight;
+		this.nbOnager = nbOnager;
 		this.production = null;
-		this.ordreDeplacement = null;
+		this.displacementOrder = null;
 		this.ost = null;
-		this.porte = new Porte();
-		switch(getPorte()) {
+		this.door = new Door();
+		switch(getDoor()) {
 			case Constants.LEFT:
 				imageView.setRotate(90);
 				break;
@@ -88,13 +88,13 @@ public class Castle extends Sprite{
         imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
         	@Override
         	public void handle(MouseEvent e) {
-        		Castle dernierCastle = UIsingleton.getUIsingleton().getCastleSelection();
+        		Castle lastCastle = UIsingleton.getUIsingleton().getCastleSelection();
         		UIsingleton.getUIsingleton().setCastleSelection(getCastle());
         		
-        		if(dernierCastle != null) {
-    				if(!dernierCastle.getNeutre()) {
-    					if(!(UIsingleton.getUIsingleton().getCastleSelection() == dernierCastle) && dernierCastle.getDuke().equals(UIsingleton.getUIsingleton().getDukePlayer())) {
-    						popupOst.display(dernierCastle,UIsingleton.getUIsingleton().getCastleSelection());
+        		if(lastCastle != null) {
+    				if(!lastCastle.getNeutral()) {
+    					if(!(UIsingleton.getUIsingleton().getCastleSelection() == lastCastle) && lastCastle.getDuke().equals(UIsingleton.getUIsingleton().getDukePlayer())) {
+    						popupOst.display(lastCastle,UIsingleton.getUIsingleton().getCastleSelection());
     					}
     				}
     			}
@@ -106,29 +106,29 @@ public class Castle extends Sprite{
 	 * Construct a neutral castle
 	 * @param layer Pane in which the castle must appear
 	 * @param image Image of the castle
-	 * @param tresor Tresory
-	 * @param nbPikemens Number of spearmen
-	 * @param nbKnights Number of knight
-	 * @param nbOnagers Number of onager
+	 * @param treasure Treasurey
+	 * @param nbPikemen Number of spearmen
+	 * @param nbKnight Number of knight
+	 * @param nbOnager Number of onager
 	 * @param x Position x
 	 * @param y Position y
 	 * @param popupOst Popup to display for attacks or transfer
 	 */
-	public Castle(Pane layer, Image image, double tresor, int nbPikemens, int nbKnights,
-			int nbOnagers, double x, double y, Popup popupOst) {
+	public Castle(Pane layer, Image image, double treasure, int nbPikemen, int nbKnight,
+			int nbOnager, double x, double y, Popup popupOst) {
 		super(layer, image, x, y);
 		this.popupOst = popupOst;
-		this.tresor = tresor;
-		this.neutre = true;
-		this.niveau = rdm.nextInt(4)+1;
-		this.nbPikemens = nbPikemens;
-		this.nbKnights = nbKnights;
-		this.nbOnagers = nbOnagers;
+		this.treasure = treasure;
+		this.neutral = true;
+		this.level = rdm.nextInt(4)+1;
+		this.nbPikemen = nbPikemen;
+		this.nbKnight = nbKnight;
+		this.nbOnager = nbOnager;
 		this.production = null;
-		this.ordreDeplacement = null;
+		this.displacementOrder = null;
 		this.ost = null;
-		this.porte = new Porte();
-		switch(getPorte()) {
+		this.door = new Door();
+		switch(getDoor()) {
 		case Constants.LEFT:
 			imageView.setRotate(90);
 			break;
@@ -145,18 +145,18 @@ public class Castle extends Sprite{
         imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
         	@Override
         	public void handle(MouseEvent e) {
-        		Castle dernierCastle = UIsingleton.getUIsingleton().getCastleSelection();
+        		Castle lastCastle = UIsingleton.getUIsingleton().getCastleSelection();
         		UIsingleton.getUIsingleton().setCastleSelection(getCastle());
         		        		
-        		if(dernierCastle != null) {
-    				if(!dernierCastle.getNeutre()) {
+        		if(lastCastle != null) {
+    				if(!lastCastle.getNeutral()) {
     					if (UIsingleton.getUIsingleton().getDukePlayer().equals(duke)) {
-    						if(!(UIsingleton.getUIsingleton().getCastleSelection() == dernierCastle) && dernierCastle.getDuke().equals(UIsingleton.getUIsingleton().getDukePlayer())) {
-        						popupOst.display(dernierCastle,UIsingleton.getUIsingleton().getCastleSelection());
+    						if(!(UIsingleton.getUIsingleton().getCastleSelection() == lastCastle) && lastCastle.getDuke().equals(UIsingleton.getUIsingleton().getDukePlayer())) {
+        						popupOst.display(lastCastle,UIsingleton.getUIsingleton().getCastleSelection());
         					}
     					}
-    					else if(dernierCastle.getDuke().equals(UIsingleton.getUIsingleton().getDukePlayer())) {
-    						popupOst.display(dernierCastle,UIsingleton.getUIsingleton().getCastleSelection());
+    					else if(lastCastle.getDuke().equals(UIsingleton.getUIsingleton().getDukePlayer())) {
+    						popupOst.display(lastCastle,UIsingleton.getUIsingleton().getCastleSelection());
     					}
     				}
     			}
@@ -164,8 +164,8 @@ public class Castle extends Sprite{
     			MenuItem attack = new MenuItem("Attack");
     			
     			attack.setOnAction(evt -> {
-    				if (!ordre())
-    					getCastle().createOrder(new Ost( kingdom.getPlayer(), getCastle(), x, y), getCastle(), nbPikemens, nbKnights, nbOnagers);
+    				if (!order())
+    					getCastle().createOrder(new Ost( kingdom.getPlayer(), getCastle(), x, y), getCastle(), nbPikemen, nbKnight, nbOnager);
     			});
     			contextMenu.getItems().addAll(attack);
     			contextMenu.show(getCastle().getView(), e.getScreenX(), e.getScreenY());*/
@@ -178,33 +178,33 @@ public class Castle extends Sprite{
 	
 	/**
 	 * Launch a production
-	 * @param unite Unit to produkee
+	 * @param unit Unit to produkee
 	 * @throws ProdException Exception throws when a production is already launched
 	 */
-	public void lancerProduction(int unite) throws ProdException {
-		if(enProduction()) {
+	public void launchProduction(int unit) throws ProdException {
+		if(inProduction()) {
 			throw new ProdException("En cours de production");
 			//return false;
 		} else {
 			
 			int cout;
-			if(unite==Constants.PIKEMEN)
+			if(unit==Constants.PIKEMEN)
 				cout = Pikemen.PRODUCTION_COST;
-			else if(unite==Constants.KNIGHT)
+			else if(unit==Constants.KNIGHT)
 				cout = Knight.PRODUCTION_COST;
-			else if(unite==Constants.ONAGER)
+			else if(unit==Constants.ONAGER)
 				cout = Onager.PRODUCTION_COST;
 			else {
-				cout = 1000*niveau;
-				if(niveau == Constants.NIVEAU_MAX)
-					throw new ProdException("Niveau du Castle Maximal");
+				cout = 1000*level;
+				if(level == Constants.LEVEL_MAX)
+					throw new ProdException("Niveau du Chateau Maximal");
 			}
-			if(tresor < cout) {
+			if(treasure < cout) {
 				throw new ProdException("Pas assez de Florins");
 			}
 			else {
-				production = new Production(unite,niveau);
-				tresor -= cout;
+				production = new Production(unit,level);
+				treasure -= cout;
 				//return true;
 			}
 		}
@@ -214,17 +214,17 @@ public class Castle extends Sprite{
 	/**
 	 * Cancel a production
 	 */
-	public void annulerProduction() {
+	public void cancelProduction() {
 		if(production != null) {
-			if(production.estAmelioration()) {
-				tresor += 1000*niveau;
+			if(production.isAmelioration()) {
+				treasure += 1000*level;
 			} else {
 				if(production.getUnit()==Constants.PIKEMEN)
-					tresor += Pikemen.PRODUCTION_COST;
+					treasure += Pikemen.PRODUCTION_COST;
 				else if(production.getUnit()==Constants.KNIGHT)
-					tresor += Knight.PRODUCTION_COST;
+					treasure += Knight.PRODUCTION_COST;
 				else
-					tresor += Onager.PRODUCTION_COST;
+					treasure += Onager.PRODUCTION_COST;
 			}
 		}
 		production = null;
@@ -234,59 +234,59 @@ public class Castle extends Sprite{
 	 * Getter of the state of the production
 	 * @return true if a production is launched , else false
 	 */
-	public boolean enProduction() {
+	public boolean inProduction() {
 		return production != null;
 	}
 	
 	/**
 	 * Normal ending for a production 
 	 */
-	public void terminerProduction() {
-		if(production.estAmelioration())
-			niveau++;
+	public void finishProduction() {
+		if(production.isAmelioration())
+			level++;
 		else {
 			int t = production.getUnit();
 			if(t == Constants.PIKEMEN)
-				nbPikemens++;
+				nbPikemen++;
 			else if(t == Constants.KNIGHT)
-				nbKnights++;
+				nbKnight++;
 			else
-				nbOnagers++;
+				nbOnager++;
 		}
 		if (this == UIsingleton.getUIsingleton().getCastleSelection())
-			UIsingleton.getUIsingleton().setToUpdateTroupes(true);
+			UIsingleton.getUIsingleton().setToUpdateTroops(true);
 		production = null;
 	}
 	/* * * * * * * * FIN : Fonctions Production * * * * * * * */
 	
-	/* * * * * * * * DEBUT : Fonctions Ordre * * * * * * * */
+	/* * * * * * * * DEBUT : Fonctions Order * * * * * * * */
 	/* true si l'odre a été lancé
 	 * false si le nombre de troupes est insuffisant
 	 */
 	/**
 	 * Initialize an order for this castle
 	 * @param ost Ost that is to be link to this order
-	 * @param cible Target castle 
-	 * @param nbPikemens Number of pikemen 
-	 * @param nbKnights Number of knights
-	 * @param nbOnagers Number of onagers
+	 * @param target Target castle 
+	 * @param nbPikemen Number of pikemen 
+	 * @param nbKnight Number of knights
+	 * @param nbOnager Number of onagers
 	 * @return true if order launched, else false
 	 */
-	public boolean createOrder(Ost ost, Castle cible, int nbPikemens, int nbKnights, int nbOnagers) {
-		if(this.nbPikemens<nbPikemens || this.nbKnights<nbKnights || this.nbOnagers<nbOnagers) {
+	public boolean createOrder(Ost ost, Castle target, int nbPikemen, int nbKnight, int nbOnager) {
+		if(this.nbPikemen<nbPikemen || this.nbKnight<nbKnight || this.nbOnager<nbOnager) {
 			return false;
 		}
 		this.ost = ost;
 		double x = pos_x + getWidth()/2, y = pos_y + getHeight()/2;
-		if(getPorte()==Constants.RIGHT) {
+		if(getDoor()==Constants.RIGHT) {
 			x += getWidth()/2;
 			y -= 10;
 		}
-		else if(getPorte()==Constants.LEFT) {
+		else if(getDoor()==Constants.LEFT) {
 			x -= getWidth();
 			y -= 10;
 		}
-		else if(getPorte()==Constants.UP) {
+		else if(getDoor()==Constants.UP) {
 			x -= 10;
 			y -= getHeight();
 		}
@@ -294,31 +294,31 @@ public class Castle extends Sprite{
 			x -= 10;
 			y += getHeight()/2;
 		}
-		ordreDeplacement = new Ordre(cible, nbPikemens, nbKnights, nbOnagers, x, y);
+		displacementOrder = new Order(target, nbPikemen, nbKnight, nbOnager, x, y);
 		return true;
 	}
 	
 	/**
 	 * Manage the "exiting the castle" phase of an ost
 	 */
-	public void sortirTroupesOrdre() {
-		int stop = (ordreDeplacement.getNbTroupes()>=3? 3 : ordreDeplacement.getNbTroupes());
+	public void removeTroopsOrder() {
+		int stop = (displacementOrder.getNbTroops()>=3? 3 : displacementOrder.getNbTroops());
 		if(ost == null) return;
 		for(int i=0; i<stop; i++) {
-			if(ordreDeplacement.getNbOnagers()>0) {
-				ordreDeplacement.sortirOnager(ost);
-				nbOnagers--;
+			if(displacementOrder.getNbOnager()>0) {
+				displacementOrder.exitOnager(ost);
+				nbOnager--;
 			}
-			else if(ordreDeplacement.getNbPikemens()>0) {
-				ordreDeplacement.sortirPikemen(ost);
-				nbPikemens--;			}
+			else if(displacementOrder.getNbPikemen()>0) {
+				displacementOrder.exitPikemen(ost);
+				nbPikemen--;			}
 			else {
-				ordreDeplacement.sortirKnight(ost);
-				nbKnights--;
+				displacementOrder.exitKnight(ost);
+				nbKnight--;
 			}
 		}
-		if(ordreDeplacement.getNbTroupes()==0) {
-			ordreDeplacement = null;
+		if(displacementOrder.getNbTroops()==0) {
+			displacementOrder = null;
 			ost = null;
 		}
 	}
@@ -327,11 +327,11 @@ public class Castle extends Sprite{
 	 * Getter of the state of an order
 	 * @return true if an order is launched, else false
 	 */
-	public boolean ordre() {
-		return ordreDeplacement != null;
+	public boolean order() {
+		return displacementOrder != null;
 	}
 		
-	/* * * * * * * * FIN : Fonctions Ordre * * * * * * * */
+	/* * * * * * * * FIN : Fonctions Order * * * * * * * */
 	
 	/**
 	 * Compute the distance between this castle and another castle
@@ -358,89 +358,89 @@ public class Castle extends Sprite{
 	
 	/**
 	 * Function called for each turn
-	 * Process the advance of production, exit units and tresory
+	 * Process the advance of production, exit units and treasurey
 	 */
-	public void finTourCastle() {
-		if(!neutre) {
-			if(duke.getClass()==IABasique.class) {
-				IAbasique ia = (IAbasique)duke;
-				ia.tourCastleIA(this);
+	public void finishRoundCastle() {
+		if(!neutral) {
+			if(duke.getClass()==IABasic.class) {
+				IABasic ia = (IABasic)duke;
+				ia.roundCastleIA(this);
 			}
 				
-			tresor += niveau;
-			if(enProduction()) {
+			treasure += level;
+			if(inProduction()) {
 				production.finishRoundProduction();
 				if(production.finishedProduction()) {
-					terminerProduction();
+					finishProduction();
 				}
 			}
-			if(ordre()) {
-				sortirTroupesOrdre();
+			if(order()) {
+				removeTroopsOrder();
 			}
 		}
-		else tresor += (double)niveau/10;
+		else treasure += (double)level/10;
 	}
 	
 	/**
 	 * Getter of the state of this castle's army
 	 * @return true if there are no units, else false
 	 */
-	public boolean aucuneTroupe() {
-		return nbPikemens == 0 && nbKnights == 0 && nbOnagers == 0;
+	public boolean noTroop() {
+		return nbPikemen == 0 && nbKnight == 0 && nbOnager == 0;
 	}
 	
 	/**
 	 * Getter of the remaining number of pikemen
 	 * @return Number of remaining pikemen
 	 */
-	public boolean restePikemens() {
-		return nbPikemens > 0;
+	public boolean leftPikemen() {
+		return nbPikemen > 0;
 	}
 	
 	/**
 	 * Getter of the remaining number of knight
 	 * @return Number of remaining knight
 	 */
-	public boolean resteKnights() {
-		return nbKnights > 0;
+	public boolean leftKnight() {
+		return nbKnight > 0;
 	}
 	
 	/**
 	 * Getter of the remaining number of onager
 	 * @return Number of remaining onager
 	 */
-	public boolean resteOnagers() {
-		return nbOnagers > 0;
+	public boolean leftOnager() {
+		return nbOnager > 0;
 	}
 	
 	/**
 	 * Add a pikemen to this castle's army
 	 */
 	public void addPikemen() {
-		nbPikemens++;
+		nbPikemen++;
 	}
 	
 	/**
 	 * Add a knight to this castle's army
 	 */
 	public void addKnight() {
-		nbKnights++;
+		nbKnight++;
 	}
 	
 	/**
 	 * Add an onager to this castle's army
 	 */
 	public void addOnager() {
-		nbOnagers++;
+		nbOnager++;
 	}
 	
 	/**
 	 * Remove health equivalent to the attack of one pikemen
 	 */
-	public void recoisAttaquePikemen() {
+	public void receiveAttackPikemen() {
 		lifePikemen--;
 		if(lifePikemen==0) {
-			nbPikemens--;
+			nbPikemen--;
 			lifePikemen = Constants.LIFE_PIKEMEN;
 		}
 	}
@@ -448,10 +448,10 @@ public class Castle extends Sprite{
 	/**
 	 * Remove health equivalent to the attack of one knight
 	 */
-	public void recoisAttaqueKnight() {
+	public void receiveAttackKnight() {
 		lifeKnight--;
 		if(lifeKnight==0) {
-			nbKnights--;
+			nbKnight--;
 			lifeKnight = Constants.LIFE_KNIGHT;
 		}
 	}
@@ -459,10 +459,10 @@ public class Castle extends Sprite{
 	/**
 	 * Remove health equivalent to the attack of one onager
 	 */
-	public void recoisAttaqueOnager() {
+	public void receiveAttackOnager() {
 		lifeOnager--;
 		if(lifeOnager==0) {
-			nbOnagers--;
+			nbOnager--;
 			lifeOnager = Constants.LIFE_ONAGER;
 		}
 	}
@@ -475,15 +475,15 @@ public class Castle extends Sprite{
 		String s = "";
 		String d = "baron";
 		if (this.duke != null) {
-			d = this.duke.getNom();
+			d = this.duke.getName();
 		}
-		s += "Castle " + this.pos_x + " " + this.pos_y + " " + d + " " + this.niveau + " " + this.tresor + " " +
-				this.nbPikemens + " " + this.nbKnights + " " + this.nbOnagers + " " + this.getPorte(); 
+		s += "Castle " + this.pos_x + " " + this.pos_y + " " + d + " " + this.level + " " + this.treasure + " " +
+				this.nbPikemen + " " + this.nbKnight + " " + this.nbOnager + " " + this.getDoor(); 
 		return s;
 	}
 	
 	/**
-	 * Remove the this castle from the game
+	 * Remove this castle from the game
 	 */
 	public void delete() {
 		this.removeFromLayer();
@@ -514,32 +514,32 @@ public class Castle extends Sprite{
 	 * Getter of the state of this castle
 	 * @return true if this is a neutral castle, else false
 	 */
-	public boolean getNeutre() {
-		return neutre;
+	public boolean getNeutral() {
+		return neutral;
 	}
 	
 	/**
 	 * Setter of the state
-	 * @param neutre Boolean to set the neutral state of the castle (true: neutral, false: player)
+	 * @param neutral Boolean to set the neutral state of the castle (true: neutral, false: player)
 	 */
-	public void setNeutre(boolean neutre) {
-		this.neutre = neutre;
+	public void setNeutral(boolean neutral) {
+		this.neutral = neutral;
 	}
 
 	/**
-	 * Getter of the tresory
-	 * @return Tresory
+	 * Getter of the treasurey
+	 * @return Treasurey
 	 */
-	public int getTresor() {
-		return (int)tresor;
+	public int getTreasure() {
+		return (int)treasure;
 	}
 
 	/**
 	 * Getter of the level
 	 * @return Level
 	 */
-	public int getNiveau() {
-		return niveau;
+	public int getLevel() {
+		return level;
 	}
 	
 	/**
@@ -547,31 +547,31 @@ public class Castle extends Sprite{
 	 * @param level Level to be set
 	 */
 	public void setLevel(int level) {
-		this.niveau = level;
+		this.level = level;
 	}
 
 	/**
 	 * Getter of the number of pikemen of the army
 	 * @return Number of pikemen
 	 */
-	public int getNbPikemens() {
-		return nbPikemens;
+	public int getNbPikemen() {
+		return nbPikemen;
 	}
 
 	/**
 	 * Getter of the number of knight of the army
 	 * @return Number of knight
 	 */
-	public int getNbKnights() {
-		return nbKnights;
+	public int getNbKnight() {
+		return nbKnight;
 	}
 
 	/**
 	 * Getter of the number of onager of the army
 	 * @return Number of onager
 	 */
-	public int getNbOnagers() {
-		return nbOnagers;
+	public int getNbOnager() {
+		return nbOnager;
 	}
 
 	/**
@@ -586,8 +586,8 @@ public class Castle extends Sprite{
 	 * Getter of the order state 
 	 * @return true if an order is launched, else false
 	 */
-	public Ordre getOrdreDeplacement() {
-		return ordreDeplacement;
+	public Order getOrderDisplacement() {
+		return displacementOrder;
 	}
 	
 	/**
@@ -602,17 +602,17 @@ public class Castle extends Sprite{
 	 * Getter of door position
 	 * @return door
 	 */
-	public int getPorte() {
-		return porte.getPorte();
+	public int getDoor() {
+		return door.getDoor();
 	}
 	
 	/**
 	 * Setter of door position
-	 * @param porte New door
+	 * @param door New door
 	 */
-	public void setPorte(int porte) {	
-		this.porte = new Porte(porte);
-		switch(getPorte()) {
+	public void setDoor(int door) {	
+		this.door = new Door(door);
+		switch(getDoor()) {
 		case Constants.LEFT:
 			imageView.setRotate(90);
 			break;

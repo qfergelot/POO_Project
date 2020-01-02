@@ -243,49 +243,49 @@ public abstract class Troop extends Sprite{
 	public boolean attack(Castle c) {
 		Random rdm = new Random();
 		int rand;
-		if(c.leftPikeman() && c.leftKnight() && c.leftOnagre()) {
+		if(c.leftPikemen() && c.leftKnight() && c.leftOnager()) {
 			rand = rdm.nextInt(3);
 			if(rand == 0) {
-				attackPikeman(c);
+				attackPikemen(c);
 			}
 			else if(rand == 1){
 				attackKnight(c);
 			}
 			else {
-				attackOnagre(c);
+				attackOnager(c);
 			}
 		}
-		else if (c.leftPikeman()) {
+		else if (c.leftPikemen()) {
 			if(c.leftKnight()) {
 				rand = rdm.nextInt(2);
 				if(rand == 0) {
-					attackPikeman(c);
+					attackPikemen(c);
 				}
 				else if(rand == 1){
 					attackKnight(c);
 				}
 			}
-			else if(c.leftOnagre()) {
+			else if(c.leftOnager()) {
 				rand = rdm.nextInt(2);
 				if(rand == 0) {
-					attackPikeman(c);
+					attackPikemen(c);
 				}
 				else if(rand == 1){
-					attackOnagre(c);
+					attackOnager(c);
 				}
 			}
 			else {
-				attackPikeman(c);
+				attackPikemen(c);
 			}
 		}
 		else if(c.leftKnight()) {
-			if(c.leftOnagre()) {
+			if(c.leftOnager()) {
 				rand = rdm.nextInt(2);
 				if(rand == 0) {
 					attackKnight(c);
 				}
 				else if(rand == 1){
-					attackOnagre(c);
+					attackOnager(c);
 				}
 			}
 			else {
@@ -293,7 +293,7 @@ public abstract class Troop extends Sprite{
 			}
 		}
 		else {
-			attackOnagre(c);
+			attackOnager(c);
 		}
 		return c.noTroop();
 	}
@@ -303,8 +303,8 @@ public abstract class Troop extends Sprite{
 	 * @param c
 	 * 			Castle target of the attack
 	 */
-	private void attackPikeman(Castle c) {
-		c.receiveAttackPiqueman();
+	private void attackPikemen(Castle c) {
+		c.receiveAttackPikemen();
 		damage--;
 	}
 	
@@ -323,8 +323,8 @@ public abstract class Troop extends Sprite{
 	 * @param c
 	 * 			Castle target of the attack
 	 */
-	private void attackOnagre(Castle c) {
-		c.receiveAttackOnagre();
+	private void attackOnager(Castle c) {
+		c.receiveAttackOnager();
 		damage--;
 	}
 	
@@ -372,7 +372,7 @@ public abstract class Troop extends Sprite{
 	 * @return true if there is an collision, false if not.
 	 */
 	public boolean collision(double x, double y, Kingdom kingdom, Castle target) {
-		for(int i=0; i<kingdom.getNbCastles(); i++) {
+		for(int i=0; i<kingdom.getNbCastle(); i++) {
 			if(isIn(x, y, kingdom.getCastle(i))) {
 				if(kingdom.getCastle(i) == target)
 					inTarget = true;

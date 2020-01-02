@@ -35,7 +35,7 @@ public class Pikemen extends Troop {
 	}
 	
 	public void transfer(Castle target, Ost host) {
-		target.addPikeman();
+		target.addPikemen();
 		host.getTroop().remove(this);
 		this.getImageView().setImage(null);
 	}

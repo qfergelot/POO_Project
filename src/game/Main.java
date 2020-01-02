@@ -140,20 +140,15 @@ public class Main extends Application {
 				}*/
 				//******************************/
 				//if(!pauseTrigger)
-				kingdom.finTour();
+				kingdom.finishRound();
 
 				if(UIsingleton.getUIsingleton().getCastleSelection()!=castleSelection)
 					updateClick();
-				if (UIsingleton.getUIsingleton().toUpdateTroupes()) {
+				if (UIsingleton.getUIsingleton().toUpdateTroops()) {
 					updateTroupe();
-					UIsingleton.getUIsingleton().setToUpdateTroupes(false);
+					UIsingleton.getUIsingleton().setToUpdateTroops(false);
 				}
 				update();
-				
-				
-				/************IDEE DE DINGUE
-				 * Creer une variable dans UIsingleton qui dit si un update a besoin d'être fait
-				 */
 				
 			}
 			
@@ -254,7 +249,7 @@ public class Main extends Application {
 			}
 			
 		} catch (FileNotFoundException e) {
-			System.out.println("Le fichier de sauvegarde n'a pas �t� trouv� !");
+			System.out.println("Le fichier de sauvegarde n'a pas été trouvé !");
 		}
 	}
 	
@@ -262,18 +257,18 @@ public class Main extends Application {
 		if(castleSelection == null)
 			textFlorins.setText("--");
 		else
-			textFlorins.setText(""+castleSelection.getTresor());
+			textFlorins.setText(""+castleSelection.getTreasure());
 	}
 	
 	private void updateTroupe() {
 		textPikemen.setText(""+castleSelection.getNbPikemen());
 		textKnight.setText(""+castleSelection.getNbKnight());
 		textOnager.setText(""+castleSelection.getNbOnager());
-		if(!castleSelection.getNeutre()) {
-    		textPlayer.setText(castleSelection.getDuke().getNom()+" - Niveau "+castleSelection.getNiveau());
-    		textPlayer.setFill(castleSelection.getDuke().getCouleur());
+		if(!castleSelection.getNeutral()) {
+    		textPlayer.setText(castleSelection.getDuke().getName()+" - Niveau "+castleSelection.getLevel());
+    		textPlayer.setFill(castleSelection.getDuke().getColor());
 		} else {
-			textPlayer.setText("Neutre - Niveau "+castleSelection.getNiveau());
+			textPlayer.setText("Neutral - Niveau "+castleSelection.getLevel());
     		textPlayer.setFill(Color.GREY);
 		}
 	}
@@ -293,13 +288,13 @@ public class Main extends Application {
 		}
 		else {
 			borderCastle.relocate(castleSelection.getPos_x()-2, castleSelection.getPos_y()-2);
-			textFlorins.setText(""+castleSelection.getTresor());
+			textFlorins.setText(""+castleSelection.getTreasure());
     		textPikemen.setText(""+castleSelection.getNbPikemen());
     		textKnight.setText(""+castleSelection.getNbKnight());
     		textOnager.setText(""+castleSelection.getNbOnager());
-    		if(!castleSelection.getNeutre()) {
-        		textPlayer.setText(castleSelection.getDuke().getNom()+" - Niveau "+castleSelection.getNiveau());
-        		textPlayer.setFill(castleSelection.getDuke().getCouleur());
+    		if(!castleSelection.getNeutral()) {
+        		textPlayer.setText(castleSelection.getDuke().getName()+" - Niveau "+castleSelection.getLevel());
+        		textPlayer.setFill(castleSelection.getDuke().getColor());
         		if(castleSelection.getDuke().equals(dukePlayer)) {
 	        		buttonProducePikemen.setStyle("");
 	        		buttonProduceKnight.setStyle("");
@@ -312,14 +307,14 @@ public class Main extends Application {
             		buttonProduceOnager.setStyle("-fx-background-color: #E9E9E9");
             		buttonProduceAmelioration.setStyle("-fx-background-color: #E9E9E9;-fx-padding: 12 67 12 67;");
         		}
-        		if(castleSelection.enProduction()) {
+        		if(castleSelection.inProduction()) {
     				barProgression.setWidth(castleSelection.getProduction().pourcentage()*160+1);
         		} else {
         			barProgression.setWidth(1);
         		}
     		}
     		else {
-    			textPlayer.setText("Neutre - Niveau "+castleSelection.getNiveau());
+    			textPlayer.setText("Neutre - Niveau "+castleSelection.getLevel());
         		textPlayer.setFill(Color.GREY);
         		buttonProducePikemen.setStyle("-fx-background-color: #E9E9E9");
         		buttonProduceKnight.setStyle("-fx-background-color: #E9E9E9");
@@ -343,17 +338,17 @@ public class Main extends Application {
     		/*textPikemen.setText(""+castleSelection.getNbPikemen());
     		textKnight.setText(""+castleSelection.getNbKnight());
     		textOnager.setText(""+castleSelection.getNbOnager());*/
-    		if(castleSelection.enProduction()) {
+    		if(castleSelection.inProduction()) {
 				barProgression.setWidth(castleSelection.getProduction().pourcentage()*160+1);
     		} else {
     			barProgression.setWidth(1);
     		}
-    		/*if(!castleSelection.getNeutre()) {
+    		/*if(!castleSelection.getNeutral()) {
         		textPlayer.setText(castleSelection.getDuke().getNom()+" - Niveau "+castleSelection.getNiveau());
         		textPlayer.setFill(castleSelection.getDuke().getCouleur());
     		}
     		else {
-    			textPlayer.setText("Neutre - Niveau "+castleSelection.getNiveau());
+    			textPlayer.setText("Neutral - Niveau "+castleSelection.getNiveau());
         		textPlayer.setFill(Color.GREY);
     		}*/
 		}
@@ -404,13 +399,13 @@ public class Main extends Application {
 		barProgression = new Rectangle(1,13);
 		ImageView img_florins = new ImageView(new Image(getClass().getResource("/images/coins.png").toExternalForm(),28,28,true,true));
 		ImageView img_pikemen = new ImageView(new Image(getClass().getResource("/images/militar.png").toExternalForm(), 28, 28, false, true));
-		ImageView img_knight = new ImageView(new Image(getClass().getResource("/images/knight.png").toExternalForm(), 28, 28, false, true));
-		ImageView img_onager = new ImageView(new Image(getClass().getResource("/images/onager.png").toExternalForm(), 28, 28, false, true));
-		Text produce = new Text("Produce");
+		ImageView img_knight = new ImageView(new Image(getClass().getResource("/images/chevalier.png").toExternalForm(), 28, 28, false, true));
+		ImageView img_onager = new ImageView(new Image(getClass().getResource("/images/onagre.png").toExternalForm(), 28, 28, false, true));
+		Text produce = new Text("Produire");
 		
 		buttonProducePikemen.setGraphic(new ImageView(new Image(getClass().getResource("/images/militar.png").toExternalForm(), 28, 28, false, true)));
-		buttonProduceKnight.setGraphic(new ImageView(new Image(getClass().getResource("/images/knight.png").toExternalForm(), 28, 28, false, true)));
-		buttonProduceOnager.setGraphic(new ImageView(new Image(getClass().getResource("/images/onager.png").toExternalForm(), 28, 28, false, true)));
+		buttonProduceKnight.setGraphic(new ImageView(new Image(getClass().getResource("/images/chevalier.png").toExternalForm(), 28, 28, false, true)));
+		buttonProduceOnager.setGraphic(new ImageView(new Image(getClass().getResource("/images/onagre.png").toExternalForm(), 28, 28, false, true)));
 		buttonProduceAmelioration.setGraphic(new ImageView(new Image(getClass().getResource("/images/up.png").toExternalForm(), 28, 28, true, false)));
 		
 		fond.setFill(Color.GREY);
@@ -465,6 +460,7 @@ public class Main extends Application {
 		buttonSave.getStyleClass().add("button_menu");
 		buttonSave.setStyle("-fx-padding: 10 14 10 14;");
 		
+		
 		gameFieldLayer.getChildren().add(fond);
 		gameFieldLayer.getChildren().add(bar_ressources);
 		gameFieldLayer.getChildren().add(bar_actions);
@@ -482,14 +478,14 @@ public class Main extends Application {
 		layoutProduction.getChildren().addAll(buttonProducePikemen,buttonProduceKnight,buttonProduceOnager,buttonProduceAmelioration,buttonSave);
 		gameFieldLayer.getChildren().add(layoutProduction);
 		
-		UIsingleton.getUIsingleton().setLabelErreurProduction(errorMessageProduction);
+		UIsingleton.getUIsingleton().setErrorLabelProduction(errorMessageProduction);
 		
 		buttonProducePikemen.setOnAction(e -> {
 			if (castleSelection!=null) {
-				if(!castleSelection.getNeutre()){
+				if(!castleSelection.getNeutral()){
 					if(castleSelection.getDuke().equals(dukePlayer)) {
 		    			try {
-		    				castleSelection.launchProduction(Constants.PIQUIER);
+		    				castleSelection.launchProduction(Constants.PIKEMEN);
 		    				updateTresor();
 		    				errorMessageProduction.setText("");
 		    			} catch (ProdException err) {
@@ -502,10 +498,10 @@ public class Main extends Application {
 		
 		buttonProduceKnight.setOnAction(e -> {
 			if (castleSelection!=null) {
-				if(!castleSelection.getNeutre()){
+				if(!castleSelection.getNeutral()){
 					if(castleSelection.getDuke().equals(dukePlayer)) {
 						try {
-		    				castleSelection.launchProduction(Constants.CHEVALIER);
+		    				castleSelection.launchProduction(Constants.KNIGHT);
 		    				updateTresor();
 		    				errorMessageProduction.setText("");
 		    			} catch (ProdException err) {
@@ -518,10 +514,10 @@ public class Main extends Application {
 		
 		buttonProduceOnager.setOnAction(e -> {
 			if (castleSelection!=null) {
-				if(!castleSelection.getNeutre()){
+				if(!castleSelection.getNeutral()){
 					if(castleSelection.getDuke().equals(dukePlayer)) {
 						try {
-		    				castleSelection.launchProduction(Constants.ONAGRE);
+		    				castleSelection.launchProduction(Constants.ONAGER);
 		    				updateTresor();
 		    				errorMessageProduction.setText("");
 		    			} catch (ProdException err) {
@@ -534,7 +530,7 @@ public class Main extends Application {
 		
 		buttonProduceAmelioration.setOnAction(e -> {
 			if (castleSelection!=null) {
-				if(!castleSelection.getNeutre()){
+				if(!castleSelection.getNeutral()){
 					if(castleSelection.getDuke().equals(dukePlayer)) {
 						try {
 		    				castleSelection.launchProduction(Constants.AMELIORATION);

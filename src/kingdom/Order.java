@@ -10,7 +10,7 @@ import troops.*;
  *
  */
 public class Order {
-	private Chateau target;
+	private Castle target;
 	private int nbTroops;
 	
 	private int nbPikemen;
@@ -33,7 +33,7 @@ public class Order {
 	 * @param exit_x First position x of units
 	 * @param exit_y Firts position y of units
 	 */
-	public Order(Chateau target, int nbPikemen, int nbKnight, int nbOnager, double exit_x, double exit_y) {
+	public Order(Castle target, int nbPikemen, int nbKnight, int nbOnager, double exit_x, double exit_y) {
 		this.target = target;
 		this.nbTroops = nbPikemen + nbKnight + nbOnager;
 		this.nbPikemen = nbPikemen;
@@ -63,7 +63,7 @@ public class Order {
 	 * Exit a pikemen
 	 * @param ost Ost linked to this order
 	 */
-	public void sortirPiquier(Ost ost) {
+	public void exitPikemen(Ost ost) {
 		nbPikemen--;
 		nbTroops--;
 		ost.addTroop(new Pikemen(target.getLayer(),image_pikemen,exit_x,exit_y));
@@ -73,7 +73,7 @@ public class Order {
 	 * Exit a knight
 	 * @param ost Ost linked to this order
 	 */
-	public void sortirChevalier(Ost ost) {
+	public void exitKnight(Ost ost) {
 		nbKnight--;
 		nbTroops--;
 		ost.addTroop(new Knight(target.getLayer(),image_knight,exit_x,exit_y));
@@ -83,7 +83,7 @@ public class Order {
 	 * Exit a onager
 	 * @param ost Ost linked to this order
 	 */
-	public void sortirOnagre(Ost ost) {
+	public void exitOnager(Ost ost) {
 		nbOnager--;
 		nbTroops--;
 		ost.addTroop(new Onager(target.getLayer(),image_onager,exit_x,exit_y));

@@ -9,6 +9,10 @@ import game.UIsingleton;
  *
  */
 public class ProdException extends Exception {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5823174506652761962L;
 	private String errorMessage;
 	
 	public ProdException(String errorMessage){
@@ -16,11 +20,11 @@ public class ProdException extends Exception {
 	}
 	
 	public void printError(){
-		UIsingleton.getUIsingleton().setMessageErreurProduction(errorMessage);
+		UIsingleton.getUIsingleton().setErrorMessageProduction(errorMessage);
 	}
 	
 	public void clearError() {
-		UIsingleton.getUIsingleton().setMessageErreurProduction("");
+		UIsingleton.getUIsingleton().setErrorMessageProduction("");
 	}
 
 }

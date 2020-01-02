@@ -35,7 +35,7 @@ public class Onager extends Troop {
 	}
 
 	public void transfer(Castle target, Ost host) {
-		target.addOnagre();
+		target.addOnager();
 		host.getTroop().remove(this);
 		this.getImageView().setImage(null);
 	}

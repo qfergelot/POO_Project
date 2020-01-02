@@ -1,10 +1,10 @@
-.texte {
+.text {
     -fx-fill: blanchedalmond;
     -fx-scale-x: 2;
     -fx-scale-y: 2;
 }
 
-.bouton {
+.button {
     -fx-background-insets: 0,1,2,3;
     -fx-background-radius: 5;
     -fx-padding: 12 12 12 12;
@@ -13,11 +13,11 @@
     -fx-text-fill: blanchedalmond;
 }
 
-.bouton:hover {
+.button:hover {
     -fx-background-color: #525252;
 }
 
-.bouton_neutre {
+.button_neutre {
     -fx-background-insets: 0,1,2,3;
     -fx-background-radius: 5;
     -fx-padding: 12 12 12 12;
@@ -26,7 +26,7 @@
     -fx-text-fill: blanchedalmond;
 }
 
-.bouton_menu {
+.button_menu {
     -fx-background-insets: 0,1,2,3;
     -fx-background-radius: 5;
     -fx-padding: 10 100 10 100;
@@ -38,13 +38,7 @@
     -fx-border-insets: 0,1,2,3;
     -fx-border-radius: 5;
 }
-.bouton_menu:hover {
+.button_menu:hover {
     -fx-background-color: lightgrey;
 
-}
-
-.chateau:border{
-    -fx-border-color: blue;
-    -fx-border-style: solid;
-    -fx-border-width: 10;
 }

@@ -11,24 +11,24 @@ Version de base :
 -javadoc :
 	game:
 		Input (to test) en
-		Main (to test)
+		Main (to test) en
 		Popup (to test) en
 		Sprite (to test) en
 		UISingleton (todo) en
 	royaume:
-		Chateau (to test)
+		Castle (to test) en
 		Constants (to test) en
 		Duke (to test) en
-		IABasique (to test)
+		IABasic (to test) en
 		Order (doing) en
 		Ost (to test) en
 		Door (to test) en
 		ProdException (to test) en
 		Production (todo) en
-		Royaume (todo)
+		Kingdom (todo) en
 	troupes:
 		Knight (to test) en
-		Onagre (to test) en
+		Onager (to test) en
 		Pikeman (to test) en
 		Troop (to test) en
 		
