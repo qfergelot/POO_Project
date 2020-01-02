@@ -12,8 +12,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import royaume.Chateau;
-import royaume.Royaume;
+import kingdom.Castle;
+import kingdom.Kingdom;
 import game.UIsingleton;
 /**
  * Class of the popup that will be used in the game for attacks and transfers
@@ -24,33 +24,33 @@ import game.UIsingleton;
 public class Popup {
 	private Stage popupOst;
 	
-	private Royaume royaume;
+	private Kingdom kingdom;
 
-	private Button bPPiquiers;
-	private Button bMPiquiers;
-	private Button bPChevaliers;
-	private Button bMChevaliers;
-	private Button bPOnagres;
-	private Button bMOnagres;
-	private Button envoyer;
+	private Button bPPikemen;
+	private Button bMPikemen;
+	private Button bPKnight;
+	private Button bMKnight;
+	private Button bPOnager;
+	private Button bMOnager;
+	private Button send;
 	
-	private Text tNbPiquiers = new Text("0");
-	private Text tNbChevaliers = new Text("0");
-	private Text tNbOnagres = new Text("0");
+	private Text tNbPikemen = new Text("0");
+	private Text tNbKnight = new Text("0");
+	private Text tNbOnager = new Text("0");
 	
-	private int nbPiquiers = 0;
-	private int nbChevaliers = 0;
-	private int nbOnagres = 0;
+	private int nbPikemen = 0;
+	private int nbKnight = 0;
+	private int nbOnager = 0;
 	
 	/**
 	 * Construct the popup
 	 * 
-	 * @param royaume Royaume in which the popup must be created
+	 * @param kingdom Royaume in which the popup must be created
 	 */
-	public Popup(Royaume royaume) {
+	public Popup(Royaume kingdom) {
 		popupOst = new Stage();
 		popupOst.initModality(Modality.APPLICATION_MODAL);
-		popupOst.setTitle("Troupes à envoyer");
+		popupOst.setTitle("Troupes à send");
 		popupOst.setResizable(false);
 		
 		Pane layout = new Pane();
@@ -60,134 +60,134 @@ public class Popup {
 		scene.getStylesheets().add(getClass().getResource("/css/application.css").toExternalForm());
 		popupOst.setScene(scene);
 		
-		this.royaume = royaume;
+		this.kingdom = kingdom;
 		
-		ImageView flecheBas1 = new ImageView(new Image(getClass().getResource("/images/fleche.png").toExternalForm(), 12, 12, false, true));
-		flecheBas1.setRotate(180);
-		ImageView flecheBas2 = new ImageView(new Image(getClass().getResource("/images/fleche.png").toExternalForm(), 12, 12, false, true));
-		flecheBas2.setRotate(180);
-		ImageView flecheBas3 = new ImageView(new Image(getClass().getResource("/images/fleche.png").toExternalForm(), 12, 12, false, true));
-		flecheBas3.setRotate(180);
+		ImageView downArrow1 = new ImageView(new Image(getClass().getResource("/images/fleche.png").toExternalForm(), 12, 12, false, true));
+		downArrow1.setRotate(180);
+		ImageView downArrow2 = new ImageView(new Image(getClass().getResource("/images/fleche.png").toExternalForm(), 12, 12, false, true));
+		downArrow2.setRotate(180);
+		ImageView downArrow3 = new ImageView(new Image(getClass().getResource("/images/fleche.png").toExternalForm(), 12, 12, false, true));
+		downArrow3.setRotate(180);
 		
-		Rectangle rPiquiers = new Rectangle(15,75,50,50);
-		rPiquiers.setFill(Color.ANTIQUEWHITE);
-		rPiquiers.setStroke(Color.BLACK);
-		ImageView iPiquiers = new ImageView(new Image(getClass().getResource("/images/militar.png").toExternalForm(), 40, 40, false, true));
-		iPiquiers.relocate(20, 80);
-		bPPiquiers = new Button();
-		bPPiquiers.setGraphic(new ImageView(new Image(getClass().getResource("/images/fleche.png").toExternalForm(), 12, 12, false, true)));
-		bPPiquiers.relocate(65, 74);
-		bPPiquiers.setStyle("-fx-border-width: 1; -fx-border-color: BLACK;");
-		bMPiquiers = new Button();
-		bMPiquiers.setGraphic(flecheBas1);
-		bMPiquiers.relocate(65, 100);
-		bMPiquiers.setStyle("-fx-border-width: 1; -fx-border-color: BLACK;");
-		tNbPiquiers.relocate(40, 130);
-		tNbPiquiers.getStyleClass().add("texte");
-		layout.getChildren().addAll(rPiquiers,iPiquiers,bPPiquiers,bMPiquiers,tNbPiquiers);
+		Rectangle rPikemen = new Rectangle(15,75,50,50);
+		rPikemen.setFill(Color.ANTIQUEWHITE);
+		rPikemen.setStroke(Color.BLACK);
+		ImageView iPikemen = new ImageView(new Image(getClass().getResource("/images/militar.png").toExternalForm(), 40, 40, false, true));
+		iPikemen.relocate(20, 80);
+		bPPikemen = new Button();
+		bPPikemen.setGraphic(new ImageView(new Image(getClass().getResource("/images/fleche.png").toExternalForm(), 12, 12, false, true)));
+		bPPikemen.relocate(65, 74);
+		bPPikemen.setStyle("-fx-border-width: 1; -fx-border-color: BLACK;");
+		bMPikemen = new Button();
+		bMPikemen.setGraphic(downArrow1);
+		bMPikemen.relocate(65, 100);
+		bMPikemen.setStyle("-fx-border-width: 1; -fx-border-color: BLACK;");
+		tNbPikemen.relocate(40, 130);
+		tNbPikemen.getStyleClass().add("texte");
+		layout.getChildren().addAll(rPikemen,iPikemen,bPPikemen,bMPikemen,tNbPikemen);
 		
 
-		Rectangle rChevaliers = new Rectangle(115,75,50,50);
-		rChevaliers.setFill(Color.ANTIQUEWHITE);
-		rChevaliers.setStroke(Color.BLACK);
-		ImageView iChevaliers = new ImageView(new Image(getClass().getResource("/images/chevalier.png").toExternalForm(), 40, 40, false, true));
-		iChevaliers.relocate(120, 80);
-		bPChevaliers = new Button();
-		bPChevaliers.setGraphic(new ImageView(new Image(getClass().getResource("/images/fleche.png").toExternalForm(), 12, 12, false, true)));
-		bPChevaliers.relocate(165, 74);
-		bPChevaliers.setStyle("-fx-border-width: 1; -fx-border-color: BLACK;");
-		bMChevaliers = new Button();
-		bMChevaliers.setGraphic(flecheBas2);
-		bMChevaliers.relocate(165, 100);
-		bMChevaliers.setStyle("-fx-border-width: 1; -fx-border-color: BLACK;");
-		tNbChevaliers.relocate(140, 130);
-		tNbChevaliers.getStyleClass().add("texte");
-		layout.getChildren().addAll(rChevaliers,iChevaliers,bPChevaliers,bMChevaliers,tNbChevaliers);
+		Rectangle rKnight = new Rectangle(115,75,50,50);
+		rKnight.setFill(Color.ANTIQUEWHITE);
+		rKnight.setStroke(Color.BLACK);
+		ImageView iKnight = new ImageView(new Image(getClass().getResource("/images/chevalier.png").toExternalForm(), 40, 40, false, true));
+		iKnight.relocate(120, 80);
+		bPKnight = new Button();
+		bPKnight.setGraphic(new ImageView(new Image(getClass().getResource("/images/fleche.png").toExternalForm(), 12, 12, false, true)));
+		bPKnight.relocate(165, 74);
+		bPKnight.setStyle("-fx-border-width: 1; -fx-border-color: BLACK;");
+		bMKnight = new Button();
+		bMKnight.setGraphic(downArrow2);
+		bMKnight.relocate(165, 100);
+		bMKnight.setStyle("-fx-border-width: 1; -fx-border-color: BLACK;");
+		tNbKnight.relocate(140, 130);
+		tNbKnight.getStyleClass().add("texte");
+		layout.getChildren().addAll(rKnight,iKnight,bPKnight,bMKnight,tNbKnight);
 		
 		
-		Rectangle rOnagres = new Rectangle(215,75,50,50);
-		rOnagres.setFill(Color.ANTIQUEWHITE);
-		rOnagres.setStroke(Color.BLACK);
-		ImageView iOnagres = new ImageView(new Image(getClass().getResource("/images/onagre.png").toExternalForm(), 40, 40, false, true));
-		iOnagres.relocate(220, 80);
-		bPOnagres = new Button();
-		bPOnagres.setGraphic(new ImageView(new Image(getClass().getResource("/images/fleche.png").toExternalForm(), 12, 12, false, true)));
-		bPOnagres.relocate(265, 74);
-		bPOnagres.setStyle("-fx-border-width: 1; -fx-border-color: BLACK;");
-		bMOnagres = new Button();
-		bMOnagres.setGraphic(flecheBas3);
-		bMOnagres.relocate(265, 100);
-		bMOnagres.setStyle("-fx-border-width: 1; -fx-border-color: BLACK;");
-		tNbOnagres.relocate(240, 130);
-		tNbOnagres.getStyleClass().add("texte");
-		layout.getChildren().addAll(rOnagres,iOnagres,bPOnagres,bMOnagres,tNbOnagres);
+		Rectangle rOnager = new Rectangle(215,75,50,50);
+		rOnager.setFill(Color.ANTIQUEWHITE);
+		rOnager.setStroke(Color.BLACK);
+		ImageView iOnager = new ImageView(new Image(getClass().getResource("/images/onagre.png").toExternalForm(), 40, 40, false, true));
+		iOnager.relocate(220, 80);
+		bPOnager = new Button();
+		bPOnager.setGraphic(new ImageView(new Image(getClass().getResource("/images/fleche.png").toExternalForm(), 12, 12, false, true)));
+		bPOnager.relocate(265, 74);
+		bPOnager.setStyle("-fx-border-width: 1; -fx-border-color: BLACK;");
+		bMOnager = new Button();
+		bMOnager.setGraphic(downArrow3);
+		bMOnager.relocate(265, 100);
+		bMOnager.setStyle("-fx-border-width: 1; -fx-border-color: BLACK;");
+		tNbOnager.relocate(240, 130);
+		tNbOnager.getStyleClass().add("texte");
+		layout.getChildren().addAll(rOnager,iOnager,bPOnager,bMOnager,tNbOnager);
 		
-		envoyer = new Button("Envoyer");
-		envoyer.getStyleClass().add("bouton");
-		envoyer.setStyle("-fx-padding: 6 6 6 6;");
-		envoyer.relocate(230, 170);
-		layout.getChildren().add(envoyer);
+		send = new Button("Envoyer");
+		send.getStyleClass().add("bouton");
+		send.setStyle("-fx-padding: 6 6 6 6;");
+		send.relocate(230, 170);
+		layout.getChildren().add(send);
 	}
 	
 	/**
 	 * Displays the popup
 	 * @param c Source Castle (@see Chateau)
-	 * @param cible Destination Castle (@see Chateau)
+	 * @param target Destination Castle (@see Chateau)
 	 */
-	public void display(Chateau c, Chateau cible) {
+	public void display(Castle c, Castle target) {
 		
 		UIsingleton.getUIsingleton().setPause();
 		
-		tNbPiquiers.setText("0");
-		tNbChevaliers.setText("0");
-		tNbOnagres.setText("0");
+		tNbPikemen.setText("0");
+		tNbKnight.setText("0");
+		tNbOnager.setText("0");
 		
-		nbPiquiers = 0;
-		nbChevaliers = 0;
-		nbOnagres = 0;
-		bPPiquiers.setOnAction(e -> {
-			if(nbPiquiers < c.getNbPiquiers()) {
-				nbPiquiers++;
-				tNbPiquiers.setText(""+nbPiquiers);
+		nbPikemen = 0;
+		nbKnight = 0;
+		nbOnager = 0;
+		bPPikemen.setOnAction(e -> {
+			if(nbPikemen < c.getNbPikemen()) {
+				nbPikemen++;
+				tNbPikemen.setText(""+nbPikemen);
 			}
 		});
-		bMPiquiers.setOnAction(e -> {
-			if(nbPiquiers > 0) {
-				nbPiquiers--;
-				tNbPiquiers.setText(""+nbPiquiers);
+		bMPikemen.setOnAction(e -> {
+			if(nbPikemen > 0) {
+				nbPikemen--;
+				tNbPikemen.setText(""+nbPikemen);
 			}
 		});
-		bPChevaliers.setOnAction(e -> {
-			if(nbChevaliers < c.getNbChevaliers()) {
-				nbChevaliers++;
-				tNbChevaliers.setText(""+nbChevaliers);
+		bPKnight.setOnAction(e -> {
+			if(nbKnight < c.getNbKnight()) {
+				nbKnight++;
+				tNbKnight.setText(""+nbKnight);
 			}
 		});
-		bMChevaliers.setOnAction(e -> {
-			if(nbChevaliers > 0) {
-				nbChevaliers--;
-				tNbChevaliers.setText(""+nbChevaliers);
+		bMKnight.setOnAction(e -> {
+			if(nbKnight > 0) {
+				nbKnight--;
+				tNbKnight.setText(""+nbKnight);
 			}
 		});
-		bPOnagres.setOnAction(e -> {
-			if(nbOnagres < c.getNbOnagres()) {
-				nbOnagres++;
-				tNbOnagres.setText(""+nbOnagres);
+		bPOnager.setOnAction(e -> {
+			if(nbOnager < c.getNbOnager()) {
+				nbOnager++;
+				tNbOnager.setText(""+nbOnager);
 			}
 		});
-		bMOnagres.setOnAction(e -> {
-			if(nbOnagres > 0) {
-				nbOnagres--;
-				tNbOnagres.setText(""+nbOnagres);
+		bMOnager.setOnAction(e -> {
+			if(nbOnager > 0) {
+				nbOnager--;
+				tNbOnager.setText(""+nbOnager);
 			}
 		});
 		
-		envoyer.setOnAction(e -> {
+		send.setOnAction(e -> {
 			UIsingleton.getUIsingleton().setPause();
-			if(nbPiquiers == 0 && nbChevaliers == 0 && nbOnagres == 0) {
+			if(nbPikemen == 0 && nbKnight == 0 && nbOnager == 0) {
 				popupOst.close();
 			} else {
-				royaume.creerOrdre(c, cible, nbPiquiers, nbChevaliers, nbOnagres);
+				kingdom.createOrder(c, target, nbPikemen, nbKnight, nbOnager);
 				popupOst.close();
 			}
 		});

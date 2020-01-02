@@ -1,8 +1,8 @@
 package game;
 
 import javafx.scene.text.Text;
-import royaume.Chateau;
-import royaume.Duc;
+import kingdom.Castle;
+import kingdom.Duke;
 
 /**
  * 
@@ -12,13 +12,13 @@ import royaume.Duc;
 public final class UIsingleton {
 	private static final UIsingleton instance = new UIsingleton();
 	
-	private Duc ducJoueur = null;
-	private Chateau chateauSelection = null;
-	private boolean toUpdateTroupes = false;
+	private Duke dukePlayer = null;
+	private Castle castleSelection = null;
+	private boolean toUpdateTroops = false;
 	
 	private boolean pause = false;
 	
-	private Text labelErreurProduction;
+	private Text labelErrorProduketion;
 	
 	private UIsingleton() {
 		//
@@ -36,48 +36,48 @@ public final class UIsingleton {
 	 * 
 	 * @return
 	 */
-	public Chateau getChateauSelection() {
-		return chateauSelection;
+	public Castle getCastleSelection() {
+		return castleSelection;
 	}
 	
 	/**
 	 * 
 	 * @param c
 	 */
-	public void setChateauSelection(Chateau c) {
-		chateauSelection = c;
+	public void setCastleSelection(Castle c) {
+		castleSelection = c;
 	}
 	
 	/**
 	 * 
 	 * @return
 	 */
-	public boolean toUpdateTroupes() {
-		return toUpdateTroupes;
+	public boolean toUpdateTroops() {
+		return toUpdateTroops;
 	}
 	
 	/**
 	 * 
-	 * @param toUpdateTroupes
+	 * @param toUpdateTroops
 	 */
-	public void setToUpdateTroupes(boolean toUpdateTroupes) {
-		this.toUpdateTroupes = toUpdateTroupes;
+	public void setToUpdateTroops(boolean toUpdateTroops) {
+		this.toUpdateTroops = toUpdateTroops;
 	}
 	
 	/**
 	 * 
 	 * @return
 	 */
-	public Duc getDucJoueur() {
-		return ducJoueur;
+	public Duke getDukePlayer() {
+		return dukePlayer;
 	}
 	
 	/**
 	 * 
-	 * @param ducJoueur
+	 * @param dukePlayer
 	 */
-	public void setDucJoueur(Duc ducJoueur) {
-		this.ducJoueur = ducJoueur;
+	public void setDukePlayer(Duke dukePlayer) {
+		this.dukePlayer = dukePlayer;
 	}
 	
 	/**
@@ -97,18 +97,18 @@ public final class UIsingleton {
 	
 	/**
 	 * 
-	 * @param labelErreurProduction
+	 * @param labelErrorProduketion
 	 */
-	public void setLabelErreurProduction(Text labelErreurProduction) {
-		this.labelErreurProduction = labelErreurProduction;
+	public void setLabelErrorProduketion(Text labelErrorProduketion) {
+		this.labelErrorProduketion = labelErrorProduketion;
 	}
 	
 	/**
 	 * 
 	 * @param message
 	 */
-	public void setMessageErreurProduction(String message) {
-		labelErreurProduction.setText(message);
+	public void setMessageErrorProduketion(String message) {
+		labelErrorProduketion.setText(message);
 	}
 	
 }

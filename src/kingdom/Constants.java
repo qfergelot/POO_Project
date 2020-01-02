@@ -17,7 +17,7 @@ public class Constants {
 	
 	public final static int GAME_FREQUENCY = 1000*1000*1000; //1 seconde
 	
-	public final static int PIKEMAN = 0;
+	public final static int PIKEMEN = 0;
 	public final static int KNIGHT = 1;
 	public final static int ONAGER = 2;
 	public final static int AMELIORATION = 3;

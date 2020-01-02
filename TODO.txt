@@ -10,11 +10,11 @@ Version de base :
 
 -javadoc :
 	game:
-		Input (to test)
+		Input (to test) en
 		Main (to test)
-		Popup (to test)
-		Sprite (to test)
-		UISingleton (todo)
+		Popup (to test) en
+		Sprite (to test) en
+		UISingleton (todo) en
 	royaume:
 		Chateau (to test)
 		Constants (to test) en
@@ -23,8 +23,8 @@ Version de base :
 		Order (doing) en
 		Ost (to test) en
 		Door (to test) en
-		ProdException (to test)
-		Production (todo)
+		ProdException (to test) en
+		Production (todo) en
 		Royaume (todo)
 	troupes:
 		Knight (to test) en
