@@ -7,6 +7,7 @@ import game.Popup;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import kingdom.Ost;
 
 public class Royaume {
 	private Random rdm = new Random();

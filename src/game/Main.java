@@ -17,6 +17,7 @@ import javafx.scene.text.Text;
 import javafx.scene.paint.*;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import kingdom.ProdException;
 import javafx.scene.Group;
 
 public class Main extends Application {

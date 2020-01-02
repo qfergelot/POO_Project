@@ -1,4 +1,4 @@
-package royaume;
+package kingdom;
 
 import game.UIsingleton;
 
@@ -9,15 +9,14 @@ import game.UIsingleton;
  *
  */
 public class ProdException extends Exception {
-	private String messageErreur;
+	private String errorMessage;
 	
-	public ProdException(String messageErreur){
-		this.messageErreur = messageErreur;
+	public ProdException(String errorMessage){
+		this.errorMessage = errorMessage;
 	}
 	
 	public void printError(){
-
-		UIsingleton.getUIsingleton().setMessageErreurProduction(messageErreur);
+		UIsingleton.getUIsingleton().setMessageErreurProduction(errorMessage);
 	}
 	
 	public void clearError() {

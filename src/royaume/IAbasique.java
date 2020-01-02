@@ -2,6 +2,8 @@ package royaume;
 
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import kingdom.ProdException;
+
 import java.util.Random;
 
 /**

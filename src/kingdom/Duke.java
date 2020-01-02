@@ -1,4 +1,4 @@
-package royaume;
+package kingdom;
 
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
@@ -8,68 +8,68 @@ import javafx.scene.paint.Color;
  * @author Moi
  *
  */
-public class Duc {
-	private String nom;
-	private int nbChateaux = 0;
-	private Color couleur;
-	private Image imgChateau;
+public class Duke {
+	private String name;
+	private int nbCastle = 0;
+	private Color color;
+	private Image imgCastle;
 	
 	/**
 	 * Construct a duke 
-	 * @param nom Name of this duke
-	 * @param couleur Color that is link to this duke
-	 * @param imgChateau Image of the castle
+	 * @param name Name of this duke
+	 * @param color Color that is link to this duke
+	 * @param imgCastle Image of the castle
 	 */
-	public Duc(String nom, Color couleur, Image imgChateau) {
-		this.nom = nom;
-		this.couleur = couleur;
-		this.imgChateau = imgChateau;
+	public Duke(String name, Color color, Image imgCastle) {
+		this.name = name;
+		this.color = color;
+		this.imgCastle = imgCastle;
 	}
 
 	/**
 	 * Getter of the name
 	 * @return name
 	 */
-	public String getNom() {
-		return nom;
+	public String getName() {
+		return name;
 	}
 	
 	/**
 	 * Getter of the number of castle under this duke
 	 * @return Number of castle
 	 */
-	public int getNbChateaux() {
-		return nbChateaux;
+	public int getNbCastle() {
+		return nbCastle;
 	}
 	
 	/**
 	 * Getter of the color linked to this duke
 	 * @return color
 	 */
-	public Color getCouleur() {
-		return couleur;
+	public Color getColor() {
+		return color;
 	}
 	
 	/**
 	 * Getter of the image of castle linked to this duke
 	 * @return image of castle
 	 */
-	public Image getImgChateau() {
-		return imgChateau;
+	public Image getImgCastle() {
+		return imgCastle;
 	}
 	
 	/**
 	 * Add a castle to this duke
 	 */
-	public void ajouterChateau() {
-		nbChateaux++;
+	public void addCastle() {
+		nbCastle++;
 	}
 	
 	/**
 	 * Remove of a castle from this duke
 	 */
-	public void retirerChateau() {
-		nbChateaux--;
+	public void removeCastle() {
+		nbCastle--;
 	}
 	
 	@Override
@@ -79,8 +79,8 @@ public class Duc {
 		if(o.getClass()!=getClass()) {
 			return false;
 		}
-		Duc d = (Duc)o;
-		return this.nom == d.nom;
+		Duke d = (Duke)o;
+		return this.name == d.name;
 	}
 
 }

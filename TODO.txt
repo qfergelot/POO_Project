@@ -17,24 +17,26 @@ Version de base :
 		UISingleton (todo)
 	royaume:
 		Chateau (to test)
-		Constantes (to test)
-		Duc (to test)
+		Constants (to test) en
+		Duke (to test) en
 		IABasique (to test)
-		Ordre (to test)
-		Ost (to test)
-		Porte (to test)
+		Order (doing) en
+		Ost (to test) en
+		Door (to test) en
 		ProdException (to test)
 		Production (todo)
 		Royaume (todo)
 	troupes:
-		Chevalier (todo)
-		Onagre (todo)
-		Piquier (todo)
-		Troupe (todo)
+		Knight (to test) en
+		Onagre (to test) en
+		Pikeman (to test) en
+		Troop (to test) en
 		
 -unifier le langage: tout en anglais ou tout en fran�ais et relire la doc pour corriger
 
 Version Avanc�e (A FAIRE QUE QUAND ON AURA RENDU LA BASIQUE) :
+
+-IA Avancée
 
 -si on commande une production alors qu'il y en a une en cours, ajouter la production dans une file 
 

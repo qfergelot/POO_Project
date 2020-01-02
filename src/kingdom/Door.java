@@ -1,4 +1,4 @@
-package royaume;
+package kingdom;
 
 import java.util.Random;
 
@@ -7,32 +7,32 @@ import java.util.Random;
  * @author Moi
  *
  */
-public class Porte {
+public class Door {
 	private Random rdm = new Random();
 	
-	private char porte;
+	private char door;
 	
 	/**
 	 * Construct a door by default
 	 */
-	public Porte() {
-		porte = (char)rdm.nextInt(4);
+	public Door() {
+		door = (char)rdm.nextInt(4);
 	}
 	
 	/**
 	 * Construct a door
 	 * @param rot set the rotation of the door
 	 */
-	public Porte(int rot) {
-		porte = (char) rot;
+	public Door(int rot) {
+		door = (char) rot;
 	}
 	
 	/**
 	 * 
 	 * @return
 	 */
-	public char getPorte() {
-		return porte;
+	public char getDoor() {
+		return door;
 	}
 	
 }

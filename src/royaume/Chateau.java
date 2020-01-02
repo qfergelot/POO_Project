@@ -9,6 +9,8 @@ import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import kingdom.Ost;
+import kingdom.ProdException;
 import troupes.*;
 
 /**
@@ -26,13 +28,13 @@ public class Chateau extends Sprite{
 	private double tresor;
 	private int niveau;
 
-	private int nbPiquiers;
-	private int nbChevaliers;
-	private int nbOnagres;
+	private int nbPikemens;
+	private int nbKnights;
+	private int nbOnagers;
 	
-	private int viePiquier = Constantes.VIE_PIQUIER;
-	private int vieChevalier = Constantes.VIE_CHEVALIER;
-	private int vieOnagre = Constantes.VIE_ONAGRE;
+	private int lifePikemen = Constants.LIFE_PIKEMEN;
+	private int lifeKnight = Constants.LIFE_KNIGHT;
+	private int lifeOnager = Constants.LIFE_ONAGER;
 	
 	private Production production;
 	private Ordre ordreDeplacement;
@@ -45,15 +47,15 @@ public class Chateau extends Sprite{
 	 * @param image Image of the castle
 	 * @param duc Owner (@see Duc)
 	 * @param tresor Tresory
-	 * @param nbPiquiers Number of spearmen
-	 * @param nbChevaliers Number of knight
-	 * @param nbOnagres Number of onager
+	 * @param nbPikemens Number of spearmen
+	 * @param nbKnights Number of knight
+	 * @param nbOnagers Number of onager
 	 * @param x Position x
 	 * @param y Position y
 	 * @param popupOst Popup to display for attacks or transfer
 	 */
-	public Chateau(Pane layer, Image image, Duc duc, double tresor, int nbPiquiers, int nbChevaliers,
-			int nbOnagres, double x, double y, Popup popupOst) {
+	public Chateau(Pane layer, Image image, Duc duc, double tresor, int nbPikemens, int nbKnights,
+			int nbOnagers, double x, double y, Popup popupOst) {
 		super(layer, image, x, y);
 		this.popupOst = popupOst;
 		this.duc = duc;
@@ -61,21 +63,21 @@ public class Chateau extends Sprite{
 		this.neutre = false;
 		this.tresor = tresor;
 		this.niveau = 1;
-		this.nbPiquiers = nbPiquiers;
-		this.nbChevaliers = nbChevaliers;
-		this.nbOnagres = nbOnagres;
+		this.nbPikemens = nbPikemens;
+		this.nbKnights = nbKnights;
+		this.nbOnagers = nbOnagers;
 		this.production = null;
 		this.ordreDeplacement = null;
 		this.ost = null;
 		this.porte = new Porte();
 		switch(getPorte()) {
-			case Constantes.GAUCHE:
+			case Constants.LEFT:
 				imageView.setRotate(90);
 				break;
-			case Constantes.HAUT:
+			case Constants.UP:
 				imageView.setRotate(180);
 				break;
-			case Constantes.DROITE:
+			case Constants.RIGHT:
 				imageView.setRotate(270);
 				break;
 			default:
@@ -104,35 +106,35 @@ public class Chateau extends Sprite{
 	 * @param layer Pane in which the castle must appear
 	 * @param image Image of the castle
 	 * @param tresor Tresory
-	 * @param nbPiquiers Number of spearmen
-	 * @param nbChevaliers Number of knight
-	 * @param nbOnagres Number of onager
+	 * @param nbPikemens Number of spearmen
+	 * @param nbKnights Number of knight
+	 * @param nbOnagers Number of onager
 	 * @param x Position x
 	 * @param y Position y
 	 * @param popupOst Popup to display for attacks or transfer
 	 */
-	public Chateau(Pane layer, Image image, double tresor, int nbPiquiers, int nbChevaliers,
-			int nbOnagres, double x, double y, Popup popupOst) {
+	public Chateau(Pane layer, Image image, double tresor, int nbPikemens, int nbKnights,
+			int nbOnagers, double x, double y, Popup popupOst) {
 		super(layer, image, x, y);
 		this.popupOst = popupOst;
 		this.tresor = tresor;
 		this.neutre = true;
 		this.niveau = rdm.nextInt(4)+1;
-		this.nbPiquiers = nbPiquiers;
-		this.nbChevaliers = nbChevaliers;
-		this.nbOnagres = nbOnagres;
+		this.nbPikemens = nbPikemens;
+		this.nbKnights = nbKnights;
+		this.nbOnagers = nbOnagers;
 		this.production = null;
 		this.ordreDeplacement = null;
 		this.ost = null;
 		this.porte = new Porte();
 		switch(getPorte()) {
-		case Constantes.GAUCHE:
+		case Constants.LEFT:
 			imageView.setRotate(90);
 			break;
-		case Constantes.HAUT:
+		case Constants.UP:
 			imageView.setRotate(180);
 			break;
-		case Constantes.DROITE:
+		case Constants.RIGHT:
 			imageView.setRotate(270);
 			break;
 		default:
@@ -162,7 +164,7 @@ public class Chateau extends Sprite{
     			
     			attack.setOnAction(evt -> {
     				if (!ordre())
-    					getChateau().creerOrdre(new Ost( kingdom.getPlayer(), getChateau(), x, y), getChateau(), nbPiquiers, nbChevaliers, nbOnagres);
+    					getChateau().creerOrdre(new Ost( kingdom.getPlayer(), getChateau(), x, y), getChateau(), nbPikemens, nbKnights, nbOnagers);
     			});
     			contextMenu.getItems().addAll(attack);
     			contextMenu.show(getChateau().getView(), e.getScreenX(), e.getScreenY());*/
@@ -185,15 +187,15 @@ public class Chateau extends Sprite{
 		} else {
 			
 			int cout;
-			if(unite==Constantes.PIQUIER)
-				cout = Piquier.COUT_PRODUCTION;
-			else if(unite==Constantes.CHEVALIER)
-				cout = Chevalier.COUT_PRODUCTION;
-			else if(unite==Constantes.ONAGRE)
-				cout = Onagre.COUT_PRODUCTION;
+			if(unite==Constants.PIKEMEN)
+				cout = Pikemen.PRODUCTION_COST;
+			else if(unite==Constants.KNIGHT)
+				cout = Knight.PRODUCTION_COST;
+			else if(unite==Constants.ONAGER)
+				cout = Onager.PRODUCTION_COST;
 			else {
 				cout = 1000*niveau;
-				if(niveau == Constantes.NIVEAU_MAX)
+				if(niveau == Constants.NIVEAU_MAX)
 					throw new ProdException("Niveau du Chateau Maximal");
 			}
 			if(tresor < cout) {
@@ -216,12 +218,12 @@ public class Chateau extends Sprite{
 			if(production.estAmelioration()) {
 				tresor += 1000*niveau;
 			} else {
-				if(production.getUnite()==Constantes.PIQUIER)
-					tresor += Piquier.COUT_PRODUCTION;
-				else if(production.getUnite()==Constantes.CHEVALIER)
-					tresor += Chevalier.COUT_PRODUCTION;
+				if(production.getUnite()==Constants.PIKEMEN)
+					tresor += Pikemen.PRODUCTION_COST;
+				else if(production.getUnite()==Constants.KNIGHT)
+					tresor += Knight.PRODUCTION_COST;
 				else
-					tresor += Onagre.COUT_PRODUCTION;
+					tresor += Onager.PRODUCTION_COST;
 			}
 		}
 		production = null;
@@ -243,12 +245,12 @@ public class Chateau extends Sprite{
 			niveau++;
 		else {
 			int t = production.getUnite();
-			if(t == Constantes.PIQUIER)
-				nbPiquiers++;
-			else if(t == Constantes.CHEVALIER)
-				nbChevaliers++;
+			if(t == Constants.PIKEMEN)
+				nbPikemens++;
+			else if(t == Constants.KNIGHT)
+				nbKnights++;
 			else
-				nbOnagres++;
+				nbOnagers++;
 		}
 		if (this == UIsingleton.getUIsingleton().getChateauSelection())
 			UIsingleton.getUIsingleton().setToUpdateTroupes(true);
@@ -264,26 +266,26 @@ public class Chateau extends Sprite{
 	 * Initialize an order for this castle
 	 * @param ost Ost that is to be link to this order
 	 * @param cible Target castle 
-	 * @param nbPiquiers Number of pikemen 
-	 * @param nbChevaliers Number of knights
-	 * @param nbOnagres Number of onagers
+	 * @param nbPikemens Number of pikemen 
+	 * @param nbKnights Number of knights
+	 * @param nbOnagers Number of onagers
 	 * @return true if order launched, else false
 	 */
-	public boolean creerOrdre(Ost ost, Chateau cible, int nbPiquiers, int nbChevaliers, int nbOnagres) {
-		if(this.nbPiquiers<nbPiquiers || this.nbChevaliers<nbChevaliers || this.nbOnagres<nbOnagres) {
+	public boolean creerOrdre(Ost ost, Chateau cible, int nbPikemens, int nbKnights, int nbOnagers) {
+		if(this.nbPikemens<nbPikemens || this.nbKnights<nbKnights || this.nbOnagers<nbOnagers) {
 			return false;
 		}
 		this.ost = ost;
 		double x = pos_x + getWidth()/2, y = pos_y + getHeight()/2;
-		if(getPorte()==Constantes.DROITE) {
+		if(getPorte()==Constants.RIGHT) {
 			x += getWidth()/2;
 			y -= 10;
 		}
-		else if(getPorte()==Constantes.GAUCHE) {
+		else if(getPorte()==Constants.LEFT) {
 			x -= getWidth();
 			y -= 10;
 		}
-		else if(getPorte()==Constantes.HAUT) {
+		else if(getPorte()==Constants.UP) {
 			x -= 10;
 			y -= getHeight();
 		}
@@ -291,7 +293,7 @@ public class Chateau extends Sprite{
 			x -= 10;
 			y += getHeight()/2;
 		}
-		ordreDeplacement = new Ordre(cible, nbPiquiers, nbChevaliers, nbOnagres, x, y);
+		ordreDeplacement = new Ordre(cible, nbPikemens, nbKnights, nbOnagers, x, y);
 		return true;
 	}
 	
@@ -302,16 +304,16 @@ public class Chateau extends Sprite{
 		int stop = (ordreDeplacement.getNbTroupes()>=3? 3 : ordreDeplacement.getNbTroupes());
 		if(ost == null) return;
 		for(int i=0; i<stop; i++) {
-			if(ordreDeplacement.getNbOnagres()>0) {
-				ordreDeplacement.sortirOnagre(ost);
-				nbOnagres--;
+			if(ordreDeplacement.getNbOnagers()>0) {
+				ordreDeplacement.sortirOnager(ost);
+				nbOnagers--;
 			}
-			else if(ordreDeplacement.getNbPiquiers()>0) {
-				ordreDeplacement.sortirPiquier(ost);
-				nbPiquiers--;			}
+			else if(ordreDeplacement.getNbPikemens()>0) {
+				ordreDeplacement.sortirPikemen(ost);
+				nbPikemens--;			}
 			else {
-				ordreDeplacement.sortirChevalier(ost);
-				nbChevaliers--;
+				ordreDeplacement.sortirKnight(ost);
+				nbKnights--;
 			}
 		}
 		if(ordreDeplacement.getNbTroupes()==0) {
@@ -359,7 +361,7 @@ public class Chateau extends Sprite{
 	 */
 	public void finTourChateau() {
 		if(!neutre) {
-			if(duc.getClass()==IAbasique.class) {
+			if(duc.getClass()==IABasique.class) {
 				IAbasique ia = (IAbasique)duc;
 				ia.tourChateauIA(this);
 			}
@@ -383,84 +385,84 @@ public class Chateau extends Sprite{
 	 * @return true if there are no units, else false
 	 */
 	public boolean aucuneTroupe() {
-		return nbPiquiers == 0 && nbChevaliers == 0 && nbOnagres == 0;
+		return nbPikemens == 0 && nbKnights == 0 && nbOnagers == 0;
 	}
 	
 	/**
 	 * Getter of the remaining number of pikemen
 	 * @return Number of remaining pikemen
 	 */
-	public boolean restePiquiers() {
-		return nbPiquiers > 0;
+	public boolean restePikemens() {
+		return nbPikemens > 0;
 	}
 	
 	/**
 	 * Getter of the remaining number of knight
 	 * @return Number of remaining knight
 	 */
-	public boolean resteChevaliers() {
-		return nbChevaliers > 0;
+	public boolean resteKnights() {
+		return nbKnights > 0;
 	}
 	
 	/**
 	 * Getter of the remaining number of onager
 	 * @return Number of remaining onager
 	 */
-	public boolean resteOnagres() {
-		return nbOnagres > 0;
+	public boolean resteOnagers() {
+		return nbOnagers > 0;
 	}
 	
 	/**
 	 * Add a pikemen to this castle's army
 	 */
-	public void ajouterPiquier() {
-		nbPiquiers++;
+	public void addPikemen() {
+		nbPikemens++;
 	}
 	
 	/**
 	 * Add a knight to this castle's army
 	 */
-	public void ajouterChevalier() {
-		nbChevaliers++;
+	public void addKnight() {
+		nbKnights++;
 	}
 	
 	/**
 	 * Add an onager to this castle's army
 	 */
-	public void ajouterOnagre() {
-		nbOnagres++;
+	public void addOnager() {
+		nbOnagers++;
 	}
 	
 	/**
 	 * Remove health equivalent to the attack of one pikemen
 	 */
-	public void recoisAttaquePiquier() {
-		viePiquier--;
-		if(viePiquier==0) {
-			nbPiquiers--;
-			viePiquier = Constantes.VIE_PIQUIER;
+	public void recoisAttaquePikemen() {
+		lifePikemen--;
+		if(lifePikemen==0) {
+			nbPikemens--;
+			lifePikemen = Constants.LIFE_PIKEMEN;
 		}
 	}
 	
 	/**
 	 * Remove health equivalent to the attack of one knight
 	 */
-	public void recoisAttaqueChevalier() {
-		vieChevalier--;
-		if(vieChevalier==0) {
-			nbChevaliers--;
-			vieChevalier = Constantes.VIE_CHEVALIER;
+	public void recoisAttaqueKnight() {
+		lifeKnight--;
+		if(lifeKnight==0) {
+			nbKnights--;
+			lifeKnight = Constants.LIFE_KNIGHT;
 		}
 	}
 	
 	/**
 	 * Remove health equivalent to the attack of one onager
 	 */
-	public void recoisAttaqueOnagre() {
-		vieOnagre--;
-		if(vieOnagre==0) {
-			nbOnagres--;
-			vieOnagre = Constantes.VIE_ONAGRE;
+	public void recoisAttaqueOnager() {
+		lifeOnager--;
+		if(lifeOnager==0) {
+			nbOnagers--;
+			lifeOnager = Constants.LIFE_ONAGER;
 		}
 	}
 	/* * * * * * * * DEBUT : SAVE * * * * * * * */
@@ -475,7 +477,7 @@ public class Chateau extends Sprite{
 			d = this.duc.getNom();
 		}
 		s += "Castle " + this.pos_x + " " + this.pos_y + " " + d + " " + this.niveau + " " + this.tresor + " " +
-				this.nbPiquiers + " " + this.nbChevaliers + " " + this.nbOnagres + " " + this.getPorte(); 
+				this.nbPikemens + " " + this.nbKnights + " " + this.nbOnagers + " " + this.getPorte(); 
 		return s;
 	}
 	
@@ -551,24 +553,24 @@ public class Chateau extends Sprite{
 	 * Getter of the number of pikemen of the army
 	 * @return Number of pikemen
 	 */
-	public int getNbPiquiers() {
-		return nbPiquiers;
+	public int getNbPikemens() {
+		return nbPikemens;
 	}
 
 	/**
 	 * Getter of the number of knight of the army
 	 * @return Number of knight
 	 */
-	public int getNbChevaliers() {
-		return nbChevaliers;
+	public int getNbKnights() {
+		return nbKnights;
 	}
 
 	/**
 	 * Getter of the number of onager of the army
 	 * @return Number of onager
 	 */
-	public int getNbOnagres() {
-		return nbOnagres;
+	public int getNbOnagers() {
+		return nbOnagers;
 	}
 
 	/**
@@ -610,16 +612,16 @@ public class Chateau extends Sprite{
 	public void setPorte(int porte) {	
 		this.porte = new Porte(porte);
 		switch(getPorte()) {
-		case Constantes.GAUCHE:
+		case Constants.LEFT:
 			imageView.setRotate(90);
 			break;
-		case Constantes.HAUT:
+		case Constants.UP:
 			imageView.setRotate(180);
 			break;
-		case Constantes.DROITE:
+		case Constants.RIGHT:
 			imageView.setRotate(270);
 			break;
-		case Constantes.BAS:
+		case Constants.DOWN:
 			imageView.setRotate(0);
 			break;
 		default:
