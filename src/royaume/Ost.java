@@ -42,6 +42,7 @@ public class Ost {
 						cible.setDuc(this.duc);
 						cible.setNeutre(false);
 						cible.setImageView(this.duc.getImgChateau());
+						cible.annulerProduction();
 						
 						this.duc.ajouterChateau();						
 					}

@@ -175,17 +175,18 @@ public class Chateau extends Sprite{
 	}
 	
 	public void annulerProduction() {
-		if(production.estAmelioration()) {
-			tresor += 1000*niveau;
-		} else {
-			if(production.getUnite()==Constantes.PIQUIER)
-				tresor += Piquier.COUT_PRODUCTION;
-			else if(production.getUnite()==Constantes.CHEVALIER)
-				tresor += Chevalier.COUT_PRODUCTION;
-			else
-				tresor += Onagre.COUT_PRODUCTION;
+		if(production != null) {
+			if(production.estAmelioration()) {
+				tresor += 1000*niveau;
+			} else {
+				if(production.getUnite()==Constantes.PIQUIER)
+					tresor += Piquier.COUT_PRODUCTION;
+				else if(production.getUnite()==Constantes.CHEVALIER)
+					tresor += Chevalier.COUT_PRODUCTION;
+				else
+					tresor += Onagre.COUT_PRODUCTION;
+			}
 		}
-		
 		production = null;
 	}
 	

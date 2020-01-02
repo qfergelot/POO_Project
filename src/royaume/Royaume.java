@@ -1,15 +1,12 @@
 package royaume;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
 
 import game.Popup;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import troupes.*;
 
 public class Royaume {
 	private Random rdm = new Random();
@@ -25,17 +22,13 @@ public class Royaume {
 	};
 	private Image imageNeutralChateau = new Image(getClass().getResource("/images/Chateau neutre.png").toExternalForm(), 40, 40, true, false);
 	
-	/* A clarifier:
-	 * Comment on attaque un chateau ? On se pose une case devant ? Forcément devant sa porte ?
-	 * Il faut rentrer dans le chateau ?
-	 */
 	private Duc []ducs;
 	private Chateau []chateaux;
 	private int nbChateaux;
 	
-	private int nbJoueurs; //Normalement restera 1 ou 0
-	private int nbIA; //Pour plus tard
-	private int niveauIA; //Pour plus tard
+	private int nbJoueurs;
+	private int nbIA;
+	private int niveauIA;
 	
 	private int distMinChateaux;
 	private int hauteur;

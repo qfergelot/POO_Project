@@ -6,15 +6,11 @@ import java.io.*;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -39,13 +35,11 @@ public class Main extends Application {
 	
 	private Input input;
 	
-	private int compteur_temps = 0;
 	private double dernier_temps = 0;
 	
 	private static boolean pauseTrigger = false;
 	
 	private Duc ducJoueur = null;
-	private Chateau dernierChateau = null;
 	private Chateau chateauSelection = null;
 	private Text texteFlorins = new Text("--");
 	private Text textePiquiers = new Text("--");
@@ -133,7 +127,6 @@ public class Main extends Application {
 				//********COMPTEUR TEMPS********/
 				if((now - dernier_temps) >= Constantes.GAME_FREQUENCY/2) {
 					dernier_temps = now;
-					compteur_temps++;
 					pauseTrigger = false;
 					updateTresor();
 				}
@@ -284,8 +277,6 @@ public class Main extends Application {
 	private void updateClick() {
 		chateauSelection = UIsingleton.getUIsingleton().getChateauSelection();
 		
-		
-		
 		messageErreurProduction.setText("");
 		if(chateauSelection == null) {
 			bordureChateau.relocate(-100, -100);
@@ -294,11 +285,9 @@ public class Main extends Application {
     		texteChevaliers.setText("--");
     		texteOnagres.setText("--");
     		texteJoueur.setText("--");
-    		dernierChateau = null;
     		barreProgression.setWidth(1);
 		}
 		else {
-			dernierChateau = chateauSelection;
 			bordureChateau.relocate(chateauSelection.getPos_x()-2, chateauSelection.getPos_y()-2);
 			texteFlorins.setText(""+chateauSelection.getTresor());
     		textePiquiers.setText(""+chateauSelection.getNbPiquiers());
@@ -475,8 +464,6 @@ public class Main extends Application {
 		gameFieldLayer.getChildren().add(fond);
 		gameFieldLayer.getChildren().add(barre_ressources);
 		gameFieldLayer.getChildren().add(barre_actions);
-		//gameFieldLayer.getChildren().add(barre_amelioration);
-		//gameFieldLayer.getChildren().add(barreProgression);
 		gameFieldLayer.getChildren().add(bordureChateau);
 		gameFieldLayer.getChildren().add(img_florins);
 		gameFieldLayer.getChildren().add(texteFlorins);
@@ -487,12 +474,6 @@ public class Main extends Application {
 		gameFieldLayer.getChildren().add(img_onagre);
 		gameFieldLayer.getChildren().add(texteOnagres);
 		gameFieldLayer.getChildren().add(texteJoueur);
-		/*gameFieldLayer.getChildren().add(produire);
-		gameFieldLayer.getChildren().add(messageErreurProduction);
-		gameFieldLayer.getChildren().add(boutonProduirePiquier);
-		gameFieldLayer.getChildren().add(boutonProduireChevalier);
-		gameFieldLayer.getChildren().add(boutonProduireOnagre);
-		gameFieldLayer.getChildren().add(boutonProduireAmelioration);*/
 		layoutProduction.getChildren().addAll(barre_amelioration,barreProgression,produire,messageErreurProduction);
 		layoutProduction.getChildren().addAll(boutonProduirePiquier,boutonProduireChevalier,boutonProduireOnagre,boutonProduireAmelioration,boutonSauvegarder);
 		gameFieldLayer.getChildren().add(layoutProduction);
@@ -574,13 +555,3 @@ public class Main extends Application {
 	}
 
 }
-
-// ANTISECHE QCM DE MORT
-/* boolean setX(double X)
- * if X<0 return false
- * sinon this.X = X return true
- * on peut pas ! On lance une exception
- */
-/* setX -> pas bonne coordonnée : boucle pour demander nouvelle coordonnée?
- * Pas bien car ce n'est pas forcément un humain qui va appeler un setter
- */
