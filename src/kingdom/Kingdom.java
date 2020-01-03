@@ -131,6 +131,7 @@ public class Kingdom {
 		String winnerName = null;
 		for(int i=0; i<nbPlayers+nbIA; i++) {
 			if(dukes[i].getNbCastle() > 0) {
+				System.out.println(dukes[i].getName() + " " + dukes[i].getNbCastle());
 				nbRestants++;
 				winnerName = dukes[i].getName();
 				if(nbRestants > 1)
@@ -236,7 +237,6 @@ public class Kingdom {
 			}
 			castle[i] = new Castle(layer, d.getImgCastle(), d, Double.parseDouble(args[5]), Integer.parseInt(args[6]),
 					Integer.parseInt(args[7]), Integer.parseInt(args[8]), Double.parseDouble(args[1]), Double.parseDouble(args[2]), popupOst);
-			d.addCastle();
 			
 		}
 		castle[i].setDoor(Integer.parseInt(args[9]));

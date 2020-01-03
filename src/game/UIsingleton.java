@@ -5,7 +5,7 @@ import kingdom.Castle;
 import kingdom.Duke;
 
 /**
- * 
+ * Singleton Class
  * @author Moi
  *
  */

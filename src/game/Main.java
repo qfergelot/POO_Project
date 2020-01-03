@@ -224,7 +224,7 @@ public class Main extends Application {
 	}
 	
 	private void saveGame() {
-		File f = new File("Save.sav");
+		File f = new File("Save.txt");
 		
 		try {
 			FileWriter fw = new FileWriter(f);
@@ -243,7 +243,7 @@ public class Main extends Application {
 	
 	private void loadGame() {
 		try {
-			File f = new File("Save.sav");
+			File f = new File("Save.txt");
 			BufferedReader br = new BufferedReader(new FileReader(f));
 			
 			try {

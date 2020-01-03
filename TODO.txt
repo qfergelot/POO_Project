@@ -1,16 +1,15 @@
 Version de base :
 -Apr_s le chargement d'une sauvegarde, il arrive qu'une ost reste bloqu�ｿｽs au niveau des murs d'un chateau[DONE]
+-La partie ne se finit pas apres un chargement [DONE]
+-unifier le langage: tout en anglais ou tout en français[DONE]
 
 - ne pas superposer les troupes en sortie de chateau
 
 -le message en cours de production doit s'en aller a la fin d'une production
 
--actualiser le visuel du transfert de troupes directement (ne pas avoir �ｿｽ clicker autre part puis revenir sur le chateau pour voir l'avancement des troupes)
+-actualiser le visuel du transfert de troupes directement (ne pas avoir à clicker autre part puis revenir sur le chateau pour voir l'avancement des troupes)
 
--affiner l'affichage de la map pour qu'elle soit correcte sur tous les ﾃｩcrans
-
--La partie ne se finit pas apres un chargement
-
+-affiner l'affichage de la map pour qu'elle soit correcte sur tous les écrans
 
 
 -javadoc :
@@ -37,16 +36,14 @@ Version de base :
 		Pikeman (to test) en
 		Troop (to test) en
 		
--unifier le langage: tout en anglais ou tout en fran�ｿｽais
-
 -relire la doc pour corriger
 
-Version Avanc�ｿｽe (A FAIRE QUE QUAND ON AURA RENDU LA BASIQUE) :
+Version Avancée (A FAIRE QUE QUAND ON AURA RENDU LA BASIQUE) :
 
--IA Avancﾃｩe
+-IA Avancée
 
 -si on commande une production alors qu'il y en a une en cours, ajouter la production dans une file 
 
--peut-�ｿｽtre une sauvegarde plus �ｿｽlabor�ｿｽe ?
+-peut-être une sauvegarde plus élaborée ?
 
 -javadoc de tous ce qui est nouveau ;)
