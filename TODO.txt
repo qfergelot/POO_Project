@@ -9,7 +9,7 @@ Version de base :
 
 -affiner l'affichage de la map pour qu'elle soit correcte sur tous les ﾃｩcrans
 
--La partie ne se finit pas
+-La partie ne se finit pas apres un chargement
 
 
 
