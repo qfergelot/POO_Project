@@ -1,13 +1,15 @@
 Version de base :
-- si on commande une production alors qu'il y en a une en cours, il faut afficher un message "deja en cours attente"[DONE]
--Lors de la conquﾃｨte d'un chateau toute production en cours doit ﾃｪtre annulﾃｩe[DONE]
 -Apr_s le chargement d'une sauvegarde, il arrive qu'une ost reste bloqu�ｿｽs au niveau des murs d'un chateau[DONE]
 
 - ne pas superposer les troupes en sortie de chateau
 
+-le message en cours de production doit s'en aller a la fin d'une production
+
 -actualiser le visuel du transfert de troupes directement (ne pas avoir �ｿｽ clicker autre part puis revenir sur le chateau pour voir l'avancement des troupes)
 
 -affiner l'affichage de la map pour qu'elle soit correcte sur tous les ﾃｩcrans
+
+-La partie ne se finit pas
 
 
 
