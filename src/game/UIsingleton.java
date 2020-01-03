@@ -33,16 +33,16 @@ public final class UIsingleton {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Get the current castle selected by the player
+	 * @return castle selected
 	 */
 	public Castle getCastleSelection() {
 		return castleSelection;
 	}
 	
 	/**
-	 * 
-	 * @param c
+	 * set the current selection
+	 * @param c castle to be set as currently selected
 	 */
 	public void setCastleSelection(Castle c) {
 		castleSelection = c;
@@ -65,15 +65,15 @@ public final class UIsingleton {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * get the real player
+	 * @return duke of the player
 	 */
 	public Duke getDukePlayer() {
 		return dukePlayer;
 	}
 	
 	/**
-	 * 
+	 * set the real player
 	 * @param dukePlayer
 	 */
 	public void setDukePlayer(Duke dukePlayer) {
@@ -81,7 +81,7 @@ public final class UIsingleton {
 	}
 	
 	/**
-	 * 
+	 * set the pauseTrigger affecting the pause
 	 */
 	public void setPause() {
 		pause = !pause;
