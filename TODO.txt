@@ -1,14 +1,15 @@
 Version de base :
 - si on commande une production alors qu'il y en a une en cours, il faut afficher un message "deja en cours attente"[DONE]
--Lors de la conquète d'un chateau toute production en cours doit être annulée[DONE]
+-Lors de la conquﾃｨte d'un chateau toute production en cours doit ﾃｪtre annulﾃｩe[DONE]
+-Apr_s le chargement d'une sauvegarde, il arrive qu'une ost reste bloqu�ｿｽs au niveau des murs d'un chateau[DONE]
 
 - ne pas superposer les troupes en sortie de chateau
 
--actualiser le visuel du transfert de troupes directement (ne pas avoir � clicker autre part puis revenir sur le chateau pour voir l'avancement des troupes)
+-actualiser le visuel du transfert de troupes directement (ne pas avoir �ｿｽ clicker autre part puis revenir sur le chateau pour voir l'avancement des troupes)
 
--affiner l'affichage de la map pour qu'elle soit correcte sur tous les écrans
+-affiner l'affichage de la map pour qu'elle soit correcte sur tous les ﾃｩcrans
 
--Apr_s le chargement d'une sauvegarde, il arrive qu'une ost reste bloqu�s au niveau des murs d'un chateau
+
 
 -javadoc :
 	game:
@@ -26,22 +27,24 @@ Version de base :
 		Ost (to test) en
 		Door (to test) en
 		ProdException (to test) en
-		Production (todo) en
-		Kingdom (todo) en
+		Production (TODO) en
+		Kingdom (TODO) en
 	troupes:
 		Knight (to test) en
 		Onager (to test) en
 		Pikeman (to test) en
 		Troop (to test) en
 		
--unifier le langage: tout en anglais ou tout en fran�ais et relire la doc pour corriger
+-unifier le langage: tout en anglais ou tout en fran�ｿｽais
 
-Version Avanc�e (A FAIRE QUE QUAND ON AURA RENDU LA BASIQUE) :
+-relire la doc pour corriger
 
--IA Avancée
+Version Avanc�ｿｽe (A FAIRE QUE QUAND ON AURA RENDU LA BASIQUE) :
+
+-IA Avancﾃｩe
 
 -si on commande une production alors qu'il y en a une en cours, ajouter la production dans une file 
 
--peut-�tre une sauvegarde plus �labor�e ?
+-peut-�ｿｽtre une sauvegarde plus �ｿｽlabor�ｿｽe ?
 
 -javadoc de tous ce qui est nouveau ;)

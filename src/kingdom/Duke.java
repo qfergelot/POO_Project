@@ -82,5 +82,9 @@ public class Duke {
 		Duke d = (Duke)o;
 		return this.name == d.name;
 	}
+	
+	public void reset() {
+		
+	}
 
 }

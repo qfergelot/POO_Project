@@ -102,4 +102,11 @@ public class IABasic extends Duke {
 		IABasic d = (IABasic)o;
 		return getName() == d.getName();
 	}
+	
+	public void reset() {
+		economicPhase = true;
+		phaseDuration = 600;
+		attackCounter = 0;
+		target = null;
+	}
 }

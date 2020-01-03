@@ -358,7 +358,7 @@ public class Castle extends Sprite{
 	
 	/**
 	 * Function called for each turn
-	 * Process the advance of production, exit units and treasurey
+	 * Process the advance of production, exit units and treasury
 	 */
 	public void finishRoundCastle() {
 		if(!neutral) {
@@ -486,8 +486,9 @@ public class Castle extends Sprite{
 	 * Remove this castle from the game
 	 */
 	public void delete() {
-		this.removeFromLayer();
-		
+		this.removeFromLayer();	
+		this.ost = null;
+		this.displacementOrder = null;
 	}
 	
 	/* * * * * * * * FIN : SAVE * * * * * * * */

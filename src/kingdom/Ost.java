@@ -101,6 +101,7 @@ public class Ost {
 	public void delete() {
 		for (int i = 0; i<troops.size(); i++)
 			troops.get(i).delete();
+		troops.clear();
 	}
 	
 }

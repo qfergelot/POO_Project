@@ -55,7 +55,7 @@ public class Kingdom {
 		
 		ost = new ArrayList<Ost>();
 
-		/*Définition basique de nom à améliorer*/
+		/*Dﾃｩfinition basique de nom ﾃ� amﾃｩliorer*/
 		for(int i=0; i<nbPlayers; i++) {
 			dukes[i] = new Duke("Joueur" + i, colorDuke[i], imagePlayerCastle[i]);
 		}
@@ -96,7 +96,7 @@ public class Kingdom {
 	
 	public void createOrder(Castle c, Castle target, int nbPikemen, int nbKnight, int nbOnager) {
 		if(c.order()) {
-			//Déjà un ordre en cours
+			//Dﾃｩjﾃ� un ordre en cours
 		}
 		else {
 			Ost o = new Ost(c.getDuke(), target);
@@ -119,7 +119,6 @@ public class Kingdom {
 	
 	public void finishRound() {
 		for(int i=0; i<nbCastle; i++) {
-			
 			castle[i].finishRoundCastle();
 		}
 		for(int i=0; i<ost.size(); i++) {
@@ -145,14 +144,17 @@ public class Kingdom {
 		for (int i = 0; i<ost.size(); i++) {
 			ost.get(i).delete();
 		}
+		ost.clear();
 		for (int i = 0; i<nbCastle; i++) {
 			castle[i].delete();
+			castle[i] = null;
 		}
 		this.castle = null;
 		for (int i = 0; i < dukes.length; i++) {
 			while(dukes[i].getNbCastle()!=0) {
 				dukes[i].removeCastle();
 			}
+			dukes[i].reset();
 		}
 	}
 	
