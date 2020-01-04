@@ -26,8 +26,8 @@ Version de base :
 		Ost (to test) en
 		Door (to test) en
 		ProdException (to test) en
-		Production (TODO) en
-		Kingdom (TODO) en
+		Production (to test) en
+		Kingdom (to test) en
 	troupes:
 		Knight (to test) en
 		Onager (to test) en
