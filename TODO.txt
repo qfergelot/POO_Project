@@ -10,6 +10,8 @@ Version de base :
 
 -si on clique sur le bouton charger sur le menu et qu'il n'y a pas de fichier de sauvegarde, ça lance quand meme une partie come si on cliquait sur jouer.
 
+- si une attaque est finie, les unités restantes doivent continuer a aller jusqu'au chateau
+
 
 -javadoc :
 	game:
