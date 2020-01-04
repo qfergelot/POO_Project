@@ -320,18 +320,19 @@ public class Castle extends Sprite{
 	 */
 	public void removeTroopsOrder() {
 		int stop = (displacementOrder.getNbTroops()>=3? 3 : displacementOrder.getNbTroops());
+		boolean isExit;
 		if(ost == null) return;
 		for(int i=0; i<stop; i++) {
 			if(displacementOrder.getNbOnager()>0) {
-				displacementOrder.exitOnager(ost);
-				nbOnager--;
+				isExit = displacementOrder.exitOnager(ost);
+				if(isExit)nbOnager--;
 			}
 			else if(displacementOrder.getNbPikemen()>0) {
-				displacementOrder.exitPikemen(ost);
-				nbPikemen--;			}
+				isExit = displacementOrder.exitPikemen(ost);
+				if(isExit)nbPikemen--;			}
 			else {
-				displacementOrder.exitKnight(ost);
-				nbKnight--;
+				isExit = displacementOrder.exitKnight(ost);
+				if(isExit)nbKnight--;
 			}
 		}
 		if(displacementOrder.getNbTroops()==0) {

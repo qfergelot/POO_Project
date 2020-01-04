@@ -95,50 +95,96 @@ public class Order {
 	 * Exit a pikemen
 	 * @param ost Ost linked to this order
 	 */
-	public void exitPikemen(Ost ost) {
-		nbPikemen--;
-		nbTroops--;
-		if(cptExit == 0) {
+	public boolean exitPikemen(Ost ost) {
+		boolean isExit = false;
+		if(isExitFree(ost,exit_x,exit_y)) {
 			ost.addTroop(new Pikemen(target.getLayer(),image_pikemen,exit_x,exit_y));
-		} else if(cptExit == 1) {
+			isExit = true;
+		} 
+		else if(isExitFree(ost,exit_x2,exit_y2)) {
 			ost.addTroop(new Pikemen(target.getLayer(),image_pikemen,exit_x2,exit_y2));
-		} else {
-			ost.addTroop(new Pikemen(target.getLayer(),image_pikemen,exit_x3,exit_y3));
+			isExit = true;
 		}
-		cptExit = (cptExit+1)%3;
+		else if(isExitFree(ost,exit_x3,exit_y3)) {
+			ost.addTroop(new Pikemen(target.getLayer(),image_pikemen,exit_x3,exit_y3));
+			isExit = true;
+		}
+		if(isExit) {
+			nbPikemen--;
+			nbTroops--;
+			cptExit = (cptExit+1)%3;
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
 	/**
 	 * Exit a knight
 	 * @param ost Ost linked to this order
 	 */
-	public void exitKnight(Ost ost) {
-		nbKnight--;
-		nbTroops--;
-		if(cptExit == 0) {
+	public boolean exitKnight(Ost ost) {
+		boolean isExit = false;
+		if(isExitFree(ost,exit_x,exit_y)) {
 			ost.addTroop(new Knight(target.getLayer(),image_knight,exit_x,exit_y));
-		} else if(cptExit == 1) {
-			ost.addTroop(new Knight(target.getLayer(),image_knight,exit_x2,exit_y2));
-		} else {
-			ost.addTroop(new Knight(target.getLayer(),image_knight,exit_x3,exit_y3));
+			isExit = true;
 		}
-		cptExit = (cptExit+1)%3;
+		else if(isExitFree(ost,exit_x2,exit_y2)) {
+			ost.addTroop(new Knight(target.getLayer(),image_knight,exit_x2,exit_y2));
+			isExit = true;
+		}
+		else if(isExitFree(ost,exit_x3,exit_y3)) {
+			ost.addTroop(new Knight(target.getLayer(),image_knight,exit_x3,exit_y3));
+			isExit = true;
+		}
+		if(isExit) {
+			nbKnight--;
+			nbTroops--;
+			cptExit = (cptExit+1)%3;
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
 	/**
 	 * Exit a onager
 	 * @param ost Ost linked to this order
 	 */
-	public void exitOnager(Ost ost) {
-		nbOnager--;
-		nbTroops--;
-		if(cptExit == 0) {
+	public boolean exitOnager(Ost ost) {
+		boolean isExit = false;
+		if(isExitFree(ost,exit_x,exit_y)) {
 			ost.addTroop(new Onager(target.getLayer(),image_onager,exit_x,exit_y));
-		} else if(cptExit == 1) {
-			ost.addTroop(new Onager(target.getLayer(),image_onager,exit_x2,exit_y2));
-		} else {
-			ost.addTroop(new Onager(target.getLayer(),image_onager,exit_x3,exit_y3));
+			isExit = true;
 		}
-		cptExit = (cptExit+1)%3;
+		else if(isExitFree(ost, exit_x2, exit_y2)) {
+			ost.addTroop(new Onager(target.getLayer(),image_onager,exit_x2,exit_y2));
+			isExit = true;
+		}
+		else if(isExitFree(ost, exit_x3, exit_y3)) {
+				ost.addTroop(new Onager(target.getLayer(),image_onager,exit_x3,exit_y3));
+				isExit = true;
+		}
+		if(isExit) {
+			nbOnager--;
+			nbTroops--;
+			cptExit = (cptExit+1)%3;
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	private boolean isExitFree(Ost ost, double x, double y) {
+		Troop t = null;
+		for(int i=0; i<ost.getTroop().size(); i++) {
+			t = ost.getTroop().get(i);
+			if(x+20 > t.getPos_x() && x < t.getPos_x()+t.getWidth() && y+20 > t.getPos_y() && y < t.getPos_y()+t.getHeight())
+				return false;
+		}
+		return true;
 	}
 }
