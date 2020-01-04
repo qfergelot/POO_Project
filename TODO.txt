@@ -5,7 +5,7 @@ Version de base :
 -le message en cours de production doit s'en aller a la fin d'une production[DONE]
 - ne pas superposer les troupes en sortie de chateau[DONE]
 
--actualiser le visuel du transfert de troupes directement (ne pas avoir à clicker autre part puis revenir sur le chateau pour voir l'avancement des troupes)
+-actualiser le visuel du transfert de troupes directement pendant les attaques(ne pas avoir à clicker autre part puis revenir sur le chateau pour voir l'avancement des troupes)
 
 -affiner l'affichage de la map pour qu'elle soit correcte sur tous les écrans
 
