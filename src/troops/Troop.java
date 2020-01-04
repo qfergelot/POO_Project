@@ -32,9 +32,9 @@ public abstract class Troop extends Sprite{
 	/**
 	 * Troop constructor
 	 * @param layer
-	 * 			Use for display. See Sprite
+	 * 			Use for display. @See Sprite
 	 * @param img
-	 * 			Use for display. See Sprite
+	 * 			Use for display. @See Sprite
 	 * @param speed
 	 * 			The speed of the Troop that can't be modified
 	 * @param damage
