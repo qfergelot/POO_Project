@@ -8,6 +8,8 @@ Version de base :
 
 -affiner l'affichage de la map pour qu'elle soit correcte sur tous les écrans
 
+-si on clique sur le bouton charger sur le menu et qu'il n'y a pas de fichier de sauvegarde, ça lance quand meme une partie come si on cliquait sur jouer.
+
 
 -javadoc :
 	game:
