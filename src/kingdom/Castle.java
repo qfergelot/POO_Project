@@ -278,23 +278,40 @@ public class Castle extends Sprite{
 		}
 		this.ost = ost;
 		double x = pos_x + getWidth()/2, y = pos_y + getHeight()/2;
+		double x2, y2, x3, y3;
 		if(getDoor()==Constants.RIGHT) {
 			x += getWidth()/2;
 			y -= 10;
+			x2 = x;
+			x3 = x;
+			y2 = y-20;
+			y3 = y+20;
 		}
 		else if(getDoor()==Constants.LEFT) {
 			x -= getWidth();
 			y -= 10;
+			x2 = x;
+			x3 = x;
+			y2 = y-20;
+			y3 = y+20;
 		}
 		else if(getDoor()==Constants.UP) {
 			x -= 10;
 			y -= getHeight();
+			y2 = y;
+			y3 = y;
+			x2 = x-20;
+			x3 = x+20;
 		}
 		else {
 			x -= 10;
 			y += getHeight()/2;
+			y2 = y;
+			y3 = y;
+			x2 = x-20;
+			x3 = x+20;
 		}
-		displacementOrder = new Order(target, nbPikemen, nbKnight, nbOnager, x, y);
+		displacementOrder = new Order(target, nbPikemen, nbKnight, nbOnager, x, y, x2, y2, x3, y3);
 		return true;
 	}
 	

@@ -39,7 +39,8 @@ public class Main extends Application {
 	
 	private Input input;
 	
-	private double dernier_temps = 0;
+	private int timerErrorMessageProduction = 0;
+	private double last_time = 0;
 	
 	private static boolean pauseTrigger = false;
 	
@@ -137,10 +138,19 @@ public class Main extends Application {
 				}
 				
 				//********COMPTEUR TEMPS********/
-				if((now - dernier_temps) >= Constants.GAME_FREQUENCY/2) {
-					dernier_temps = now;
+				if((now - last_time) >= Constants.GAME_FREQUENCY/2) {
+					last_time = now;
 					pauseTrigger = false;
 					updateTresor();
+					if(timerErrorMessageProduction > 0) {
+						timerErrorMessageProduction--;
+					}
+					else {
+						if(timerErrorMessageProduction == 0) {
+							errorMessageProduction.setText("");
+							timerErrorMessageProduction--;
+						}
+					}
 				}
 				
 				/*if(compteur_temps == Constants.DUREE_TOUR) {
@@ -193,8 +203,8 @@ public class Main extends Application {
 				if(UIsingleton.getUIsingleton().getCastleSelection()!=castleSelection)
 					updateClick();
 				
-				if((now - dernier_temps) >= Constants.GAME_FREQUENCY/2) {
-					dernier_temps = now;
+				if((now - last_time) >= Constants.GAME_FREQUENCY/2) {
+					last_time = now;
 					pauseTrigger = true;
 				}				
 			}
@@ -532,6 +542,7 @@ public class Main extends Application {
 		    				errorMessageProduction.setText("");
 		    			} catch (ProdException err) {
 		    				err.printError();
+		    				timerErrorMessageProduction = 2;
 		    			}
 		    		}
 				}
@@ -548,6 +559,7 @@ public class Main extends Application {
 		    				errorMessageProduction.setText("");
 		    			} catch (ProdException err) {
 		    				err.printError();
+		    				timerErrorMessageProduction = 2;
 		    			}
 		    		}
 				}
@@ -564,6 +576,7 @@ public class Main extends Application {
 		    				errorMessageProduction.setText("");
 		    			} catch (ProdException err) {
 		    				err.printError();
+		    				timerErrorMessageProduction = 2;
 		    			}
 		    		}
 				}
@@ -580,6 +593,7 @@ public class Main extends Application {
 		    				errorMessageProduction.setText("");
 		    			} catch (ProdException err) {
 		    				err.printError();
+		    				timerErrorMessageProduction = 2;
 		    			}
 		    		}
 				}

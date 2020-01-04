@@ -82,15 +82,27 @@ public class Ost {
 	public void addTroop (Troop t) {
 		troops.add(t);
 	}
-	
+
+	/**
+	 * getter for duke
+	 * @return the duke owner of this ost
+	 */
 	public Duke getDuke() {
 		return duke;
 	}
 	
+	/**
+	 * getter for target Castle
+	 * @return the target Castle of this ost
+	 */
 	public Castle getTarget() {
 		return target;
 	}
 	
+	/**
+	 * getter for troops
+	 * @return the troops on this ost
+	 */
 	public ArrayList<Troop> getTroop(){
 		return troops;
 	}
