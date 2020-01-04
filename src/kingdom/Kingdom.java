@@ -9,6 +9,11 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import kingdom.Ost;
 
+/**
+ * Class that represents the kingdom of the game
+ * @author Moi
+ *
+ */
 public class Kingdom {
 	private Random rdm = new Random();
 	
@@ -39,6 +44,20 @@ public class Kingdom {
 
 	private ArrayList<Ost> ost;
 	
+	/**
+	 * Construct a Kingdom
+	 * @param layer Layer in which the elements of the game will appear 
+	 * @param nbPlayers Number of real players (0 or 1)
+	 * @param nbIA Number of AI
+	 * @param levelIA Level maximum of the AI
+	 * @param width_plateau Width
+	 * @param height_plateau Height
+	 * @param dist_min_castle Minimal distance between castles
+	 * @param nbCastleNeutres Number of neutral castles
+	 * @param nbPikemen_init Initial number of pikemen
+	 * @param nbKnight_init Initial number of knight
+	 * @param nbOnager_init Initial number of onager
+	 */
 	public Kingdom(Pane layer, int nbPlayers, int nbIA, int levelIA, int width_plateau, int height_plateau,
 			int dist_min_castle, int nbCastleNeutres, int nbPikemen_init, int nbKnight_init, int nbOnager_init) {
 		this.layer = layer;
@@ -85,6 +104,13 @@ public class Kingdom {
 		}	
 	}
 	
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @param nbCastle
+	 * @return
+	 */
 	private boolean positionCastleFree(long x, long y, int nbCastle) {
 		for(int cpt=0; cpt<nbCastle; cpt++) {
 			if (castle[cpt].distance(x, y) < distMinCastle) {
@@ -94,6 +120,14 @@ public class Kingdom {
 		return true;		
 	}
 	
+	/**
+	 * Call the construction of an order for the castle source if it possible
+	 * @param c Source castle
+	 * @param target Target castle
+	 * @param nbPikemen Number of pikemen
+	 * @param nbKnight Number of knight
+	 * @param nbOnager Number of onager
+	 */
 	public void createOrder(Castle c, Castle target, int nbPikemen, int nbKnight, int nbOnager) {
 		if(c.order()) {
 			//Dﾃｩjﾃ� un ordre en cours
@@ -105,6 +139,10 @@ public class Kingdom {
 		}
 	}
 	
+	/**
+	 * Function called at each round (each frame) to advance the round of an ost
+	 * @param ost Ost that will be progressed
+	 */
 	private void roundOst(Ost ost) {
 		ost.roundOst(this);
 		
@@ -117,6 +155,9 @@ public class Kingdom {
 			
 	}
 	
+	/**
+	 * Function called at each end of round (each frame) to end a round
+	 */
 	public void finishRound() {
 		for(int i=0; i<nbCastle; i++) {
 			castle[i].finishRoundCastle();
@@ -126,12 +167,15 @@ public class Kingdom {
 		}
 	}
 	
+	/**
+	 * Compute if there is a winner
+	 * @return Name of the winner as a String if there is a winner, else null
+	 */
 	public String finishedGame() {
 		int nbRestants = 0;
 		String winnerName = null;
 		for(int i=0; i<nbPlayers+nbIA; i++) {
 			if(dukes[i].getNbCastle() > 0) {
-				System.out.println(dukes[i].getName() + " " + dukes[i].getNbCastle());
 				nbRestants++;
 				winnerName = dukes[i].getName();
 				if(nbRestants > 1)
@@ -141,6 +185,9 @@ public class Kingdom {
 		return winnerName;
 	}
 	
+	/**
+	 * Clean the kingdom from castles and osts
+	 */
 	public void clean() {
 		for (int i = 0; i<ost.size(); i++) {
 			ost.get(i).delete();
@@ -159,6 +206,10 @@ public class Kingdom {
 		}
 	}
 	
+	/**
+	 * Save the kingdom as a string
+	 * @return Kingdom's information as a string
+	 */
 	public String saveGame() {
 		String s = "";
 		s += this.nbCastle + " \n";
@@ -168,56 +219,21 @@ public class Kingdom {
 		return s;
 	}
 	
-	/*private void deplacementOst(Ost ost) {
-		int v = ost.getVitesse();
-		while(v > 0 && ost.distanceCible() > 1) {
-			int dx = ost.getPos_x() - ost.getCible().getPos_x();
-			int dy = ost.getPos_y() - ost.getCible().getPos_y();
-			if(Math.abs(dx) > Math.abs(dy)) {
-				if (dx > 0) {
-					if(deplacementPossible(ost.getPos_x()+1,ost.getPos_y()))
-						ost.move(Constantes.DROITE);
-					else if(deplacementPossible(ost.getPos_x(),ost.getPos_y()+1))
-						ost.move(Constantes.BAS);
-					else
-						ost.move(Constantes.HAUT);
-				}
-				else {
-					if(deplacementPossible(ost.getPos_x()-1,ost.getPos_y()))
-						ost.move(Constantes.GAUCHE);
-					else if(deplacementPossible(ost.getPos_x(),ost.getPos_y()+1))
-						ost.move(Constantes.HAUT);
-					else
-						ost.move(Constantes.BAS);
-				}
-			}
-			else {
-				if (dy > 0) {
-					if(deplacementPossible(ost.getPos_x(),ost.getPos_y()+1))
-						ost.move(Constantes.BAS);
-					else if(deplacementPossible(ost.getPos_x()+1,ost.getPos_y()))
-						ost.move(Constantes.DROITE);
-					else
-						ost.move(Constantes.GAUCHE);
-				}
-				else {
-					if(deplacementPossible(ost.getPos_x(),ost.getPos_y()-1))
-						ost.move(Constantes.HAUT);
-					else if(deplacementPossible(ost.getPos_x()+1,ost.getPos_y()))
-						ost.move(Constantes.GAUCHE);
-					else
-						ost.move(Constantes.DROITE);
-				}
-			}
-			v--;
-		}
-	}*/
-	
 	/* * * * * * * * DEBUT : Getters/Setters * * * * * * * */
+	
+	/**
+	 * 
+	 * @param i
+	 * @return
+	 */
 	public Castle getCastle(int i) {
 		return castle[i];
 	}
 	
+	/**
+	 * 
+	 * @param line
+	 */
 	public void addCastle(String line) {
 		String[] args = line.split(" ");
 		int i = 0;
@@ -243,50 +259,77 @@ public class Kingdom {
 		castle[i].setLevel(Integer.parseInt(args[4]));
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public int getNbCastle() {
 		return nbCastle;
 	}
 	
+	/**
+	 * 
+	 * @param nbCastle
+	 */
 	public void setNbCastle(int nbCastle) {
 		this.nbCastle =  nbCastle;
 		this.castle = new Castle[nbCastle];
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public int getNbPlayers() {
 		return nbPlayers;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public int getNbIA() {
 		return nbIA;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public int getLevelIA() {
 		return levelIA;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public int getDistMinCastle() {
 		return distMinCastle;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public int getHeight() {
 		return height;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public int getWidth() {
 		return width;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public ArrayList<Ost> getOst() {
 		return ost;
-	}
-	
-	public Duke getPlayer() {
-		for(int i = 0; i < dukes.length; i++) {
-			if (dukes[i] != null)
-				return dukes[i];
-		}
-		System.out.println("Exception to throw");
-		return null;
 	}
 	
 	/* * * * * * * * FIN : Getters/Setters * * * * * * * */
