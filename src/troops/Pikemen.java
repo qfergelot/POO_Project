@@ -34,6 +34,13 @@ public class Pikemen extends Troop {
 		super(layer, image, 2, 1, pos_x, pos_y);
 	}
 	
+	/**
+	 * Transfer a pikeman from the ost to the target's army
+	 * @param target 
+	 * 			Target castle
+	 * @param host
+	 * 			Source ost
+	 */
 	public void transfer(Castle target, Ost host) {
 		target.addPikemen();
 		host.getTroop().remove(this);

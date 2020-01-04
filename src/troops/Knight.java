@@ -34,6 +34,13 @@ public class Knight extends Troop {
 		super(layer, image, 6, 5, pos_x, pos_y);
 	}
 	
+	/**
+	 * Transfer a knight from the ost to the target's army
+	 * @param target 
+	 * 			Target castle
+	 * @param host
+	 * 			Source ost
+	 */
 	public void transfer(Castle target, Ost host) {
 		target.addKnight();
 		host.getTroop().remove(this);

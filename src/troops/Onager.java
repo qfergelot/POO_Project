@@ -34,6 +34,13 @@ public class Onager extends Troop {
 		super(layer, image, 1, 10, pos_x, pos_y);
 	}
 
+	/**
+	 * Transfer a onager from the ost to the target's army
+	 * @param target 
+	 * 			Target castle
+	 * @param host
+	 * 			Source ost
+	 */
 	public void transfer(Castle target, Ost host) {
 		target.addOnager();
 		host.getTroop().remove(this);
