@@ -229,7 +229,7 @@ public abstract class Troop extends Sprite{
      * Transfer the troop to the target Castle.
      * @param target
      * 			The Castle where the troop have to be transfer
-     * @param hote
+     * @param host
      * 			L'Ost where is the troop.
      */
 	public abstract void transfer(Castle target, Ost host);
