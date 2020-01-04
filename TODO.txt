@@ -12,6 +12,8 @@ Version de base :
 
 - si une attaque est finie, les unités restantes doivent continuer a aller jusqu'au chateau
 
+-ne pas oublier dans le readme, touche L in game = Load
+
 
 -javadoc :
 	game:
