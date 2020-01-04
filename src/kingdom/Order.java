@@ -30,7 +30,9 @@ public class Order {
 	private Image image_knight = new Image(getClass().getResource("/images/chevalier.png").toExternalForm(), 20, 20, true, true);
 	private Image image_onager = new Image(getClass().getResource("/images/onagre.png").toExternalForm(), 20, 20, false, true);
 
+
 	/**
+	 * 
 	 * Construct an order
 	 * @param target Target Castle
 	 * @param nbPikemen Number of pikemen
@@ -38,6 +40,10 @@ public class Order {
 	 * @param nbOnager Number of onager
 	 * @param exit_x First position x of units
 	 * @param exit_y Firts position y of units
+	 * @param exit_x2 Second position x of units
+	 * @param exit_y2 Second position y of units
+	 * @param exit_x3 Third position x of units
+	 * @param exit_y3 Third position y of units
 	 */
 	public Order(Castle target, int nbPikemen, int nbKnight, int nbOnager, double exit_x, double exit_y, double exit_x2, double exit_y2, double exit_x3, double exit_y3) {
 		this.target = target;

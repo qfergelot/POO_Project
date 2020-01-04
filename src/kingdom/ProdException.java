@@ -16,8 +16,8 @@ public class ProdException extends Exception {
 	private String errorMessage;
 	
 	/**
-	 * 
-	 * @param errorMessage
+	 * Construct a ProdException
+	 * @param errorMessage Error message to be set
 	 */
 	public ProdException(String errorMessage){
 		this.errorMessage = errorMessage;

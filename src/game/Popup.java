@@ -50,7 +50,7 @@ public class Popup {
 	public Popup(Kingdom kingdom) {
 		popupOst = new Stage();
 		popupOst.initModality(Modality.APPLICATION_MODAL);
-		popupOst.setTitle("Troupes à envoyer");
+		popupOst.setTitle("Troupes a envoyer");
 		popupOst.setResizable(false);
 		
 		Pane layout = new Pane();

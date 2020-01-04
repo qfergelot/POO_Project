@@ -66,7 +66,7 @@ public class Production {
 	
 	/**
 	 * Compute the percentage of progression of the production
-	 * @return 
+	 * @return Percentage of completion
 	 */
 	public double pourcentage() {
 		return 1.0-((double)nbRounds/(double)nbRoundsInit);

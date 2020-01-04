@@ -97,15 +97,15 @@ public final class UIsingleton {
 	
 	/**
 	 * 
-	 * @param labelErrorProduction
+	 * @param errorLabelProduction error message
 	 */
 	public void setErrorLabelProduction(Text errorLabelProduction) {
 		this.errorLabelProduction = errorLabelProduction;
 	}
 	
 	/**
-	 * 
-	 * @param message
+	 * Display a message ingame
+	 * @param message Error message
 	 */
 	public void setErrorMessageProduction(String message) {
 		errorLabelProduction.setText(message);

@@ -74,7 +74,7 @@ public class Kingdom {
 		
 		ost = new ArrayList<Ost>();
 
-		/*Définition basique de nom à améliorer*/
+		/*Definition basique de nom a ameliorer*/
 		for(int i=0; i<nbPlayers; i++) {
 			dukes[i] = new Duke("Joueur" + i, colorDuke[i], imagePlayerCastle[i]);
 		}
@@ -130,7 +130,7 @@ public class Kingdom {
 	 */
 	public void createOrder(Castle c, Castle target, int nbPikemen, int nbKnight, int nbOnager) {
 		if(c.order()) {
-			//Déjà un ordre en cours
+			//Deja un ordre en cours
 		}
 		else {
 			Ost o = new Ost(c.getDuke(), target);

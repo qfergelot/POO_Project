@@ -656,7 +656,7 @@ public class Main extends Application {
 	
 	/**
 	 * Launch the game
-	 * @param args
+	 * @param args main arguments
 	 */
 	public static void main(String[] args) {
 		launch(args);
