@@ -16,7 +16,7 @@ Version de base :
 		Main (to test) en
 		Popup (to test) en
 		Sprite (to test) en
-		UISingleton (todo) en
+		UISingleton (to test) en
 	royaume:
 		Castle (to test) en
 		Constants (to test) en
