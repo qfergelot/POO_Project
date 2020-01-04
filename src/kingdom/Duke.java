@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
  */
 public class Duke {
 	private String name;
-	private int nbCastle = 0;
+	protected int nbCastle = 0;
 	private Color color;
 	private Image imgCastle;
 	
@@ -83,8 +83,11 @@ public class Duke {
 		return this.name == d.name;
 	}
 	
+	/**
+	 * Reset this duke's number of castle 
+	 */
 	public void reset() {
-		
+		this.nbCastle = 0;
 	}
 
 }

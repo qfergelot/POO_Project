@@ -25,8 +25,8 @@ public final class UIsingleton {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Get the current instance of this class
+	 * @return current instance
 	 */
 	public static UIsingleton getUIsingleton() {
 		return instance;
@@ -49,16 +49,16 @@ public final class UIsingleton {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Getter
+	 * @return true if display of troops need to be updated, else false
 	 */
 	public boolean toUpdateTroops() {
 		return toUpdateTroops;
 	}
 	
 	/**
-	 * 
-	 * @param toUpdateTroops
+	 * Setter
+	 * @param toUpdateTroops true if display of troops need to be updated, else false
 	 */
 	public void setToUpdateTroops(boolean toUpdateTroops) {
 		this.toUpdateTroops = toUpdateTroops;
@@ -74,7 +74,7 @@ public final class UIsingleton {
 	
 	/**
 	 * set the real player
-	 * @param dukePlayer
+	 * @param dukePlayer duke of the player
 	 */
 	public void setDukePlayer(Duke dukePlayer) {
 		this.dukePlayer = dukePlayer;
@@ -89,7 +89,7 @@ public final class UIsingleton {
 	
 	/**
 	 * 
-	 * @return
+	 * @return true if the game can be paused, else false
 	 */
 	public boolean getPause() {
 		return pause;

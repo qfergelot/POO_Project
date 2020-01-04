@@ -53,18 +53,34 @@ public class Order {
 		this.exit_y3 = exit_y3;
 	}
 	
+	/**
+	 * Get the number of units that is to be produced by this order
+	 * @return Number of units
+	 */
 	public int getNbTroops() {
 		return nbTroops;
 	}
 	
+	/**
+	 * Get the number of pikemen that is to be produced by this order
+	 * @return number of pikemen
+	 */
 	public int getNbPikemen() {
 		return nbPikemen;
 	}
 	
+	/**
+	 * Get the number of knight that is to be produced by this order
+	 * @return number of knight
+	 */
 	public int getNbKnight() {
 		return nbKnight;
 	}
 	
+	/**
+	 * Get the number of onager that is to be produced by this order
+	 * @return number of onager
+	 */
 	public int getNbOnager() {
 		return nbOnager;
 	}

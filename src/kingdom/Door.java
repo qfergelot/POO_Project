@@ -13,7 +13,7 @@ public class Door {
 	private char door;
 	
 	/**
-	 * Construct a door by default
+	 * Construct a door by default ()
 	 */
 	public Door() {
 		door = (char)rdm.nextInt(4);
@@ -21,15 +21,15 @@ public class Door {
 	
 	/**
 	 * Construct a door
-	 * @param rot set the rotation of the door
+	 * @param rot set the rotation of the door (0 is Left, 1 is Up, 2 is Right, 3 is Down)
 	 */
 	public Door(int rot) {
 		door = (char) rot;
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Getter of current door 
+	 * @return current door
 	 */
 	public char getDoor() {
 		return door;

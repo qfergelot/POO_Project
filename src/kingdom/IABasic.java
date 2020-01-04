@@ -20,11 +20,22 @@ public class IABasic extends Duke {
 	
 	private Random rdm = new Random();
 	
+	/**
+	 * Construct a Basic AI
+	 * @param nom Name of the AI 
+	 * @param couleur Color
+	 * @param image Image of the AI's castle
+	 * @param kingdom Kingdom in which the AI operates
+	 */
 	public IABasic(String nom, Color couleur, Image image, Kingdom kingdom) {
 		super(nom, couleur, image);
 		this.kingdom = kingdom;
 	}
 
+	/**
+	 * Compute the decision of the AI for this round
+	 * @param castle Castle owned by the AI
+	 */
 	public void roundCastleIA(Castle castle) {
 		if(castle.getDuke().equals(this)) {
 			if(economicPhase) {
@@ -103,7 +114,11 @@ public class IABasic extends Duke {
 		return getName() == d.getName();
 	}
 	
+	/**
+	 * Reset the AI
+	 */
 	public void reset() {
+		this.nbCastle = 0;
 		economicPhase = true;
 		phaseDuration = 600;
 		attackCounter = 0;

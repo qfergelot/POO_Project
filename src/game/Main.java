@@ -21,6 +21,11 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.scene.Group;
 
+/**
+ * Main Class
+ * @author Moi
+ *
+ */
 public class Main extends Application {
     private Kingdom kingdom;
 	
@@ -222,6 +227,9 @@ public class Main extends Application {
 		menuLoop.start();
 	}
 	
+	/**
+	 * Pause the game or unpause the game
+	 */
 	private void pause() {
 		if (pauseTrigger) {
 			pauseLoop.stop();
@@ -233,6 +241,9 @@ public class Main extends Application {
 		}
 	}
 	
+	/**
+	 * Save the game information in a file named save.txt
+	 */
 	private void saveGame() {
 		File f = new File("Save.txt");
 		
@@ -251,6 +262,9 @@ public class Main extends Application {
 		
 	}
 	
+	/**
+	 * Load the game from a file named save.txt
+	 */
 	private void loadGame() {
 		try {
 			File f = new File("Save.txt");
@@ -278,6 +292,9 @@ public class Main extends Application {
 		}
 	}
 	
+	/**
+	 * Update the display of treasury
+	 */
 	private void updateTresor() {
 		if(castleSelection == null)
 			textFlorins.setText("--");
@@ -285,6 +302,9 @@ public class Main extends Application {
 			textFlorins.setText(""+castleSelection.getTreasure());
 	}
 	
+	/**
+	 * Update the display of the number of units and level
+	 */
 	private void updateTroupe() {
 		textPikemen.setText(""+castleSelection.getNbPikemen());
 		textKnight.setText(""+castleSelection.getNbKnight());
@@ -298,6 +318,9 @@ public class Main extends Application {
 		}
 	}
 	
+	/**
+	 * Update the display of the game for each click
+	 */
 	private void updateClick() {
 		castleSelection = UIsingleton.getUIsingleton().getCastleSelection();
 		
@@ -349,6 +372,9 @@ public class Main extends Application {
 		}
 	}
 	
+	/**
+	 * Update the display of the progression bar
+	 */
 	private void update() {
 		castleSelection = UIsingleton.getUIsingleton().getCastleSelection();
 	
@@ -379,10 +405,19 @@ public class Main extends Application {
 		}
 	}
 	
+	/**
+	 * 
+	 */
 	private void updateMenu() {
 		
 	}
 	
+	/**
+	 * Initialize the menu screen 
+	 * @param l_ecran Width of the screen
+	 * @param h_ecran Height of the screen
+	 * @param stage Stage in which the menu screen must be
+	 */
 	private void initMenu(double l_ecran, double h_ecran, Stage stage) {
 		Rectangle fond = new Rectangle(l_ecran,h_ecran);
 		
@@ -423,6 +458,12 @@ public class Main extends Application {
 		});
 	}
 	
+	/**
+	 * Initialize the ending screen 
+	 * @param l_ecran Width of the screen
+	 * @param h_ecran Height of the screen
+	 * @param stage Stage in which the ending screen must be
+	 */
 	private void initEnd(double l_ecran, double h_ecran, Stage stage) {
 		Rectangle fond = new Rectangle(l_ecran,h_ecran);
 		
@@ -440,6 +481,13 @@ public class Main extends Application {
 		});
 	}
 	
+	/**
+	 * Initialize the display of the playing screen 
+	 * @param longueur Width of the game
+	 * @param hauteur Height of the game
+	 * @param l_ecran Width of the screen
+	 * @param h_ecran Height of the screen
+	 */
 	private void initKingdom(double longueur, double hauteur, double l_ecran, double h_ecran) {
 		Pane layoutProduction = new Pane();
 		layoutProduction.relocate(longueur+5, 0);
@@ -606,6 +654,10 @@ public class Main extends Application {
 		
 	}
 	
+	/**
+	 * Launch the game
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}

@@ -73,6 +73,11 @@ public class Input {
 		}
 	};
 
+	/**
+	 * 
+	 * @param key key to be compared with the current input
+	 * @return true if key is inputed, else false
+	 */
 	private boolean is(KeyCode key) {
 		return keyboardBitSet.get(key.ordinal());
 	}

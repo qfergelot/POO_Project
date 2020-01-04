@@ -33,7 +33,7 @@ public class Production {
 	}
 	
 	/**
-	 * 
+	 * Get the unit that is produced
 	 * @return current unit to be produced
 	 */
 	public int getUnit() {
@@ -41,7 +41,7 @@ public class Production {
 	}
 	
 	/**
-	 * 
+	 * Get if this is an upgrade
 	 * @return true if current production is an upgrade, else false
 	 */
 	public boolean isAmelioration() {
@@ -49,7 +49,7 @@ public class Production {
 	}
 	
 	/**
-	 * 
+	 * Get remaining rounds
 	 * @return number of rounds before production end 
 	 */
 	public int getNbRounds() {
@@ -57,7 +57,7 @@ public class Production {
 	}
 	
 	/**
-	 * 
+	 * Get initial number of rounds
 	 * @return number of initial rounds of the production
 	 */
 	public int getNbRoundsInit() {
@@ -81,7 +81,7 @@ public class Production {
 	}
 	
 	/**
-	 * To execute at each end of turn
+	 * To execute at each end of turn to advance the production
 	 */
 	public void finishRoundProduction() {
 		nbRounds--;

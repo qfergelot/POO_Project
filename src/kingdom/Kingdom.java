@@ -105,11 +105,11 @@ public class Kingdom {
 	}
 	
 	/**
-	 * 
-	 * @param x
-	 * @param y
-	 * @param nbCastle
-	 * @return
+	 * Compute if a position is correct for a castle (if this is not another castle here)
+	 * @param x Coordinate x
+	 * @param y Coordinate y
+	 * @param nbCastle Number of castle
+	 * @return true if the position is correct, else false
 	 */
 	private boolean positionCastleFree(long x, long y, int nbCastle) {
 		for(int cpt=0; cpt<nbCastle; cpt++) {
@@ -222,17 +222,17 @@ public class Kingdom {
 	/* * * * * * * * DEBUT : Getters/Setters * * * * * * * */
 	
 	/**
-	 * 
-	 * @param i
-	 * @return
+	 * Get a castle
+	 * @param i Index of the castle
+	 * @return Castle at the index i
 	 */
 	public Castle getCastle(int i) {
 		return castle[i];
 	}
 	
 	/**
-	 * 
-	 * @param line
+	 * Add a castle to the array of castle from a save file (array must not be completed) 
+	 * @param line line String from a save file 
 	 */
 	public void addCastle(String line) {
 		String[] args = line.split(" ");
@@ -260,16 +260,16 @@ public class Kingdom {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Getter for nbCastle
+	 * @return Current number of castle
 	 */
 	public int getNbCastle() {
 		return nbCastle;
 	}
 	
 	/**
-	 * 
-	 * @param nbCastle
+	 * Setter for nbCastle
+	 * @param nbCastle Number of Castle
 	 */
 	public void setNbCastle(int nbCastle) {
 		this.nbCastle =  nbCastle;
@@ -277,56 +277,56 @@ public class Kingdom {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Getter for nbPlayer
+	 * @return Number of players
 	 */
 	public int getNbPlayers() {
 		return nbPlayers;
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Getter for nbIA
+	 * @return Number of AI 
 	 */
 	public int getNbIA() {
 		return nbIA;
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Getter for LevelAI
+	 * @return Level max of AI
 	 */
 	public int getLevelIA() {
 		return levelIA;
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * getter for distMinCastle
+	 * @return Minimal distance between two castles
 	 */
 	public int getDistMinCastle() {
 		return distMinCastle;
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * getter for height
+	 * @return Height
 	 */
 	public int getHeight() {
 		return height;
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Getter for width
+	 * @return Width
 	 */
 	public int getWidth() {
 		return width;
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Getter of the list of all currently displayed ost
+	 * @return Ost array
 	 */
 	public ArrayList<Ost> getOst() {
 		return ost;
