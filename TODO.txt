@@ -4,8 +4,7 @@ Version de base :
 -unifier le langage: tout en anglais ou tout en français[DONE]
 -le message en cours de production doit s'en aller a la fin d'une production[DONE]
 - ne pas superposer les troupes en sortie de chateau[DONE]
-
--actualiser le visuel du transfert de troupes directement pendant les attaques(ne pas avoir à clicker autre part puis revenir sur le chateau pour voir l'avancement des troupes)
+-actualiser le visuel du transfert de troupes directement pendant les attaques(ne pas avoir à clicker autre part puis revenir sur le chateau pour voir l'avancement des troupes)[DONE]
 
 -affiner l'affichage de la map pour qu'elle soit correcte sur tous les écrans
 

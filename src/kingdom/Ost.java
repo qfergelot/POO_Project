@@ -2,6 +2,7 @@ package kingdom;
 
 import java.util.ArrayList;
 
+import game.UIsingleton;
 import kingdom.Castle;
 import kingdom.Duke;
 import kingdom.Kingdom;
@@ -73,6 +74,8 @@ public class Ost {
 				troops.get(i).displacement(target, kingdom);
 			}
 		}
+		if (UIsingleton.getUIsingleton().getCastleSelection() != null)
+			UIsingleton.getUIsingleton().setToUpdateTroops(true);
 	}
 	
 	/**

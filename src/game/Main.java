@@ -164,9 +164,8 @@ public class Main extends Application {
 				
 				kingdom.finishRound();
 
-				if(UIsingleton.getUIsingleton().getCastleSelection()!=castleSelection) {
+				if(UIsingleton.getUIsingleton().getCastleSelection()!=castleSelection)
 					updateClick();
-				}
 				if (UIsingleton.getUIsingleton().toUpdateTroops()) {
 					updateTroupe();
 					UIsingleton.getUIsingleton().setToUpdateTroops(false);
