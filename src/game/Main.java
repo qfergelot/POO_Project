@@ -90,7 +90,7 @@ public class Main extends Application {
 		primaryStage.setY(bounds.getMinY()-2);
 		primaryStage.setWidth(bounds.getWidth()+4);
 		primaryStage.setHeight(bounds.getHeight()+4);
-		primaryStage.setTitle("Le projet qui vaut 23/20");
+		primaryStage.setTitle("Dukes of the Realm");
 		primaryStage.setResizable(false);
 		
 		menu = new Group();
@@ -433,7 +433,7 @@ public class Main extends Application {
 		menuFieldLayer.getChildren().addAll(buttonPlay,buttonLoad);
 		
 		buttonPlay.setOnAction(e -> {
-			kingdom = new Kingdom(gameFieldLayer,1,2,0,1100,630,200,6,3,2,5);
+			kingdom = new Kingdom(gameFieldLayer,1,2,0,1100,630,200,6,3,2,0);
 			dukePlayer = kingdom.getCastle(0).getDuke();
 			UIsingleton.getUIsingleton().setDukePlayer(dukePlayer);
 			borderCastle.setWidth(kingdom.getCastle(0).getWidth());
