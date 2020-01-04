@@ -46,7 +46,7 @@ public class Castle extends Sprite{
 	 * Construct a player castle
 	 * @param layer Pane in which the castle must appear
 	 * @param image Image of the castle
-	 * @param duke Owner (@see Duke)
+	 * @param duke Owner ( @see Duke)
 	 * @param treasure Treasurey
 	 * @param nbPikemen Number of spearmen
 	 * @param nbKnight Number of knight
