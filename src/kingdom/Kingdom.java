@@ -146,7 +146,7 @@ public class Kingdom {
 	private void roundOst(Ost ost) {
 		ost.roundOst(this);
 		
-		if(ost.finishedAttack() || ost.getTroop().size() == 0) {
+		if(ost.getTroop().size() == 0) {
 			for(int i=0; i<ost.getTroop().size(); i++) 
 				ost.getTroop().get(i).getImageView().setImage(null);
 			this.ost.remove(ost);
