@@ -56,6 +56,8 @@ public final class UIsingleton {
 		return toUpdateTroops;
 	}
 	
+
+	
 	/**
 	 * Setter
 	 * @param toUpdateTroops true if display of troops need to be updated, else false
@@ -63,6 +65,8 @@ public final class UIsingleton {
 	public void setToUpdateTroops(boolean toUpdateTroops) {
 		this.toUpdateTroops = toUpdateTroops;
 	}
+	
+
 	
 	/**
 	 * get the real player

@@ -234,7 +234,7 @@ public class Kingdom {
 	 * Add a castle to the array of castle from a save file (array must not be completed) 
 	 * @param line line String from a save file 
 	 */
-	public void addCastle(String line) {
+	public void addCastleFromSave(String line) {
 		String[] args = line.split(" ");
 		int i = 0;
 		while (castle[i] != null) {
@@ -257,6 +257,9 @@ public class Kingdom {
 		}
 		castle[i].setDoor(Integer.parseInt(args[9]));
 		castle[i].setLevel(Integer.parseInt(args[4]));
+		for (int k = 0; k<Integer.parseInt(args[10]); k++){
+			castle[i].addBarrack();
+		}
 	}
 	
 	/**

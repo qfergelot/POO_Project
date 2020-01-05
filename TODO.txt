@@ -6,11 +6,11 @@ Version de base :
 
 Version Avancée (A FAIRE QUE QUAND ON AURA RENDU LA BASIQUE) :
 
+- si on commande une production alors qu'il y en a une en cours, ajouter la production dans une file [DONE]
+
 - mettre un message "en pause" quand le jeu est en pause
 
 - IA Avancée
-
-- si on commande une production alors qu'il y en a une en cours, ajouter la production dans une file [DONE]
 
 - caserne -> plus de file d'attente
 

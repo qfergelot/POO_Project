@@ -56,6 +56,11 @@ public class Constants {
 	/**
 	 * 
 	 */
+	public final static int BARRACK = 4;
+	
+	/**
+	 * 
+	 */
 	public final static int LIFE_PIKEMEN = 1;
 	/**
 	 * 

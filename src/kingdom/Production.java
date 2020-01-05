@@ -27,6 +27,8 @@ public class Production {
 			nbRounds = Knight.PRODUCTION_TIME;
 		else if(unit==Constants.ONAGER)
 			nbRounds = Onager.PRODUCTION_TIME;
+		else if (unit == Constants.BARRACK)
+			nbRounds = Barrack.PRODUCTION_TIME;
 		else
 			nbRounds = 100+50*castleLevel;
 		nbRoundsInit = nbRounds;
@@ -49,6 +51,14 @@ public class Production {
 	}
 	
 	/**
+	 * Get if this is a barrack
+	 * @return true if current production is a barrack, else false
+	 */
+	public boolean isBarrack() {
+		return unit == Constants.BARRACK;
+	}
+	
+	/**
 	 * Compute the percentage of progression of the production
 	 * @return Percentage of completion
 	 */
@@ -60,7 +70,7 @@ public class Production {
 	 * End of production, a troop must be produced
 	 * @return true if production ended, else false
 	 */
-	public boolean finishedProduction() {
+	public boolean isFinishedProduction() {
 		return nbRounds == 0;
 	}
 	

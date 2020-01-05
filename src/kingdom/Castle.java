@@ -36,7 +36,8 @@ public class Castle extends Sprite{
 	private int lifeKnight = Constants.LIFE_KNIGHT;
 	private int lifeOnager = Constants.LIFE_ONAGER;
 	
-	private ArrayList<Production> productions;
+	private ArrayList<Barrack> barracks;
+
 	private Order displacementOrder;
 	private Ost ost;
 	private Door door;
@@ -66,7 +67,8 @@ public class Castle extends Sprite{
 		this.nbKnight = nbKnight;
 		this.nbOnager = nbOnager;
 		this.displacementOrder = null;
-		this.productions = new ArrayList<Production>();
+		this.barracks = new ArrayList<Barrack>();
+		barracks.add(new Barrack());
 		this.ost = null;
 		this.door = new Door();
 		switch(getDoor()) {
@@ -122,7 +124,8 @@ public class Castle extends Sprite{
 		this.nbKnight = nbKnight;
 		this.nbOnager = nbOnager;
 		this.displacementOrder = null;
-		this.productions = new ArrayList<Production>();
+		this.barracks = new ArrayList<Barrack>();
+		barracks.add(new Barrack());
 		this.ost = null;
 		this.door = new Door();
 		switch(getDoor()) {
@@ -174,8 +177,22 @@ public class Castle extends Sprite{
 	/* * * * * * * * DEBUT : Fonctions Production * * * * * * * */
 	
 	/**
+	 * Compute the barrack that has the less work to do
+	 * @return barrack 
+	 */
+	private Barrack mostReadyBarrack(){
+		Barrack b = barracks.get(0);
+		for (int i = 1; i<barracks.size(); i++) {
+			if (b.getSizeofProd() > barracks.get(i).getSizeofProd()) {
+				b = barracks.get(i);
+			}
+		}
+		return b;
+	}
+	
+	/**
 	 * Launch a production
-	 * @param unit Unit to produkee
+	 * @param unit Unit to produce
 	 * @throws ProdException Exception throws when a production cannot be produced
 	 */
 	public void launchProduction(int unit) throws ProdException {
@@ -186,6 +203,8 @@ public class Castle extends Sprite{
 			cout = Knight.PRODUCTION_COST;
 		else if(unit==Constants.ONAGER)
 			cout = Onager.PRODUCTION_COST;
+		else if(unit==Constants.BARRACK)
+			cout = Barrack.PRODUCTION_COST;
 		else {
 			cout = 1000*level;
 			if(level == Constants.LEVEL_MAX)
@@ -194,35 +213,40 @@ public class Castle extends Sprite{
 		if(treasure < cout) {
 			throw new ProdException("Pas assez de Florins");
 		}
+		else if (unit==Constants.BARRACK && level < barracks.size()) {
+			throw new ProdException("Tu n'as pas un niveau assez haut");
+		}
 		else {
-			productions.add(new Production(unit,level)) ;
+			Barrack b = mostReadyBarrack();
+			b.addProduction(new Production(unit,level)) ;
 			treasure -= cout;
 			//return true;
 		}
 	}
 		
 	
-	
 	/**
-	 * Cancel a production
+	 * Cancel all productions
 	 */
 	public void cancelProduction() {
-		if(!productions.isEmpty()) {
-			for(int i = 0; i<productions.size(); i++) {
-				if(productions.get(i).isAmelioration()) {
-					treasure += 1000*level;
-				} else {
-					if(productions.get(i).getUnit()==Constants.PIKEMEN)
-						treasure += Pikemen.PRODUCTION_COST;
-					else if(productions.get(i).getUnit()==Constants.KNIGHT)
-						treasure += Knight.PRODUCTION_COST;
-					else
-						treasure += Onager.PRODUCTION_COST;
+		if(inProduction()) {
+			for(int i = 0; i<barracks.size(); i++) {
+				Barrack b = barracks.get(i);
+				for (int j = 0; j<b.getSizeofProd(); j++) {
+					if(b.getProduction(i).isAmelioration()) {
+						treasure += 1000*level;
+					} else {
+						if(b.getProduction(i).getUnit()==Constants.PIKEMEN)
+							treasure += Pikemen.PRODUCTION_COST;
+						else if(b.getProduction(i).getUnit()==Constants.KNIGHT)
+							treasure += Knight.PRODUCTION_COST;
+						else
+							treasure += Onager.PRODUCTION_COST;
+					}
 				}
+				b.clear();
 			}
-			productions.clear();
 		}
-		
 	}
 	
 	/**
@@ -230,27 +254,35 @@ public class Castle extends Sprite{
 	 * @return true if a production is launched , else false
 	 */
 	public boolean inProduction() {
-		return !productions.isEmpty();
+		for (int i = 0; i<barracks.size(); i++) {
+			if (barracks.get(i).inProduction()) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/**
 	 * Normal ending for a production 
 	 */
-	public void finishProduction() {
-		if(productions.get(0).isAmelioration())
+	public void finishProduction(Production prod) {
+		if(prod.isAmelioration())
 			level++;
 		else {
-			int t = productions.get(0).getUnit();
+			int t = prod.getUnit();
 			if(t == Constants.PIKEMEN)
 				nbPikemen++;
 			else if(t == Constants.KNIGHT)
 				nbKnight++;
-			else
+			else if(t == Constants.ONAGER)
 				nbOnager++;
+			else if(t == Constants.BARRACK)
+				addBarrack();
+			else
+				System.out.println("Error");
 		}
 		if (this == UIsingleton.getUIsingleton().getCastleSelection())
 			UIsingleton.getUIsingleton().setToUpdateTroops(true);
-		productions.remove(0);
 	}
 	/* * * * * * * * FIN : Fonctions Production * * * * * * * */
 	
@@ -382,9 +414,15 @@ public class Castle extends Sprite{
 				
 			treasure += level;
 			if(inProduction()) {
-				productions.get(0).finishRoundProduction();
-				if(productions.get(0).finishedProduction()) {
-					finishProduction();
+				for (int i = 0; i<barracks.size(); i++) {
+					Barrack b = barracks.get(i);
+					if (b.inProduction()) {
+						b.getCurrentProduction().finishRoundProduction();
+						if(b.getCurrentProduction().isFinishedProduction()) {
+							finishProduction(b.getCurrentProduction());
+							b.removeCurrentProduction();
+						}
+					}
 				}
 			}
 			if(order()) {
@@ -491,7 +529,7 @@ public class Castle extends Sprite{
 			d = this.duke.getName();
 		}
 		s += "Castle " + this.pos_x + " " + this.pos_y + " " + d + " " + this.level + " " + this.treasure + " " +
-				this.nbPikemen + " " + this.nbKnight + " " + this.nbOnager + " " + this.getDoor(); 
+				this.nbPikemen + " " + this.nbKnight + " " + this.nbOnager + " " + this.getDoor() + " " + (barracks.size() - 1); 
 		return s;
 	}
 	
@@ -502,6 +540,7 @@ public class Castle extends Sprite{
 		this.removeFromLayer();	
 		this.ost = null;
 		this.displacementOrder = null;
+		this.barracks.clear();
 	}
 	
 	/* * * * * * * * FIN : SAVE * * * * * * * */
@@ -590,10 +629,16 @@ public class Castle extends Sprite{
 
 	/**
 	 * Getter of the production 
-	 * @return Array list of the productions
+	 * @return Current productions
 	 */
-	public Production getProduction() {
-		return productions.get(0);
+	public ArrayList<Production> getProduction() {
+		ArrayList<Production> prods = new ArrayList<Production>();
+		for (int i = 0; i<barracks.size(); i++) {
+			if(barracks.get(i).inProduction()) {
+				prods.add(barracks.get(i).getCurrentProduction());
+			}
+		}
+		return prods;
 	}
 
 	/**
@@ -635,6 +680,13 @@ public class Castle extends Sprite{
 	private Castle getCastle() {
 		return this;
 	}	
+	
+	public int getNbBarracks() {
+		return barracks.size();
+	}
+	public void addBarrack() {
+		barracks.add(new Barrack());
+	}
 
 	/* * * * * * * * FIN : Getters/Setters * * * * * * * */
 }

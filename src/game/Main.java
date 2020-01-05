@@ -1,6 +1,7 @@
 package game;
 
 import kingdom.*;
+
 import kingdom.Castle;
 
 import java.io.*;
@@ -55,14 +56,16 @@ public class Main extends Application {
 	private Text textPikemen = new Text("--");
 	private Text textKnight = new Text("--");
 	private Text textOnager = new Text("--");
+	private Text textBarrack = new Text("--");
 	private Text textPlayer = new Text ("--");
 	private Text errorMessageProduction = new Text("");
 	private Button buttonProducePikemen = new Button();
 	private Button buttonProduceKnight = new Button();
 	private Button buttonProduceOnager = new Button();
 	private Button buttonProduceAmelioration = new Button();
-	private Rectangle barProgression;
-	
+	private Button buttonProduceBarrack = new Button();
+	//private ArrayList<Rectangle> barProgressions = new ArrayList<Rectangle>();
+	private Rectangle[] barProgressions = new Rectangle[Constants.LEVEL_MAX];
 	private Rectangle borderCastle = new Rectangle();
 	
 	private Button buttonPlay = new Button("Jouer");
@@ -278,11 +281,11 @@ public class Main extends Application {
 			String line = br.readLine();
 			kingdom.clean();
 			String args[] = line.split(" ");
-			kingdom.setNbCastle(Integer.parseInt(args[0]));
+			kingdom.setNbCastle(Integer.parseInt(args[0]));			
 			
 			for (int i = 0; i < Integer.parseInt(args[0]); i++) {
 				line = br.readLine();
-				kingdom.addCastle(line);
+				kingdom.addCastleFromSave(line);
 			}
 			
 			br.close();
@@ -309,6 +312,7 @@ public class Main extends Application {
 		textPikemen.setText(""+castleSelection.getNbPikemen());
 		textKnight.setText(""+castleSelection.getNbKnight());
 		textOnager.setText(""+castleSelection.getNbOnager());
+		textBarrack.setText(""+castleSelection.getNbBarracks());
 		if(!castleSelection.getNeutral()) {
     		textPlayer.setText(castleSelection.getDuke().getName()+" - Niveau "+castleSelection.getLevel());
     		textPlayer.setFill(castleSelection.getDuke().getColor());
@@ -331,8 +335,11 @@ public class Main extends Application {
 			textPikemen.setText("--");
     		textKnight.setText("--");
     		textOnager.setText("--");
+    		textBarrack.setText("--");
     		textPlayer.setText("--");
-    		barProgression.setWidth(1);
+    		for (int i = 0; i<Constants.LEVEL_MAX; i++) {
+    			barProgressions[i].setWidth(1);
+    		}
 		}
 		else {
 			borderCastle.relocate(castleSelection.getPos_x()-2, castleSelection.getPos_y()-2);
@@ -340,6 +347,7 @@ public class Main extends Application {
     		textPikemen.setText(""+castleSelection.getNbPikemen());
     		textKnight.setText(""+castleSelection.getNbKnight());
     		textOnager.setText(""+castleSelection.getNbOnager());
+    		textBarrack.setText(""+castleSelection.getNbBarracks());
     		if(!castleSelection.getNeutral()) {
         		textPlayer.setText(castleSelection.getDuke().getName()+" - Niveau "+castleSelection.getLevel());
         		textPlayer.setFill(castleSelection.getDuke().getColor());
@@ -348,17 +356,23 @@ public class Main extends Application {
 	        		buttonProduceKnight.setStyle("");
 	        		buttonProduceOnager.setStyle("");
 	        		buttonProduceAmelioration.setStyle("-fx-padding: 12 67 12 67;");
+	        		buttonProduceBarrack.setStyle("");
         		}
         		else {
         			buttonProducePikemen.setStyle("-fx-background-color: #E9E9E9");
             		buttonProduceKnight.setStyle("-fx-background-color: #E9E9E9");
             		buttonProduceOnager.setStyle("-fx-background-color: #E9E9E9");
             		buttonProduceAmelioration.setStyle("-fx-background-color: #E9E9E9;-fx-padding: 12 67 12 67;");
+            		buttonProduceBarrack.setStyle("-fx-background-color: #E9E9E9");
         		}
         		if(castleSelection.inProduction()) {
-    				barProgression.setWidth(castleSelection.getProduction().pourcentage()*160+1);
+        			for (int i = 0; i<castleSelection.getProduction().size(); i++) {
+        				barProgressions[i].setWidth(castleSelection.getProduction().get(i).pourcentage()*160+1);
+        			}
         		} else {
-        			barProgression.setWidth(1);
+        			for (int i = 0; i< Constants.LEVEL_MAX; i++) {
+            			barProgressions[i].setWidth(1);
+            		}
         		}
     		}
     		else {
@@ -368,6 +382,7 @@ public class Main extends Application {
         		buttonProduceKnight.setStyle("-fx-background-color: #E9E9E9");
         		buttonProduceOnager.setStyle("-fx-background-color: #E9E9E9");
         		buttonProduceAmelioration.setStyle("-fx-background-color: #E9E9E9;-fx-padding: 12 67 12 67;");
+        		buttonProduceBarrack.setStyle("-fx-background-color: #E9E9E9");
     		}
 		}
 	}
@@ -389,10 +404,14 @@ public class Main extends Application {
     		/*textPikemen.setText(""+castleSelection.getNbPikemen());
     		textKnight.setText(""+castleSelection.getNbKnight());
     		textOnager.setText(""+castleSelection.getNbOnager());*/
-    		if(castleSelection.inProduction()) {
-				barProgression.setWidth(castleSelection.getProduction().pourcentage()*160+1);
+			if(castleSelection.inProduction()) {
+    			for (int i = 0; i<castleSelection.getProduction().size(); i++) {
+    				barProgressions[i].setWidth(castleSelection.getProduction().get(i).pourcentage()*160+1);
+    			}
     		} else {
-    			barProgression.setWidth(1);
+    			for (int i = 0; i< Constants.LEVEL_MAX; i++) {
+        			barProgressions[i].setWidth(1);
+        		}
     		}
     		/*if(!castleSelection.getNeutral()) {
         		textPlayer.setText(castleSelection.getDuke().getNom()+" - Niveau "+castleSelection.getNiveau());
@@ -516,18 +535,26 @@ public class Main extends Application {
 		Rectangle fond = new Rectangle(longueur,h_ecran);
 		Rectangle bar_ressources = new Rectangle(longueur,28);
 		Rectangle bar_actions = new Rectangle(l_ecran-longueur,h_ecran);
-		Rectangle bar_amelioration = new Rectangle(162, 15);
-		barProgression = new Rectangle(1,13);
+		Rectangle[] bar_amelioration = new Rectangle[Constants.LEVEL_MAX];
+		
+		for(int i = 0; i<Constants.LEVEL_MAX; i++) {
+			bar_amelioration[i] = new Rectangle(162, 15);
+			barProgressions[i] = new Rectangle(1, 13);
+		}
 		ImageView img_florins = new ImageView(new Image(getClass().getResource("/images/coins.png").toExternalForm(),28,28,true,true));
 		ImageView img_pikemen = new ImageView(new Image(getClass().getResource("/images/militar.png").toExternalForm(), 28, 28, false, true));
 		ImageView img_knight = new ImageView(new Image(getClass().getResource("/images/chevalier.png").toExternalForm(), 28, 28, false, true));
 		ImageView img_onager = new ImageView(new Image(getClass().getResource("/images/onagre.png").toExternalForm(), 28, 28, false, true));
+		ImageView img_barrack = new ImageView(new Image(getClass().getResource("/images/Barrack.png").toExternalForm(), 28, 28, true, true));
+
 		Text produce = new Text("Produire");
 		
 		buttonProducePikemen.setGraphic(new ImageView(new Image(getClass().getResource("/images/militar.png").toExternalForm(), 28, 28, false, true)));
 		buttonProduceKnight.setGraphic(new ImageView(new Image(getClass().getResource("/images/chevalier.png").toExternalForm(), 28, 28, false, true)));
 		buttonProduceOnager.setGraphic(new ImageView(new Image(getClass().getResource("/images/onagre.png").toExternalForm(), 28, 28, false, true)));
 		buttonProduceAmelioration.setGraphic(new ImageView(new Image(getClass().getResource("/images/up.png").toExternalForm(), 28, 28, true, false)));
+		buttonProduceBarrack.setGraphic(new ImageView(new Image(getClass().getResource("/images/Barrack.png").toExternalForm(), 28, 28, true, true)));
+
 		
 		fond.setFill(Color.GREY);
 		fond.setOnMouseClicked(e -> {
@@ -540,11 +567,14 @@ public class Main extends Application {
 		bar_actions.relocate(longueur, 0);
 		bar_actions.setFill(Color.ANTIQUEWHITE);
 		bar_actions.setStroke(Color.BLACK);
-		bar_amelioration.relocate(0, 180);
-		bar_amelioration.setFill(Color.ANTIQUEWHITE);
-		bar_amelioration.setStroke(Color.BLACK);
-		barProgression.relocate(1, 181);
-		barProgression.setFill(Color.AQUA);
+		for (int i =0; i<Constants.LEVEL_MAX; i++) {
+			bar_amelioration[i].relocate(0, i*50 + 180);
+			bar_amelioration[i].setFill(Color.ANTIQUEWHITE);
+			bar_amelioration[i].setStroke(Color.BLACK);
+			barProgressions[i].relocate(1, i*50 + 181);
+			barProgressions[i].setFill(Color.AQUA);
+		}
+		
 		borderCastle.relocate(-100, -100);
 		
 		textFlorins.relocate(70, hauteur+4);
@@ -555,7 +585,9 @@ public class Main extends Application {
 		textKnight.getStyleClass().add("gtext");
 		textOnager.relocate(420, hauteur+4);
 		textOnager.getStyleClass().add("gtext");
-		textPlayer.relocate(600, hauteur+4);
+		textBarrack.relocate(520, hauteur+4);
+		textBarrack.getStyleClass().add("gtext");
+		textPlayer.relocate(620, hauteur+4);
 		textPlayer.getStyleClass().add("gtext");
 		produce.relocate(0, 30);
 		produce.setStyle("-fx-fill: #545454;-fx-font-size: 30;");
@@ -566,6 +598,7 @@ public class Main extends Application {
 		img_pikemen.relocate(180, hauteur);
 		img_knight.relocate(280, hauteur);
 		img_onager.relocate(380, hauteur);
+		img_barrack.relocate(480, hauteur);
 		
 		buttonProducePikemen.relocate(0, 50);
 		buttonProducePikemen.getStyleClass().add("gbutton");
@@ -576,8 +609,11 @@ public class Main extends Application {
 		buttonProduceAmelioration.relocate(0, 120);
 		buttonProduceAmelioration.getStyleClass().add("gbutton");
 		buttonProduceAmelioration.setStyle("-fx-padding: 12 67 12 67;");
+		buttonProduceBarrack.relocate(165, 50);
+		buttonProduceBarrack.getStyleClass().add("gbutton");
 		
-		buttonSave.relocate(0, 300);
+		
+		buttonSave.relocate(0, 600);
 		buttonSave.getStyleClass().add("gbutton_menu");
 		buttonSave.setStyle("-fx-padding: 10 14 10 14;");
 		
@@ -594,85 +630,61 @@ public class Main extends Application {
 		gameFieldLayer.getChildren().add(textKnight);
 		gameFieldLayer.getChildren().add(img_onager);
 		gameFieldLayer.getChildren().add(textOnager);
+		gameFieldLayer.getChildren().add(img_barrack);
+		gameFieldLayer.getChildren().add(textBarrack);
 		gameFieldLayer.getChildren().add(textPlayer);
-		layoutProduction.getChildren().addAll(bar_amelioration,barProgression,produce,errorMessageProduction);
-		layoutProduction.getChildren().addAll(buttonProducePikemen,buttonProduceKnight,buttonProduceOnager,buttonProduceAmelioration,buttonSave);
+		
+		layoutProduction.getChildren().addAll(produce,errorMessageProduction);
+		for (int i = 0; i<Constants.LEVEL_MAX; i++) {
+			layoutProduction.getChildren().add(bar_amelioration[i]);
+			layoutProduction.getChildren().add(barProgressions[i]);
+		}
+		layoutProduction.getChildren().addAll(buttonProducePikemen,buttonProduceKnight,buttonProduceOnager,buttonProduceAmelioration, buttonProduceBarrack, buttonSave);
 		gameFieldLayer.getChildren().add(layoutProduction);
 		
 		UIsingleton.getUIsingleton().setErrorLabelProduction(errorMessageProduction);
 		
 		buttonProducePikemen.setOnAction(e -> {
-			if (castleSelection!=null) {
-				if(!castleSelection.getNeutral()){
-					if(castleSelection.getDuke().equals(dukePlayer)) {
-		    			try {
-		    				castleSelection.launchProduction(Constants.PIKEMEN);
-		    				updateTresor();
-		    				errorMessageProduction.setText("");
-		    			} catch (ProdException err) {
-		    				err.printError();
-		    				timerErrorMessageProduction = 2;
-		    			}
-		    		}
-				}
-			}
+			buttonProduction(Constants.PIKEMEN);
 		});
 		
 		buttonProduceKnight.setOnAction(e -> {
-			if (castleSelection!=null) {
-				if(!castleSelection.getNeutral()){
-					if(castleSelection.getDuke().equals(dukePlayer)) {
-						try {
-		    				castleSelection.launchProduction(Constants.KNIGHT);
-		    				updateTresor();
-		    				errorMessageProduction.setText("");
-		    			} catch (ProdException err) {
-		    				err.printError();
-		    				timerErrorMessageProduction = 2;
-		    			}
-		    		}
-				}
-			}
+			buttonProduction(Constants.KNIGHT);
 		});
 		
 		buttonProduceOnager.setOnAction(e -> {
-			if (castleSelection!=null) {
-				if(!castleSelection.getNeutral()){
-					if(castleSelection.getDuke().equals(dukePlayer)) {
-						try {
-		    				castleSelection.launchProduction(Constants.ONAGER);
-		    				updateTresor();
-		    				errorMessageProduction.setText("");
-		    			} catch (ProdException err) {
-		    				err.printError();
-		    				timerErrorMessageProduction = 2;
-		    			}
-		    		}
-				}
-			}				
+			buttonProduction(Constants.ONAGER);				
 		});
 		
 		buttonProduceAmelioration.setOnAction(e -> {
-			if (castleSelection!=null) {
-				if(!castleSelection.getNeutral()){
-					if(castleSelection.getDuke().equals(dukePlayer)) {
-						try {
-		    				castleSelection.launchProduction(Constants.AMELIORATION);
-		    				updateTresor();
-		    				errorMessageProduction.setText("");
-		    			} catch (ProdException err) {
-		    				err.printError();
-		    				timerErrorMessageProduction = 2;
-		    			}
-		    		}
-				}
-			}
+			buttonProduction(Constants.AMELIORATION);
+		});
+		
+		buttonProduceBarrack.setOnAction(e -> {
+			buttonProduction(Constants.BARRACK);
 		});
 		
 		buttonSave.setOnAction(e -> {
 			saveGame();
 		});
 		
+	}
+	
+	private void buttonProduction(int cst) {
+		if (castleSelection!=null) {
+			if(!castleSelection.getNeutral()){
+				if(castleSelection.getDuke().equals(dukePlayer)) {
+					try {
+	    				castleSelection.launchProduction(cst);
+	    				updateTresor();
+	    				errorMessageProduction.setText("");
+	    			} catch (ProdException err) {
+	    				err.printError();
+	    				timerErrorMessageProduction = 2;
+	    			}
+	    		}
+			}
+		}
 	}
 	
 	/**
