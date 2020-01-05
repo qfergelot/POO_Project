@@ -2,7 +2,7 @@ Version de base :
 
 - affiner l'affichage de la map pour qu'elle soit correcte sur tous les écrans
 
-- si on clique sur le bouton charger sur le menu et qu'il n'y a pas de fichier de sauvegarde, ça lance quand meme une partie come si on cliquait sur jouer.
+- si on clique sur le bouton charger sur le menu et qu'il n'y a pas de fichier de sauvegarde, ça lance quand meme une partie comme si on cliquait sur jouer.
 
 - ne pas oublier dans le readme, touche L in game = Load
 
@@ -35,9 +35,9 @@ Version de base :
 
 Version Avancée (A FAIRE QUE QUAND ON AURA RENDU LA BASIQUE) :
 
-- mettre un message en pause quand le jeu est en pause
+- mettre un message "en pause" quand le jeu est en pause
 
--IA Avancée
+- IA Avancée
 
 -si on commande une production alors qu'il y en a une en cours, ajouter la production dans une file 
 
