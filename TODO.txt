@@ -14,7 +14,7 @@ Version Avancée (A FAIRE QUE QUAND ON AURA RENDU LA BASIQUE) :
 
 - caserne -> plus de file d'attente
 
-- bouclier chateau
+- bouclier chateau (bloque une attaque de n'importe quelle troupe et coute a mettre en place)
 
 - portes + ?
 
