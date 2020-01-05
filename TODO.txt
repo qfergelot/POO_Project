@@ -34,8 +34,23 @@ Version Avancée (A FAIRE QUE QUAND ON AURA RENDU LA BASIQUE) :
 
 - IA Avancée
 
--si on commande une production alors qu'il y en a une en cours, ajouter la production dans une file 
+- si on commande une production alors qu'il y en a une en cours, ajouter la production dans une file
 
--peut-être une sauvegarde plus élaborée ?
+- caserne -> plus de file d'attente
 
--javadoc de tous ce qui est nouveau ;)
+- bouclier chateau
+
+- portes + ?
+
+- ajout d'une unité ? (voleur: pique de la tune, ...)
+
+- peut-être une sauvegarde plus élaborée ?
+
+- javadoc de tous ce qui est nouveau ;)
+
+
+
+
+
+
+
