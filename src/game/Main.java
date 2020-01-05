@@ -446,7 +446,7 @@ public class Main extends Application {
 		buttonLoad.setOnAction(e -> {
 			stage.setScene(scene);
 			menuLoop.stop();
-			kingdom = new Kingdom(gameFieldLayer,1,2,0,1100,630,200,6,3,2,5);
+			kingdom = new Kingdom(gameFieldLayer,1,2,0,1100,630,200,6,3,2,0);
 			dukePlayer = kingdom.getCastle(0).getDuke();
 			UIsingleton.getUIsingleton().setDukePlayer(dukePlayer);
 			borderCastle.setWidth(kingdom.getCastle(0).getWidth());
