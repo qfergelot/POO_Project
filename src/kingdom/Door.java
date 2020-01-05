@@ -4,7 +4,8 @@ import java.util.Random;
 
 /**
  * Class that represents a door
- * @author Moi
+ * A door is basically a number which represents its rotation to be display: 0 is Left, 1 is Up, 2 is Right, 3 is Down
+ *
  *
  */
 public class Door {
@@ -13,7 +14,7 @@ public class Door {
 	private char door;
 	
 	/**
-	 * Construct a door by default ()
+	 * Construct a door by default 
 	 */
 	public Door() {
 		door = (char)rdm.nextInt(4);

@@ -16,13 +16,11 @@ import troops.*;
 
 /**
  * Class that represents a castle
- * @author Moi
+ * 
  *
  */
 public class Castle extends Sprite{
 	Random rdm = new Random();
-	
-	private Popup popupOst;
 	
 	private Duke duke = null;
 	private boolean neutral = true;
@@ -58,7 +56,6 @@ public class Castle extends Sprite{
 	public Castle(Pane layer, Image image, Duke duke, double treasure, int nbPikemen, int nbKnight,
 			int nbOnager, double x, double y, Popup popupOst) {
 		super(layer, image, x, y);
-		this.popupOst = popupOst;
 		this.duke = duke;
 		duke.addCastle();
 		this.neutral = false;
@@ -117,7 +114,6 @@ public class Castle extends Sprite{
 	public Castle(Pane layer, Image image, double treasure, int nbPikemen, int nbKnight,
 			int nbOnager, double x, double y, Popup popupOst) {
 		super(layer, image, x, y);
-		this.popupOst = popupOst;
 		this.treasure = treasure;
 		this.neutral = true;
 		this.level = rdm.nextInt(4)+1;
@@ -602,22 +598,6 @@ public class Castle extends Sprite{
 	}
 
 	/**
-	 * Getter of the order state 
-	 * @return true if an order is launched, else false
-	 */
-	public Order getOrderDisplacement() {
-		return displacementOrder;
-	}
-	
-	/**
-	 * Getter of the ost
-	 * @return Ost
-	 */
-	public Ost getOst() {
-		return ost;
-	}
-
-	/**
 	 * Getter of door position
 	 * @return door
 	 */
@@ -655,17 +635,7 @@ public class Castle extends Sprite{
 	 */
 	private Castle getCastle() {
 		return this;
-	}
-	
-	/**
-	 * Getter of popup
-	 * @return popup
-	 */
-	public Popup getPopupOst() {
-		return popupOst;
-	}
-
-	
+	}	
 
 	/* * * * * * * * FIN : Getters/Setters * * * * * * * */
 }

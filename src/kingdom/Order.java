@@ -6,7 +6,7 @@ import troops.*;
 
 /**
  * Class that represents an order
- * @author Moi
+ * An order is an ost in creation in the castle
  *
  */
 public class Order {

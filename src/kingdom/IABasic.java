@@ -8,7 +8,7 @@ import java.util.Random;
 
 /**
  * Class managing the AI 
- * @author Moi
+ *
  *
  */
 public class IABasic extends Duke {

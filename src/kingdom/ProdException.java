@@ -5,7 +5,7 @@ import game.UIsingleton;
 /**
  * Class that represents a ProdException exception
  * it is threw when a production is launched although another production is processed
- * @author Moi
+ * 
  *
  */
 public class ProdException extends Exception {

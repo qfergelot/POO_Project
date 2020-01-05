@@ -6,7 +6,7 @@ import troops.Pikemen;
 
 /**
  * Class that represents a production
- * @author Moi
+ * A production is what happens when you create a unit or want an upgrade of the castle
  *
  */
 public class Production {
@@ -46,22 +46,6 @@ public class Production {
 	 */
 	public boolean isAmelioration() {
 		return unit == Constants.AMELIORATION;
-	}
-	
-	/**
-	 * Get remaining rounds
-	 * @return number of rounds before production end 
-	 */
-	public int getNbRounds() {
-		return nbRounds;
-	}
-	
-	/**
-	 * Get initial number of rounds
-	 * @return number of initial rounds of the production
-	 */
-	public int getNbRoundsInit() {
-		return nbRoundsInit;
 	}
 	
 	/**

@@ -2,7 +2,7 @@ package kingdom;
 
 /**
  * Class of constants
- * @author Moi
+ *
  *
  */
 public class Constants {

@@ -5,7 +5,6 @@ import javafx.scene.paint.Color;
 
 /**
  * Class that represents a duke owner
- * @author Moi
  *
  */
 public class Duke {

@@ -35,6 +35,8 @@ Version de base :
 
 Version Avancée (A FAIRE QUE QUAND ON AURA RENDU LA BASIQUE) :
 
+- mettre un message en pause quand le jeu est en pause
+
 -IA Avancée
 
 -si on commande une production alors qu'il y en a une en cours, ajouter la production dans une file 

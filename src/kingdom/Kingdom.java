@@ -11,7 +11,7 @@ import kingdom.Ost;
 
 /**
  * Class that represents the kingdom of the game
- * @author Moi
+ * 
  *
  */
 public class Kingdom {
@@ -298,30 +298,6 @@ public class Kingdom {
 	 */
 	public int getLevelIA() {
 		return levelIA;
-	}
-	
-	/**
-	 * getter for distMinCastle
-	 * @return Minimal distance between two castles
-	 */
-	public int getDistMinCastle() {
-		return distMinCastle;
-	}
-	
-	/**
-	 * getter for height
-	 * @return Height
-	 */
-	public int getHeight() {
-		return height;
-	}
-	
-	/**
-	 * Getter for width
-	 * @return Width
-	 */
-	public int getWidth() {
-		return width;
 	}
 	
 	/**

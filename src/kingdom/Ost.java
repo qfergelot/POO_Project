@@ -10,7 +10,7 @@ import troops.*;
 
 /**
  * Class that represents an ost
- * @author Moi
+ * An ost is a group of units which can attack or transfer troops in another castle
  *
  */
 public class Ost {
@@ -84,22 +84,6 @@ public class Ost {
 	 */
 	public void addTroop (Troop t) {
 		troops.add(t);
-	}
-
-	/**
-	 * getter for duke
-	 * @return the duke owner of this ost
-	 */
-	public Duke getDuke() {
-		return duke;
-	}
-	
-	/**
-	 * getter for target Castle
-	 * @return the target Castle of this ost
-	 */
-	public Castle getTarget() {
-		return target;
 	}
 	
 	/**
