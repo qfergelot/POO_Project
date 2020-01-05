@@ -8,6 +8,7 @@ Le jeu lancé vous verrez un interface qui a été crée sur un ordinateur avec 
 
 Le château du joueur est bleu.
 On peut sélectionner les châteaux ou désélectionner en cliquant dans le fond, en cliquant sur le château du joueur on peut cliquer sur un autre château pour envoyer une ost, qui ouvrira en faite un popup qui met le jeu en pause et permet de choisir le nombre de troupes à envoyer (on peut très bien n'en envoyer aucune).
+Il y a désormais des casernes en plus des autres troupes, elles permettent de produire des troupes en même temps sur plusieurs file d'attentes
 
 La touche espace permet de mettre le jeu en pause, la touche L permet en partie de charger une partie si le fichier de sauvegarde existe.
 

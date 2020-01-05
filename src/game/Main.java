@@ -568,10 +568,10 @@ public class Main extends Application {
 		bar_actions.setFill(Color.ANTIQUEWHITE);
 		bar_actions.setStroke(Color.BLACK);
 		for (int i =0; i<Constants.LEVEL_MAX; i++) {
-			bar_amelioration[i].relocate(0, i*50 + 180);
+			bar_amelioration[i].relocate(0, i*50 + 260);
 			bar_amelioration[i].setFill(Color.ANTIQUEWHITE);
 			bar_amelioration[i].setStroke(Color.BLACK);
-			barProgressions[i].relocate(1, i*50 + 181);
+			barProgressions[i].relocate(1, i*50 + 261);
 			barProgressions[i].setFill(Color.AQUA);
 		}
 		
@@ -609,7 +609,7 @@ public class Main extends Application {
 		buttonProduceAmelioration.relocate(0, 120);
 		buttonProduceAmelioration.getStyleClass().add("gbutton");
 		buttonProduceAmelioration.setStyle("-fx-padding: 12 67 12 67;");
-		buttonProduceBarrack.relocate(165, 50);
+		buttonProduceBarrack.relocate(0, 180);
 		buttonProduceBarrack.getStyleClass().add("gbutton");
 		
 		
