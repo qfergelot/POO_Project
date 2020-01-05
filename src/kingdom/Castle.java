@@ -1,5 +1,6 @@
 package kingdom;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import game.Popup;
@@ -35,7 +36,7 @@ public class Castle extends Sprite{
 	private int lifeKnight = Constants.LIFE_KNIGHT;
 	private int lifeOnager = Constants.LIFE_ONAGER;
 	
-	private Production production;
+	private ArrayList<Production> productions;
 	private Order displacementOrder;
 	private Ost ost;
 	private Door door;
@@ -64,8 +65,8 @@ public class Castle extends Sprite{
 		this.nbPikemen = nbPikemen;
 		this.nbKnight = nbKnight;
 		this.nbOnager = nbOnager;
-		this.production = null;
 		this.displacementOrder = null;
+		this.productions = new ArrayList<Production>();
 		this.ost = null;
 		this.door = new Door();
 		switch(getDoor()) {
@@ -120,8 +121,8 @@ public class Castle extends Sprite{
 		this.nbPikemen = nbPikemen;
 		this.nbKnight = nbKnight;
 		this.nbOnager = nbOnager;
-		this.production = null;
 		this.displacementOrder = null;
+		this.productions = new ArrayList<Production>();
 		this.ost = null;
 		this.door = new Door();
 		switch(getDoor()) {
@@ -175,55 +176,53 @@ public class Castle extends Sprite{
 	/**
 	 * Launch a production
 	 * @param unit Unit to produkee
-	 * @throws ProdException Exception throws when a production is already launched
+	 * @throws ProdException Exception throws when a production cannot be produced
 	 */
 	public void launchProduction(int unit) throws ProdException {
-		if(inProduction()) {
-			throw new ProdException("En cours de production");
-			//return false;
-		} else {
-			
-			int cout;
-			if(unit==Constants.PIKEMEN)
-				cout = Pikemen.PRODUCTION_COST;
-			else if(unit==Constants.KNIGHT)
-				cout = Knight.PRODUCTION_COST;
-			else if(unit==Constants.ONAGER)
-				cout = Onager.PRODUCTION_COST;
-			else {
-				cout = 1000*level;
-				if(level == Constants.LEVEL_MAX)
-					throw new ProdException("Niveau du Chateau Maximal");
-			}
-			if(treasure < cout) {
-				throw new ProdException("Pas assez de Florins");
-			}
-			else {
-				production = new Production(unit,level);
-				treasure -= cout;
-				//return true;
-			}
+		int cout;
+		if(unit==Constants.PIKEMEN)
+			cout = Pikemen.PRODUCTION_COST;
+		else if(unit==Constants.KNIGHT)
+			cout = Knight.PRODUCTION_COST;
+		else if(unit==Constants.ONAGER)
+			cout = Onager.PRODUCTION_COST;
+		else {
+			cout = 1000*level;
+			if(level == Constants.LEVEL_MAX)
+				throw new ProdException("Niveau du Chateau Maximal");
 		}
-		
+		if(treasure < cout) {
+			throw new ProdException("Pas assez de Florins");
+		}
+		else {
+			productions.add(new Production(unit,level)) ;
+			treasure -= cout;
+			//return true;
+		}
 	}
+		
+	
 	
 	/**
 	 * Cancel a production
 	 */
 	public void cancelProduction() {
-		if(production != null) {
-			if(production.isAmelioration()) {
-				treasure += 1000*level;
-			} else {
-				if(production.getUnit()==Constants.PIKEMEN)
-					treasure += Pikemen.PRODUCTION_COST;
-				else if(production.getUnit()==Constants.KNIGHT)
-					treasure += Knight.PRODUCTION_COST;
-				else
-					treasure += Onager.PRODUCTION_COST;
+		if(!productions.isEmpty()) {
+			for(int i = 0; i<productions.size(); i++) {
+				if(productions.get(i).isAmelioration()) {
+					treasure += 1000*level;
+				} else {
+					if(productions.get(i).getUnit()==Constants.PIKEMEN)
+						treasure += Pikemen.PRODUCTION_COST;
+					else if(productions.get(i).getUnit()==Constants.KNIGHT)
+						treasure += Knight.PRODUCTION_COST;
+					else
+						treasure += Onager.PRODUCTION_COST;
+				}
 			}
+			productions.clear();
 		}
-		production = null;
+		
 	}
 	
 	/**
@@ -231,17 +230,17 @@ public class Castle extends Sprite{
 	 * @return true if a production is launched , else false
 	 */
 	public boolean inProduction() {
-		return production != null;
+		return !productions.isEmpty();
 	}
 	
 	/**
 	 * Normal ending for a production 
 	 */
 	public void finishProduction() {
-		if(production.isAmelioration())
+		if(productions.get(0).isAmelioration())
 			level++;
 		else {
-			int t = production.getUnit();
+			int t = productions.get(0).getUnit();
 			if(t == Constants.PIKEMEN)
 				nbPikemen++;
 			else if(t == Constants.KNIGHT)
@@ -251,7 +250,7 @@ public class Castle extends Sprite{
 		}
 		if (this == UIsingleton.getUIsingleton().getCastleSelection())
 			UIsingleton.getUIsingleton().setToUpdateTroops(true);
-		production = null;
+		productions.remove(0);
 	}
 	/* * * * * * * * FIN : Fonctions Production * * * * * * * */
 	
@@ -383,8 +382,8 @@ public class Castle extends Sprite{
 				
 			treasure += level;
 			if(inProduction()) {
-				production.finishRoundProduction();
-				if(production.finishedProduction()) {
+				productions.get(0).finishRoundProduction();
+				if(productions.get(0).finishedProduction()) {
 					finishProduction();
 				}
 			}
@@ -590,11 +589,11 @@ public class Castle extends Sprite{
 	}
 
 	/**
-	 * Getter of the production state 
-	 * @return true if a production is launched, else false
+	 * Getter of the production 
+	 * @return Array list of the productions
 	 */
 	public Production getProduction() {
-		return production;
+		return productions.get(0);
 	}
 
 	/**
