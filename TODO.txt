@@ -1,11 +1,4 @@
 Version de base :
-- Apr_s le chargement d'une sauvegarde, il arrive qu'une ost reste bloqu�ｿｽs au niveau des murs d'un chateau[DONE]
-- La partie ne se finit pas apres un chargement [DONE]
-- unifier le langage: tout en anglais ou tout en français[DONE]
-- le message en cours de production doit s'en aller a la fin d'une production[DONE]
-- ne pas superposer les troupes en sortie de chateau[DONE]
-- actualiser le visuel du transfert de troupes directement pendant les attaques(ne pas avoir à clicker autre part puis revenir sur le chateau pour voir l'avancement des troupes)[DONE]
-- si une attaque est finie, les unités restantes doivent continuer a aller jusqu'au chateau[DONE]
 
 - affiner l'affichage de la map pour qu'elle soit correcte sur tous les écrans
 
