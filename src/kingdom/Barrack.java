@@ -18,6 +18,24 @@ public class Barrack {
 		productions = new ArrayList<Production>();
 	}
 	
+	public boolean isBarrackProd() {
+		for (int i = 0; i<productions.size(); i++) {
+			if (productions.get(i).getUnit() == Constants.BARRACK) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean isUpgradeProd() {
+		for (int i = 0; i<productions.size(); i++) {
+			if (productions.get(i).getUnit() == Constants.AMELIORATION) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	
 	public void clear() {
 		productions.clear();

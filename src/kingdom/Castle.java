@@ -213,8 +213,14 @@ public class Castle extends Sprite{
 		if(treasure < cout) {
 			throw new ProdException("Pas assez de Florins");
 		}
+		else if (unit==Constants.BARRACK && alreadyBarrackProduction()) {
+			throw new ProdException("Il y a déjà une caserne en construction");
+		}
 		else if (unit==Constants.BARRACK && level < barracks.size()) {
 			throw new ProdException("Tu n'as pas un niveau assez haut");
+		}
+		else if (unit==Constants.AMELIORATION && alreadyUpgradeProduction()) {
+			throw new ProdException("Il y a déjà une amélioration programmée");
 		}
 		else {
 			Barrack b = mostReadyBarrack();
@@ -222,6 +228,30 @@ public class Castle extends Sprite{
 			treasure -= cout;
 			//return true;
 		}
+	}
+	
+	private boolean alreadyBarrackProduction() {
+		for (int i = 0; i<barracks.size(); i++) {
+			Barrack b = barracks.get(i);
+			if (b.inProduction()) {
+				if (b.isBarrackProd()) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	private boolean alreadyUpgradeProduction() {
+		for (int i = 0; i<barracks.size(); i++) {
+			Barrack b = barracks.get(i);
+			if (b.inProduction()) {
+				if (b.isUpgradeProd()) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 		
 	
@@ -287,7 +317,7 @@ public class Castle extends Sprite{
 	/* * * * * * * * FIN : Fonctions Production * * * * * * * */
 	
 	/* * * * * * * * DEBUT : Fonctions Order * * * * * * * */
-	/* true si l'odre a été lancé
+	/* true si l'odre a ﾃｩtﾃｩ lancﾃｩ
 	 * false si le nombre de troupes est insuffisant
 	 */
 	/**
@@ -385,7 +415,7 @@ public class Castle extends Sprite{
 	 */
 	public double distance(Castle c) {
 		if (c.getPos_x() == pos_x && c.getPos_y() == pos_y) {
-			System.err.println("Erreur : Deux chateaux ne peuvent être sur la même position.");
+			System.err.println("Erreur : Deux chateaux ne peuvent ﾃｪtre sur la mﾃｪme position.");
 			return 0;
 		}
 		return Math.sqrt((c.getPos_y() - pos_y)*(c.getPos_y() - pos_y) + Math.abs(c.getPos_x() - pos_x)*Math.abs(c.getPos_x() - pos_x));
