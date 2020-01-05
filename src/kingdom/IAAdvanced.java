@@ -1,5 +1,7 @@
 package kingdom;
 
+import java.util.Random;
+
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
@@ -7,6 +9,8 @@ public class IAAdvanced extends Duke {
 	private Kingdom kingdom;
 	
 	private Castle target;
+	
+	private Random rdm = new Random();
 	
 	/**
 	 * Construct a Advanced AI
@@ -22,20 +26,79 @@ public class IAAdvanced extends Duke {
 	
 	public void roundCastleAI(Castle castle) {
 		int defenseScore = castle.getNbPikemen()+castle.getNbKnight()*2+castle.getNbOnager()*5;
-		if(defenseScore < 5) {
-			try{
-				castle.launchProduction(Constants.PIKEMEN);
+
+		if(!castle.inProduction()) {
+			if(defenseScore < 5) {
+				try{
+					castle.launchProduction(Constants.PIKEMEN);
+				}
+				catch (ProdException e){
+					//
+				}
 			}
-			catch (ProdException e){
-				//
+			else if(castle.getLevel() < 3) {
+				try{
+					castle.launchProduction(Constants.AMELIORATION);
+				}
+				catch (ProdException e){
+					//
+				}
 			}
-		}
-		else if(castle.getLevel() < 3) {
-			try{
-				castle.launchProduction(Constants.AMELIORATION);
+			else if(defenseScore < 8) {
+				try{
+					if(rdm.nextBoolean())
+						castle.launchProduction(Constants.PIKEMEN);
+					else
+						castle.launchProduction(Constants.KNIGHT);
+				}
+				catch (ProdException e){
+					try {
+						castle.launchProduction(Constants.PIKEMEN);
+					}
+					catch (ProdException f) {
+						//
+					}
+				}
 			}
-			catch (ProdException e){
-				//
+			else if(castle.getLevel() < Constants.LEVEL_MAX) {
+				if(castle.getTreasure() < castle.getLevel()*1000 - 1000) {
+					//if we are close to be able to upgrade castle we wait, else we produce an onager
+					try {
+						castle.launchProduction(Constants.ONAGER);
+					}
+					catch (ProdException e) {
+						//
+					}
+				}
+				else {
+					try {
+						castle.launchProduction(Constants.AMELIORATION);
+					}
+					catch (ProdException e) {
+						//
+					}
+				}
+			}
+			else {
+				if(defenseScore > 9) {
+					try {
+						castle.launchProduction(Constants.ONAGER);
+					}
+					catch (ProdException e) {
+						//
+					}
+				}
+				else {
+					try {
+						if(rdm.nextBoolean())
+							castle.launchProduction(Constants.PIKEMEN);
+						else
+							castle.launchProduction(Constants.KNIGHT);
+					}
+					catch (ProdException e) {
+						//
+					}
+				}
 			}
 		}
 	}
@@ -56,9 +119,6 @@ public class IAAdvanced extends Duke {
 	 */
 	public void reset() {
 		this.nbCastle = 0;
-		economicPhase = true;
-		phaseDuration = 600;
-		attackCounter = 0;
 		target = null;
 	}
 }
