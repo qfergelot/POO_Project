@@ -36,7 +36,7 @@ public class IABasic extends Duke {
 	 * Compute the decision of the AI for this round
 	 * @param castle Castle owned by the AI
 	 */
-	public void roundCastleIA(Castle castle) {
+	public void roundCastleAI(Castle castle) {
 		if(castle.getDuke().equals(this)) {
 			if(economicPhase) {
 				try{
