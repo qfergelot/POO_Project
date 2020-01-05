@@ -1,30 +1,6 @@
 Version de base :
 
 - affiner l'affichage de la map pour qu'elle soit correcte sur tous les écrans
-
--javadoc :
-	game:
-		Input (to test) en
-		Main (to test) en
-		Popup (to test) en
-		Sprite (to test) en
-		UISingleton (to test) en
-	royaume:
-		Castle (to test) en
-		Constants (to test) en
-		Duke (to test) en
-		IABasic (to test) en
-		Order (doing) en
-		Ost (to test) en
-		Door (to test) en
-		ProdException (to test) en
-		Production (to test) en
-		Kingdom (to test) en
-	troupes:
-		Knight (to test) en
-		Onager (to test) en
-		Pikeman (to test) en
-		Troop (to test) en
 		
 -relire la doc pour corriger
 
