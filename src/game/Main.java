@@ -190,7 +190,11 @@ public class Main extends Application {
 				} else if (input.isPause()) { 
 					pause();
 				} else if (input.isLoad()) { 
-					loadGame();
+					try {
+						loadGame();
+					}catch(FileNotFoundException e) {
+						System.out.println("Le fichier de sauvegarde n'a pas été trouvé !");
+					}
 				}
 			}
 		};
@@ -255,7 +259,6 @@ public class Main extends Application {
 			
 			fw.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -264,31 +267,28 @@ public class Main extends Application {
 	
 	/**
 	 * Load the game from a file named save.txt
+	 * @throws FileNotFoundException Exception threw when the save file is not found
 	 */
-	private void loadGame() {
+	private void loadGame() throws FileNotFoundException {
+
+		File f = new File("Save.txt");
+		BufferedReader br = new BufferedReader(new FileReader(f));
+		
 		try {
-			File f = new File("Save.txt");
-			BufferedReader br = new BufferedReader(new FileReader(f));
+			String line = br.readLine();
+			kingdom.clean();
+			String args[] = line.split(" ");
+			kingdom.setNbCastle(Integer.parseInt(args[0]));
 			
-			try {
-				String line = br.readLine();
-				kingdom.clean();
-				String args[] = line.split(" ");
-				kingdom.setNbCastle(Integer.parseInt(args[0]));
-				
-				for (int i = 0; i < Integer.parseInt(args[0]); i++) {
-					line = br.readLine();
-					kingdom.addCastle(line);
-				}
-				
-				br.close();
-				
-			}catch(IOException e) {
-				System.out.println("Erreur lecture : " + e.getMessage());
+			for (int i = 0; i < Integer.parseInt(args[0]); i++) {
+				line = br.readLine();
+				kingdom.addCastle(line);
 			}
 			
-		} catch (FileNotFoundException e) {
-			System.out.println("Le fichier de sauvegarde n'a pas été trouvé !");
+			br.close();
+			
+		}catch(IOException e) {
+			System.out.println("Erreur lecture : " + e.getMessage());
 		}
 	}
 	
@@ -444,18 +444,39 @@ public class Main extends Application {
 		});
 		
 		buttonLoad.setOnAction(e -> {
-			stage.setScene(scene);
-			menuLoop.stop();
-			kingdom = new Kingdom(gameFieldLayer,1,2,0,1100,630,200,6,3,2,0);
-			dukePlayer = kingdom.getCastle(0).getDuke();
-			UIsingleton.getUIsingleton().setDukePlayer(dukePlayer);
-			borderCastle.setWidth(kingdom.getCastle(0).getWidth());
-			borderCastle.setHeight(kingdom.getCastle(0).getHeight());
-			loadGame();
-			dukePlayer = kingdom.getCastle(0).getDuke();
-			UIsingleton.getUIsingleton().setDukePlayer(dukePlayer);
-			gameLoop.start();
+			try {
+				isSaveFile();
+				stage.setScene(scene);
+				menuLoop.stop();
+				kingdom = new Kingdom(gameFieldLayer,1,2,0,1100,630,200,6,3,2,5);
+				dukePlayer = kingdom.getCastle(0).getDuke();
+				UIsingleton.getUIsingleton().setDukePlayer(dukePlayer);
+				borderCastle.setWidth(kingdom.getCastle(0).getWidth());
+				borderCastle.setHeight(kingdom.getCastle(0).getHeight());
+				loadGame();
+				dukePlayer = kingdom.getCastle(0).getDuke();
+				UIsingleton.getUIsingleton().setDukePlayer(dukePlayer);
+				gameLoop.start();
+			}catch(FileNotFoundException exc) {
+				
+				System.out.println("Le fichier de sauvegarde n'a pas été trouvé !");
+			}
+			
 		});
+	}
+	
+	/**
+	 * Verifies that the save file exists
+	 * @throws FileNotFoundException Exception threw when the save file is not found
+	 */
+	private void isSaveFile() throws FileNotFoundException{
+		File f = new File("Save.txt");
+		BufferedReader br = new BufferedReader(new FileReader(f));
+		try {
+			br.close();
+		}catch(IOException e) {
+			System.out.println("Erreur lecture : " + e.getMessage());
+		}
 	}
 	
 	/**

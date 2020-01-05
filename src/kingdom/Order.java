@@ -94,6 +94,7 @@ public class Order {
 	/**
 	 * Exit a pikemen
 	 * @param ost Ost linked to this order
+	 * @return true if the unit exited the castle, else false
 	 */
 	public boolean exitPikemen(Ost ost) {
 		boolean isExit = false;
@@ -123,6 +124,7 @@ public class Order {
 	/**
 	 * Exit a knight
 	 * @param ost Ost linked to this order
+	 * @return true if the unit exited the castle, else false
 	 */
 	public boolean exitKnight(Ost ost) {
 		boolean isExit = false;
@@ -152,6 +154,7 @@ public class Order {
 	/**
 	 * Exit a onager
 	 * @param ost Ost linked to this order
+	 * @return true if the unit exited the castle, else false
 	 */
 	public boolean exitOnager(Ost ost) {
 		boolean isExit = false;

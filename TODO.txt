@@ -2,11 +2,6 @@ Version de base :
 
 - affiner l'affichage de la map pour qu'elle soit correcte sur tous les écrans
 
-- si on clique sur le bouton charger sur le menu et qu'il n'y a pas de fichier de sauvegarde, ça lance quand meme une partie comme si on cliquait sur jouer.
-
-- ne pas oublier dans le readme, touche L in game = Load
-
-
 -javadoc :
 	game:
 		Input (to test) en
