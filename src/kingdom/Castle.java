@@ -438,8 +438,12 @@ public class Castle extends Sprite{
 	public void finishRoundCastle() {
 		if(!neutral) {
 			if(duke.getClass()==IABasic.class) {
-				IABasic ia = (IABasic)duke;
-				ia.roundCastleIA(this);
+				IABasic ai = (IABasic)duke;
+				ai.roundCastleAI(this);
+			}
+			else if(duke.getClass()==IAAdvanced.class) {
+				IAAdvanced ai = (IAAdvanced)duke;
+				ai.roundCastleAI(this);
 			}
 				
 			treasure += level;
