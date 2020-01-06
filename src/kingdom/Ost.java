@@ -31,6 +31,7 @@ public class Ost {
 	public Ost(Duke duke, Castle sender, Castle target) {
 		this.duke = duke;
 		this.target = target;
+		this.sender = sender;
 		troops = new ArrayList<Troop>();
 	}
 	
