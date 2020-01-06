@@ -181,6 +181,13 @@ public class Order {
 		}
 	}
 	
+	/**
+	 * Compute if a unit can exit or not
+	 * @param ost Ost linked to this order
+	 * @param x Position x of the castle
+	 * @param y Position y of the castle
+	 * @return true if there is no unit at the exit, else false
+	 */
 	private boolean isExitFree(Ost ost, double x, double y) {
 		Troop t = null;
 		for(int i=0; i<ost.getTroop().size(); i++) {
