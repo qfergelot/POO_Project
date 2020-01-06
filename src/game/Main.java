@@ -80,9 +80,9 @@ public class Main extends Application {
 	private Text textWinner = new Text("");
 	private Button buttonToMenu = new Button("Menu Principal");
 	
-	private Image img_broken_shield;
-	private Image img_shield;
-	private ImageView img_v_shield;
+	private Image img_broken_shield = new Image(getClass().getResource("/images/BrokenShield.png").toExternalForm(), 28, 28, false, true);
+	private Image img_shield = new Image(getClass().getResource("/images/Shield.png").toExternalForm(), 28, 28, false, true);
+	private ImageView img_v_shield = new ImageView(img_shield);
 	
 	//private Popup popupOst = new Popup();
 	
@@ -126,11 +126,8 @@ public class Main extends Application {
 		
 		gameResolution_x = (int)bounds.getWidth()-180;
 		UIsingleton.getUIsingleton().setRatioResolution((double)gameResolution_x/1100.0);
-		gameResolution_y = (int)bounds.getHeight()-(int)(50*UIsingleton.getUIsingleton().getRatioResolution());
-		
-		img_broken_shield = new Image(getClass().getResource("/images/BrokenShield.png").toExternalForm(), 28*UIsingleton.getUIsingleton().getRatioResolution(), 28*UIsingleton.getUIsingleton().getRatioResolution(), false, true);
-		img_shield = new Image(getClass().getResource("/images/Shield.png").toExternalForm(), 28*UIsingleton.getUIsingleton().getRatioResolution(), 28*UIsingleton.getUIsingleton().getRatioResolution(), false, true);
-		img_v_shield = new ImageView(img_shield);
+		UIsingleton.getUIsingleton().setRatioYResolution((double)bounds.getHeight()/720.0);
+		gameResolution_y = (int)bounds.getHeight()-(int)(50*UIsingleton.getUIsingleton().getRatioYResolution());
 		
 		initKingdom(gameResolution_x,gameResolution_y,bounds.getWidth()+4,bounds.getHeight()+4);
 		

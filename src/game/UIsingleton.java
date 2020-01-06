@@ -16,6 +16,7 @@ public final class UIsingleton {
 	private Castle castleSelection = null;
 	private boolean toUpdateTroops = false;
 	private double ratioResolution = 1;
+	private double ratioYResolution = 1;
 	
 	private boolean pause = false;
 	
@@ -130,6 +131,22 @@ public final class UIsingleton {
 	 */
 	public double getRatioResolution() {
 		return ratioResolution;
+	}
+	
+	/**
+	 * setter for ratioYResolution
+	 * @param ratio ratio of y resolution
+	 */
+	public void setRatioYResolution(double ratio) {
+		ratioYResolution = ratio;
+	}
+	
+	/**
+	 * getter for ratioYResolution
+	 * @return ratio of y resolution
+	 */
+	public double getRatioYResolution() {
+		return ratioYResolution;
 	}
 	
 }
