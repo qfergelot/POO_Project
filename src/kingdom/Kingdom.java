@@ -263,7 +263,7 @@ public class Kingdom {
 			}
 			else {
 				castle[i] = new CastleIAAdvanced(layer, d.getImgCastle(), d, Double.parseDouble(args[5]), Integer.parseInt(args[6]),
-						Integer.parseInt(args[7]), Integer.parseInt(args[8]), Double.parseDouble(args[1]), Double.parseDouble(args[2]), popupOst);
+						Integer.parseInt(args[7]), Integer.parseInt(args[8]), Double.parseDouble(args[1]), Double.parseDouble(args[2]), popupOst, this);
 			}
 		}
 		castle[i].setDoor(Integer.parseInt(args[9]));
