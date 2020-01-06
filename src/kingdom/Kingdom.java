@@ -22,12 +22,12 @@ public class Kingdom {
 
 	private Color colorDuke[] = {Color.BLUE, Color.RED, Color.GREEN, Color.YELLOW};
 	private Image imagePlayerCastle[] = {
-			new Image(getClass().getResource("/images/Chateau joueur.png").toExternalForm(), 40, 40, true, false),
-			new Image(getClass().getResource("/images/Chateau joueur2.png").toExternalForm(), 40, 40, true, false),
-			new Image(getClass().getResource("/images/Chateau joueur3.png").toExternalForm(), 40, 40, true, false),
-			new Image(getClass().getResource("/images/Chateau joueur4.png").toExternalForm(), 40, 40, true, false)
+			new Image(getClass().getResource("/images/Chateau_joueur.png").toExternalForm(), 40, 40, true, false),
+			new Image(getClass().getResource("/images/Chateau_joueur2.png").toExternalForm(), 40, 40, true, false),
+			new Image(getClass().getResource("/images/Chateau_joueur3.png").toExternalForm(), 40, 40, true, false),
+			new Image(getClass().getResource("/images/Chateau_joueur4.png").toExternalForm(), 40, 40, true, false)
 	};
-	private Image imageNeutralCastle = new Image(getClass().getResource("/images/Chateau neutre.png").toExternalForm(), 40, 40, true, false);
+	private Image imageNeutralCastle = new Image(getClass().getResource("/images/Chateau_neutre.png").toExternalForm(), 40, 40, true, false);
 	
 	private Duke []dukes;
 	private Castle []castle;
