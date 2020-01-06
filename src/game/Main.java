@@ -285,6 +285,7 @@ public class Main extends Application {
 		try {
 			String line = br.readLine();
 			kingdom.clean();
+			UIsingleton.getUIsingleton().setCastleSelection(null);
 			String args[] = line.split(" ");
 			kingdom.setNbCastle(Integer.parseInt(args[0]));			
 			
