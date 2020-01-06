@@ -798,7 +798,15 @@ public class Castle extends Sprite{
 	 */
 	private Castle getCastle() {
 		return this;
-	}	
+	}
+	
+	/**
+	 * getter of barracks
+	 * @return barracks of this castle
+	 */
+	public ArrayList<Barrack> getBarracks(){
+		return barracks;
+	}
 	
 	/**
 	 * Get the number of barracks 
