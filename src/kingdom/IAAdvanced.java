@@ -5,6 +5,11 @@ import java.util.Random;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
+/**
+ * 
+ *Class managing the advanced IA
+ *
+ */
 public class IAAdvanced extends Duke {
 	private Kingdom kingdom;
 	
