@@ -303,14 +303,14 @@ public class Castle extends Sprite{
 			for(int i = 0; i<barracks.size(); i++) {
 				Barrack b = barracks.get(i);
 				for (int j = 0; j<b.getSizeofProd(); j++) {
-					if(b.getProduction(i).isAmelioration()) {
+					if(b.getProduction(j).isAmelioration()) {
 						treasure += 1000*level;
 					} else {
-						if(b.getProduction(i).getUnit()==Constants.PIKEMEN)
+						if(b.getProduction(j).getUnit()==Constants.PIKEMEN)
 							treasure += Pikemen.PRODUCTION_COST;
-						else if(b.getProduction(i).getUnit()==Constants.KNIGHT)
+						else if(b.getProduction(j).getUnit()==Constants.KNIGHT)
 							treasure += Knight.PRODUCTION_COST;
-						else if(b.getProduction(i).getUnit()==Constants.KNIGHT)
+						else if(b.getProduction(j).getUnit()==Constants.KNIGHT)
 							treasure += Onager.PRODUCTION_COST;
 						else 
 							treasure += Shield.PRODUCTION_COST;
