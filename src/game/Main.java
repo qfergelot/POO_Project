@@ -369,6 +369,9 @@ public class Main extends Application {
         			for (int i = 0; i<castleSelection.getProduction().size(); i++) {
         				barProgressions[i].setWidth(castleSelection.getProduction().get(i).pourcentage()*160+1);
         			}
+        			for (int i = castleSelection.getProduction().size(); i<Constants.LEVEL_MAX; i++) {
+        				barProgressions[i].setWidth(1);
+        			}
         		} else {
         			for (int i = 0; i< Constants.LEVEL_MAX; i++) {
             			barProgressions[i].setWidth(1);
@@ -407,6 +410,9 @@ public class Main extends Application {
 			if(castleSelection.inProduction()) {
     			for (int i = 0; i<castleSelection.getProduction().size(); i++) {
     				barProgressions[i].setWidth(castleSelection.getProduction().get(i).pourcentage()*160+1);
+    			}
+    			for (int i = castleSelection.getProduction().size(); i<Constants.LEVEL_MAX; i++) {
+    				barProgressions[i].setWidth(1);
     			}
     		} else {
     			for (int i = 0; i< Constants.LEVEL_MAX; i++) {
