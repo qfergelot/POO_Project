@@ -597,7 +597,7 @@ public class Main extends Application {
 		textPlayer.getStyleClass().add("gtext");
 		produce.relocate(0, 30);
 		produce.setStyle("-fx-fill: #545454;-fx-font-size: 30;");
-		errorMessageProduction.relocate(1,  200);
+		errorMessageProduction.relocate(1,  240);
 		errorMessageProduction.setStyle("-fx-fill: red; fx-font-size: 14");
 		
 		img_florins.relocate(20, hauteur);

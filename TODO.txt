@@ -7,12 +7,12 @@ Version de base :
 Version Avancée (A FAIRE QUE QUAND ON AURA RENDU LA BASIQUE) :
 
 - si on commande une production alors qu'il y en a une en cours, ajouter la production dans une file [DONE]
+- caserne -> plus de file d'attente[DONE]
+- message d'erreur de production emplacement a revoir[DONE]
 
 - mettre un message "en pause" quand le jeu est en pause
 
 - IA Avancée
-
-- caserne -> plus de file d'attente
 
 - bouclier chateau (bloque une attaque de n'importe quelle troupe et coute a mettre en place)
 
