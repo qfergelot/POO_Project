@@ -1,5 +1,6 @@
 package kingdom;
 
+import game.UIsingleton;
 import javafx.scene.image.Image;
 import kingdom.Ost;
 import troops.*;
@@ -26,9 +27,9 @@ public class Order {
 	
 	private int cptExit=0;
 	
-	private Image image_pikemen = new Image(getClass().getResource("/images/militar.png").toExternalForm(), 20, 20, true, true);
-	private Image image_knight = new Image(getClass().getResource("/images/chevalier.png").toExternalForm(), 20, 20, true, true);
-	private Image image_onager = new Image(getClass().getResource("/images/onagre.png").toExternalForm(), 20, 20, false, true);
+	private Image image_pikemen = new Image(getClass().getResource("/images/militar.png").toExternalForm(), 20*UIsingleton.getUIsingleton().getRatioResolution(), 20*UIsingleton.getUIsingleton().getRatioResolution(), true, true);
+	private Image image_knight = new Image(getClass().getResource("/images/chevalier.png").toExternalForm(), 20*UIsingleton.getUIsingleton().getRatioResolution(), 20*UIsingleton.getUIsingleton().getRatioResolution(), true, true);
+	private Image image_onager = new Image(getClass().getResource("/images/onagre.png").toExternalForm(), 20*UIsingleton.getUIsingleton().getRatioResolution(), 20*UIsingleton.getUIsingleton().getRatioResolution(), false, true);
 
 
 	/**
@@ -192,7 +193,7 @@ public class Order {
 		Troop t = null;
 		for(int i=0; i<ost.getTroop().size(); i++) {
 			t = ost.getTroop().get(i);
-			if(x+20 > t.getPos_x() && x < t.getPos_x()+t.getWidth() && y+20 > t.getPos_y() && y < t.getPos_y()+t.getHeight())
+			if(x+20*UIsingleton.getUIsingleton().getRatioResolution() > t.getPos_x() && x < t.getPos_x()+t.getWidth() && y+20*UIsingleton.getUIsingleton().getRatioResolution() > t.getPos_y() && y < t.getPos_y()+t.getHeight())
 				return false;
 		}
 		return true;

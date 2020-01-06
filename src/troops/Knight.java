@@ -13,7 +13,7 @@ public class Knight extends Troop {
 	/**
 	 * Constant which determines the count of rounds necessary to produce a knight
 	 */
-	public static final int PRODUCTION_TIME = 500;
+	public static final int PRODUCTION_TIME = 350;
 	/**
 	 * Constant which determines the count of florins necessary to produce a knight
 	 */

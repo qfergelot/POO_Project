@@ -43,6 +43,9 @@ public class Main extends Application {
 	private AnimationTimer gameLoop;
 	private AnimationTimer pauseLoop;
 	
+	private int gameResolution_x;
+	private int gameResolution_y;
+	
 	private Input input;
 	
 	private int timerErrorMessageProduction = 0;
@@ -77,9 +80,9 @@ public class Main extends Application {
 	private Text textWinner = new Text("");
 	private Button buttonToMenu = new Button("Menu Principal");
 	
-	private Image img_broken_shield = new Image(getClass().getResource("/images/BrokenShield.png").toExternalForm(), 28, 28, false, true);
-	private Image img_shield = new Image(getClass().getResource("/images/Shield.png").toExternalForm(), 28, 28, false, true);
-	private ImageView img_v_shield = new ImageView(img_shield);
+	private Image img_broken_shield;
+	private Image img_shield;
+	private ImageView img_v_shield;
 	
 	//private Popup popupOst = new Popup();
 	
@@ -121,7 +124,14 @@ public class Main extends Application {
 		gameFieldLayer = new Pane();
 		root.getChildren().add(gameFieldLayer);
 		
-		initKingdom(1100,630,bounds.getWidth()+4,bounds.getHeight()+4);
+		gameResolution_x = (int)bounds.getWidth()-180;
+		gameResolution_y = (int)bounds.getHeight()-50;
+		UIsingleton.getUIsingleton().setRatioResolution((double)gameResolution_x/1100.0);
+		img_broken_shield = new Image(getClass().getResource("/images/BrokenShield.png").toExternalForm(), 28*UIsingleton.getUIsingleton().getRatioResolution(), 28*UIsingleton.getUIsingleton().getRatioResolution(), false, true);
+		img_shield = new Image(getClass().getResource("/images/Shield.png").toExternalForm(), 28*UIsingleton.getUIsingleton().getRatioResolution(), 28*UIsingleton.getUIsingleton().getRatioResolution(), false, true);
+		img_v_shield = new ImageView(img_shield);
+		
+		initKingdom(gameResolution_x,gameResolution_y,bounds.getWidth()+4,bounds.getHeight()+4);
 		
 		borderCastle.setFill(null);
 		borderCastle.setStroke(Color.BLUE);
@@ -481,7 +491,7 @@ public class Main extends Application {
 		menuFieldLayer.getChildren().addAll(buttonPlay,buttonLoad);
 		
 		buttonPlay.setOnAction(e -> {
-			kingdom = new Kingdom(gameFieldLayer,1,2,1,1100,630,200,6,3,2,0);
+			kingdom = new Kingdom(gameFieldLayer,1,2,1,gameResolution_x,gameResolution_y,200,6,3,2,0);
 			dukePlayer = kingdom.getCastle(0).getDuke();
 			UIsingleton.getUIsingleton().setDukePlayer(dukePlayer);
 			borderCastle.setWidth(kingdom.getCastle(0).getWidth());
@@ -496,7 +506,7 @@ public class Main extends Application {
 				isSaveFile();
 				stage.setScene(scene);
 				menuLoop.stop();
-				kingdom = new Kingdom(gameFieldLayer,1,2,1,1100,630,200,6,3,2,5);
+				kingdom = new Kingdom(gameFieldLayer,1,2,1,gameResolution_x,gameResolution_y,200,6,3,2,5);
 				dukePlayer = kingdom.getCastle(0).getDuke();
 				UIsingleton.getUIsingleton().setDukePlayer(dukePlayer);
 				borderCastle.setWidth(kingdom.getCastle(0).getWidth());
@@ -570,20 +580,20 @@ public class Main extends Application {
 			bar_amelioration[i] = new Rectangle(162, 15);
 			barProgressions[i] = new Rectangle(1, 13);
 		}
-		ImageView img_florins = new ImageView(new Image(getClass().getResource("/images/coins.png").toExternalForm(),28,28,true,true));
-		ImageView img_pikemen = new ImageView(new Image(getClass().getResource("/images/militar.png").toExternalForm(), 28, 28, false, true));
-		ImageView img_knight = new ImageView(new Image(getClass().getResource("/images/chevalier.png").toExternalForm(), 28, 28, false, true));
-		ImageView img_onager = new ImageView(new Image(getClass().getResource("/images/onagre.png").toExternalForm(), 28, 28, false, true));
-		ImageView img_barrack = new ImageView(new Image(getClass().getResource("/images/Barrack.png").toExternalForm(), 28, 28, true, true));
+		ImageView img_florins = new ImageView(new Image(getClass().getResource("/images/coins.png").toExternalForm(),28*UIsingleton.getUIsingleton().getRatioResolution(),28*UIsingleton.getUIsingleton().getRatioResolution(),true,true));
+		ImageView img_pikemen = new ImageView(new Image(getClass().getResource("/images/militar.png").toExternalForm(), 28*UIsingleton.getUIsingleton().getRatioResolution(), 28*UIsingleton.getUIsingleton().getRatioResolution(), false, true));
+		ImageView img_knight = new ImageView(new Image(getClass().getResource("/images/chevalier.png").toExternalForm(), 28*UIsingleton.getUIsingleton().getRatioResolution(), 28*UIsingleton.getUIsingleton().getRatioResolution(), false, true));
+		ImageView img_onager = new ImageView(new Image(getClass().getResource("/images/onagre.png").toExternalForm(), 28*UIsingleton.getUIsingleton().getRatioResolution(), 28*UIsingleton.getUIsingleton().getRatioResolution(), false, true));
+		ImageView img_barrack = new ImageView(new Image(getClass().getResource("/images/Barrack.png").toExternalForm(), 28*UIsingleton.getUIsingleton().getRatioResolution(), 28*UIsingleton.getUIsingleton().getRatioResolution(), true, true));
 
 		Text produce = new Text("Produire");
 		
-		buttonProducePikemen.setGraphic(new ImageView(new Image(getClass().getResource("/images/militar.png").toExternalForm(), 28, 28, false, true)));
-		buttonProduceKnight.setGraphic(new ImageView(new Image(getClass().getResource("/images/chevalier.png").toExternalForm(), 28, 28, false, true)));
-		buttonProduceOnager.setGraphic(new ImageView(new Image(getClass().getResource("/images/onagre.png").toExternalForm(), 28, 28, false, true)));
-		buttonProduceAmelioration.setGraphic(new ImageView(new Image(getClass().getResource("/images/up.png").toExternalForm(), 28, 28, true, false)));
-		buttonProduceBarrack.setGraphic(new ImageView(new Image(getClass().getResource("/images/Barrack.png").toExternalForm(), 28, 28, true, true)));
-		buttonProduceShield.setGraphic(new ImageView(new Image(getClass().getResource("/images/Shield.png").toExternalForm(), 28, 28, true, true)));
+		buttonProducePikemen.setGraphic(new ImageView(new Image(getClass().getResource("/images/militar.png").toExternalForm(), 28*UIsingleton.getUIsingleton().getRatioResolution(), 28*UIsingleton.getUIsingleton().getRatioResolution(), false, true)));
+		buttonProduceKnight.setGraphic(new ImageView(new Image(getClass().getResource("/images/chevalier.png").toExternalForm(), 28*UIsingleton.getUIsingleton().getRatioResolution(), 28*UIsingleton.getUIsingleton().getRatioResolution(), false, true)));
+		buttonProduceOnager.setGraphic(new ImageView(new Image(getClass().getResource("/images/onagre.png").toExternalForm(), 28*UIsingleton.getUIsingleton().getRatioResolution(), 28*UIsingleton.getUIsingleton().getRatioResolution(), false, true)));
+		buttonProduceAmelioration.setGraphic(new ImageView(new Image(getClass().getResource("/images/up.png").toExternalForm(), 28*UIsingleton.getUIsingleton().getRatioResolution(), 28*UIsingleton.getUIsingleton().getRatioResolution(), true, false)));
+		buttonProduceBarrack.setGraphic(new ImageView(new Image(getClass().getResource("/images/Barrack.png").toExternalForm(), 28*UIsingleton.getUIsingleton().getRatioResolution(), 28*UIsingleton.getUIsingleton().getRatioResolution(), true, true)));
+		buttonProduceShield.setGraphic(new ImageView(new Image(getClass().getResource("/images/Shield.png").toExternalForm(), 28*UIsingleton.getUIsingleton().getRatioResolution(), 28*UIsingleton.getUIsingleton().getRatioResolution(), true, true)));
 
 		
 		fond.setFill(Color.GREY);

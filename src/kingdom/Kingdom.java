@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import game.Popup;
-
+import game.UIsingleton;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -22,12 +22,12 @@ public class Kingdom {
 
 	private Color colorDuke[] = {Color.BLUE, Color.RED, Color.GREEN, Color.YELLOW};
 	private Image imagePlayerCastle[] = {
-			new Image(getClass().getResource("/images/Chateau_joueur.png").toExternalForm(), 40, 40, true, false),
-			new Image(getClass().getResource("/images/Chateau_joueur2.png").toExternalForm(), 40, 40, true, false),
-			new Image(getClass().getResource("/images/Chateau_joueur3.png").toExternalForm(), 40, 40, true, false),
-			new Image(getClass().getResource("/images/Chateau_joueur4.png").toExternalForm(), 40, 40, true, false)
+			new Image(getClass().getResource("/images/Chateau_joueur.png").toExternalForm(), 40*UIsingleton.getUIsingleton().getRatioResolution(), 40*UIsingleton.getUIsingleton().getRatioResolution(), true, false),
+			new Image(getClass().getResource("/images/Chateau_joueur2.png").toExternalForm(), 40*UIsingleton.getUIsingleton().getRatioResolution(), 40*UIsingleton.getUIsingleton().getRatioResolution(), true, false),
+			new Image(getClass().getResource("/images/Chateau_joueur3.png").toExternalForm(), 40*UIsingleton.getUIsingleton().getRatioResolution(), 40*UIsingleton.getUIsingleton().getRatioResolution(), true, false),
+			new Image(getClass().getResource("/images/Chateau_joueur4.png").toExternalForm(), 40*UIsingleton.getUIsingleton().getRatioResolution(), 40*UIsingleton.getUIsingleton().getRatioResolution(), true, false)
 	};
-	private Image imageNeutralCastle = new Image(getClass().getResource("/images/Chateau_neutre.png").toExternalForm(), 40, 40, true, false);
+	private Image imageNeutralCastle = new Image(getClass().getResource("/images/Chateau_neutre.png").toExternalForm(), 40*UIsingleton.getUIsingleton().getRatioResolution(), 40*UIsingleton.getUIsingleton().getRatioResolution(), true, false);
 	
 	private Duke []dukes;
 	private Castle []castle;

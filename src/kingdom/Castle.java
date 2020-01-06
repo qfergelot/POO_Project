@@ -383,35 +383,35 @@ public class Castle extends Sprite{
 		double x2, y2, x3, y3;
 		if(getDoor()==Constants.RIGHT) {
 			x += getWidth()/2;
-			y -= 10;
+			y -= 10*UIsingleton.getUIsingleton().getRatioResolution();
 			x2 = x;
 			x3 = x;
-			y2 = y-20;
-			y3 = y+20;
+			y2 = y-20*UIsingleton.getUIsingleton().getRatioResolution();
+			y3 = y+20*UIsingleton.getUIsingleton().getRatioResolution();
 		}
 		else if(getDoor()==Constants.LEFT) {
 			x -= getWidth();
-			y -= 10;
+			y -= 10*UIsingleton.getUIsingleton().getRatioResolution();
 			x2 = x;
 			x3 = x;
-			y2 = y-20;
-			y3 = y+20;
+			y2 = y-20*UIsingleton.getUIsingleton().getRatioResolution();
+			y3 = y+20*UIsingleton.getUIsingleton().getRatioResolution();
 		}
 		else if(getDoor()==Constants.UP) {
-			x -= 10;
+			x -= 10*UIsingleton.getUIsingleton().getRatioResolution();
 			y -= getHeight();
 			y2 = y;
 			y3 = y;
-			x2 = x-20;
-			x3 = x+20;
+			x2 = x-20*UIsingleton.getUIsingleton().getRatioResolution();
+			x3 = x+20*UIsingleton.getUIsingleton().getRatioResolution();
 		}
 		else {
-			x -= 10;
+			x -= 10*UIsingleton.getUIsingleton().getRatioResolution();
 			y += getHeight()/2;
 			y2 = y;
 			y3 = y;
-			x2 = x-20;
-			x3 = x+20;
+			x2 = x-20*UIsingleton.getUIsingleton().getRatioResolution();
+			x3 = x+20*UIsingleton.getUIsingleton().getRatioResolution();
 		}
 		displacementOrder = new Order(target, nbPikemen, nbKnight, nbOnager, x, y, x2, y2, x3, y3);
 		return true;

@@ -88,4 +88,14 @@ public class Constants {
 	 * 
 	 */
 	public final static int MAX_PRODUCTION_IN_BARRACKS = 5;
+	
+	/**
+	 * 
+	 */
+	public final static int DEFAULT_CASTLE_SIZE = 40;
+	
+	/**
+	 * 
+	 */
+	public final static int DEFAULT_TROOPS_SIZE = 28;
 }

@@ -15,6 +15,7 @@ public final class UIsingleton {
 	private Duke dukePlayer = null;
 	private Castle castleSelection = null;
 	private boolean toUpdateTroops = false;
+	private double ratioResolution = 1;
 	
 	private boolean pause = false;
 	
@@ -113,6 +114,22 @@ public final class UIsingleton {
 	 */
 	public void setErrorMessageProduction(String message) {
 		errorLabelProduction.setText(message);
+	}
+	
+	/**
+	 * setter for ratioResolution
+	 * @param ratio ratio of resolution
+	 */
+	public void setRatioResolution(double ratio) {
+		ratioResolution = ratio;
+	}
+	
+	/**
+	 * getter for ratioResolution
+	 * @return ratio of resolution
+	 */
+	public double getRatioResolution() {
+		return ratioResolution;
 	}
 	
 }
