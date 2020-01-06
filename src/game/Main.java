@@ -707,6 +707,10 @@ public class Main extends Application {
 		
 	}
 	
+	/**
+	 * Set a production function on the button
+	 * @param cst unit constant to be produced when the button is pressed
+	 */
 	private void buttonProduction(int cst) {
 		if (castleSelection!=null) {
 			if(!castleSelection.getNeutral()){

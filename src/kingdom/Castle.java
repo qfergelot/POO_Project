@@ -236,6 +236,8 @@ public class Castle extends Sprite{
 		}
 		else {
 			Barrack b = mostReadyBarrack();
+			if (b.getSizeofProd() >= Constants.MAX_PRODUCTION_IN_BARRACKS)
+				throw new ProdException("Il n'y a plus de places (" + Constants.MAX_PRODUCTION_IN_BARRACKS *barracks.size()  +" max)");
 			b.addProduction(new Production(unit,level)) ;
 			treasure -= cout;
 			//return true;
@@ -552,7 +554,7 @@ public class Castle extends Sprite{
 		if (isShielded()) {
 			shield.takeDamage(1);
 			if (shield.isShieldBroken()) {
-				this.shield = null;
+				removeShield();
 			}
 		}
 		else {
@@ -619,7 +621,7 @@ public class Castle extends Sprite{
 			d = this.duke.getName();
 		}
 		s += "Castle " + this.pos_x + " " + this.pos_y + " " + d + " " + this.level + " " + this.treasure + " " +
-				this.nbPikemen + " " + this.nbKnight + " " + this.nbOnager + " " + this.getDoor() + " " + (barracks.size() - 1); 
+				this.nbPikemen + " " + this.nbKnight + " " + this.nbOnager + " " + this.getDoor() + " " + (barracks.size() - 1) + " " + isShielded(); 
 		return s;
 	}
 	
@@ -631,6 +633,7 @@ public class Castle extends Sprite{
 		this.ost = null;
 		this.displacementOrder = null;
 		this.barracks.clear();
+		removeShield();
 	}
 	
 	/* * * * * * * * FIN : SAVE * * * * * * * */
@@ -788,6 +791,10 @@ public class Castle extends Sprite{
 	
 	public void addShield() {
 		this.shield = new Shield();
+	}
+	
+	private void removeShield() {
+		this.shield = null;
 	}
 
 	/* * * * * * * * FIN : Getters/Setters * * * * * * * */

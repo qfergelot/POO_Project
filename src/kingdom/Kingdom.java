@@ -260,6 +260,9 @@ public class Kingdom {
 		for (int k = 0; k<Integer.parseInt(args[10]); k++){
 			castle[i].addBarrack();
 		}
+		if (args[11].contentEquals("true")){
+			castle[i].addShield();
+		}
 	}
 	
 	/**

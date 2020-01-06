@@ -83,4 +83,9 @@ public class Constants {
 	 * 
 	 */
 	public final static int LEVEL_MAX = 5;
+	
+	/**
+	 * 
+	 */
+	public final static int MAX_PRODUCTION_IN_BARRACKS = 5;
 }

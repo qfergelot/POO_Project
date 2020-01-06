@@ -10,9 +10,9 @@ Version Avancée (A FAIRE QUE QUAND ON AURA RENDU LA BASIQUE) :
 - caserne -> plus de file d'attente[DONE]
 - message d'erreur de production emplacement a revoir[DONE]
 - bouclier chateau (bloque plusieurs attaques de n'importe quelle troupe et coute a mettre en place)[DONE]
+- mettre une limite de production dans les casernes = 5 [DONE]
 
 
-- mettre une limite de production dans les casernes ?
 
 - mettre un message "en pause" quand le jeu est en pause
 
