@@ -125,8 +125,9 @@ public class Main extends Application {
 		root.getChildren().add(gameFieldLayer);
 		
 		gameResolution_x = (int)bounds.getWidth()-180;
-		gameResolution_y = (int)bounds.getHeight()-50;
 		UIsingleton.getUIsingleton().setRatioResolution((double)gameResolution_x/1100.0);
+		gameResolution_y = (int)bounds.getHeight()-(int)(50*UIsingleton.getUIsingleton().getRatioResolution());
+		
 		img_broken_shield = new Image(getClass().getResource("/images/BrokenShield.png").toExternalForm(), 28*UIsingleton.getUIsingleton().getRatioResolution(), 28*UIsingleton.getUIsingleton().getRatioResolution(), false, true);
 		img_shield = new Image(getClass().getResource("/images/Shield.png").toExternalForm(), 28*UIsingleton.getUIsingleton().getRatioResolution(), 28*UIsingleton.getUIsingleton().getRatioResolution(), false, true);
 		img_v_shield = new ImageView(img_shield);
