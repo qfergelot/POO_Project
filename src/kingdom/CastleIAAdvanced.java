@@ -27,10 +27,9 @@ public class CastleIAAdvanced extends Castle {
 	 * @param popupOst Popup to display for attacks or transfer
 	 */
 	public CastleIAAdvanced(Pane layer, Image image, Duke duke, double treasure, int nbPikemen, int nbKnight,
-			int nbOnager, double x, double y, Popup popupOst){
+			int nbOnager, double x, double y, Popup popupOst, Kingdom kingdom){
 		super(layer, image, duke, treasure, nbPikemen, nbKnight, nbOnager, x, y, popupOst);
-		IAAdvanced d = (IAAdvanced)duke;
-		kingdom = d.getKingdom();
+		this.kingdom = kingdom;
 	}
 	
 	/**
@@ -63,7 +62,7 @@ public class CastleIAAdvanced extends Castle {
 	 */
 	private void roundIAAdvanced() {
 		int defenseScore = nbPikemen*Constants.LIFE_PIKEMEN+nbKnight*Constants.LIFE_KNIGHT+nbOnager*Constants.LIFE_ONAGER;
-		int offensiveScore = nbPikemen+nbKnight*5+nbOnager*5;
+		int offensiveScore = nbPikemen+nbKnight*5+nbOnager*10;
 		
 		if(isShielded())
 			defenseScore += Constants.LIFE_SHIELD;
@@ -122,6 +121,9 @@ public class CastleIAAdvanced extends Castle {
 		}
 	}
 	
+	/**
+	 * set the target to the closest castle
+	 */
 	private void searchCloseCastle() {
 		double distMin = 9999;
 		for(int i=0; i < kingdom.getNbCastle(); i++) {

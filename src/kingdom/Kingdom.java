@@ -95,7 +95,7 @@ public class Kingdom {
 				y = rdm.nextInt(height-80-(int)imagePlayerCastle[i].getHeight()) + 40;
 			} while(positionCastleFree(x,y,i) == false);
 			if(dukes[i].getClass() == IAAdvanced.class)
-				castle[i] = new CastleIAAdvanced(layer,imagePlayerCastle[i],dukes[i],0,nbPikemen_init,nbKnight_init,nbOnager_init,x,y, popupOst);
+				castle[i] = new CastleIAAdvanced(layer,imagePlayerCastle[i],dukes[i],0,nbPikemen_init,nbKnight_init,nbOnager_init,x,y, popupOst, this);
 			else
 				castle[i] = new Castle(layer,imagePlayerCastle[i],dukes[i],0,nbPikemen_init,nbKnight_init,nbOnager_init,x,y, popupOst);
 		}
