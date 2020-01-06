@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import game.Popup;
-import game.UIsingleton;
+
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;

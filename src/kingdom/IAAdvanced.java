@@ -44,7 +44,6 @@ public class IAAdvanced extends Duke {
 	 */
 	public void roundIAAdvanced(Castle castle) {
 		int defenseScore = castle.getNbPikemen()*Constants.LIFE_PIKEMEN+castle.getNbKnight()*Constants.LIFE_KNIGHT+castle.getNbOnager()*Constants.LIFE_ONAGER;
-		int offensiveScore = castle.getNbPikemen()+castle.getNbKnight()*5+castle.getNbOnager()*10;
 		Castle target = null;
 		
 		if(castle.isShielded())
