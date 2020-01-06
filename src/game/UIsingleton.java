@@ -15,6 +15,7 @@ public final class UIsingleton {
 	private Duke dukePlayer = null;
 	private Castle castleSelection = null;
 	private boolean toUpdateTroops = false;
+	private boolean toUpdateShield = false;
 	
 	private boolean pause = false;
 	
@@ -56,8 +57,6 @@ public final class UIsingleton {
 		return toUpdateTroops;
 	}
 	
-
-	
 	/**
 	 * Setter
 	 * @param toUpdateTroops true if display of troops need to be updated, else false
@@ -67,7 +66,6 @@ public final class UIsingleton {
 	}
 	
 
-	
 	/**
 	 * get the real player
 	 * @return duke of the player

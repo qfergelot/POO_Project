@@ -64,6 +64,7 @@ public class Main extends Application {
 	private Button buttonProduceOnager = new Button();
 	private Button buttonProduceAmelioration = new Button();
 	private Button buttonProduceBarrack = new Button();
+	private Button buttonProduceShield = new Button();
 	//private ArrayList<Rectangle> barProgressions = new ArrayList<Rectangle>();
 	private Rectangle[] barProgressions = new Rectangle[Constants.LEVEL_MAX];
 	private Rectangle borderCastle = new Rectangle();
@@ -75,6 +76,10 @@ public class Main extends Application {
 	private String winnerName;
 	private Text textWinner = new Text("");
 	private Button buttonToMenu = new Button("Menu Principal");
+	
+	private Image img_broken_shield = new Image(getClass().getResource("/images/BrokenShield.png").toExternalForm(), 28, 28, false, true);
+	private Image img_shield = new Image(getClass().getResource("/images/Shield.png").toExternalForm(), 28, 28, false, true);
+	private ImageView img_v_shield = new ImageView(img_shield);
 	
 	//private Popup popupOst = new Popup();
 	
@@ -337,6 +342,7 @@ public class Main extends Application {
     		textOnager.setText("--");
     		textBarrack.setText("--");
     		textPlayer.setText("--");
+    		img_v_shield.setImage(null);
     		for (int i = 0; i<Constants.LEVEL_MAX; i++) {
     			barProgressions[i].setWidth(1);
     		}
@@ -348,6 +354,12 @@ public class Main extends Application {
     		textKnight.setText(""+castleSelection.getNbKnight());
     		textOnager.setText(""+castleSelection.getNbOnager());
     		textBarrack.setText(""+castleSelection.getNbBarracks());
+    		if (castleSelection.isShielded()) {
+    			img_v_shield.setImage(img_shield);
+    		}
+    		else {
+    			img_v_shield.setImage(img_broken_shield);
+    		}
     		if(!castleSelection.getNeutral()) {
         		textPlayer.setText(castleSelection.getDuke().getName()+" - Niveau "+castleSelection.getLevel());
         		textPlayer.setFill(castleSelection.getDuke().getColor());
@@ -357,6 +369,8 @@ public class Main extends Application {
 	        		buttonProduceOnager.setStyle("");
 	        		buttonProduceAmelioration.setStyle("-fx-padding: 12 67 12 67;");
 	        		buttonProduceBarrack.setStyle("");
+	        		buttonProduceShield.setStyle("");
+
         		}
         		else {
         			buttonProducePikemen.setStyle("-fx-background-color: #E9E9E9");
@@ -364,6 +378,7 @@ public class Main extends Application {
             		buttonProduceOnager.setStyle("-fx-background-color: #E9E9E9");
             		buttonProduceAmelioration.setStyle("-fx-background-color: #E9E9E9;-fx-padding: 12 67 12 67;");
             		buttonProduceBarrack.setStyle("-fx-background-color: #E9E9E9");
+            		buttonProduceShield.setStyle("-fx-background-color: #E9E9E9");
         		}
         		if(castleSelection.inProduction()) {
         			for (int i = 0; i<castleSelection.getProduction().size(); i++) {
@@ -386,6 +401,7 @@ public class Main extends Application {
         		buttonProduceOnager.setStyle("-fx-background-color: #E9E9E9");
         		buttonProduceAmelioration.setStyle("-fx-background-color: #E9E9E9;-fx-padding: 12 67 12 67;");
         		buttonProduceBarrack.setStyle("-fx-background-color: #E9E9E9");
+        		buttonProduceShield.setStyle("-fx-background-color: #E9E9E9");
     		}
 		}
 	}
@@ -407,6 +423,12 @@ public class Main extends Application {
     		/*textPikemen.setText(""+castleSelection.getNbPikemen());
     		textKnight.setText(""+castleSelection.getNbKnight());
     		textOnager.setText(""+castleSelection.getNbOnager());*/
+			if (castleSelection.isShielded()) {
+    			img_v_shield.setImage(img_shield);
+    		}
+    		else {
+    			img_v_shield.setImage(img_broken_shield);
+    		}
 			if(castleSelection.inProduction()) {
     			for (int i = 0; i<castleSelection.getProduction().size(); i++) {
     				barProgressions[i].setWidth(castleSelection.getProduction().get(i).pourcentage()*160+1);
@@ -560,6 +582,7 @@ public class Main extends Application {
 		buttonProduceOnager.setGraphic(new ImageView(new Image(getClass().getResource("/images/onagre.png").toExternalForm(), 28, 28, false, true)));
 		buttonProduceAmelioration.setGraphic(new ImageView(new Image(getClass().getResource("/images/up.png").toExternalForm(), 28, 28, true, false)));
 		buttonProduceBarrack.setGraphic(new ImageView(new Image(getClass().getResource("/images/Barrack.png").toExternalForm(), 28, 28, true, true)));
+		buttonProduceShield.setGraphic(new ImageView(new Image(getClass().getResource("/images/Shield.png").toExternalForm(), 28, 28, true, true)));
 
 		
 		fond.setFill(Color.GREY);
@@ -605,6 +628,7 @@ public class Main extends Application {
 		img_knight.relocate(280, hauteur);
 		img_onager.relocate(380, hauteur);
 		img_barrack.relocate(480, hauteur);
+		img_v_shield.relocate(800, hauteur);
 		
 		buttonProducePikemen.relocate(0, 50);
 		buttonProducePikemen.getStyleClass().add("gbutton");
@@ -617,6 +641,8 @@ public class Main extends Application {
 		buttonProduceAmelioration.setStyle("-fx-padding: 12 67 12 67;");
 		buttonProduceBarrack.relocate(0, 180);
 		buttonProduceBarrack.getStyleClass().add("gbutton");
+		buttonProduceShield.relocate(55, 180);
+		buttonProduceShield.getStyleClass().add("gbutton");
 		
 		
 		buttonSave.relocate(0, 600);
@@ -639,13 +665,14 @@ public class Main extends Application {
 		gameFieldLayer.getChildren().add(img_barrack);
 		gameFieldLayer.getChildren().add(textBarrack);
 		gameFieldLayer.getChildren().add(textPlayer);
+		gameFieldLayer.getChildren().add(img_v_shield);
 		
 		layoutProduction.getChildren().addAll(produce,errorMessageProduction);
 		for (int i = 0; i<Constants.LEVEL_MAX; i++) {
 			layoutProduction.getChildren().add(bar_amelioration[i]);
 			layoutProduction.getChildren().add(barProgressions[i]);
 		}
-		layoutProduction.getChildren().addAll(buttonProducePikemen,buttonProduceKnight,buttonProduceOnager,buttonProduceAmelioration, buttonProduceBarrack, buttonSave);
+		layoutProduction.getChildren().addAll(buttonProducePikemen,buttonProduceKnight,buttonProduceOnager,buttonProduceAmelioration, buttonProduceBarrack, buttonProduceShield,buttonSave);
 		gameFieldLayer.getChildren().add(layoutProduction);
 		
 		UIsingleton.getUIsingleton().setErrorLabelProduction(errorMessageProduction);
@@ -668,6 +695,10 @@ public class Main extends Application {
 		
 		buttonProduceBarrack.setOnAction(e -> {
 			buttonProduction(Constants.BARRACK);
+		});
+		
+		buttonProduceShield.setOnAction(e -> {
+			buttonProduction(Constants.SHIELD);
 		});
 		
 		buttonSave.setOnAction(e -> {

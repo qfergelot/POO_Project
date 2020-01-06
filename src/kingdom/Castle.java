@@ -334,8 +334,9 @@ public class Castle extends Sprite{
 				nbOnager++;
 			else if(t == Constants.BARRACK)
 				addBarrack();
-			else if(t == Constants.SHIELD)
+			else if(t == Constants.SHIELD) {
 				addShield();
+			}
 			else
 				System.out.println("Error");
 		}
