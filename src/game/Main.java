@@ -580,20 +580,20 @@ public class Main extends Application {
 			bar_amelioration[i] = new Rectangle(162, 15);
 			barProgressions[i] = new Rectangle(1, 13);
 		}
-		ImageView img_florins = new ImageView(new Image(getClass().getResource("/images/coins.png").toExternalForm(),28*UIsingleton.getUIsingleton().getRatioResolution(),28*UIsingleton.getUIsingleton().getRatioResolution(),true,true));
-		ImageView img_pikemen = new ImageView(new Image(getClass().getResource("/images/militar.png").toExternalForm(), 28*UIsingleton.getUIsingleton().getRatioResolution(), 28*UIsingleton.getUIsingleton().getRatioResolution(), false, true));
-		ImageView img_knight = new ImageView(new Image(getClass().getResource("/images/chevalier.png").toExternalForm(), 28*UIsingleton.getUIsingleton().getRatioResolution(), 28*UIsingleton.getUIsingleton().getRatioResolution(), false, true));
-		ImageView img_onager = new ImageView(new Image(getClass().getResource("/images/onagre.png").toExternalForm(), 28*UIsingleton.getUIsingleton().getRatioResolution(), 28*UIsingleton.getUIsingleton().getRatioResolution(), false, true));
-		ImageView img_barrack = new ImageView(new Image(getClass().getResource("/images/Barrack.png").toExternalForm(), 28*UIsingleton.getUIsingleton().getRatioResolution(), 28*UIsingleton.getUIsingleton().getRatioResolution(), true, true));
+		ImageView img_florins = new ImageView(new Image(getClass().getResource("/images/coins.png").toExternalForm(),28,28,true,true));
+		ImageView img_pikemen = new ImageView(new Image(getClass().getResource("/images/militar.png").toExternalForm(), 28, 28, false, true));
+		ImageView img_knight = new ImageView(new Image(getClass().getResource("/images/chevalier.png").toExternalForm(), 28, 28, false, true));
+		ImageView img_onager = new ImageView(new Image(getClass().getResource("/images/onagre.png").toExternalForm(), 28, 28, false, true));
+		ImageView img_barrack = new ImageView(new Image(getClass().getResource("/images/Barrack.png").toExternalForm(), 28, 28, true, true));
 
 		Text produce = new Text("Produire");
 		
-		buttonProducePikemen.setGraphic(new ImageView(new Image(getClass().getResource("/images/militar.png").toExternalForm(), 28*UIsingleton.getUIsingleton().getRatioResolution(), 28*UIsingleton.getUIsingleton().getRatioResolution(), false, true)));
-		buttonProduceKnight.setGraphic(new ImageView(new Image(getClass().getResource("/images/chevalier.png").toExternalForm(), 28*UIsingleton.getUIsingleton().getRatioResolution(), 28*UIsingleton.getUIsingleton().getRatioResolution(), false, true)));
-		buttonProduceOnager.setGraphic(new ImageView(new Image(getClass().getResource("/images/onagre.png").toExternalForm(), 28*UIsingleton.getUIsingleton().getRatioResolution(), 28*UIsingleton.getUIsingleton().getRatioResolution(), false, true)));
-		buttonProduceAmelioration.setGraphic(new ImageView(new Image(getClass().getResource("/images/up.png").toExternalForm(), 28*UIsingleton.getUIsingleton().getRatioResolution(), 28*UIsingleton.getUIsingleton().getRatioResolution(), true, false)));
-		buttonProduceBarrack.setGraphic(new ImageView(new Image(getClass().getResource("/images/Barrack.png").toExternalForm(), 28*UIsingleton.getUIsingleton().getRatioResolution(), 28*UIsingleton.getUIsingleton().getRatioResolution(), true, true)));
-		buttonProduceShield.setGraphic(new ImageView(new Image(getClass().getResource("/images/Shield.png").toExternalForm(), 28*UIsingleton.getUIsingleton().getRatioResolution(), 28*UIsingleton.getUIsingleton().getRatioResolution(), true, true)));
+		buttonProducePikemen.setGraphic(new ImageView(new Image(getClass().getResource("/images/militar.png").toExternalForm(), 28, 28, false, true)));
+		buttonProduceKnight.setGraphic(new ImageView(new Image(getClass().getResource("/images/chevalier.png").toExternalForm(), 28, 28, false, true)));
+		buttonProduceOnager.setGraphic(new ImageView(new Image(getClass().getResource("/images/onagre.png").toExternalForm(), 28, 28, false, true)));
+		buttonProduceAmelioration.setGraphic(new ImageView(new Image(getClass().getResource("/images/up.png").toExternalForm(), 28, 28, true, false)));
+		buttonProduceBarrack.setGraphic(new ImageView(new Image(getClass().getResource("/images/Barrack.png").toExternalForm(), 28, 28, true, true)));
+		buttonProduceShield.setGraphic(new ImageView(new Image(getClass().getResource("/images/Shield.png").toExternalForm(), 28, 28, true, true)));
 
 		
 		fond.setFill(Color.GREY);
