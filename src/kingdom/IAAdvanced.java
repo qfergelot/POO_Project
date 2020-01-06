@@ -35,6 +35,7 @@ public class IAAdvanced extends Duke {
 	
 	/**
 	 * Process a round producing or attacking or both for a castle of AI advanced
+	 * @param castle castle who process round
 	 */
 	public void roundIAAdvanced(Castle castle) {
 		int defenseScore = castle.getNbPikemen()*Constants.LIFE_PIKEMEN+castle.getNbKnight()*Constants.LIFE_KNIGHT+castle.getNbOnager()*Constants.LIFE_ONAGER;
@@ -83,6 +84,8 @@ public class IAAdvanced extends Duke {
 	
 	/**
 	 * Launch an attack to the castle target or the AI nemesis
+	 * @param castle Castle who attack
+	 * @param target Castle who receive attack
 	 */
 	private void processAttack(Castle castle, Castle target) {
 		if(timerAttack > 60*5) {
@@ -101,6 +104,7 @@ public class IAAdvanced extends Duke {
 	
 	/**
 	 * set the target to the closest castle
+	 * @param castle castle where to search the closest castle
 	 */
 	private Castle searchCloseCastle(Castle castle) {
 		Castle target = null;
@@ -124,6 +128,7 @@ public class IAAdvanced extends Duke {
 	
 	/**
 	 * Launch a production or not with criteria of defenseProduction and random
+	 * @param castle castle where to process production
 	 * @param score a score to know what to produce
 	 */
 	private void processProduction(Castle castle, int score) {
