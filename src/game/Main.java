@@ -480,7 +480,7 @@ public class Main extends Application {
 		menuFieldLayer.getChildren().addAll(buttonPlay,buttonLoad);
 		
 		buttonPlay.setOnAction(e -> {
-			kingdom = new Kingdom(gameFieldLayer,1,2,0,1100,630,200,6,3,2,0);
+			kingdom = new Kingdom(gameFieldLayer,1,2,1,1100,630,200,6,3,2,0);
 			dukePlayer = kingdom.getCastle(0).getDuke();
 			UIsingleton.getUIsingleton().setDukePlayer(dukePlayer);
 			borderCastle.setWidth(kingdom.getCastle(0).getWidth());
@@ -495,7 +495,7 @@ public class Main extends Application {
 				isSaveFile();
 				stage.setScene(scene);
 				menuLoop.stop();
-				kingdom = new Kingdom(gameFieldLayer,1,2,0,1100,630,200,6,3,2,5);
+				kingdom = new Kingdom(gameFieldLayer,1,2,1,1100,630,200,6,3,2,5);
 				dukePlayer = kingdom.getCastle(0).getDuke();
 				UIsingleton.getUIsingleton().setDukePlayer(dukePlayer);
 				borderCastle.setWidth(kingdom.getCastle(0).getWidth());

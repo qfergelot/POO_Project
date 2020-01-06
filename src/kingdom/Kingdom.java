@@ -79,7 +79,10 @@ public class Kingdom {
 			dukes[i] = new Duke("Joueur" + i, colorDuke[i], imagePlayerCastle[i]);
 		}
 		for(int i=nbPlayers; i<(nbPlayers+nbIA); i++) {
-			dukes[i] = new IABasic("Joueur" + i, colorDuke[i], imagePlayerCastle[i],this);
+			if(levelIA == 0)
+				dukes[i] = new IABasic("Joueur " + i, colorDuke[i], imagePlayerCastle[i],this);
+			else
+				dukes[i] = new IAAdvanced("Joueur " + i, colorDuke[i], imagePlayerCastle[i],this);
 		}
 		popupOst = new Popup(this);
 		//Castle Players+IA
@@ -90,8 +93,10 @@ public class Kingdom {
 				x = rdm.nextInt(width-80-(int)imagePlayerCastle[i].getWidth()) + 40;
 				y = rdm.nextInt(height-80-(int)imagePlayerCastle[i].getHeight()) + 40;
 			} while(positionCastleFree(x,y,i) == false);
-			
-			castle[i] = new Castle(layer,imagePlayerCastle[i],dukes[i],0,nbPikemen_init,nbKnight_init,nbOnager_init,x,y, popupOst);
+			if(dukes[i].getClass() == IAAdvanced.class)
+				castle[i] = new CastleIAAdvanced(layer,imagePlayerCastle[i],dukes[i],0,nbPikemen_init,nbKnight_init,nbOnager_init,x,y, popupOst);
+			else
+				castle[i] = new Castle(layer,imagePlayerCastle[i],dukes[i],0,nbPikemen_init,nbKnight_init,nbOnager_init,x,y, popupOst);
 		}
 		//Castle Neutres
 		for(int i=temp; i<nbCastle; i++) {

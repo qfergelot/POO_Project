@@ -75,7 +75,7 @@ public class IAAdvanced extends Duke {
 			}
 			else if(defenseScore < 15) {
 				try{
-					if(castle.getTreasure() > Shield.PRODUCTION_COST && !castle.isShielded())
+					if(castle.getTreasure() > Shield.PRODUCTION_COST && !castle.isShielded() && !castle.alreadyShieldProduction())
 						castle.launchProduction(Constants.SHIELD);
 					else if(rdm.nextBoolean())
 						castle.launchProduction(Constants.PIKEMEN);
@@ -95,7 +95,7 @@ public class IAAdvanced extends Duke {
 				if(castle.getTreasure() < castle.getLevel()*1000 - 1000) {
 					//if we are close to be able to upgrade castle we wait, else we produce an onager
 					try {
-						if(castle.getTreasure() > Barrack.PRODUCTION_COST)
+						if(castle.getTreasure() > Barrack.PRODUCTION_COST && !castle.alreadyBarrackProduction())
 							castle.launchProduction(Constants.BARRACK);
 						else if(defenseScore < 25)
 							castle.launchProduction(Constants.ONAGER);
@@ -114,7 +114,7 @@ public class IAAdvanced extends Duke {
 				}
 			}
 			else {
-				if(defenseScore > 30 && castle.getNbBarracks() < 5) {
+				if(defenseScore > 30 && castle.getNbBarracks() < 5 && !castle.alreadyBarrackProduction()) {
 					try {
 						castle.launchProduction(Constants.BARRACK);
 					}
@@ -132,8 +132,8 @@ public class IAAdvanced extends Duke {
 				}
 				else {
 					try {
-						if(!castle.isShielded())
-							castle.launchProduction(Constants.PIKEMEN);
+						if(!castle.isShielded() && !castle.alreadyShieldProduction())
+							castle.launchProduction(Constants.SHIELD);
 						else if(rdm.nextBoolean())
 							castle.launchProduction(Constants.PIKEMEN);
 						else

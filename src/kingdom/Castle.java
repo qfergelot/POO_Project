@@ -23,26 +23,26 @@ import troops.*;
 public class Castle extends Sprite{
 	Random rdm = new Random();
 	
-	private Duke duke = null;
-	private boolean neutral = true;
-	private double treasure;
-	private int level;
+	protected Duke duke = null;
+	protected boolean neutral = true;
+	protected double treasure;
+	protected int level;
 
-	private int nbPikemen;
-	private int nbKnight;
-	private int nbOnager;
+	protected int nbPikemen;
+	protected int nbKnight;
+	protected int nbOnager;
 	
-	private int lifePikemen = Constants.LIFE_PIKEMEN;
-	private int lifeKnight = Constants.LIFE_KNIGHT;
-	private int lifeOnager = Constants.LIFE_ONAGER;
+	protected int lifePikemen = Constants.LIFE_PIKEMEN;
+	protected int lifeKnight = Constants.LIFE_KNIGHT;
+	protected int lifeOnager = Constants.LIFE_ONAGER;
 	
-	private Shield shield = null;
+	protected Shield shield = null;
 	
-	private ArrayList<Barrack> barracks;
+	protected ArrayList<Barrack> barracks;
 
-	private Order displacementOrder;
-	private Ost ost;
-	private Door door;
+	protected Order displacementOrder;
+	protected Ost ost;
+	protected Door door;
 	
 	/**
 	 * Construct a player castle
