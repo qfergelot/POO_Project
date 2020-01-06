@@ -13,6 +13,8 @@ De plus, des boucliers sont mis a disposition en début de jeu, ils permettent d
 Pour le réparer il faut donc attendre qu'il soit brisé.
 Les barons neutres, auront ou n'auront pas de bouclier, c'est aléatoire.
 
+Les châteaux ont un niveau maximum.
+
 La touche espace permet de mettre le jeu en pause, la touche L permet en partie de charger une partie si le fichier de sauvegarde existe.
 
 Les troupes se déplacent sur 8 axes vers leur cible, ils contournent bien les châteaux, elles sortent de leur château sans se superposer par 3 au maximum.

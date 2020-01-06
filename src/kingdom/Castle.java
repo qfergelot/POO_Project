@@ -246,6 +246,10 @@ public class Castle extends Sprite{
 		}
 	}
 	
+	/**
+	 * 
+	 * @return true if there is a barrack in production in one barrack, else false
+	 */
 	private boolean alreadyBarrackProduction() {
 		for (int i = 0; i<barracks.size(); i++) {
 			Barrack b = barracks.get(i);
@@ -258,6 +262,10 @@ public class Castle extends Sprite{
 		return false;
 	}
 	
+	/**
+	 * 
+	 * @return true if there is an upgrade in production in one barrack, else false
+	 */
 	private boolean alreadyUpgradeProduction() {
 		for (int i = 0; i<barracks.size(); i++) {
 			Barrack b = barracks.get(i);
@@ -270,6 +278,10 @@ public class Castle extends Sprite{
 		return false;
 	}
 	
+	/**
+	 * 
+	 * @return true if there is a shield in production in one barrack, else false
+	 */
 	private boolean alreadyShieldProduction() {
 		for (int i = 0; i<barracks.size(); i++) {
 			Barrack b = barracks.get(i);
@@ -552,6 +564,10 @@ public class Castle extends Sprite{
 		nbOnager++;
 	}
 	
+	/**
+	 * Receive an attack
+	 * @param unit Unit that is attacked
+	 */
 	public void receiveAttack(int unit) {
 		if (isShielded()) {
 			shield.takeDamage(1);
@@ -784,17 +800,31 @@ public class Castle extends Sprite{
 		return this;
 	}	
 	
+	/**
+	 * Get the number of barracks 
+	 * @return number of barracks
+	 */
 	public int getNbBarracks() {
 		return barracks.size();
 	}
+	
+	/**
+	 * Add a barracks to this castle
+	 */
 	public void addBarrack() {
 		barracks.add(new Barrack());
 	}
 	
+	/**
+	 * Make a shield
+	 */
 	public void addShield() {
 		this.shield = new Shield();
 	}
 	
+	/**
+	 * Remove the shield
+	 */
 	private void removeShield() {
 		this.shield = null;
 	}

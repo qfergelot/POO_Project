@@ -6,7 +6,7 @@ import kingdom.Duke;
 
 /**
  * Singleton Class
- * @author Moi
+ *
  *
  */
 public final class UIsingleton {
@@ -21,6 +21,9 @@ public final class UIsingleton {
 	
 	private Text errorLabelProduction;
 	
+	/**
+	 * Construct the Singleton
+	 */
 	private UIsingleton() {
 		//
 	}

@@ -24,7 +24,7 @@ import javafx.scene.Group;
 
 /**
  * Main Class
- * @author Moi
+ * 
  *
  */
 public class Main extends Application {
@@ -708,8 +708,8 @@ public class Main extends Application {
 	}
 	
 	/**
-	 * Set a production function on the button
-	 * @param cst unit constant to be produced when the button is pressed
+	 * Set a production function to the button
+	 * @param cst Constant of the unit to be produced when the button is pressed
 	 */
 	private void buttonProduction(int cst) {
 		if (castleSelection!=null) {

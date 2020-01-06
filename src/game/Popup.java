@@ -18,7 +18,7 @@ import game.UIsingleton;
 /**
  * Class of the popup that will be used in the game for attacks and transfers
  * 
- * @author Moi
+ * 
  *
  */
 public class Popup {

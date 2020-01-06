@@ -7,7 +7,7 @@ import javafx.scene.layout.Pane;
 /**
  * Class that represents the sprites of the games
  * 
- * @author Moi
+ * 
  *
  */
 public abstract class Sprite {
