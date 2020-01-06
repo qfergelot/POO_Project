@@ -36,7 +36,7 @@ public class Castle extends Sprite{
 	private int lifeKnight = Constants.LIFE_KNIGHT;
 	private int lifeOnager = Constants.LIFE_ONAGER;
 	
-	private Shield shield;
+	private Shield shield = null;
 	
 	private ArrayList<Barrack> barracks;
 
@@ -127,7 +127,9 @@ public class Castle extends Sprite{
 		this.nbKnight = nbKnight;
 		this.nbOnager = nbOnager;
 		this.displacementOrder = null;
-		this.shield = new Shield();
+		if(rdm.nextBoolean()==true) 
+			this.shield = new Shield();
+		
 		this.barracks = new ArrayList<Barrack>();
 		barracks.add(new Barrack());
 		this.ost = null;
