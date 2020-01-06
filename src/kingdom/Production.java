@@ -29,6 +29,8 @@ public class Production {
 			nbRounds = Onager.PRODUCTION_TIME;
 		else if (unit == Constants.BARRACK)
 			nbRounds = Barrack.PRODUCTION_TIME;
+		else if (unit == Constants.SHIELD)
+			nbRounds = Shield.PRODUCTION_TIME;
 		else
 			nbRounds = 100+50*castleLevel;
 		nbRoundsInit = nbRounds;
@@ -56,6 +58,14 @@ public class Production {
 	 */
 	public boolean isBarrack() {
 		return unit == Constants.BARRACK;
+	}
+	
+	/**
+	 * Get if this is a shield
+	 * @return true if current production is a shield, else false
+	 */
+	public boolean isShield() {
+		return unit == Constants.SHIELD;
 	}
 	
 	/**

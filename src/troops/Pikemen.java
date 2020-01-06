@@ -5,6 +5,7 @@ import javafx.scene.layout.Pane;
 import kingdom.Ost;
 import kingdom.Castle;
 
+
 /**
  * Pikeman troop that correspond to the little troop of the game.
  */
@@ -46,6 +47,5 @@ public class Pikemen extends Troop {
 		host.getTroop().remove(this);
 		this.getImageView().setImage(null);
 	}
-	
 
 }

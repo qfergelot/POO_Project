@@ -46,4 +46,6 @@ public class Onager extends Troop {
 		host.getTroop().remove(this);
 		this.getImageView().setImage(null);
 	}
+	
+	
 }

@@ -36,6 +36,8 @@ public class Castle extends Sprite{
 	private int lifeKnight = Constants.LIFE_KNIGHT;
 	private int lifeOnager = Constants.LIFE_ONAGER;
 	
+	private Shield shield;
+	
 	private ArrayList<Barrack> barracks;
 
 	private Order displacementOrder;
@@ -67,6 +69,7 @@ public class Castle extends Sprite{
 		this.nbKnight = nbKnight;
 		this.nbOnager = nbOnager;
 		this.displacementOrder = null;
+		this.shield = new Shield();
 		this.barracks = new ArrayList<Barrack>();
 		barracks.add(new Barrack());
 		this.ost = null;
@@ -124,6 +127,7 @@ public class Castle extends Sprite{
 		this.nbKnight = nbKnight;
 		this.nbOnager = nbOnager;
 		this.displacementOrder = null;
+		this.shield = new Shield();
 		this.barracks = new ArrayList<Barrack>();
 		barracks.add(new Barrack());
 		this.ost = null;
@@ -205,6 +209,8 @@ public class Castle extends Sprite{
 			cout = Onager.PRODUCTION_COST;
 		else if(unit==Constants.BARRACK)
 			cout = Barrack.PRODUCTION_COST;
+		else if(unit==Constants.SHIELD)
+			cout = Shield.PRODUCTION_COST;
 		else {
 			cout = 1000*level;
 			if(level == Constants.LEVEL_MAX)
@@ -221,6 +227,12 @@ public class Castle extends Sprite{
 		}
 		else if (unit==Constants.AMELIORATION && alreadyUpgradeProduction()) {
 			throw new ProdException("Il y a déjà une amélioration programmée");
+		}
+		else if (unit==Constants.SHIELD && isShielded()) {
+			throw new ProdException("Il y a déjà un bouclier mis en place");
+		}
+		else if (unit==Constants.SHIELD && alreadyShieldProduction()) {
+			throw new ProdException("Il y a déjà un bouclier mis en place");
 		}
 		else {
 			Barrack b = mostReadyBarrack();
@@ -253,6 +265,18 @@ public class Castle extends Sprite{
 		}
 		return false;
 	}
+	
+	private boolean alreadyShieldProduction() {
+		for (int i = 0; i<barracks.size(); i++) {
+			Barrack b = barracks.get(i);
+			if (b.inProduction()) {
+				if (b.isShieldProd()) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 		
 	
 	/**
@@ -270,8 +294,10 @@ public class Castle extends Sprite{
 							treasure += Pikemen.PRODUCTION_COST;
 						else if(b.getProduction(i).getUnit()==Constants.KNIGHT)
 							treasure += Knight.PRODUCTION_COST;
-						else
+						else if(b.getProduction(i).getUnit()==Constants.KNIGHT)
 							treasure += Onager.PRODUCTION_COST;
+						else 
+							treasure += Shield.PRODUCTION_COST;
 					}
 				}
 				b.clear();
@@ -308,6 +334,8 @@ public class Castle extends Sprite{
 				nbOnager++;
 			else if(t == Constants.BARRACK)
 				addBarrack();
+			else if(t == Constants.SHIELD)
+				addShield();
 			else
 				System.out.println("Error");
 		}
@@ -519,10 +547,37 @@ public class Castle extends Sprite{
 		nbOnager++;
 	}
 	
+	public void receiveAttack(int unit) {
+		if (isShielded()) {
+			shield.takeDamage(1);
+			if (shield.isShieldBroken()) {
+				this.shield = null;
+			}
+		}
+		else {
+			switch(unit) {
+			case Constants.PIKEMEN :{
+				receiveAttackOnPikemen();
+				break;
+			}
+			case Constants.KNIGHT:{
+				receiveAttackOnKnight();
+				break;
+			}
+			case Constants.ONAGER :{
+				receiveAttackOnOnager();
+				break;
+			}
+			default:
+				break;
+			}
+		}
+	}
+	
 	/**
 	 * Remove health equivalent to the attack of one pikemen
 	 */
-	public void receiveAttackPikemen() {
+	private void receiveAttackOnPikemen() {
 		lifePikemen--;
 		if(lifePikemen==0) {
 			nbPikemen--;
@@ -533,7 +588,7 @@ public class Castle extends Sprite{
 	/**
 	 * Remove health equivalent to the attack of one knight
 	 */
-	public void receiveAttackKnight() {
+	private void receiveAttackOnKnight() {
 		lifeKnight--;
 		if(lifeKnight==0) {
 			nbKnight--;
@@ -544,7 +599,7 @@ public class Castle extends Sprite{
 	/**
 	 * Remove health equivalent to the attack of one onager
 	 */
-	public void receiveAttackOnager() {
+	private void receiveAttackOnOnager() {
 		lifeOnager--;
 		if(lifeOnager==0) {
 			nbOnager--;
@@ -614,8 +669,8 @@ public class Castle extends Sprite{
 	}
 
 	/**
-	 * Getter of the treasurey
-	 * @return Treasurey
+	 * Getter of the treasury
+	 * @return Treasury
 	 */
 	public int getTreasure() {
 		return (int)treasure;
@@ -659,6 +714,14 @@ public class Castle extends Sprite{
 	 */
 	public int getNbOnager() {
 		return nbOnager;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean isShielded() {
+		return (this.shield != null);
 	}
 
 	/**
@@ -720,6 +783,10 @@ public class Castle extends Sprite{
 	}
 	public void addBarrack() {
 		barracks.add(new Barrack());
+	}
+	
+	public void addShield() {
+		this.shield = new Shield();
 	}
 
 	/* * * * * * * * FIN : Getters/Setters * * * * * * * */

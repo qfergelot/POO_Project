@@ -21,7 +21,6 @@ import kingdom.Kingdom;
  * Troop extends class Sprite to manage display.
  */
 public abstract class Troop extends Sprite{
-
 	private int speed;
 	private int damage;
 	private boolean inTarget = false;
@@ -44,7 +43,7 @@ public abstract class Troop extends Sprite{
 	 * @param pos_y
 	 * 			The y position in pixels
 	 */
-	public Troop(Pane layer, Image img, int speed, int damage, double pos_x, double pos_y) {
+	public Troop(Pane layer, Image img, int speed, int damage,double pos_x, double pos_y) {
 		super(layer, img, pos_x, pos_y);
 
 		this.speed = speed;
@@ -304,7 +303,7 @@ public abstract class Troop extends Sprite{
 	 * 			Castle target of the attack
 	 */
 	private void attackPikemen(Castle c) {
-		c.receiveAttackPikemen();
+		c.receiveAttack(Constants.PIKEMEN);
 		damage--;
 	}
 	
@@ -314,7 +313,7 @@ public abstract class Troop extends Sprite{
 	 * 			Castle target of the attack
 	 */
 	private void attackKnight(Castle c) {
-		c.receiveAttackKnight();
+		c.receiveAttack(Constants.KNIGHT);
 		damage--;
 	}
 	
@@ -324,7 +323,7 @@ public abstract class Troop extends Sprite{
 	 * 			Castle target of the attack
 	 */
 	private void attackOnager(Castle c) {
-		c.receiveAttackOnager();
+		c.receiveAttack(Constants.ONAGER);
 		damage--;
 	}
 	
@@ -387,6 +386,6 @@ public abstract class Troop extends Sprite{
 	 */
 	public void delete() {
 		this.removeFromLayer();
-	}
+	}	
 	
 }

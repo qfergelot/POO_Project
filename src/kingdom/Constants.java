@@ -57,6 +57,10 @@ public class Constants {
 	 * 
 	 */
 	public final static int BARRACK = 4;
+	/**
+	 * 
+	 */
+	public final static int SHIELD = 5;
 	
 	/**
 	 * 
@@ -70,6 +74,10 @@ public class Constants {
 	 * 
 	 */
 	public final static int LIFE_ONAGER = 5;
+	/**
+	 * 
+	 */
+	public final static int LIFE_SHIELD = 15;
 	
 	/**
 	 * 
