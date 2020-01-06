@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import game.Popup;
+import game.UIsingleton;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -256,9 +257,14 @@ public class Kingdom {
 					d = dukes[x];
 				}
 			}
-			castle[i] = new Castle(layer, d.getImgCastle(), d, Double.parseDouble(args[5]), Integer.parseInt(args[6]),
-					Integer.parseInt(args[7]), Integer.parseInt(args[8]), Double.parseDouble(args[1]), Double.parseDouble(args[2]), popupOst);
-			
+			if (d == UIsingleton.getUIsingleton().getDukePlayer()) {
+				castle[i] = new Castle(layer, d.getImgCastle(), d, Double.parseDouble(args[5]), Integer.parseInt(args[6]),
+						Integer.parseInt(args[7]), Integer.parseInt(args[8]), Double.parseDouble(args[1]), Double.parseDouble(args[2]), popupOst);
+			}
+			else {
+				castle[i] = new CastleIAAdvanced(layer, d.getImgCastle(), d, Double.parseDouble(args[5]), Integer.parseInt(args[6]),
+						Integer.parseInt(args[7]), Integer.parseInt(args[8]), Double.parseDouble(args[1]), Double.parseDouble(args[2]), popupOst);
+			}
 		}
 		castle[i].setDoor(Integer.parseInt(args[9]));
 		castle[i].setLevel(Integer.parseInt(args[4]));
