@@ -33,17 +33,6 @@ public class IAAdvanced extends Duke {
 		this.kingdom = kingdom;
 	}
 	
-	@Override
-	public boolean equals(Object o) {
-		if(o == null)
-			return false;
-		if(o.getClass()!=getClass()) {
-			return false;
-		}
-		IAAdvanced d = (IAAdvanced)o;
-		return getName() == d.getName();
-	}
-	
 	/**
 	 * Process a round producing or attacking or both for a castle of AI advanced
 	 */
@@ -237,7 +226,16 @@ public class IAAdvanced extends Duke {
 		}
 	}
 	
-
+	@Override
+	public boolean equals(Object o) {
+		if(o == null)
+			return false;
+		if(o.getClass()!=getClass()) {
+			return false;
+		}
+		IAAdvanced d = (IAAdvanced)o;
+		return getName() == d.getName();
+	}
 	
 	/**
 	 * Setter for nemesis
