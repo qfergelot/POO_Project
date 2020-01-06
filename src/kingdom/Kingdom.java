@@ -80,9 +80,9 @@ public class Kingdom {
 		}
 		for(int i=nbPlayers; i<(nbPlayers+nbIA); i++) {
 			if(levelIA == 0)
-				dukes[i] = new IABasic("Joueur " + i, colorDuke[i], imagePlayerCastle[i],this);
+				dukes[i] = new IABasic("Joueur" + i, colorDuke[i], imagePlayerCastle[i],this);
 			else
-				dukes[i] = new IAAdvanced("Joueur " + i, colorDuke[i], imagePlayerCastle[i],this);
+				dukes[i] = new IAAdvanced("Joueur" + i, colorDuke[i], imagePlayerCastle[i],this);
 		}
 		popupOst = new Popup(this);
 		//Castle Players+IA
