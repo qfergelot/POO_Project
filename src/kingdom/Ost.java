@@ -16,6 +16,7 @@ import troops.*;
 public class Ost {
 	
 	private Duke duke;
+	private Castle sender;
 	
 	private Castle target;
 	
@@ -27,7 +28,7 @@ public class Ost {
 	 * @param duke Owner 
 	 * @param target Target castle
 	 */
-	public Ost(Duke duke, Castle target) {
+	public Ost(Duke duke, Castle sender, Castle target) {
 		this.duke = duke;
 		this.target = target;
 		troops = new ArrayList<Troop>();
@@ -60,6 +61,10 @@ public class Ost {
 					if(finishedAttack == true) {
 						if(!target.getNeutral()) {
 							target.getDuke().removeCastle();
+							if(target.getDuke().getClass() == IAAdvanced.class) {
+								IAAdvanced d = (IAAdvanced)target.getDuke();
+								d.setNemesis(sender);
+							}
 						}
 						target.setDuke(this.duke);
 						target.setNeutral(false);

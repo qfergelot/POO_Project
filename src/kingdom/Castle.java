@@ -250,7 +250,7 @@ public class Castle extends Sprite{
 	 * 
 	 * @return true if there is a barrack in production in one barrack, else false
 	 */
-	private boolean alreadyBarrackProduction() {
+	public boolean alreadyBarrackProduction() {
 		for (int i = 0; i<barracks.size(); i++) {
 			Barrack b = barracks.get(i);
 			if (b.inProduction()) {
@@ -266,7 +266,7 @@ public class Castle extends Sprite{
 	 * 
 	 * @return true if there is an upgrade in production in one barrack, else false
 	 */
-	private boolean alreadyUpgradeProduction() {
+	public boolean alreadyUpgradeProduction() {
 		for (int i = 0; i<barracks.size(); i++) {
 			Barrack b = barracks.get(i);
 			if (b.inProduction()) {
@@ -282,7 +282,7 @@ public class Castle extends Sprite{
 	 * 
 	 * @return true if there is a shield in production in one barrack, else false
 	 */
-	private boolean alreadyShieldProduction() {
+	public boolean alreadyShieldProduction() {
 		for (int i = 0; i<barracks.size(); i++) {
 			Barrack b = barracks.get(i);
 			if (b.inProduction()) {
@@ -484,10 +484,6 @@ public class Castle extends Sprite{
 		if(!neutral) {
 			if(duke.getClass()==IABasic.class) {
 				IABasic ai = (IABasic)duke;
-				ai.roundCastleAI(this);
-			}
-			else if(duke.getClass()==IAAdvanced.class) {
-				IAAdvanced ai = (IAAdvanced)duke;
 				ai.roundCastleAI(this);
 			}
 				

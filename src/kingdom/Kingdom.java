@@ -138,8 +138,8 @@ public class Kingdom {
 			//Deja un ordre en cours
 		}
 		else {
-			Ost o = new Ost(c.getDuke(), target);
-			c.createOrder(o,target, nbPikemen, nbKnight, nbOnager);
+			Ost o = new Ost(c.getDuke(), c, target);
+			c.createOrder(o, target, nbPikemen, nbKnight, nbOnager);
 			ost.add(o);
 		}
 	}
