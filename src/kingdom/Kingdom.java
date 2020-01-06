@@ -255,14 +255,8 @@ public class Kingdom {
 					d = dukes[x];
 				}
 			}
-			if (d == UIsingleton.getUIsingleton().getDukePlayer()) {
-				castle[i] = new Castle(layer, d.getImgCastle(), d, Double.parseDouble(args[5]), Integer.parseInt(args[6]),
-						Integer.parseInt(args[7]), Integer.parseInt(args[8]), Double.parseDouble(args[1]), Double.parseDouble(args[2]), popupOst);
-			}
-			else {
-				castle[i] = new CastleIAAdvanced(layer, d.getImgCastle(), d, Double.parseDouble(args[5]), Integer.parseInt(args[6]),
-						Integer.parseInt(args[7]), Integer.parseInt(args[8]), Double.parseDouble(args[1]), Double.parseDouble(args[2]), popupOst, this);
-			}
+			castle[i] = new Castle(layer, d.getImgCastle(), d, Double.parseDouble(args[5]), Integer.parseInt(args[6]),
+					Integer.parseInt(args[7]), Integer.parseInt(args[8]), Double.parseDouble(args[1]), Double.parseDouble(args[2]), popupOst);
 		}
 		castle[i].setDoor(Integer.parseInt(args[9]));
 		castle[i].setLevel(Integer.parseInt(args[4]));
