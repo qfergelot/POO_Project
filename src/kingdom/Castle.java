@@ -232,7 +232,7 @@ public class Castle extends Sprite{
 			throw new ProdException("Il y a déjà un bouclier mis en place");
 		}
 		else if (unit==Constants.SHIELD && alreadyShieldProduction()) {
-			throw new ProdException("Il y a déjà un bouclier mis en place");
+			throw new ProdException("Il y a déjà un bouclier en production");
 		}
 		else {
 			Barrack b = mostReadyBarrack();
