@@ -11,7 +11,7 @@ public class Shield {
 	/**
 	 * Constant which determines the count of florins necessary to produce a knight
 	 */
-	public static final int PRODUCTION_COST = 100;
+	public static final int PRODUCTION_COST = 1200;
 	
 	/**
 	 * 
