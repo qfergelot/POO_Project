@@ -10,6 +10,10 @@ public class IAAdvanced extends Duke {
 	
 	private Castle nemesis = null;
 	
+	private boolean economicPhase = true;
+	private int phaseDuration = 1200;
+	private long timerAttack = 0;
+	
 	Random rdm = new Random();
 	
 	/**
@@ -38,45 +42,48 @@ public class IAAdvanced extends Duke {
 	/**
 	 * Process a round producing or attacking or both for a castle of AI advanced
 	 */
-	private void roundIAAdvanced(Castle castle) {
+	public void roundIAAdvanced(Castle castle) {
 		int defenseScore = castle.getNbPikemen()*Constants.LIFE_PIKEMEN+castle.getNbKnight()*Constants.LIFE_KNIGHT+castle.getNbOnager()*Constants.LIFE_ONAGER;
 		int offensiveScore = castle.getNbPikemen()+castle.getNbKnight()*5+castle.getNbOnager()*10;
+		Castle target = null;
 		
 		if(castle.isShielded())
 			defenseScore += Constants.LIFE_SHIELD;
-		IAAdvanced d = (IAAdvanced)duke;
 		
 		if(phaseDuration-- < 1) {
 			economicPhase = !economicPhase;
-			phaseDuration = 600;
+			if(economicPhase)
+				phaseDuration = 1000;
+			else
+				phaseDuration = 500;
 		}
 		
-		if(d.getNemesis() != null) {
-			if(d.getNemesis().getDuke().equals(this.getDuke())) {
-				d.setNemesis(null);
+		if(nemesis != null) {
+			if(nemesis.getDuke().equals(castle.getDuke())) {
+				nemesis = null;
 				economicPhase = true;
 				phaseDuration = 600;
 			}
 			else {
-				target = d.getNemesis();
+				target = nemesis;
 				economicPhase = false;
 			}
 		}
 		
 		if(economicPhase) {
-			processProduction(defenseScore);
+			processProduction(castle, defenseScore);
 		} 
 		else {
-			for(int i=0; i<getNbBarracks(); i++) {
+			for(int i=0; i<castle.getNbBarracks(); i++) {
 				try{
-					if(!barracks.get(i).inProduction())
-						launchProduction(Constants.PIKEMEN);
+					if(!castle.getBarracks().get(i).inProduction())
+						castle.launchProduction(Constants.PIKEMEN);
 				}
 				catch (ProdException e){
 					//
 				}
 			}
-			processAttack();
+			processAttack(castle, target);
 		}
 		timerAttack++;
 	}
@@ -84,17 +91,17 @@ public class IAAdvanced extends Duke {
 	/**
 	 * Launch an attack to the castle target or the AI nemesis
 	 */
-	private void processAttack(Castle castle) {
+	private void processAttack(Castle castle, Castle target) {
 		if(timerAttack > 60*5) {
 			if(target == null)
-				searchCloseCastle(castle);
+				target = searchCloseCastle(castle);
 			else if(!target.getNeutral()) {
 				if(target.getDuke().equals(castle.getDuke())) {
-					searchCloseCastle(castle);
+					target = searchCloseCastle(castle);
 				}
 			}
 			
-			kingdom.createOrder(this, target, castle.getNbPikemen()/3, castle.getNbKnight()/3, castle.getNbOnager()/3);
+			kingdom.createOrder(castle, target, castle.getNbPikemen()/3, castle.getNbKnight()/3, castle.getNbOnager()/3);
 			timerAttack = 0;
 		}
 	}
@@ -102,22 +109,24 @@ public class IAAdvanced extends Duke {
 	/**
 	 * set the target to the closest castle
 	 */
-	private void searchCloseCastle(Castle castle) {
+	private Castle searchCloseCastle(Castle castle) {
+		Castle target = null;
 		double distMin = 9999;
 		for(int i=0; i < kingdom.getNbCastle(); i++) {
 			if(kingdom.getCastle(i).getNeutral()) {
 				if(castle.distance(kingdom.getCastle(i)) < distMin) {
 					target = kingdom.getCastle(i);
-					distMin = distance(target);
+					distMin = castle.distance(target);
 				}
 			}
-			else if(!kingdom.getCastle(i).getDuke().equals(duke)) {
+			else if(!kingdom.getCastle(i).getDuke().equals(castle.getDuke())) {
 				if(castle.distance(kingdom.getCastle(i)) < distMin) {
 					target = kingdom.getCastle(i);
-					distMin = distance(target);
+					distMin = castle.distance(target);
 				}
 			}
 		}
+		return target;
 	}
 	
 	/**

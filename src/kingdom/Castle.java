@@ -486,6 +486,10 @@ public class Castle extends Sprite{
 				IABasic ai = (IABasic)duke;
 				ai.roundCastleAI(this);
 			}
+			else if(duke.getClass() == IAAdvanced.class) {
+				IAAdvanced ai = (IAAdvanced)duke;
+				ai.roundIAAdvanced(this);
+			}
 				
 			treasure += level;
 			if(inProduction()) {
